@@ -1,4 +1,13 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using SocialNetworkStory.Areas.Identity.Data;
+using SocialNetworkStory.Data;
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("SocialNetworkStoryDbContextConnection") ?? throw new InvalidOperationException("Connection string 'SocialNetworkStoryDbContextConnection' not found.");
+
+builder.Services.AddDbContext<SocialNetworkStoryDbContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddDefaultIdentity<SocialNetworkStoryUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<SocialNetworkStoryDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
