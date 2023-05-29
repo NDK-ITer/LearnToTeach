@@ -87,7 +87,7 @@ namespace SocialNetworkStory.Areas.Identity.Pages.Account
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Mật Khẩu")]
             public string Password { get; set; }
 
             /// <summary>
@@ -98,6 +98,22 @@ namespace SocialNetworkStory.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+
+            [Required]
+            public string FirstName { get; set; }
+
+
+            [Required]
+            public string LastName { get; set; }
+
+            [Required]
+            [StringLength(10, ErrorMessage = "The {0} must be at  equal {1} characters long.", MinimumLength = 10)]
+            [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "Please enter valid phone no.")]
+            [DataType(DataType.PhoneNumber)]
+            [Display(Name = "Phone Numner")]
+            public string PhoneNumner { get; set; }
+            public DateTime CreateDate { get; set; } = DateTime.Now;
         }
 
 
@@ -114,6 +130,14 @@ namespace SocialNetworkStory.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+
+                user = new SocialNetworkStoryUser
+                {
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    CreateDate = DateTime.Now,
+                    PhoneNumber = Input.PhoneNumner,
+                };
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
