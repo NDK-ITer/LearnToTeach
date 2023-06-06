@@ -2,7 +2,25 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SocialNetworkStory.Areas.Identity.Data;
 using SocialNetworkStory.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+var configuration = builder.Configuration;
+
+//services.AddAuthentication().AddGoogle(googleOptions =>
+//{
+//    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+//    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+//});
+
+services.AddAuthentication().AddFacebook(facebookOptions =>
+{
+    facebookOptions.AppId = configuration["Authentication:Facebook:AppId"];
+    facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"];
+});
+
+
+
 var connectionString = builder.Configuration.GetConnectionString("SocialNetworkStoryDbContextConnection") ?? throw new InvalidOperationException("Connection string 'SocialNetworkStoryDbContextConnection' not found.");
 
 builder.Services.AddDbContext<SocialNetworkStoryDbContext>(options => options.UseSqlServer(connectionString));

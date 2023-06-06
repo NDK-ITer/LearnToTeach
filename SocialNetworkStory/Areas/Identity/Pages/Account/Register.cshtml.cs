@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -77,7 +78,7 @@ namespace SocialNetworkStory.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "Địa chỉ Email")]
             public string Email { get; set; }
 
             /// <summary>
@@ -95,25 +96,29 @@ namespace SocialNetworkStory.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
+            [Display(Name = "Xác nhận mật khẩu")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
 
             [Required]
+            [DisplayName("Họ")]
             public string FirstName { get; set; }
 
 
             [Required]
+            [DisplayName("Tên")]
             public string LastName { get; set; }
 
             [Required]
             [StringLength(10, ErrorMessage = "The {0} must be at  equal {1} characters long.", MinimumLength = 10)]
             [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "Please enter valid phone no.")]
             [DataType(DataType.PhoneNumber)]
-            [Display(Name = "Phone Numner")]
+            [Display(Name = "Số điện thoại")]
             public string PhoneNumner { get; set; }
-            public DateTime CreateDate { get; set; } = DateTime.Now;
+
+            [DisplayName("Ngày sinh")]
+            public DateTime BornDate { get; set; }
         }
 
 
@@ -137,6 +142,7 @@ namespace SocialNetworkStory.Areas.Identity.Pages.Account
                     LastName = Input.LastName,
                     CreateDate = DateTime.Now,
                     PhoneNumber = Input.PhoneNumner,
+                    BornDate = Input.BornDate,
                 };
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);

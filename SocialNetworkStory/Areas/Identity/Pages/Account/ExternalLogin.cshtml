@@ -25,13 +25,18 @@
             </div>
             <div class="form-floating mb-3">
                 <label asp-for="Input.FirstName" class="form-label"></label>
-                <input asp-for="Input.FirstName" class="form-control" autocomplete="email" placeholder="Vui lòng nhập họ." />
+                <input asp-for="Input.FirstName" class="form-control" placeholder="Vui lòng nhập họ." />
                 <span asp-validation-for="Input.FirstName" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
                 <label asp-for="Input.LastName" class="form-label"></label>
-                <input asp-for="Input.LastName" class="form-control" autocomplete="email" placeholder="Vui lòng nhập tên." />
+                <input asp-for="Input.LastName" class="form-control" placeholder="Vui lòng nhập tên." />
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <label asp-for="Input.BornDate" class="form-label"></label>
+                <input asp-for="Input.BornDate" class="form-control"  placeholder="Vui lòng nhập tên." />
+                <span asp-validation-for="Input.BornDate" class="text-danger"></span>
             </div>
             <button type="submit" class="w-100 btn btn-lg btn-primary">Đăng ký</button>
         </form>

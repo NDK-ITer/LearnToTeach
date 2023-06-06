@@ -12,5 +12,6 @@ public class SocialNetworkStoryUser : IdentityUser
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
     public DateTime? CreateDate { get; set; }
+    public DateTime? BornDate { get; set; }
 }
 

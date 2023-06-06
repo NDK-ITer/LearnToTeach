@@ -90,6 +90,7 @@ namespace SocialNetworkStory.Areas.Identity.Pages.Account
             public string FirstName { get; set; }
             [Display(Name = "Tên")]
             public string LastName { get; set; }
+            public string BornDate { get; set; }
         }
         
         public IActionResult OnGet() => RedirectToPage("./Login");
@@ -140,6 +141,7 @@ namespace SocialNetworkStory.Areas.Identity.Pages.Account
                         Email = info.Principal.FindFirstValue(ClaimTypes.Email),
                         FirstName = info.Principal.FindFirstValue(ClaimTypes.GivenName),
                         LastName = info.Principal.FindFirstValue(ClaimTypes.Name),
+                        BornDate = info.Principal.FindFirstValue(ClaimTypes.DateOfBirth),
                     };
                 }
                 return Page();
