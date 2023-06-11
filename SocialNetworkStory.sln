@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialNetWorkStory_Data", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialNetworkStory_Application", "SocialNetworkStory_Application\SocialNetworkStory_Application.csproj", "{4544495B-77B1-4A36-A6E3-6C86FC3B8552}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SNS_API_Identity", "SNS_API_Identity\SNS_API_Identity.csproj", "{E462418F-AEEC-4D5A-B6D0-222C645A10BC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{4544495B-77B1-4A36-A6E3-6C86FC3B8552}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4544495B-77B1-4A36-A6E3-6C86FC3B8552}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4544495B-77B1-4A36-A6E3-6C86FC3B8552}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E462418F-AEEC-4D5A-B6D0-222C645A10BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E462418F-AEEC-4D5A-B6D0-222C645A10BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E462418F-AEEC-4D5A-B6D0-222C645A10BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E462418F-AEEC-4D5A-B6D0-222C645A10BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
