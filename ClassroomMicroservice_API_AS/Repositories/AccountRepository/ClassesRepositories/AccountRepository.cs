@@ -3,20 +3,20 @@ using Microsoft.IdentityModel.Tokens;
 //using Microsoft.IdentityModel.JsonWebTokens;
 using MyDemoAPIAsp.NETCore.Data;
 using MyDemoAPIAsp.NETCore.Models;
-using MyDemoAPIAsp.NETCore.Repositories.UserRepository.InterfaceRepositories;
+using MyDemoAPIAsp.NETCore.Repositories.AccountRepository.InterfaceRepositories;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace MyDemoAPIAsp.NETCore.Repositories.UserRepository.ClassesRepositories
+namespace MyDemoAPIAsp.NETCore.Repositories.AccountRepository.ClassesRepositories
 {
-    public class UserRepository : IUserRepository
+    public class AccountRepository : IAccountRepository
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IConfiguration configuration;
 
-        public UserRepository(UserManager<ApplicationUser> userManager, 
+        public AccountRepository(UserManager<ApplicationUser> userManager, 
                               SignInManager<ApplicationUser> signInManager, 
                               IConfiguration configuration) 
         {

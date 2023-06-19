@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyDemoAPIAsp.NETCore.Models;
-using MyDemoAPIAsp.NETCore.Repositories.UserRepository.InterfaceRepositories;
+using MyDemoAPIAsp.NETCore.Repositories.AccountRepository.InterfaceRepositories;
 
 namespace MyDemoAPIAsp.NETCore.Controllers
 {
@@ -9,9 +9,9 @@ namespace MyDemoAPIAsp.NETCore.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository userRepository;
+        private readonly IAccountRepository userRepository;
 
-        public UsersController(IUserRepository userRepository) 
+        public UsersController(IAccountRepository userRepository) 
         {
             this.userRepository = userRepository;
         }
