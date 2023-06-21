@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{74939230-49E1-4753-9569-0C2C3DB2EFD8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassroomMicroservice_API_AS", "ClassroomMicroservice_API_AS\ClassroomMicroservice_API_AS.csproj", "{DDB0852E-1B44-4DF4-81BD-35BEB4D79E7D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassroomMicroservice_Data", "ClassroomMicroservice_Data\ClassroomMicroservice_Data.csproj", "{11E33CAB-F77B-4BFC-AA26-0F0323EB0631}"
 EndProject
 Global
@@ -23,10 +21,6 @@ Global
 		{74939230-49E1-4753-9569-0C2C3DB2EFD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74939230-49E1-4753-9569-0C2C3DB2EFD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74939230-49E1-4753-9569-0C2C3DB2EFD8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DDB0852E-1B44-4DF4-81BD-35BEB4D79E7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDB0852E-1B44-4DF4-81BD-35BEB4D79E7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDB0852E-1B44-4DF4-81BD-35BEB4D79E7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDB0852E-1B44-4DF4-81BD-35BEB4D79E7D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{11E33CAB-F77B-4BFC-AA26-0F0323EB0631}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{11E33CAB-F77B-4BFC-AA26-0F0323EB0631}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11E33CAB-F77B-4BFC-AA26-0F0323EB0631}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -37,7 +31,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{74939230-49E1-4753-9569-0C2C3DB2EFD8} = {25C1BB86-8A2C-4FC8-BA7E-E2FA35BAB276}
-		{DDB0852E-1B44-4DF4-81BD-35BEB4D79E7D} = {738A17F6-2E2A-4159-B3A0-A8A5ACE994BF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {76139341-62E4-441B-BF13-595F1ECAFBB9}
