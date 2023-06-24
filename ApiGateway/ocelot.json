@@ -2,16 +2,17 @@
   "Routes": [
     //Authentication Web Api
     {
-      "UpstreamPathTemplate": "",
-      "UpstreamHttpMethod": ["Post"],
-
-      "DownstreamScheme": "",
+      "UpstreamPathTemplate": "/Account",
+      "UpstreamHttpMethod": [ "Post" ],
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost"
+          "Host": "localhost",
+          "Port": 7242
         }
 
-      ]
+      ],
+      "DownstreamPathTemplate": "/Account",
+      "DownstreamScheme": "https"
     }
   ],
   "GlobalConfiguration": {
