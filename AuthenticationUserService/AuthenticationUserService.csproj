@@ -11,4 +11,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\JwtAuthenticationManager\JwtAuthenticationManager.csproj" />
+  </ItemGroup>
+
 </Project>
