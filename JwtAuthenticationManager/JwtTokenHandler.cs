@@ -18,6 +18,7 @@ namespace JwtAuthenticationManager
 
         public JwtTokenHandler()
         {
+            //It will be got form database
             _userAccounts = new List<UserAccount>
             {
                 new UserAccount{ UserName = "admin" , Password = "admin123", Role = "Administrator" },
