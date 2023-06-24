@@ -15,8 +15,8 @@ namespace JwtAuthenticationManager
         {
             _userAccountList = new List<UserAccount>()
             {
-                new UserAccount() {UserName = "admin", Password = "admin", Role = "Admin"},
-                new UserAccount() {UserName = "user01", Password = "user01", Role = "User"},
+                new UserAccount() {Id = Guid.NewGuid(), UserName = "admin", Password = "admin", Role = "Admin"},
+                new UserAccount() {Id = Guid.NewGuid(), UserName = "user01", Password = "user01", Role = "User"},
             };
         }
 
@@ -51,6 +51,7 @@ namespace JwtAuthenticationManager
 
             return new AuthenticationReponse
             {
+                Id = userAccount.Id,
                 UserName = userAccount.UserName,
                 ExpiresIn = (int)tokenExprityTimeStamp.Subtract(DateTime.Now).TotalSeconds,
                 JwtToken = token,
