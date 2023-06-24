@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AuthenticationUserService.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -17,7 +17,7 @@ namespace AuthenticationUserService.Controllers
         }
 
         [HttpPost]
-        public ActionResult<AuthenticationResponse?> Authenticate([FromBody] AuthenticationRequest authenticationRequest)
+        public ActionResult<AuthenticationResponse?> Login(AuthenticationRequest authenticationRequest)
         {
             var authenticationResponse = _jwtTokenHandle.GenerateJwtToken(authenticationRequest);
             if (authenticationResponse == null) { return Unauthorized(); }

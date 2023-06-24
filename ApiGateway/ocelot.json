@@ -7,15 +7,15 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 7242
+          "Port": 9001
         }
 
       ],
-      "DownstreamPathTemplate": "/Account",
+      "DownstreamPathTemplate": "/api/Account",
       "DownstreamScheme": "https"
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:800"
+    "BaseUrl": "https://localhost:9000"
   }
 }
