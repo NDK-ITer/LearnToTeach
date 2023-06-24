@@ -1,0 +1,20 @@
+{
+  "Routes": [
+    //Authentication Web Api
+    {
+      "UpstreamPathTemplate": "",
+      "UpstreamHttpMethod": ["Post"],
+
+      "DownstreamScheme": "",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost"
+        }
+
+      ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:800"
+  }
+}
