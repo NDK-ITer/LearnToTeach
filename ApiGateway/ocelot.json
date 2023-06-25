@@ -13,6 +13,20 @@
       ],
       "DownstreamPathTemplate": "/api/Account",
       "DownstreamScheme": "https"
+    },
+    //Classroom Demo Web Api
+    {
+      "UpstreamPathTemplate": "/weatherforecast",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+
+      ],
+      "DownstreamPathTemplate": "/weatherforecast",
+      "DownstreamScheme": "https"
     }
   ],
   "GlobalConfiguration": {

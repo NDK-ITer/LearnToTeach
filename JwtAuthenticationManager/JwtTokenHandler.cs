@@ -23,7 +23,7 @@ namespace JwtAuthenticationManager
         public AuthenticationReponse? GenerateJwtToken(AuthenticationRequest authenticationRequest)
         {
             if (string.IsNullOrWhiteSpace(authenticationRequest.UserName) || string.IsNullOrWhiteSpace(authenticationRequest.Password)) { return null; }
-            //validation
+            //can be use data on database
             var userAccount = _userAccountList.Where(c => c.UserName == authenticationRequest.UserName && c.Password == authenticationRequest.Password).FirstOrDefault();
             if (userAccount == null) {  return null; }
             
