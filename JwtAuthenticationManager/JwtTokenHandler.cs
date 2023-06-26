@@ -32,6 +32,7 @@ namespace JwtAuthenticationManager
             var claimsIdentity = new ClaimsIdentity(new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Name, authenticationRequest.UserName),
+                new Claim(JwtRegisteredClaimNames.Jti, userAccount.Id.ToString()),
                 new Claim(ClaimTypes.Role, userAccount.Role)
             });
 

@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Demo.Models.ClassroomModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div>
+    @foreach (var item in Model)
+    {
+        <label>@item.Id</label><br />
+        <label>@item.Name</label><br />
+        <label>@item.Description</label><br />
+        <br /><br />
+    }
+</div>
+
+

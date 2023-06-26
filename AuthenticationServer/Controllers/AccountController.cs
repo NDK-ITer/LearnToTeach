@@ -16,8 +16,9 @@ namespace AuthenticationServer.Controllers
             _jwtTokenHandler = jwtTokenHandler;
         }
 
+        [Route("Login")]
         [HttpPost]
-        public ActionResult<AuthenticationReponse?> Authenticate([FromBody]AuthenticationRequest authenticationRequest)
+        public ActionResult<AuthenticationReponse?> Login([FromBody]AuthenticationRequest authenticationRequest)
         {
             var authenticationReponse = _jwtTokenHandler.GenerateJwtToken(authenticationRequest);
             if (authenticationReponse == null) { return Unauthorized(); }

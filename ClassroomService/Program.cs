@@ -1,8 +1,10 @@
+//using JwtAuthenticationManager;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+//builder.Services.AddCustomJwtAuthentication();
 
 var app = builder.Build();
 
@@ -10,6 +12,7 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
