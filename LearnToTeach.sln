@@ -27,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libaries", "Libaries", "{E1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{3D158FD2-88D4-40C3-959A-A2D32F0A39B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{3FD90323-E2F2-4B87-99C2-CB01CD5E08B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClienWebDemo", "Demo\ClienWebDemo.csproj", "{3FD90323-E2F2-4B87-99C2-CB01CD5E08B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
