@@ -2,7 +2,7 @@
   "Routes": [
     //Authentication Web Api
     {
-      "UpstreamPathTemplate": "/Account",
+      "UpstreamPathTemplate": "/account/login",
       "UpstreamHttpMethod": [ "Post" ],
       "DownstreamHostAndPorts": [
         {
@@ -11,8 +11,25 @@
         }
 
       ],
-      "DownstreamPathTemplate": "/api/Account",
+      "DownstreamPathTemplate": "/api/Account/Login",
       "DownstreamScheme": "https"
+    },
+    //Classroom Demo Web Api
+    {
+      "UpstreamPathTemplate": "/classroom/all",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Classroom/All",
+      "DownstreamScheme": "https",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     }
   ],
   "GlobalConfiguration": {
