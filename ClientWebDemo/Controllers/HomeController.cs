@@ -24,17 +24,17 @@ namespace Demo.Controllers
         //[Authorize]
         public async Task<IActionResult> Index()
         {
-            HttpClient client = _httpClientFactory.CreateClient();
-            client.BaseAddress = new Uri("https://localhost:9000");
-            var respone = client.GetAsync("/classroom/all").Result;
-            // check authenticate
-            if (respone.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-            {
-                //unless client authenticated
-                return RedirectToAction("Login", "Authenticate");
-            }
-            // if client authenticated
-            string jsonData = respone.Content.ReadAsStringAsync().Result;
+            //HttpClient client = _httpClientFactory.CreateClient();
+            //client.BaseAddress = new Uri("https://localhost:9000");
+            //var respone = client.GetAsync("/classroom/all").Result;
+            //// check authenticate
+            //if (respone.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            //{
+            //    //unless client authenticated
+            //    return RedirectToAction("Login", "Authenticate");
+            //}
+            //// if client authenticated
+            //string jsonData = respone.Content.ReadAsStringAsync().Result;
             //transf JSON data to Object data
             var classData = await _classroomService.GetAllClassroom();
             return View(classData);
