@@ -1,4 +1,6 @@
+using ClienWebDemo.Services;
 using Demo.Models;
+using Flurl.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -9,15 +11,18 @@ namespace Demo.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private IHttpClientFactory _httpClientFactory;
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IClassroomService _classroomService;
 
-        public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory)
+        public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory, IClassroomService classroomService)
         {
             _logger = logger;
             _httpClientFactory = httpClientFactory;
+            _classroomService = classroomService;
         }
-                
-        public IActionResult Index()
+
+        //[Authorize]
+        public async Task<IActionResult> Index()
         {
             HttpClient client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri("https://localhost:9000");
@@ -26,17 +31,16 @@ namespace Demo.Controllers
             if (respone.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 //unless client authenticated
-                return RedirectToAction("Login", "Authentication");
+                return RedirectToAction("Login", "Authenticate");
             }
             // if client authenticated
             string jsonData = respone.Content.ReadAsStringAsync().Result;
             //transf JSON data to Object data
-            List<ClassroomModel> classData = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ClassroomModel>>(jsonData);
-
+            var classData = await _classroomService.GetAllClassroom();
             return View(classData);
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Privacy()
         {
             return View();
         }
