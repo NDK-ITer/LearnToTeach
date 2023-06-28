@@ -3,6 +3,7 @@ using Demo.Models;
 using Flurl.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using System.Diagnostics;
 using System.Text.Json;
 
@@ -24,7 +25,24 @@ namespace Demo.Controllers
         //[Authorize]
         public async Task<IActionResult> Index()
         {
-            //HttpClient client = _httpClientFactory.CreateClient();
+            //var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, "https://localhost:9000")
+            //{
+            //    Headers =
+            //    {
+            //        {HeaderNames.Accept, "application/json"},
+            //        {HeaderNames.Authorization,""},
+            //        {HeaderNames.ContentType,"application/json"}, 
+            //    }
+            //};
+            HttpClient httpClient = _httpClientFactory.CreateClient("ApiGateway");
+            var httpResponseMessage = await httpClient.GetAsync("/classroom/all");
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                using var contentStream = await httpResponseMessage.Content.ReadAsStreamAsync();
+                var classData = await JsonSerializer.DeserializeAsync<List<Classroom>>(contentStream);
+                return View(classData);
+            }
+
             //client.BaseAddress = new Uri("https://localhost:9000");
             //var respone = client.GetAsync("/classroom/all").Result;
             //// check authenticate
@@ -35,9 +53,10 @@ namespace Demo.Controllers
             //}
             //// if client authenticated
             //string jsonData = respone.Content.ReadAsStringAsync().Result;
-            //transf JSON data to Object data
-            var classData = await _classroomService.GetAllClassroom();
-            return View(classData);
+            ////transf JSON data to Object data
+            //var classData = Newtonsoft.Json.JsonConvert.DeserializeObject<Classroom>(jsonData);
+            //var classData = await _classroomService.GetAllClassroom();
+            return RedirectToAction("Login","Authenticate");
         }
 
         public async Task<IActionResult> Privacy()

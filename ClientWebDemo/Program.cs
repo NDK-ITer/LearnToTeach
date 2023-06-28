@@ -1,13 +1,16 @@
+using ClienWebDemo;
 using ClienWebDemo.Repository;
 using ClienWebDemo.Services;
 using Flurl.Http.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
-
+IHttpContextAccessor _httpContextAccessor = new HttpContextAccessor();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpClient();
 //builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 //    .AddCookie(options =>
 //    {
@@ -21,6 +24,16 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSingleton<IFlurlClientFactory, PerBaseUrlFlurlClientFactory>();
 builder.Services.AddHttpClient();
 
+builder.Services.AddHttpClient("ApiGateway", httpClient =>
+{
+    httpClient.BaseAddress = new Uri("https://localhost:9000/");
+    httpClient.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
+    if (!string.IsNullOrEmpty(_httpContextAccessor.HttpContext.Request.Cookies[NameToken.NameOfAuthenticateToken]))
+    {
+        httpClient.DefaultRequestHeaders.Add(HeaderNames.Authorization, _httpContextAccessor.HttpContext.Request.Cookies[NameToken.NameOfAuthenticateToken]);
+    }
+    //httpClient.DefaultRequestHeaders.Add(HeaderNames.UserAgent, "HttpRequestsSample");
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -44,6 +57,6 @@ app.UseRouting();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Authenticate}/{action=Login}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
