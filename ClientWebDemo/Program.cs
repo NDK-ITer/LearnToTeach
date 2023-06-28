@@ -30,7 +30,8 @@ builder.Services.AddHttpClient("ApiGateway", httpClient =>
     httpClient.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
     if (!string.IsNullOrEmpty(_httpContextAccessor.HttpContext.Request.Cookies[NameToken.NameOfAuthenticateToken]))
     {
-        httpClient.DefaultRequestHeaders.Add(HeaderNames.Authorization, _httpContextAccessor.HttpContext.Request.Cookies[NameToken.NameOfAuthenticateToken]);
+        var token = _httpContextAccessor.HttpContext.Request.Cookies[NameToken.NameOfAuthenticateToken];
+        httpClient.DefaultRequestHeaders.Add(HeaderNames.Authorization, $"bearer {token}");
     }
     //httpClient.DefaultRequestHeaders.Add(HeaderNames.UserAgent, "HttpRequestsSample");
 });

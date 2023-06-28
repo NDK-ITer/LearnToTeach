@@ -38,6 +38,7 @@ namespace Demo.Controllers
             var httpResponseMessage = await httpClient.GetAsync("/classroom/all");
             if (httpResponseMessage.IsSuccessStatusCode)
             {
+                //httpResponseMessage
                 using var contentStream = await httpResponseMessage.Content.ReadAsStreamAsync();
                 var classData = await JsonSerializer.DeserializeAsync<List<Classroom>>(contentStream);
                 return View(classData);
