@@ -1,6 +1,4 @@
 using ClienWebDemo;
-using ClienWebDemo.Repository;
-using ClienWebDemo.Services;
 using Flurl.Http.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -17,9 +15,6 @@ builder.Services.AddHttpClient();
 //        options.LoginPath = "/Authentication/Login";
 //        options.Cookie.Name = "LoginPath";
 //    });
-builder.Services.AddSingleton<RepositoryBase>();
-builder.Services.AddSingleton<IClassroomService, ClassroomService>();
-builder.Services.AddSingleton<IClassroomRepository, ClassroomRespository>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSingleton<IFlurlClientFactory, PerBaseUrlFlurlClientFactory>();
 builder.Services.AddHttpClient();
@@ -33,7 +28,6 @@ builder.Services.AddHttpClient("ApiGateway", httpClient =>
         var token = _httpContextAccessor.HttpContext.Request.Cookies[NameToken.NameOfAuthenticateToken];
         httpClient.DefaultRequestHeaders.Add(HeaderNames.Authorization, $"bearer {token}");
     }
-    //httpClient.DefaultRequestHeaders.Add(HeaderNames.UserAgent, "HttpRequestsSample");
 });
 var app = builder.Build();
 

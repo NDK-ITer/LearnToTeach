@@ -1,4 +1,3 @@
-using ClienWebDemo.Services;
 using Demo.Models;
 using Flurl.Http;
 using Microsoft.AspNetCore.Authorization;
@@ -13,51 +12,25 @@ namespace Demo.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly IClassroomService _classroomService;
 
-        public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory, IClassroomService classroomService)
+        public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
             _httpClientFactory = httpClientFactory;
-            _classroomService = classroomService;
         }
 
         //[Authorize]
         public async Task<IActionResult> Index()
         {
-            //var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, "https://localhost:9000")
-            //{
-            //    Headers =
-            //    {
-            //        {HeaderNames.Accept, "application/json"},
-            //        {HeaderNames.Authorization,""},
-            //        {HeaderNames.ContentType,"application/json"}, 
-            //    }
-            //};
             HttpClient httpClient = _httpClientFactory.CreateClient("ApiGateway");
             var httpResponseMessage = await httpClient.GetAsync("/classroom/all");
-            if (httpResponseMessage.IsSuccessStatusCode)
+            if (httpResponseMessage.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
-                //httpResponseMessage
-                using var contentStream = await httpResponseMessage.Content.ReadAsStreamAsync();
-                var classData = await JsonSerializer.DeserializeAsync<List<Classroom>>(contentStream);
-                return View(classData);
+                return RedirectToAction("Login", "Authenticate");
             }
-
-            //client.BaseAddress = new Uri("https://localhost:9000");
-            //var respone = client.GetAsync("/classroom/all").Result;
-            //// check authenticate
-            //if (respone.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-            //{
-            //    //unless client authenticated
-            //    return RedirectToAction("Login", "Authenticate");
-            //}
-            //// if client authenticated
-            //string jsonData = respone.Content.ReadAsStringAsync().Result;
-            ////transf JSON data to Object data
-            //var classData = Newtonsoft.Json.JsonConvert.DeserializeObject<Classroom>(jsonData);
-            //var classData = await _classroomService.GetAllClassroom();
-            return RedirectToAction("Login","Authenticate");
+            string jsonData = httpResponseMessage.Content.ReadAsStringAsync().Result;
+            var classData = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Classroom>>(jsonData);
+            return View(classData);
         }
 
         public async Task<IActionResult> Privacy()
