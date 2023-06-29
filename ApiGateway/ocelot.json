@@ -9,7 +9,6 @@
           "Host": "localhost",
           "Port": 9001
         }
-
       ],
       "DownstreamPathTemplate": "/api/Account/Login",
       "DownstreamScheme": "https"

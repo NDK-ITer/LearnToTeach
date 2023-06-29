@@ -1,6 +1,8 @@
 using Demo.Models;
+using Flurl.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using System.Diagnostics;
 using System.Text.Json;
 
@@ -9,34 +11,29 @@ namespace Demo.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private IHttpClientFactory _httpClientFactory;
+        private readonly IHttpClientFactory _httpClientFactory;
 
         public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
             _httpClientFactory = httpClientFactory;
         }
-                
-        public IActionResult Index()
-        {
-            HttpClient client = _httpClientFactory.CreateClient();
-            client.BaseAddress = new Uri("https://localhost:9000");
-            var respone = client.GetAsync("/classroom/all").Result;
-            // check authenticate
-            if (respone.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-            {
-                //unless client authenticated
-                return RedirectToAction("Login", "Authentication");
-            }
-            // if client authenticated
-            string jsonData = respone.Content.ReadAsStringAsync().Result;
-            //transf JSON data to Object data
-            List<ClassroomModel> classData = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ClassroomModel>>(jsonData);
 
+        //[Authorize]
+        public async Task<IActionResult> Index()
+        {
+            HttpClient httpClient = _httpClientFactory.CreateClient("ApiGateway");
+            var httpResponseMessage = await httpClient.GetAsync("/classroom/all");
+            if (httpResponseMessage.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                return RedirectToAction("Login", "Authenticate");
+            }
+            string jsonData = httpResponseMessage.Content.ReadAsStringAsync().Result;
+            var classData = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Classroom>>(jsonData);
             return View(classData);
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Privacy()
         {
             return View();
         }

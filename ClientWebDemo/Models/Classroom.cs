@@ -1,6 +1,6 @@
 ﻿namespace Demo.Models
 {
-    public class ClassroomModel
+    public class Classroom
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
