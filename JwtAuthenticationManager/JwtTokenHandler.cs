@@ -33,7 +33,7 @@ namespace JwtAuthenticationManager
             {
                 new Claim(JwtRegisteredClaimNames.Name, authenticationRequest.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, userAccount.Id.ToString()),
-                new Claim(ClaimTypes.Role, userAccount.Role)
+                new Claim("Role", userAccount.Role)
             });
 
             var signingCredentials = new SigningCredentials(
