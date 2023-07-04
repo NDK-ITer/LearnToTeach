@@ -26,7 +26,11 @@ namespace Demo.Controllers
             var httpResponseMessage = await httpClient.GetAsync("/classroom/all");
             if (httpResponseMessage.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
-                return RedirectToAction("Login", "Authenticate");
+                return RedirectToAction("Unauthorized", "StatusCodeError");
+            }
+            else if (httpResponseMessage.StatusCode == System.Net.HttpStatusCode.Forbidden)
+            {
+                return RedirectToAction("Forbidden", "StatusCodeError");
             }
             string jsonData = httpResponseMessage.Content.ReadAsStringAsync().Result;
             var classData = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Classroom>>(jsonData);
