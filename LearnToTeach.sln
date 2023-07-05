@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClienWebDemo", "ClientWebDe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{954427D8-9D9F-41BF-A862-5D14455A6F4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication_Data", "Authentication_Data\Authentication_Data.csproj", "{B4EE6CB5-BD7D-4751-A90E-46EF44087B6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication_Data", "Authentication_Data\Authentication_Data.csproj", "{B4EE6CB5-BD7D-4751-A90E-46EF44087B6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
