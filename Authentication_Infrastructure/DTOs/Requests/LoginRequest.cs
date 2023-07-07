@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Authentication_Service.DTOs.Requests
+namespace Authentication_Infrastructure.DTOs.Requests
 {
     public class LoginRequest
     {

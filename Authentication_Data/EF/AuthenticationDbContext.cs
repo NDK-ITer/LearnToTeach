@@ -1,5 +1,6 @@
 ﻿using Authentication_Data.Configurations;
 using Authentication_Data.Entites;
+using Authentication_Data.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Protocols;
 using System;
@@ -22,6 +23,7 @@ namespace Authentication_Data.EF
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
+            modelBuilder.SeedData();
             //base.OnModelCreating(modelBuilder);
         }
 

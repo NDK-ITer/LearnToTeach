@@ -18,6 +18,7 @@ namespace Authentication_Data.Entites
         public string PresentEmail { get; set; }
         public string PasswordHash { get; set; }
         public DateTime Birthday { get; set; }
+        public DateTime CreatedDate { get; set; }
         public bool IsLock { get; set; }
         public List<UserRole> UserRoles { get; set; }
 

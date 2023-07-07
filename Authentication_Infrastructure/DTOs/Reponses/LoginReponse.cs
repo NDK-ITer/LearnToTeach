@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Authentication_Service.DTOs.Reponses
+namespace Authentication_Infrastructure.DTOs.Reponses
 {
     public class LoginResponse
     {

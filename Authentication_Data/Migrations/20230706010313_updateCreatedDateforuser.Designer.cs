@@ -4,6 +4,7 @@ using Authentication_Data.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication_Data.Migrations
 {
     [DbContext(typeof(AuthenticationDbContext))]
-    partial class AuthenticationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230706010313_updateCreatedDateforuser")]
+    partial class updateCreatedDateforuser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,29 +45,6 @@ namespace Authentication_Data.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Role", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            id = "58ee6afb-1349-4d16-87fe-6ab3bddea59a",
-                            Description = "",
-                            Name = "ADMIN",
-                            NormalizeName = "Admin"
-                        },
-                        new
-                        {
-                            id = "61f034ea-331e-417e-9958-986894374b48",
-                            Description = "",
-                            Name = "MANAGER",
-                            NormalizeName = "Manager"
-                        },
-                        new
-                        {
-                            id = "a2f949b8-c668-4432-833d-4a3efea89233",
-                            Description = "",
-                            Name = "USER",
-                            NormalizeName = "User"
-                        });
                 });
 
             modelBuilder.Entity("Authentication_Data.Entites.User", b =>
