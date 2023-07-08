@@ -10,8 +10,4 @@
     <ProjectReference Include="..\Authentication_Data\Authentication_Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="BCrypt.Net" Version="0.1.0" />
-  </ItemGroup>
-
 </Project>

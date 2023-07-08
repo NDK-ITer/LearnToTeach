@@ -24,7 +24,7 @@ namespace Authentication_Repositories.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Role> GetListRole(Expression<Func<Role, bool>> where) => GetAllRoles();
+        public IEnumerable<Role> GetListRole(Expression<Func<Role, bool>> where)
 
         public Role GetRole(Expression<Func<Role, bool>> where)
         {
