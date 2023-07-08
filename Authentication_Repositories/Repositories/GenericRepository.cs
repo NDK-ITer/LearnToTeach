@@ -5,19 +5,17 @@ using System.Linq.Expressions;
 
 namespace Authentication_Infrastructure.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly AuthenticationDbContext _dbContext;
-        private readonly DbSet<T> _dbSet;
+        protected readonly AuthenticationDbContext _dbContext;
+        protected readonly DbSet<T> _dbSet;
         public GenericRepository(AuthenticationDbContext dbContext) 
         { 
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<T>();
         }
-        public int Count(Expression<Func<T, bool>> where)
-        {
-            throw new NotImplementedException();
-        }
+
+        public int Count(Expression<Func<T, bool>> where) => _dbSet.Count(where);
 
         public virtual void Delete(T entity)
         {
@@ -37,14 +35,11 @@ namespace Authentication_Infrastructure.Repositories
             }
         }
 
-        public IEnumerable<T> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        public virtual IEnumerable<T> GetAll() => _dbSet.AsEnumerable();
 
-        public T? GetById(object? id) => _dbSet.Find(id);
+        public virtual T? GetById(object? id) => _dbSet.Find(id);
 
-        public IEnumerable<T> GetList(
+        public virtual IEnumerable<T> GetList(
             Expression<Func<T, bool>>? filter = null, 
             Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, 
             string includeProperties = "", 
@@ -54,9 +49,9 @@ namespace Authentication_Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<T> GetMany(Expression<Func<T, bool>> where)
+        public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where)
         {
-            throw new NotImplementedException();
+            return _dbSet.Where(where).AsEnumerable();
         }
 
         public virtual void Insert(T entity)
