@@ -1,30 +1,59 @@
 ﻿using Authentication_Data.Entites;
-using Authentication_Infrastructure.Interfaces;
+using Authentication_Repositories;
 using Authentication_Service.DTOs.Requests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using JwtAuthenticationManager;
+using JwtAuthenticationManager.Models;
 
 namespace Authentication_Service.Services
 {
     public class UserService
     {
-        private readonly IUserRepository _userRepository;
-        public UserService(IUserRepository userRepository) 
+        private readonly IUnitOfWork _unitOfWork;
+        public UserService(IUnitOfWork unitOfWork) 
         {
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public void Register(RegisterRequest register)
         {
-            var id = Guid.NewGuid().ToString();
-            var user = new User()
+            try
             {
-                UserName = register.UserName,
-                UserRoles = new List<UserRole>() { new UserRole() {UserId = id,} }
-            };
+                var userId = Guid.NewGuid().ToString();
+                var user = new User()
+                {
+                    UserName = register.UserName,
+                };
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
+        }
+
+        public AuthenticationReponse? Login(AuthenticationRequest request)
+        {
+            try
+            {
+                var userCheck = _unitOfWork.UserRepository.GetByProperty(u => u.UserName == request.UserName && u.PasswordHash == PasswordMethod.HasPassword(request.Password));
+                if (userCheck == null)
+                {
+                    return null;
+                }
+                var user = new UserAccount()
+                {
+                    UserName = userCheck.UserName,
+                    Id = userCheck.id,
+                };
+                var response = JwtTokenHandler.GenerateJwtToken(user);
+
+                return response;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

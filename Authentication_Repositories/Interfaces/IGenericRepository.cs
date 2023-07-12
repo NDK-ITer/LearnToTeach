@@ -10,11 +10,10 @@ namespace Authentication_Infrastructure.Interfaces
         public void Delete(Expression<Func<T, bool>> where);
         public int Count(Expression<Func<T, bool>> where);
         public T? GetById(object? id);
+        public T? GetByProperty(Expression<Func<T, bool>> where);
         public IEnumerable<T> GetList(
             Expression<Func<T, bool>>? filter = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
-            string includeProperties = "",
-            int skip = 0,
+            Expression<Func<T, bool>>? orderBy = null,
             int take = 0);
         public IEnumerable<T> GetAll();
         public IEnumerable<T> GetMany(Expression<Func<T, bool>> where);

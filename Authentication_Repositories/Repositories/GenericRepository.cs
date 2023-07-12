@@ -1,4 +1,4 @@
-﻿using Authentication_Data.EF;
+﻿using Authentication_Infrastructure.Context;
 using Authentication_Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -9,8 +9,8 @@ namespace Authentication_Infrastructure.Repositories
     {
         protected readonly AuthenticationDbContext _dbContext;
         protected readonly DbSet<T> _dbSet;
-        public GenericRepository(AuthenticationDbContext dbContext) 
-        { 
+        public GenericRepository(AuthenticationDbContext dbContext)
+        {
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<T>();
         }
@@ -29,7 +29,7 @@ namespace Authentication_Infrastructure.Repositories
         public virtual void Delete(Expression<Func<T, bool>> where)
         {
             var objects = _dbSet.Where(where).AsEnumerable();
-            foreach (var obj in objects) 
+            foreach (var obj in objects)
             {
                 _dbSet.Remove(obj);
             }
@@ -39,14 +39,23 @@ namespace Authentication_Infrastructure.Repositories
 
         public virtual T? GetById(object? id) => _dbSet.Find(id);
 
-        public virtual IEnumerable<T> GetList(
-            Expression<Func<T, bool>>? filter = null, 
-            Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, 
-            string includeProperties = "", 
-            int skip = 0, 
+        public T? GetByProperty(Expression<Func<T, bool>> where) => _dbSet.FirstOrDefault(where);
+
+        public virtual IEnumerable<T>? GetList(
+            Expression<Func<T, bool>>? filter = null,
+            Expression<Func<T, bool>>? orderBy = null,
             int take = 0)
         {
-            throw new NotImplementedException();
+            IQueryable<T> list = _dbSet;
+            if (list == null)
+                return null;
+            if (filter != null)
+                list = list.Where(filter);
+            if (orderBy != null)
+                list = list.OrderBy(orderBy);
+            if (take >= 0)
+                list = list.Take(take);
+            return list;
         }
 
         public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where)

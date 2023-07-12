@@ -6,33 +6,20 @@ using System.Text;
 
 namespace JwtAuthenticationManager
 {
-    public class JwtTokenHandler
+    public static class JwtTokenHandler
     {
         public const string JWT_SECURITY_KEY = "NguyenDuyKhg120802WithMySpecialNameIsNDK";
         private const int JWT_TOKEN_VALIDITY = 20;
-        private List<UserAccount> _userAccountList;
-        public JwtTokenHandler()
-        {
-            _userAccountList = new List<UserAccount>()
-            {
-                new UserAccount() {Id = Guid.NewGuid(), UserName = "admin", Password = "admin", Role = "Admin"},
-                new UserAccount() {Id = Guid.NewGuid(), UserName = "user01", Password = "user01", Role = "User"},
-            };
-        }
 
-        public AuthenticationReponse? GenerateJwtToken(AuthenticationRequest authenticationRequest)
+        public static AuthenticationReponse? GenerateJwtToken(UserAccount userAccount)
         {
-            if (string.IsNullOrWhiteSpace(authenticationRequest.UserName) || string.IsNullOrWhiteSpace(authenticationRequest.Password)) { return null; }
             //can be use data on database
-            var userAccount = _userAccountList.Where(c => c.UserName == authenticationRequest.UserName && c.Password == authenticationRequest.Password).FirstOrDefault();
-            if (userAccount == null) {  return null; }
-            
             var tokenExprityTimeStamp = DateTime.Now.AddMinutes(JWT_TOKEN_VALIDITY);
             var tokenKey = Encoding.ASCII.GetBytes(JWT_SECURITY_KEY);
             var claimsIdentity = new ClaimsIdentity(new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Name, authenticationRequest.UserName),
-                new Claim("Role", userAccount.Role)
+                new Claim(JwtRegisteredClaimNames.Name, userAccount.UserName),
+                //new Claim("Role", userAccount.Roles)
             });
 
             var signingCredentials = new SigningCredentials(

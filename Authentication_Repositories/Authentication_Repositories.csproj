@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Authentication_Data\Authentication_Data.csproj" />
+    <ProjectReference Include="..\Authentication_Infrastructure\Authentication_Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

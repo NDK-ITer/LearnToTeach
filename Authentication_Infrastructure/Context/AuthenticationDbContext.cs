@@ -1,19 +1,13 @@
-﻿using Authentication_Data.Configurations;
-using Authentication_Data.Entites;
-using Authentication_Data.Extensions;
+﻿using Authentication_Data.Entites;
+using Authentication_Infrastructure.Configurations;
+using Authentication_Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Protocols;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Authentication_Data.EF
+namespace Authentication_Infrastructure.Context
 {
     public class AuthenticationDbContext : DbContext
     {
-        public AuthenticationDbContext(DbContextOptions options) : base(options)
+        public AuthenticationDbContext(DbContextOptions<AuthenticationDbContext> options) : base(options)
         {
 
         }
@@ -22,7 +16,6 @@ namespace Authentication_Data.EF
         {
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
-            modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
             modelBuilder.SeedData();
             //base.OnModelCreating(modelBuilder);
         }

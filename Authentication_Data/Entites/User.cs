@@ -9,7 +9,6 @@ namespace Authentication_Data.Entites
 {
     public class User
     {
-        [Key]
         public string id { get; set; }
         public string UserName { get; set; }
         public string FirstName { get; set; }
@@ -20,7 +19,7 @@ namespace Authentication_Data.Entites
         public DateTime Birthday { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool IsLock { get; set; }
-        public List<UserRole> UserRoles { get; set; }
-
+        public string RoleId { get; set; }
+        public Role Role { get; set; }
     }
 }
