@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JwtAuthenticationManager.Models
+namespace Authentication_Service.DTOs.Reponses
 {
-    public class UserAccount
+    public class LoginResponse
     {
         public string Id { get; set; }
-        public string UserName { get; set; }
+        public string FullName { get; set; }
     }
 }
