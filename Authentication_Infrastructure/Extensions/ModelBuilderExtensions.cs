@@ -12,13 +12,15 @@ namespace Authentication_Infrastructure.Extensions
                 {
                     Id = Guid.NewGuid().ToString(),
                     Name = "ADMIN",
-                    NomalizeName = "Admin"
+                    NomalizeName = "Admin",
+                    Description = ""
                 },
                 new Role()
                 {
                     Id = Guid.NewGuid().ToString(),
                     Name = "USER",
-                    NomalizeName = "User"
+                    NomalizeName = "User",
+                    Description = ""
                 }
                 );
             modelBuilder.Entity<User>().HasData(
@@ -33,6 +35,7 @@ namespace Authentication_Infrastructure.Extensions
                     IsLock = false,
                     Birthday = DateTime.Now,
                     CreatedDate = DateTime.Now,
+                    RoleId = null,
                     PasswordHash = "$2a$10$XD1mRo8wZ/h9aJtAD0i2yOmR3PPKb/3R4bIcwHaWu6gV5RAh3c7pG",//origin pass: Testaccount123456789_001
                 },
                 new User()
@@ -46,6 +49,7 @@ namespace Authentication_Infrastructure.Extensions
                     IsLock = false,
                     Birthday = DateTime.Now,
                     CreatedDate = DateTime.Now,
+                    RoleId = null,
                     PasswordHash = "$2a$10$3cfpf9Kd5RWjGwIJB6acRuCJErWLuvtrrbys2OwxDJZNnRMUtGTha",//origin pass: Adminaccount123456789_001
                 }
                 );
