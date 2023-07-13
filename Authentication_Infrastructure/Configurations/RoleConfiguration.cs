@@ -8,7 +8,7 @@ namespace Authentication_Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Role> builder)
         {
-            builder.ToTable(nameof(Role));
+            builder.ToTable("Roles");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasMaxLength(200);
             builder.Property(x => x.Name).HasMaxLength(20);
