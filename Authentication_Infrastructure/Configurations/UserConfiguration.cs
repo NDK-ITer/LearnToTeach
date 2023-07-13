@@ -8,7 +8,7 @@ namespace Authentication_Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable(nameof(User));
+            builder.ToTable("Users");
             builder.HasKey(x => x.id);
             builder.Property(x => x.id).HasMaxLength(200);
             builder.Property(x => x.FirstName).IsRequired(true).HasMaxLength(50);
