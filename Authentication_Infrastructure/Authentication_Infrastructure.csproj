@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Authentication_Data\Authentication_Data.csproj" />
+    <ProjectReference Include="..\Authentication_Domain\Authentication_Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿using Authentication_Data.Entites;
+﻿using Authentication_Domain.Entites;
 using Authentication_Repositories;
 using Authentication_Service.DTOs.Requests;
 using JwtAuthenticationManager;
