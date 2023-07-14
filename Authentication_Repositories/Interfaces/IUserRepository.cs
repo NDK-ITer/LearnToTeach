@@ -1,4 +1,4 @@
-﻿using Authentication_Data.Entites;
+﻿using Authentication_Domain.Entites;
 using System.Linq.Expressions;
 
 namespace Authentication_Infrastructure.Interfaces

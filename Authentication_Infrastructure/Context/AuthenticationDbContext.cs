@@ -1,4 +1,4 @@
-﻿using Authentication_Data.Entites;
+﻿using Authentication_Domain.Entites;
 using Authentication_Infrastructure.Configurations;
 using Authentication_Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
