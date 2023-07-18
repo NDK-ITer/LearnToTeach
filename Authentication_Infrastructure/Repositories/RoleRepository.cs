@@ -13,6 +13,9 @@ namespace Authentication_Infrastructure.Repositories
     {
         public RoleRepository(AuthenticationDbContext context) : base(context)
         {
+
         }
+        public Role? GetRoleById(string id) => GetById(id);
+        public Role? GetRoleByName(string name) => Find(u => u.Name == name.ToUpper()).FirstOrDefault() as Role;
     }
 }

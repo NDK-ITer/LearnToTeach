@@ -1,6 +1,5 @@
-using Authentication_Domain.Interfaces;
+using Authentication_Application.Services;
 using Authentication_Infrastructure.Context;
-using Authentication_Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

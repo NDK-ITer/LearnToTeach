@@ -7,9 +7,10 @@ namespace Authentication_Infrastructure.Context
 {
     public class AuthenticationDbContext : DbContext
     {
+        private AuthenticationDbContext context;
         public AuthenticationDbContext(DbContextOptions<AuthenticationDbContext> options) : base(options)
         {
-
+            //context = new AuthenticationDbContext(options);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
