@@ -11,15 +11,15 @@ namespace JwtAuthenticationManager
         public const string JWT_SECURITY_KEY = "NguyenDuyKhg120802WithMySpecialNameIsNDK";
         private const int JWT_TOKEN_VALIDITY = 20;
 
-        public static AuthenticationReponse? GenerateJwtToken(UserAccount userAccount)
+        public static LoginReponse? GenerateJwtToken(JwtUserInfor userAccount)
         {
             //can be use data on database
             var tokenExprityTimeStamp = DateTime.Now.AddMinutes(JWT_TOKEN_VALIDITY);
             var tokenKey = Encoding.ASCII.GetBytes(JWT_SECURITY_KEY);
             var claimsIdentity = new ClaimsIdentity(new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Name, userAccount.UserName),
-                //new Claim("Role", userAccount.Roles)
+                new Claim(JwtRegisteredClaimNames.Name, userAccount.Fullname),
+                new Claim("Role", userAccount.Role)
             });
 
             var signingCredentials = new SigningCredentials(
@@ -36,10 +36,10 @@ namespace JwtAuthenticationManager
             var securityToken = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
             var token = jwtSecurityTokenHandler.WriteToken(securityToken);
 
-            return new AuthenticationReponse
+            return new LoginReponse
             {
                 Id = userAccount.Id,
-                UserName = userAccount.UserName,
+                UserName = userAccount.Fullname,
                 ExpiresIn = (int)tokenExprityTimeStamp.Subtract(DateTime.Now).TotalSeconds,
                 JwtToken = token,
             };

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication_Infrastructure.Migrations
 {
     [DbContext(typeof(AuthenticationDbContext))]
-    [Migration("20230713051215_CreateDb")]
-    partial class CreateDb
+    [Migration("20230718073413_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Authentication_Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Authentication_Data.Entites.Role", b =>
+            modelBuilder.Entity("Authentication_Domain.Entites.Role", b =>
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(200)
@@ -53,21 +53,21 @@ namespace Authentication_Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "14ee1a43-5970-4108-b1ed-45e669bcdf83",
+                            Id = "20198e81-3965-44ee-9029-d8d8cce8668e",
                             Description = "",
                             Name = "ADMIN",
                             NomalizeName = "Admin"
                         },
                         new
                         {
-                            Id = "88a3020e-e0e0-4abb-ad1c-63c52a0364a2",
+                            Id = "5c011058-f02a-4a2b-b81a-143551fb3bb5",
                             Description = "",
                             Name = "USER",
                             NomalizeName = "User"
                         });
                 });
 
-            modelBuilder.Entity("Authentication_Data.Entites.User", b =>
+            modelBuilder.Entity("Authentication_Domain.Entites.User", b =>
                 {
                     b.Property<string>("id")
                         .HasMaxLength(200)
@@ -126,37 +126,37 @@ namespace Authentication_Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            id = "a7c915d6-d121-4eed-acd9-52628530ae48",
-                            Birthday = new DateTime(2023, 7, 13, 12, 12, 15, 409, DateTimeKind.Local).AddTicks(3100),
-                            CreatedDate = new DateTime(2023, 7, 13, 12, 12, 15, 409, DateTimeKind.Local).AddTicks(3111),
+                            id = "3832d446-295c-42ff-a9c1-366aa79afd5c",
+                            Birthday = new DateTime(2023, 7, 18, 14, 34, 13, 464, DateTimeKind.Local).AddTicks(5534),
+                            CreatedDate = new DateTime(2023, 7, 18, 14, 34, 13, 464, DateTimeKind.Local).AddTicks(5546),
                             FirstEmail = "test001@gmail.com",
                             FirstName = "test",
                             IsLock = false,
                             LastName = "account",
-                            PasswordHash = "$2a$10$XD1mRo8wZ/h9aJtAD0i2yOmR3PPKb/3R4bIcwHaWu6gV5RAh3c7pG",
+                            PasswordHash = "nSUQ/133didCpNJLsvcLvQ==",
                             PresentEmail = "test001@gmail.com",
-                            RoleId = "88a3020e-e0e0-4abb-ad1c-63c52a0364a2",
+                            RoleId = "5c011058-f02a-4a2b-b81a-143551fb3bb5",
                             UserName = "testVersion_0001"
                         },
                         new
                         {
-                            id = "e7d048ec-81c2-4541-ac58-bf02f69f6721",
-                            Birthday = new DateTime(2023, 7, 13, 12, 12, 15, 409, DateTimeKind.Local).AddTicks(3118),
-                            CreatedDate = new DateTime(2023, 7, 13, 12, 12, 15, 409, DateTimeKind.Local).AddTicks(3119),
+                            id = "52a2f36c-9a84-4a31-ba41-3b10b3e95b6d",
+                            Birthday = new DateTime(2023, 7, 18, 14, 34, 13, 464, DateTimeKind.Local).AddTicks(5639),
+                            CreatedDate = new DateTime(2023, 7, 18, 14, 34, 13, 464, DateTimeKind.Local).AddTicks(5639),
                             FirstEmail = "admin001@gmail.com",
                             FirstName = "Admin",
                             IsLock = false,
                             LastName = "account",
-                            PasswordHash = "$2a$10$3cfpf9Kd5RWjGwIJB6acRuCJErWLuvtrrbys2OwxDJZNnRMUtGTha",
+                            PasswordHash = "VWBU8/+H4em26o8A92n+Tg==",
                             PresentEmail = "admin001@gmail.com",
-                            RoleId = "14ee1a43-5970-4108-b1ed-45e669bcdf83",
+                            RoleId = "20198e81-3965-44ee-9029-d8d8cce8668e",
                             UserName = "adminVersion_0001"
                         });
                 });
 
-            modelBuilder.Entity("Authentication_Data.Entites.User", b =>
+            modelBuilder.Entity("Authentication_Domain.Entites.User", b =>
                 {
-                    b.HasOne("Authentication_Data.Entites.Role", "Role")
+                    b.HasOne("Authentication_Domain.Entites.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -165,7 +165,7 @@ namespace Authentication_Infrastructure.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("Authentication_Data.Entites.Role", b =>
+            modelBuilder.Entity("Authentication_Domain.Entites.Role", b =>
                 {
                     b.Navigation("Users");
                 });

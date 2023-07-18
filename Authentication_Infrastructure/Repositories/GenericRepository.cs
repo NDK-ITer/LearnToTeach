@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Authentication_Infrastructure.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly AuthenticationDbContext _context;
-        private readonly DbSet<T> _dbSet;
+        protected readonly AuthenticationDbContext _context;
+        protected readonly DbSet<T> _dbSet;
 
         public GenericRepository(AuthenticationDbContext context)
         {
@@ -24,9 +24,11 @@ namespace Authentication_Infrastructure.Repositories
             _dbSet.AddRange(entities);
         }
 
-        public IEnumerable<T> Find(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        public IEnumerable<T>? Find(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
         {
-            return _dbSet.Where(predicate);
+            var result = _dbSet.Where(predicate);
+            if (result == null) { return null; }
+            return result;
         }
 
         public IEnumerable<T> GetAll()
@@ -36,7 +38,9 @@ namespace Authentication_Infrastructure.Repositories
 
         public T? GetById(string id)
         {
-            return _dbSet.Find(id);
+            var result = _dbSet.Find(id);
+            if (result == null) { return null; }
+            return result;
         }
 
         public void Remove(T entity)
@@ -47,6 +51,11 @@ namespace Authentication_Infrastructure.Repositories
         public void RemoveRange(IEnumerable<T> entities)
         {
             _dbSet.RemoveRange(entities);
+        }
+
+        public void SaveChange()
+        {
+            _context.SaveChanges();
         }
 
         public void Update(T entity)

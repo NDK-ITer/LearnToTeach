@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Authentication_Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateDb : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -59,8 +59,8 @@ namespace Authentication_Infrastructure.Migrations
                 columns: new[] { "Id", "Description", "Name", "NomalizeName" },
                 values: new object[,]
                 {
-                    { "14ee1a43-5970-4108-b1ed-45e669bcdf83", "", "ADMIN", "Admin" },
-                    { "88a3020e-e0e0-4abb-ad1c-63c52a0364a2", "", "USER", "User" }
+                    { "20198e81-3965-44ee-9029-d8d8cce8668e", "", "ADMIN", "Admin" },
+                    { "5c011058-f02a-4a2b-b81a-143551fb3bb5", "", "USER", "User" }
                 });
 
             migrationBuilder.InsertData(
@@ -68,8 +68,8 @@ namespace Authentication_Infrastructure.Migrations
                 columns: new[] { "id", "Birthday", "CreatedDate", "FirstEmail", "FirstName", "IsLock", "LastName", "PasswordHash", "PresentEmail", "RoleId", "UserName" },
                 values: new object[,]
                 {
-                    { "a7c915d6-d121-4eed-acd9-52628530ae48", new DateTime(2023, 7, 13, 12, 12, 15, 409, DateTimeKind.Local).AddTicks(3100), new DateTime(2023, 7, 13, 12, 12, 15, 409, DateTimeKind.Local).AddTicks(3111), "test001@gmail.com", "test", false, "account", "$2a$10$XD1mRo8wZ/h9aJtAD0i2yOmR3PPKb/3R4bIcwHaWu6gV5RAh3c7pG", "test001@gmail.com", "88a3020e-e0e0-4abb-ad1c-63c52a0364a2", "testVersion_0001" },
-                    { "e7d048ec-81c2-4541-ac58-bf02f69f6721", new DateTime(2023, 7, 13, 12, 12, 15, 409, DateTimeKind.Local).AddTicks(3118), new DateTime(2023, 7, 13, 12, 12, 15, 409, DateTimeKind.Local).AddTicks(3119), "admin001@gmail.com", "Admin", false, "account", "$2a$10$3cfpf9Kd5RWjGwIJB6acRuCJErWLuvtrrbys2OwxDJZNnRMUtGTha", "admin001@gmail.com", "14ee1a43-5970-4108-b1ed-45e669bcdf83", "adminVersion_0001" }
+                    { "3832d446-295c-42ff-a9c1-366aa79afd5c", new DateTime(2023, 7, 18, 14, 34, 13, 464, DateTimeKind.Local).AddTicks(5534), new DateTime(2023, 7, 18, 14, 34, 13, 464, DateTimeKind.Local).AddTicks(5546), "test001@gmail.com", "test", false, "account", "nSUQ/133didCpNJLsvcLvQ==", "test001@gmail.com", "5c011058-f02a-4a2b-b81a-143551fb3bb5", "testVersion_0001" },
+                    { "52a2f36c-9a84-4a31-ba41-3b10b3e95b6d", new DateTime(2023, 7, 18, 14, 34, 13, 464, DateTimeKind.Local).AddTicks(5639), new DateTime(2023, 7, 18, 14, 34, 13, 464, DateTimeKind.Local).AddTicks(5639), "admin001@gmail.com", "Admin", false, "account", "VWBU8/+H4em26o8A92n+Tg==", "admin001@gmail.com", "20198e81-3965-44ee-9029-d8d8cce8668e", "adminVersion_0001" }
                 });
 
             migrationBuilder.CreateIndex(

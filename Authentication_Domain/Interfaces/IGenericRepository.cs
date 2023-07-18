@@ -17,5 +17,6 @@ namespace Authentication_Domain.Interfaces
         void Update(T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
+        void SaveChange();
     }
 }
