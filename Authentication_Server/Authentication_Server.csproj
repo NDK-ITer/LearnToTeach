@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Authentication_Application\Authentication_Application.csproj" />
+    <ProjectReference Include="..\SendMail\SendMail.csproj" />
   </ItemGroup>
 
 </Project>

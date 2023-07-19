@@ -1,4 +1,6 @@
-﻿using Authentication_Infrastructure.Context;
+﻿using Authentication_Application.Requests;
+using Authentication_Domain.Entites;
+using Authentication_Infrastructure.Context;
 using Authentication_Infrastructure.Repositories;
 using JwtAuthenticationManager;
 using JwtAuthenticationManager.Models;
@@ -11,21 +13,23 @@ namespace Authentication_Application.Services
     }
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly UserRepository _userRepository;
-        private readonly RoleRepository _roleRepository;
+        private readonly UnitOfWork _unitOfWork;
 
         public AuthenticationService(AuthenticationDbContext context)
         {
-            _userRepository = new UserRepository(context);
-            _roleRepository = new RoleRepository(context);
+            _unitOfWork = new UnitOfWork(context);
         }
 
         public LoginReponse? GetJwtUserInfor(string username, string password)
         {
-            var checkLogin = _userRepository.CheckAccountValid(username,password);
+            var checkLogin = _unitOfWork.userRepository.CheckAccountValid(username,password);
             if (!checkLogin) { return null; }
-            var user = _userRepository.GetUserByUsername(username);
-            user.Role = _roleRepository.GetRoleById(user.RoleId);
+            var user = _unitOfWork.userRepository.GetUserByUsername(username);
+            if (user.IsLock == true)
+            {
+                return null;
+            }
+            user.Role = _unitOfWork.roleRepository.GetRoleById(user.RoleId);
             var jwtUserInfor = new JwtUserInfor()
             {
                 Id = user.id,
@@ -34,5 +38,7 @@ namespace Authentication_Application.Services
             };
             return JwtTokenHandler.GenerateJwtToken(jwtUserInfor);
         }
+
+        
     }
 }

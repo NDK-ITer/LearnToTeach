@@ -38,6 +38,7 @@ namespace Authentication_Infrastructure.Extensions
                     Birthday = DateTime.Now,
                     CreatedDate = DateTime.Now,
                     RoleId = UserId,
+                    TokenAccess = string.Empty,
                     PasswordHash = PasswordMethod.HashPassword("Testaccount123456789_001"),
                 },
                 new User()
@@ -52,6 +53,7 @@ namespace Authentication_Infrastructure.Extensions
                     Birthday = DateTime.Now,
                     CreatedDate = DateTime.Now,
                     RoleId = AdminID,
+                    TokenAccess = string.Empty,
                     PasswordHash = PasswordMethod.HashPassword("Adminaccount123456789_001"),
                 }
                 );

@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{25C1BB86-8A2C-4FC8-BA7E-E2FA35BAB276}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LoginService", "LoginService", "{19820E23-F4BF-493C-A83A-34C1C24FD371}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserService", "UserService", "{19820E23-F4BF-493C-A83A-34C1C24FD371}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClassroomService", "ClassroomService", "{63F553A7-A284-42B7-B852-D0399E7A91AA}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication_Domain", "Authentication_Domain\Authentication_Domain.csproj", "{BB43E9D7-4EDA-4D7C-93D3-5FFDA8505A77}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication_Application", "Authentication_Application\Authentication_Application.csproj", "{B8AC404A-88D5-40CB-A3DF-8A4AC85D4B1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendMail", "SendMail\SendMail.csproj", "{E3F72632-30E3-43A0-A0B2-CB8D0047B91E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{B8AC404A-88D5-40CB-A3DF-8A4AC85D4B1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8AC404A-88D5-40CB-A3DF-8A4AC85D4B1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8AC404A-88D5-40CB-A3DF-8A4AC85D4B1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3F72632-30E3-43A0-A0B2-CB8D0047B91E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3F72632-30E3-43A0-A0B2-CB8D0047B91E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3F72632-30E3-43A0-A0B2-CB8D0047B91E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3F72632-30E3-43A0-A0B2-CB8D0047B91E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{2DAB0772-B072-4D6C-BA18-58961DF252B3} = {19820E23-F4BF-493C-A83A-34C1C24FD371}
 		{BB43E9D7-4EDA-4D7C-93D3-5FFDA8505A77} = {19820E23-F4BF-493C-A83A-34C1C24FD371}
 		{B8AC404A-88D5-40CB-A3DF-8A4AC85D4B1B} = {19820E23-F4BF-493C-A83A-34C1C24FD371}
+		{E3F72632-30E3-43A0-A0B2-CB8D0047B91E} = {E150E7DD-D4A7-4AA0-B724-E83DC7B8E4AA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {76139341-62E4-441B-BF13-595F1ECAFBB9}
