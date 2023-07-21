@@ -8,6 +8,7 @@ namespace Domain.Interfaces
         void UpdateUser(User user);
         bool CheckAccountValid(string username, string password);
         bool CheckUserIsLocked(User user);
+        bool CheckEmailIsExist(string email);
         void LockUser(User user);
         User GetUserByUsername(string username);
         User GetUserByEmail(string email);

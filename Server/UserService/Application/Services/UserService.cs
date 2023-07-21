@@ -9,6 +9,7 @@ namespace Application.Services
     public interface IUserService
     {
         bool RegisterUser(RegisterRequest registerRequest);
+        bool EmailIsExist(string email);
 
     }
     public class UserService : IUserService
@@ -28,6 +29,7 @@ namespace Application.Services
                 var userRegister = new User()
                 {
                     id = Guid.NewGuid().ToString(),
+                    UserName = registerRequest.UserName,
                     FirstName = registerRequest.FirstName,
                     LastName = registerRequest.LastName,
                     FirstEmail = registerRequest.Email,
@@ -40,13 +42,20 @@ namespace Application.Services
                     TokenAccess = string.Empty,
                     Role = role
                 };
-
+                _unitOfWork.userRepository.Add(userRegister);
+                _unitOfWork.SaveChange();
                 return true;
             }
             catch (Exception)
             {
                 return false;
             }
+        }
+
+        public bool EmailIsExist(string email)
+        {
+            if (_unitOfWork.userRepository.CheckEmailIsExist(email)) return true;
+            return false;
         }
 
     }

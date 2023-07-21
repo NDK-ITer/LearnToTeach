@@ -1,6 +1,5 @@
 ﻿using SendMail.Interfaces;
 using System.Net.Mail;
-using System.Net;
 
 namespace SendMail.ClassDefine
 {
@@ -19,7 +18,7 @@ namespace SendMail.ClassDefine
             {
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
-                client.Credentials = new System.Net.NetworkCredential(myMail.From.ToString(), "mpsdimdemqyzlfev");
+                client.Credentials = new System.Net.NetworkCredential(myMail.From.ToString(), "nfqzkctsofxzadxg");
                 client.EnableSsl = true;
                 client.Send(myMail);
             }

@@ -37,13 +37,16 @@ namespace Server.Controllers
         {
             try
             {
-                _sendEmail.SendEmailAsync(registerRequest.Email,"NDK","ndk");
-                _unitOfWork_UserService.UserService.RegisterUser(registerRequest);
+                if (_unitOfWork_UserService.UserService.EmailIsExist(registerRequest.Email)) return BadRequest("Email was Exist.");
+                //_sendEmail.SendEmailAsync(registerRequest.Email, "NDK", "ndk");
+                var addUser = _unitOfWork_UserService.UserService.RegisterUser(registerRequest);
+                if (addUser == false) return BadRequest("Register is false.");
                 return Ok();
             }
-            catch (Exception)
+
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
             
         }

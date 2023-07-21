@@ -1,7 +1,6 @@
 ﻿using Domain.Entites;
 using Domain.Interfaces;
 using Infrastructure.Context;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -55,5 +54,11 @@ namespace Infrastructure.Repositories
             return user;
         }
         public User? GetUserById(string id) => GetById(id);
+        public bool CheckEmailIsExist(string email)
+        {
+            var emailExist = Find(user => user.FirstEmail == email || user.PresentEmail == email).FirstOrDefault() as User;
+            if (emailExist != null) return true;
+            return false;
+        }
     }
 }

@@ -53,11 +53,6 @@ namespace Infrastructure.Repositories
             _dbSet.RemoveRange(entities);
         }
 
-        public void SaveChange()
-        {
-            _context.SaveChanges();
-        }
-
         public void Update(T entity)
         {
             _dbSet.Attach(entity);
