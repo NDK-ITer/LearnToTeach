@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\JwtAuthenticationManager\JwtAuthenticationManager.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="JwtAuthenticationManager">
+      <HintPath>..\..\Libraries\JwtAuthenticationManager\bin\Debug\net7.0\JwtAuthenticationManager.dll</HintPath>
+    </Reference>
+    <Reference Include="SendMail">
+      <HintPath>..\..\Libraries\SendMail\bin\Debug\net7.0\SendMail.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
