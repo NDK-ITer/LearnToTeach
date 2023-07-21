@@ -8,23 +8,23 @@ namespace SendMail.ClassDefine
     {
         public Task SendEmailAsync(string emailNeedSend, string subject, string message)
         {
-            //var email = "learntoteach2023@gmail.com";
-            //var pass = "LearnToTeach2023";
-            var email = "tn29805.code@gmail.com";
-            var pass = "uovlqjanyqakzmck";
-            var client = new SmtpClient("smtp.office365.com", 587)
-            {
-                EnableSsl = true,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(email, pass)
-            };
+            MailMessage myMail = new MailMessage();
+            myMail.From = new MailAddress("learntoteach2023@gmail.com");
+            myMail.To.Add(emailNeedSend);
+            myMail.Subject = subject;
+            myMail.IsBodyHtml = true;
+            myMail.Body = message;
 
-            return client.SendMailAsync(
-                new MailMessage(from: email,
-                                to: emailNeedSend,
-                                subject,
-                                message
-                                ));
+            using (var client = new SmtpClient("smtp.gmail.com", 587))
+            {
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new System.Net.NetworkCredential(myMail.From.ToString(), "mpsdimdemqyzlfev");
+                client.EnableSsl = true;
+                client.Send(myMail);
+            }
+
+            return Task.CompletedTask;
         }
     }
 }
