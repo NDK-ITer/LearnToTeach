@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserServer", "UserServer\Us
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{04802A5E-E71C-4E25-ACC6-4960A0727BDD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SendMail", "..\Libraries\SendMail\SendMail.csproj", "{CE3D37E9-D916-4805-BC95-8E6657D6CAC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JwtAuthenticationManager", "JwtAuthenticationManager\JwtAuthenticationManager.csproj", "{5C711A02-0768-4268-B799-61B66AC00E8C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JwtAuthenticationManager", "..\Libraries\JwtAuthenticationManager\JwtAuthenticationManager.csproj", "{01562E2C-2A7F-4186-BAC7-B91FCC1AA4B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SendMail", "SendMail\SendMail.csproj", "{E8F9B8CD-6E13-4439-980C-02920543E67B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,21 +39,21 @@ Global
 		{471250E6-EFE3-4274-AECA-FD543AED6992}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{471250E6-EFE3-4274-AECA-FD543AED6992}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{471250E6-EFE3-4274-AECA-FD543AED6992}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CE3D37E9-D916-4805-BC95-8E6657D6CAC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE3D37E9-D916-4805-BC95-8E6657D6CAC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE3D37E9-D916-4805-BC95-8E6657D6CAC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE3D37E9-D916-4805-BC95-8E6657D6CAC0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{01562E2C-2A7F-4186-BAC7-B91FCC1AA4B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{01562E2C-2A7F-4186-BAC7-B91FCC1AA4B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{01562E2C-2A7F-4186-BAC7-B91FCC1AA4B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{01562E2C-2A7F-4186-BAC7-B91FCC1AA4B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C711A02-0768-4268-B799-61B66AC00E8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C711A02-0768-4268-B799-61B66AC00E8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C711A02-0768-4268-B799-61B66AC00E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C711A02-0768-4268-B799-61B66AC00E8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8F9B8CD-6E13-4439-980C-02920543E67B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8F9B8CD-6E13-4439-980C-02920543E67B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8F9B8CD-6E13-4439-980C-02920543E67B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8F9B8CD-6E13-4439-980C-02920543E67B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{CE3D37E9-D916-4805-BC95-8E6657D6CAC0} = {04802A5E-E71C-4E25-ACC6-4960A0727BDD}
-		{01562E2C-2A7F-4186-BAC7-B91FCC1AA4B8} = {04802A5E-E71C-4E25-ACC6-4960A0727BDD}
+		{5C711A02-0768-4268-B799-61B66AC00E8C} = {04802A5E-E71C-4E25-ACC6-4960A0727BDD}
+		{E8F9B8CD-6E13-4439-980C-02920543E67B} = {04802A5E-E71C-4E25-ACC6-4960A0727BDD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {574DAC0B-04E2-4D79-9960-D82F97DC3881}

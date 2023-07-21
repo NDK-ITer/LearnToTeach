@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\JwtAuthenticationManager\JwtAuthenticationManager.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\JwtAuthenticationManager\JwtAuthenticationManager.csproj" />
   </ItemGroup>
 
   <ItemGroup>

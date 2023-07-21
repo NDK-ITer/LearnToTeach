@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>false</InvariantGlobalization>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,17 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\SendMail\SendMail.csproj" />
     <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="..\SendMail\SendMail.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="JwtAuthenticationManager">
-      <HintPath>..\..\Libraries\JwtAuthenticationManager\bin\Debug\net7.0\JwtAuthenticationManager.dll</HintPath>
-    </Reference>
-    <Reference Include="SendMail">
-      <HintPath>..\..\Libraries\SendMail\bin\Debug\net7.0\SendMail.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
+	
 </Project>
