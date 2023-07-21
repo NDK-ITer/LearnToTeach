@@ -60,5 +60,12 @@ namespace Infrastructure.Repositories
             if (emailExist != null) return true;
             return false;
         }
+
+        public bool CheckUsernameIsExist(string username)
+        {
+            var usernamelExist = Find(user => user.UserName == username).FirstOrDefault() as User;
+            if (usernamelExist != null) return true;
+            return false;
+        }
     }
 }

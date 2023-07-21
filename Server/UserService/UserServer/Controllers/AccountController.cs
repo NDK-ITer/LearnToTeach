@@ -38,6 +38,7 @@ namespace Server.Controllers
             try
             {
                 if (_unitOfWork_UserService.UserService.EmailIsExist(registerRequest.Email)) return BadRequest("Email was Exist.");
+                if (_unitOfWork_UserService.UserService.UsernameIsExist(registerRequest.UserName)) return BadRequest("UserName was Exist.");
                 //_sendEmail.SendEmailAsync(registerRequest.Email, "NDK", "ndk");
                 var addUser = _unitOfWork_UserService.UserService.RegisterUser(registerRequest);
                 if (addUser == false) return BadRequest("Register is false.");

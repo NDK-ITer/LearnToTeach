@@ -10,6 +10,7 @@ namespace Application.Services
     {
         bool RegisterUser(RegisterRequest registerRequest);
         bool EmailIsExist(string email);
+        bool UsernameIsExist(string username);
 
     }
     public class UserService : IUserService
@@ -55,6 +56,12 @@ namespace Application.Services
         public bool EmailIsExist(string email)
         {
             if (_unitOfWork.userRepository.CheckEmailIsExist(email)) return true;
+            return false;
+        }
+
+        public bool UsernameIsExist(string username)
+        {
+            if(_unitOfWork.userRepository.CheckUsernameIsExist(username)) return true;
             return false;
         }
 
