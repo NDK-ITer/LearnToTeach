@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  userserver:
+    image: ${DOCKER_REGISTRY-}userserver
+    build:
+      context: .
+      dockerfile: UserServer/Dockerfile
+    ports:
+        - 8001:80
+    # networks:
+    #     - backend
