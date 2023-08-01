@@ -1,5 +1,5 @@
 ﻿using Application.Requests;
-using Domain.Entites;
+using Domain.Entities;
 using Infrastructure;
 using Infrastructure.Context;
 using Infrastructure.Repositories;
