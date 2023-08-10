@@ -10,7 +10,14 @@ namespace Infrastructure.Repositories
         {
         }
         public void UpdateClassroom(Classroom classroom) => Update(classroom);
-        public void Register(Classroom classroom) => Add(classroom);
+        public void RegisterClassroom(Classroom classroom) => Add(classroom);
+        public void DeleteClassroom(string idClassroom)
+        {
+            if (idClassroom == null) return;
+            var classroomDelete = Find(c => c.Id == idClassroom).FirstOrDefault() as Classroom;
+            if (classroomDelete == null) { return; }
+            Remove(classroomDelete);
+        }
         public int CheckClassroomIsPrivate(Classroom classroom)
         {
             if (classroom == null) return -1;

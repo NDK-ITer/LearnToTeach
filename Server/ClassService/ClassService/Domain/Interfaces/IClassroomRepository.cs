@@ -6,7 +6,8 @@ namespace Domain.Interfaces
     {
         
         void UpdateClassroom(Classroom classroom);
-        void Register(Classroom classroom);
+        void RegisterClassroom(Classroom classroom);
+        void DeleteClassroom(string idClassroom);
         int CheckClassroomIsPrivate(Classroom classroom);
         Classroom GetClassroomById(string id);
         Classroom GetClassroomByName(string name);

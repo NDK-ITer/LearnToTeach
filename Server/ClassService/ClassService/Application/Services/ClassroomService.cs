@@ -3,21 +3,16 @@ using Domain.Entities;
 using Infrastructure;
 using Infrastructure.Context;
 using Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using XAct;
 
 namespace Application.Services
 {
     public interface IClassroomService
     {
-        int CreateClassroom(RegisterClassroomRequest registerClassroomRequest);
-        int UpdateClassroom(Classroom classroom);
+        int CreateClassroom(CreateClassroomRequest registerClassroomRequest);
+        int UpdateClassroom(UpdateClassroomRepuest updateClassroomRepuest);
         int DeleteClassroom(string idClass);
         int ChangeToPrivate(string idClass, string key);
-        int ChangeToPublic(string idClass);
         int AddMember(string idUser);
         int AddRangeUser(IEnumerable<string> idUsers);
         int DeleteMember(string idUser);
@@ -45,18 +40,8 @@ namespace Application.Services
         {
             throw new NotImplementedException();
         }
-
-        public int ChangeToPublic(string idClass)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int CreateClassroom()
-        {
-            throw new NotImplementedException();
-        }
-
-        public int CreateClassroom(RegisterClassroomRequest registerClassroomRequest)
+        
+        public int CreateClassroom(CreateClassroomRequest createClassroomRequest)
         {
             try
             {
@@ -65,21 +50,21 @@ namespace Application.Services
                 {
                     Id = idClassroom,
                     CreateDate = DateTime.Now,
-                    Name = registerClassroomRequest.nameClassroom,
-                    IdUserHost = registerClassroomRequest.idUser,
+                    Name = createClassroomRequest.nameClassroom,
+                    IdUserHost = createClassroomRequest.idUser,
                     Description = string.Empty,
                     KeyHash = string.Empty,
                 };
-                if (registerClassroomRequest.isPrivate == true)
+                if (createClassroomRequest.isPrivate == true)
                 {
                     classroom.IsPrivate = true;
-                    classroom.KeyHash = KeyHash.Hash(registerClassroomRequest.key);
+                    classroom.KeyHash = KeyHash.Hash(createClassroomRequest.key);
                 }
-                if (registerClassroomRequest.Description != null) classroom.Description = registerClassroomRequest.Description;
-                if (registerClassroomRequest.idMembers != null)
+                if (createClassroomRequest.Description != null) classroom.Description = createClassroomRequest.Description;
+                if (createClassroomRequest.idMembers != null)
                 {
                     var listUserTemp = new List<ClassroomDetail>();
-                    foreach (var item in registerClassroomRequest.idMembers)
+                    foreach (var item in createClassroomRequest.idMembers)
                     {
                         var classroomDetail = new ClassroomDetail() 
                         {
@@ -92,8 +77,9 @@ namespace Application.Services
                     }
                     IEnumerable<ClassroomDetail> listUser = listUserTemp;
                     classroom.ListUserId = listUser;
-                    _unitOfWork.classroomRepository.Add(classroom);
                 }
+                _unitOfWork.classroomRepository.RegisterClassroom(classroom);
+                _unitOfWork.SaveChange();
                 return 1;
             }
             catch (Exception)
@@ -105,7 +91,16 @@ namespace Application.Services
 
         public int DeleteClassroom(string idClass)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _unitOfWork.classroomRepository.DeleteClassroom(idClass);
+                _unitOfWork.SaveChange();
+                return 1;
+            }
+            catch (Exception)
+            {
+                return -1; ;
+            }
         }
 
         public int DeleteMember(string idUser)
@@ -118,9 +113,23 @@ namespace Application.Services
             throw new NotImplementedException();
         }
 
-        public int UpdateClassroom(Classroom classroom)
+        public int UpdateClassroom(UpdateClassroomRepuest updateClassroomRepuest)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (updateClassroomRepuest.idClassroom == string.Empty) return 0;
+                if (updateClassroomRepuest.isPrivate == true && updateClassroomRepuest.key.IsNullOrEmpty()) return 0;
+                var classNeedUpdate = _unitOfWork.classroomRepository.GetById(updateClassroomRepuest.idClassroom);
+                updateClassroomRepuest.UpdateToClassroom(classNeedUpdate);
+                _unitOfWork.classroomRepository.UpdateClassroom(classNeedUpdate);
+                _unitOfWork.SaveChange();
+                return 1;
+            }
+            catch (Exception)
+            {
+
+                return -1;
+            }
         }
     }
 }

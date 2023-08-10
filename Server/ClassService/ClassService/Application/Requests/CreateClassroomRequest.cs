@@ -1,6 +1,6 @@
 ﻿namespace Application.Requests
 {
-    public class RegisterClassroomRequest
+    public class CreateClassroomRequest
     {
         public string idUser { get; set; }
         public string nameClassroom { get; set; }

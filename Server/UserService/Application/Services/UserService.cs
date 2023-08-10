@@ -44,7 +44,7 @@ namespace Application.Services
                     TokenAccess = string.Empty,
                     Role = role
                 };
-                _unitOfWork.userRepository.Add(userRegister);
+                _unitOfWork.userRepository.Register(userRegister);
                 _unitOfWork.SaveChange();
                 return true;
             }

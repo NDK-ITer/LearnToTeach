@@ -53,10 +53,10 @@ namespace Server.Controllers
         }
 
         [HttpGet]
-        [Route("GetDateTime")]
-        public ActionResult<DateTime>? GetDateTime()
+        [Route("bool")]
+        public ActionResult<bool>? GetDateTime()
         {
-            return DateTime.Now;
+            return true;
         }
     }
 }
