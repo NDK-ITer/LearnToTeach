@@ -14,7 +14,7 @@ namespace Infrastructure.Configurations
             builder.Property(x => x.CreateDate).HasDefaultValue(DateTime.Now).IsRequired();
             builder.Property(x => x.Description).HasMaxLength(100);
             builder.Property(x => x.IsPrivate).HasDefaultValue(true).IsRequired();
-            builder.Property(x => x.KeyHash).HasMaxLength(200).IsRequired();
+            builder.Property(x => x.KeyHash).HasMaxLength(200);
         }
     }
 }

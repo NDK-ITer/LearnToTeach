@@ -18,7 +18,7 @@ namespace Infrastructure.Context
             modelBuilder.SeedData();
             //base.OnModelCreating(modelBuilder);
         }
-        public DbSet<Classroom> classrooms { get; set; }
-        public DbSet<ClassroomDetail> classroomDetails { get; set; }
+        public DbSet<Classroom> Classrooms { get; set; }
+        public DbSet<ClassroomDetail> ClassroomDetails { get; set; }
     }
 }

@@ -11,11 +11,12 @@ namespace Application.Services
         bool RegisterUser(RegisterRequest registerRequest);
         bool EmailIsExist(string email);
         bool UsernameIsExist(string username);
+        bool UpdateUser (User user);
 
     }
     public class UserService : IUserService
     {
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public UserService(AuthenticationDbContext context)
         {
@@ -65,5 +66,18 @@ namespace Application.Services
             return false;
         }
 
+        public bool UpdateUser(User user)
+        {
+            try
+            {
+                _unitOfWork.userRepository.Update(user);
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
     }
 }

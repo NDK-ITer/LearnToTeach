@@ -1,3 +1,4 @@
+using Application.Services;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,7 @@ var connectionString = builder.Configuration.GetConnectionString("ClassroomConne
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ClassroomDbContext>(option => option.UseSqlServer(connectionString));
+builder.Services.AddTransient<IUnitOfWork_ClassroomService, UnitOfWork_ClassroomService>();
 
 var app = builder.Build();
 

@@ -12,6 +12,6 @@ namespace Domain.Entities
         public string IdClass { get; set; }
         public string? Role { get; set; }
         public string? Description { get; set; }
-        public Classroom classroom { get; set; }
+        public Classroom? classroom { get; set; }
     }
 }
