@@ -12,11 +12,10 @@ namespace Application.Services
         int CreateClassroom(CreateClassroomRequest registerClassroomRequest);
         int UpdateClassroom(UpdateClassroomRepuest updateClassroomRepuest);
         int DeleteClassroom(string idClass);
-        int ChangeToPrivate(string idClass, string key);
-        int AddMember(string idUser);
-        int AddRangeUser(IEnumerable<string> idUsers);
+        int AddMember(string idClassroom, MemberClassroomRequest member);
+        int AddRangeUser(string idClassroom, IEnumerable<string> idUsers);
         int DeleteMember(string idUser);
-        int DeleteRangeMemeber(IEnumerable<string> idUsers);
+        int DeleteRangeMember(IEnumerable<string> idUsers);
     }
     public class ClassroomService : IClassroomService
     {
@@ -26,17 +25,29 @@ namespace Application.Services
             _unitOfWork = new UnitOfWork(context);
         }
 
-        public int AddMember(string idUser)
+        public int AddMember(string idClassroom, MemberClassroomRequest member)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (idClassroom == null) { return 0; }
+                if (member == null) { return 0; }
+
+                var classroom = _unitOfWork.classroomRepository.GetClassroomById(idClassroom);
+                if (classroom == null) { return 0; }
+
+                var classroomDetail = new ClassroomDetail();
+                member.ChangeToClassroomDetail(classroomDetail);
+                _unitOfWork.classroomRepository.AddMember(classroom, classroomDetail);
+                _unitOfWork.SaveChange();
+                return 1;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
         }
 
-        public int AddRangeUser(IEnumerable<string> idUsers)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int ChangeToPrivate(string idClass, string key)
+        public int AddRangeUser(string idClassroom, IEnumerable<string> idUsers)
         {
             throw new NotImplementedException();
         }
@@ -99,7 +110,7 @@ namespace Application.Services
             }
             catch (Exception)
             {
-                return -1; ;
+                return -1;
             }
         }
 
@@ -108,7 +119,7 @@ namespace Application.Services
             throw new NotImplementedException();
         }
 
-        public int DeleteRangeMemeber(IEnumerable<string> idUsers)
+        public int DeleteRangeMember(IEnumerable<string> idUsers)
         {
             throw new NotImplementedException();
         }

@@ -63,5 +63,21 @@ namespace ClassServer.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("AddMember")]
+        public ActionResult AddMember([FromBody] MemberClassroomRequest memberClassroomRequest)
+        {
+            try
+            {
+                _unitOfWork_ClassroomService._classroomService.AddMember(memberClassroomRequest.idClassroom, memberClassroomRequest);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+        }
+
     }
 }

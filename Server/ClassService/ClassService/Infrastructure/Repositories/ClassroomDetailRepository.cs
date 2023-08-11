@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
 using Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -8,17 +9,18 @@ namespace Infrastructure.Repositories
     {
         public ClassroomDetailRepository(ClassroomDbContext context) : base(context)
         {
+            _dbSet.Include(c => c.classroom).Load();
         }
 
-        public void AddRangeClassroomDetail(IEnumerable<ClassroomDetail> classroomDetails)
-        {
-            throw new NotImplementedException();
-        }
+        public void AddClassroomDetail(ClassroomDetail classroomDetail) => Add(classroomDetail);
+        
 
-        public void DeleteRangeClassroomDetail(IEnumerable<ClassroomDetail> classroomDetails)
-        {
-            throw new NotImplementedException();
-        }
+        public void AddRangeClassroomDetail(IEnumerable<ClassroomDetail> classroomDetails) => AddRange(classroomDetails);
+
+
+        public void DeleteRangeClassroomDetail(IEnumerable<ClassroomDetail> classroomDetails) => RemoveRange(classroomDetails);
+
+
 
         public IEnumerable<ClassroomDetail>? GetClassroomDetails(string idClass)
         {

@@ -1,13 +1,18 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
 using Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
+using XAct;
 
 namespace Infrastructure.Repositories
 {
-    public class ClassroomRepository : GenericRepository<Classroom> , IClassroomRepository
+    public class ClassroomRepository : GenericRepository<Classroom>, IClassroomRepository
     {
+        public IClassroomDetailRepository _classroomDetail;
         public ClassroomRepository(ClassroomDbContext context) : base(context)
         {
+            _dbSet.Include(c => c.ListUserId).Load();
+            _classroomDetail = new ClassroomDetailRepository(context);
         }
         public void UpdateClassroom(Classroom classroom) => Update(classroom);
         public void RegisterClassroom(Classroom classroom) => Add(classroom);
@@ -26,8 +31,9 @@ namespace Infrastructure.Repositories
         }
         public Classroom? GetClassroomById(string id)
         {
+            //_context.Set<Classroom>().Include(c => c.ListUserId).Load();
             Classroom? classroom;
-            classroom = Find(c => c.Id == id).FirstOrDefault() as Classroom;
+            classroom = GetById(id);
             if (classroom == null) return null;
             return classroom;
         }
@@ -42,6 +48,23 @@ namespace Infrastructure.Repositories
         public IEnumerable<Classroom>? GetClassroomsArePrivate()
         {
             return Find(c => c.IsPrivate == true);
+        }
+
+        public void AddMember(Classroom classroom, ClassroomDetail member)
+        {
+
+            if (classroom.ListUserId != null) { classroom.ListUserId.AddIfNotAlreadyAdded(member); }
+            else
+            {
+                classroom.ListUserId = new List<ClassroomDetail>();
+                classroom.ListUserId.ToList().Add(member);
+            }
+            UpdateClassroom(classroom);
+        }
+
+        public void AddRangeMember(Classroom classroom, IEnumerable<ClassroomDetail> members)
+        {
+            throw new NotImplementedException();
         }
     }
 }

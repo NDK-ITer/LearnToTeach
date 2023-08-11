@@ -7,7 +7,7 @@ namespace Infrastructure.Repositories
     public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         protected readonly AuthenticationDbContext _context;
-        protected readonly DbSet<T> _dbSet;
+        protected /*readonly*/ DbSet<T> _dbSet;
 
         public GenericRepository(AuthenticationDbContext context)
         {

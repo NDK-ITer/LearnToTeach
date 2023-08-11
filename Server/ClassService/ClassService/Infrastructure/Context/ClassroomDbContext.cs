@@ -2,6 +2,8 @@
 using Infrastructure.Configurations;
 using Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using XAct;
 
 namespace Infrastructure.Context
 {
@@ -9,8 +11,8 @@ namespace Infrastructure.Context
     {
         public ClassroomDbContext(DbContextOptions<ClassroomDbContext> options) : base(options)
         {
-            
         }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ClassroomConfiguration());

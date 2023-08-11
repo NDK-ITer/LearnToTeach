@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
 using Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -8,6 +9,7 @@ namespace Infrastructure.Repositories
     {
         public UserRepository(AuthenticationDbContext context) : base(context)
         {
+            _dbSet.Include(u => u.Role).Load();
         }
 
         public void Register(User user) => Add(user);
