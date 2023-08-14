@@ -121,10 +121,16 @@ namespace Application.Services
             {
                 //check "classroomRequest"
                 if (classroomRequest.idClassroom == string.Empty) return 0;
-                if (classroomRequest.isPrivate == true && classroomRequest.key.IsNullOrEmpty()) return 0;
 
                 //Find classroom need to update
                 var classNeedUpdate = _unitOfWork.classroomRepository.GetById(classroomRequest.idClassroom);
+                
+                //update
+                if (classroomRequest.isPrivate == true && !classroomRequest.key.IsNullOrEmpty())
+                {
+                    classNeedUpdate.KeyHash = KeyHash.Hash(classroomRequest.key);
+                    classNeedUpdate.IsPrivate = true;
+                }
                 classroomRequest.UpdateToClassroom(classNeedUpdate);
 
                 //Save to database

@@ -16,7 +16,7 @@ namespace Application.Requests
         public bool isPrivate { get; set; }
         public List<MemberModel>? Members { get; set; }
 
-
+        //update data from "ClassroomRequest" to "Classroom"
         public void UpdateToClassroom(Classroom classroom)
         {
             if (this.isPrivate == true && this.key.IsNullOrEmpty())
@@ -28,7 +28,6 @@ namespace Application.Requests
             classroom.Name = this.name;
             if (!this.Members.IsNullOrEmpty())
             {
-                //var listIdMember = new List<ClassroomDetail>();
                 foreach (var item in this.Members)
                 {
                     classroom.ListUserId.Add( new ClassroomDetail() 
