@@ -17,11 +17,12 @@ namespace ClassServer.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public ActionResult CreateClassroom([FromBody] CreateClassroomRequest createClassroomRequest)
+        public ActionResult CreateClassroom([FromBody] ClassroomRequest ClassroomRequest)
         {
             try
             {
-                var result = _unitOfWork_ClassroomService._classroomService.CreateClassroom(createClassroomRequest);
+                var check = _unitOfWork_ClassroomService._classroomService.CreateClassroom(ClassroomRequest);
+                if (check != 1) return BadRequest();
                 return Ok("Created Classroom is successful!");
             }
             catch (Exception e)
@@ -32,11 +33,11 @@ namespace ClassServer.Controllers
 
         [HttpPut]
         [Route("Update")]
-        public ActionResult UpdateClassroom([FromBody] UpdateClassroomRequest updateClassroomRequest)
+        public ActionResult UpdateClassroom([FromBody] ClassroomRequest ClassroomRequest)
         {
             try
             {
-                var check = _unitOfWork_ClassroomService._classroomService.UpdateClassroom(updateClassroomRequest);
+                var check = _unitOfWork_ClassroomService._classroomService.UpdateClassroom(ClassroomRequest);
                 if (check == 1) return Ok("Updated Classroom is successful!");
                 else if (check == 0) return BadRequest("Something is Wrong!");
                 else return BadRequest("Updated Classroom is fail!");
@@ -53,23 +54,8 @@ namespace ClassServer.Controllers
         {
             try
             {
-                _unitOfWork_ClassroomService._classroomService.DeleteClassroom(id);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-
-                return BadRequest(e.Message);
-            }
-        }
-
-        [HttpPost]
-        [Route("AddMember")]
-        public ActionResult AddMember([FromBody] MemberClassroomRequest memberClassroomRequest)
-        {
-            try
-            {
-                _unitOfWork_ClassroomService._classroomService.AddMember(memberClassroomRequest.idClassroom, memberClassroomRequest);
+                var check = _unitOfWork_ClassroomService._classroomService.DeleteClassroom(id);
+                if (check != 1) return BadRequest();
                 return Ok();
             }
             catch (Exception e)
@@ -85,6 +71,8 @@ namespace ClassServer.Controllers
         {
             try
             {
+                var check = _unitOfWork_ClassroomService._classroomService.DeleteMember(idClassroom, idMember);
+                if (check != 1) return BadRequest();
                 return Ok();
             }
             catch (Exception e)

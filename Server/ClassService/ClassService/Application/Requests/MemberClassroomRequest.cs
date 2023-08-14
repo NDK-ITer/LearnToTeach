@@ -8,7 +8,7 @@ namespace Application.Requests
         public string idClassroom { get; set; }
         public List<MemberModel> idMembers { get; set; }
 
-        public void ChangeToClassroomDetail(List<ClassroomDetail> classroomDetails)
+        public void UpdateToListClassroomDetail(List<ClassroomDetail> classroomDetails)
         {
             if (classroomDetails == null) { classroomDetails = new List<ClassroomDetail>(); }
             foreach (var item in idMembers)

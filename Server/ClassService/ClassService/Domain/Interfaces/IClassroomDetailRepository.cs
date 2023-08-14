@@ -4,7 +4,7 @@ namespace Domain.Interfaces
 {
     public interface IClassroomDetailRepository : IGenericRepository<ClassroomDetail>
     {
-        IEnumerable<ClassroomDetail> GetClassroomDetails(string idClass);
+        IEnumerable<ClassroomDetail> GetClassroomDetailsByIdUser(string idClass);
         void UpdateClassroomDetail(ClassroomDetail classroomDetail);
         void AddClassroomDetail(ClassroomDetail classroomDetail);
         void AddRangeClassroomDetail(IEnumerable<ClassroomDetail> classroomDetails);

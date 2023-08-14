@@ -9,6 +9,6 @@
         public string? KeyHash { get; set; }
         public string? IdUserHost { get; set; }
         public bool IsPrivate { get; set; }
-        public IEnumerable<ClassroomDetail>? ListUserId { get; set; }
+        public List<ClassroomDetail>? ListUserId { get; set; }
     }
 }

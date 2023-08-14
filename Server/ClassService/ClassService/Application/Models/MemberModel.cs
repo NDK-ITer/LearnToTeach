@@ -1,4 +1,6 @@
-﻿namespace Application.Models
+﻿using Domain.Entities;
+
+namespace Application.Models
 {
     public class MemberModel
     {

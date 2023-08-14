@@ -22,7 +22,7 @@ namespace Infrastructure.Repositories
 
 
 
-        public IEnumerable<ClassroomDetail>? GetClassroomDetails(string idClass)
+        public IEnumerable<ClassroomDetail>? GetClassroomDetailsByIdUser(string idClass)
         {
             return Find(c => c.IdClass == idClass);
         }

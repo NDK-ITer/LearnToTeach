@@ -31,7 +31,6 @@ namespace Infrastructure.Repositories
         }
         public Classroom? GetClassroomById(string id)
         {
-            //_context.Set<Classroom>().Include(c => c.ListUserId).Load();
             Classroom? classroom;
             classroom = GetById(id);
             if (classroom == null) return null;
@@ -48,29 +47,6 @@ namespace Infrastructure.Repositories
         public IEnumerable<Classroom>? GetClassroomsArePrivate()
         {
             return Find(c => c.IsPrivate == true);
-        }
-
-        public void AddMember(Classroom classroom, List<ClassroomDetail> members)
-        {
-
-            if (classroom.ListUserId != null) 
-            {
-                var listMember = classroom.ListUserId.ToList();
-                listMember.AddRange(members);
-                classroom.ListUserId = listMember;
-                UpdateClassroom(classroom);
-            }
-        }
-
-        public void AddRangeMember(Classroom classroom, IEnumerable<ClassroomDetail> members)
-        {
-            if (classroom.ListUserId != null)
-            {
-                var listMember = classroom.ListUserId.ToList();
-                listMember.Add(members);
-                classroom.ListUserId = listMember;
-                UpdateClassroom(classroom);
-            }
         }
     }
 }
