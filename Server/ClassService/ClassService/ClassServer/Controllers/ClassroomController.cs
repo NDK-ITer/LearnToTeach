@@ -30,13 +30,13 @@ namespace ClassServer.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("Update")]
-        public ActionResult UpdateClassroom([FromBody] UpdateClassroomRequest updateClassroomRepuest)
+        public ActionResult UpdateClassroom([FromBody] UpdateClassroomRequest updateClassroomRequest)
         {
             try
             {
-                var check = _unitOfWork_ClassroomService._classroomService.UpdateClassroom(updateClassroomRepuest);
+                var check = _unitOfWork_ClassroomService._classroomService.UpdateClassroom(updateClassroomRequest);
                 if (check == 1) return Ok("Updated Classroom is successful!");
                 else if (check == 0) return BadRequest("Something is Wrong!");
                 else return BadRequest("Updated Classroom is fail!");
