@@ -71,7 +71,7 @@ namespace ClassServer.Controllers
         {
             try
             {
-                var check = _unitOfWork_ClassroomService._classroomService.DeleteMember(idClassroom, idMember);
+                var check = _unitOfWork_ClassroomService._classroomService.RemoveMember(idClassroom, idMember);
                 if (check != 1) return BadRequest();
                 return Ok();
             }

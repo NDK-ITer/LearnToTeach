@@ -12,7 +12,7 @@ namespace Application.Services
         int CreateClassroom(ClassroomRequest classroomRequest);
         int UpdateClassroom(ClassroomRequest classroomRequest);
         int DeleteClassroom(string idClass);
-        int DeleteMember(string idClassroom, string idMember);
+        int RemoveMember(string idClassroom, string idMember);
     }
     public class ClassroomService : IClassroomService
     {
@@ -21,8 +21,8 @@ namespace Application.Services
         {
             _unitOfWork = new UnitOfWork(context);
         }
-
-        public int CreateClassroom(ClassroomRequest classroomRequest)
+        
+        public int CreateClassroom(ClassroomRequest classroomRequest) //To create classroom with "classroomRequest"
         {
             try
             {
@@ -76,11 +76,11 @@ namespace Application.Services
             
         }
 
-        public int DeleteClassroom(string idClass)
+        public int DeleteClassroom(string idClassroom)//To delete classroom with "idClassroom"
         {
             try
             {
-                _unitOfWork.classroomRepository.DeleteClassroom(idClass);
+                _unitOfWork.classroomRepository.DeleteClassroom(idClassroom);
                 _unitOfWork.SaveChange();
                 return 1;
             }
@@ -90,7 +90,8 @@ namespace Application.Services
             }
         }
 
-        public int DeleteMember(string idClassroom, string idMember)
+        public int RemoveMember(string idClassroom, string idMember)
+        //To remove a member of this classroom with "idClassroom" and "idMember"
         {
             try
             {
@@ -109,19 +110,24 @@ namespace Application.Services
             }
             catch (Exception)
             {
-
                 return -1;
             }
         }
 
         public int UpdateClassroom(ClassroomRequest classroomRequest)
+        //To update classroom With "classroomRequest"
         {
             try
             {
+                //check "classroomRequest"
                 if (classroomRequest.idClassroom == string.Empty) return 0;
                 if (classroomRequest.isPrivate == true && classroomRequest.key.IsNullOrEmpty()) return 0;
+
+                //Find classroom need to update
                 var classNeedUpdate = _unitOfWork.classroomRepository.GetById(classroomRequest.idClassroom);
                 classroomRequest.UpdateToClassroom(classNeedUpdate);
+
+                //Save to database
                 _unitOfWork.classroomRepository.UpdateClassroom(classNeedUpdate);
                 _unitOfWork.SaveChange();
                 return 1;
