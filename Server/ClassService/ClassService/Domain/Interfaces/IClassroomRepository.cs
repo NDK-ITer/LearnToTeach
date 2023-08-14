@@ -8,7 +8,7 @@ namespace Domain.Interfaces
         void UpdateClassroom(Classroom classroom);
         void RegisterClassroom(Classroom classroom);
         void DeleteClassroom(string idClassroom);
-        void AddMember(Classroom classroom, ClassroomDetail member);
+        void AddMember(Classroom classroom, List<ClassroomDetail> member);
         void AddRangeMember(Classroom classroom, IEnumerable<ClassroomDetail> members);
         int CheckClassroomIsPrivate(Classroom classroom);
         Classroom GetClassroomById(string id);

@@ -50,21 +50,27 @@ namespace Infrastructure.Repositories
             return Find(c => c.IsPrivate == true);
         }
 
-        public void AddMember(Classroom classroom, ClassroomDetail member)
+        public void AddMember(Classroom classroom, List<ClassroomDetail> members)
         {
 
-            if (classroom.ListUserId != null) { classroom.ListUserId.AddIfNotAlreadyAdded(member); }
-            else
+            if (classroom.ListUserId != null) 
             {
-                classroom.ListUserId = new List<ClassroomDetail>();
-                classroom.ListUserId.ToList().Add(member);
+                var listMember = classroom.ListUserId.ToList();
+                listMember.AddRange(members);
+                classroom.ListUserId = listMember;
+                UpdateClassroom(classroom);
             }
-            UpdateClassroom(classroom);
         }
 
         public void AddRangeMember(Classroom classroom, IEnumerable<ClassroomDetail> members)
         {
-            throw new NotImplementedException();
+            if (classroom.ListUserId != null)
+            {
+                var listMember = classroom.ListUserId.ToList();
+                listMember.Add(members);
+                classroom.ListUserId = listMember;
+                UpdateClassroom(classroom);
+            }
         }
     }
 }

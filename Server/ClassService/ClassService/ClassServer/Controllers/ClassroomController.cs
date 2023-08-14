@@ -32,7 +32,7 @@ namespace ClassServer.Controllers
 
         [HttpPost]
         [Route("Update")]
-        public ActionResult UpdateClassroom([FromBody] UpdateClassroomRepuest updateClassroomRepuest)
+        public ActionResult UpdateClassroom([FromBody] UpdateClassroomRequest updateClassroomRepuest)
         {
             try
             {
@@ -79,5 +79,19 @@ namespace ClassServer.Controllers
             }
         }
 
+        [HttpDelete]
+        [Route("DeleteMember/{idClassroom}/{idMember}")]
+        public ActionResult DeleteMemberInClassroom([FromRoute] string idClassroom, string idMember)
+        {
+            try
+            {
+                return Ok();
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

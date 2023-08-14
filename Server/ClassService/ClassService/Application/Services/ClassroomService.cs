@@ -10,12 +10,10 @@ namespace Application.Services
     public interface IClassroomService
     {
         int CreateClassroom(CreateClassroomRequest registerClassroomRequest);
-        int UpdateClassroom(UpdateClassroomRepuest updateClassroomRepuest);
+        int UpdateClassroom(UpdateClassroomRequest updateClassroomRequest);
         int DeleteClassroom(string idClass);
         int AddMember(string idClassroom, MemberClassroomRequest member);
-        int AddRangeUser(string idClassroom, IEnumerable<string> idUsers);
-        int DeleteMember(string idUser);
-        int DeleteRangeMember(IEnumerable<string> idUsers);
+        int DeleteMember(string idClassroom, MemberClassroomRequest member);
     }
     public class ClassroomService : IClassroomService
     {
@@ -35,9 +33,9 @@ namespace Application.Services
                 var classroom = _unitOfWork.classroomRepository.GetClassroomById(idClassroom);
                 if (classroom == null) { return 0; }
 
-                var classroomDetail = new ClassroomDetail();
-                member.ChangeToClassroomDetail(classroomDetail);
-                _unitOfWork.classroomRepository.AddMember(classroom, classroomDetail);
+                var classroomDetails = new List<ClassroomDetail>();
+                member.ChangeToClassroomDetail(classroomDetails);
+                _unitOfWork.classroomRepository.AddMember(classroom, classroomDetails);
                 _unitOfWork.SaveChange();
                 return 1;
             }
@@ -45,11 +43,6 @@ namespace Application.Services
             {
                 return -1;
             }
-        }
-
-        public int AddRangeUser(string idClassroom, IEnumerable<string> idUsers)
-        {
-            throw new NotImplementedException();
         }
         
         public int CreateClassroom(CreateClassroomRequest createClassroomRequest)
@@ -114,24 +107,19 @@ namespace Application.Services
             }
         }
 
-        public int DeleteMember(string idUser)
+        public int DeleteMember(string idClassroom, MemberClassroomRequest member)
         {
             throw new NotImplementedException();
         }
 
-        public int DeleteRangeMember(IEnumerable<string> idUsers)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int UpdateClassroom(UpdateClassroomRepuest updateClassroomRepuest)
+        public int UpdateClassroom(UpdateClassroomRequest updateClassroomRequest)
         {
             try
             {
-                if (updateClassroomRepuest.idClassroom == string.Empty) return 0;
-                if (updateClassroomRepuest.isPrivate == true && updateClassroomRepuest.key.IsNullOrEmpty()) return 0;
-                var classNeedUpdate = _unitOfWork.classroomRepository.GetById(updateClassroomRepuest.idClassroom);
-                updateClassroomRepuest.UpdateToClassroom(classNeedUpdate);
+                if (updateClassroomRequest.idClassroom == string.Empty) return 0;
+                if (updateClassroomRequest.isPrivate == true && updateClassroomRequest.key.IsNullOrEmpty()) return 0;
+                var classNeedUpdate = _unitOfWork.classroomRepository.GetById(updateClassroomRequest.idClassroom);
+                updateClassroomRequest.UpdateToClassroom(classNeedUpdate);
                 _unitOfWork.classroomRepository.UpdateClassroom(classNeedUpdate);
                 _unitOfWork.SaveChange();
                 return 1;

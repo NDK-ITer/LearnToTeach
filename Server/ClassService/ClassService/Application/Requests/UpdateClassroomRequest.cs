@@ -4,7 +4,7 @@ using XAct;
 
 namespace Application.Requests
 {
-    public class UpdateClassroomRepuest
+    public class UpdateClassroomRequest
     {
         public string idClassroom { get; set; }
         public string? description { get; set; }
