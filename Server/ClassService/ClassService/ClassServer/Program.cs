@@ -9,6 +9,8 @@ var connectionString = builder.Configuration.GetConnectionString("ClassroomConne
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ClassroomDbContext>(option => option.UseSqlServer(connectionString));
 builder.Services.AddTransient<IUnitOfWork_ClassroomService, UnitOfWork_ClassroomService>();
+builder.Services.AddMemoryCache();
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 

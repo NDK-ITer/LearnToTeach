@@ -1,6 +1,10 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Entities;
+using Domain.Interfaces;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 
 namespace Infrastructure.Repositories
 {
@@ -8,11 +12,17 @@ namespace Infrastructure.Repositories
     {
         protected /*readonly*/ ClassroomDbContext _context;
         protected /*readonly*/ DbSet<T> _dbSet;
-
-        public GenericRepository(ClassroomDbContext context)
+        protected string _keyValueCache;
+        protected readonly IMemoryCache _memoryCache;
+        protected MemoryCacheEntryOptions _options { get; set; }
+        protected GenericRepository(ClassroomDbContext context, IMemoryCache memoryCache)
         {
             _context = context;
             _dbSet = _context.Set<T>();
+            _memoryCache = memoryCache;
+            _options = new MemoryCacheEntryOptions();
+            _options.AbsoluteExpiration = DateTime.Now.AddMinutes(30);
+            _options.SlidingExpiration = TimeSpan.FromMinutes(10);
         }
         public void Add(T entity)
         {

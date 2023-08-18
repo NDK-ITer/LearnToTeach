@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Context;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Application.Services
 {
@@ -8,9 +9,9 @@ namespace Application.Services
     }
     public class UnitOfWork_ClassroomService : IUnitOfWork_ClassroomService
     {
-        public UnitOfWork_ClassroomService(ClassroomDbContext context)
+        public UnitOfWork_ClassroomService(ClassroomDbContext context, IMemoryCache memoryCache)
         {
-            _classroomService = new ClassroomService(context);
+            _classroomService = new ClassroomService(context, memoryCache);
         }
 
         public IClassroomService _classroomService { get; private set; }

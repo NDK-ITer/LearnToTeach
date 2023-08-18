@@ -1,14 +1,21 @@
 ﻿using Application.Requests;
+using Application.Responses;
 using Domain.Entities;
 using Infrastructure;
 using Infrastructure.Context;
 using Infrastructure.Repositories;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.IdentityModel.Tokens;
 using XAct;
 
 namespace Application.Services
 {
     public interface IClassroomService
     {
+        ClassroomResponse GetClassroomById(string idClassroom);
+        ClassroomResponse GetClassroomByName(string nameClassroom);
+        List<ClassroomResponse> GetAllClassroom();
+        List<ClassroomResponse> GetAllClassroomPublic();
         int CreateClassroom(ClassroomRequest classroomRequest);
         int UpdateClassroom(ClassroomRequest classroomRequest);
         int DeleteClassroom(string idClass);
@@ -17,9 +24,9 @@ namespace Application.Services
     public class ClassroomService : IClassroomService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ClassroomService(ClassroomDbContext context)
+        public ClassroomService(ClassroomDbContext context, IMemoryCache memoryCache)
         {
-            _unitOfWork = new UnitOfWork(context);
+            _unitOfWork = new UnitOfWork(context, memoryCache);
         }
         
         public int CreateClassroom(ClassroomRequest classroomRequest) //To create classroom with "classroomRequest"
@@ -35,7 +42,7 @@ namespace Application.Services
                     IdUserHost = classroomRequest.idUserHost,
                     Description = classroomRequest.description,
                 };
-                if (classroomRequest.isPrivate == true)
+                if (classroomRequest.isPrivate == true && !classroomRequest.key.IsNullOrEmpty())
                 {
                     classroom.IsPrivate = true;
                     classroom.KeyHash = KeyHash.Hash(classroomRequest.key);
@@ -87,6 +94,79 @@ namespace Application.Services
             catch (Exception)
             {
                 return -1;
+            }
+        }
+
+        public List<ClassroomResponse>? GetAllClassroom()
+        {
+            try
+            {
+                var listClassroom = _unitOfWork.classroomRepository.GetAllClassrooms();
+                var listClassroomResponse = new List<ClassroomResponse>();
+                foreach (var item in listClassroom) 
+                {
+                    listClassroomResponse.Add(new ClassroomResponse(item));
+                }
+                if (!listClassroomResponse.IsNullOrEmpty())
+                    return listClassroomResponse;
+                return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public List<ClassroomResponse>? GetAllClassroomPublic()
+        {
+            try
+            {
+                var listClassroom = _unitOfWork.classroomRepository.GetClassroomsArePublic();
+                var listClassroomResponse = new List<ClassroomResponse>();
+                foreach (var item in listClassroom)
+                {
+                    listClassroomResponse.Add(new ClassroomResponse(item));
+                }
+                if (!listClassroomResponse.IsNullOrEmpty())
+                    return listClassroomResponse;
+                return null;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
+        public ClassroomResponse? GetClassroomById(string idClassroom)
+        {
+            try
+            {
+                var classroom = _unitOfWork.classroomRepository.GetClassroomById(idClassroom);
+                var classroomResponse = new ClassroomResponse(classroom);
+                if (classroom != null)
+                    return classroomResponse;
+                return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public ClassroomResponse? GetClassroomByName(string nameClassroom)
+        {
+            try
+            {
+                var classroom = _unitOfWork.classroomRepository.GetClassroomByName(nameClassroom);
+                var classroomResponse = new ClassroomResponse(classroom);
+                if (classroom != null)
+                    return classroomResponse;
+                return null;
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
 

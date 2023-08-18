@@ -1,6 +1,8 @@
 ﻿using Application.Requests;
+using Application.Responses;
 using Application.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ClassServer.Controllers
 {
@@ -14,7 +16,85 @@ namespace ClassServer.Controllers
         {
             _unitOfWork_ClassroomService = unitOfWork_ClassroomService;
         }
+        /*
+         <summary> </summary>
+         */
+        [HttpGet]
+        [Route("GetAll")]
+        public ActionResult<List<ClassroomResponse>> GetAllClassroom()
+        {
+            try
+            {
+                var classroomResponse = _unitOfWork_ClassroomService._classroomService.GetAllClassroom();
+                if(classroomResponse.IsNullOrEmpty()) return NotFound();
+                return classroomResponse;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
+        /*
+         <summary> </summary>
+         */
+        [HttpGet]
+        [Route("GetPublic")]
+        public ActionResult<List<ClassroomResponse>> GetClassroomPublic()
+        {
+            try
+            {
+                var classroomResponse = _unitOfWork_ClassroomService._classroomService.GetAllClassroomPublic();
+                if (classroomResponse.IsNullOrEmpty()) return NotFound();
+                return classroomResponse;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        /*
+         <summary> </summary>
+         */
+        [HttpGet]
+        [Route("{idClassroom}")]
+        public ActionResult<ClassroomResponse> GetClassById([FromRoute] string idClassroom)
+        {
+            try
+            {
+                var classroomResponse = _unitOfWork_ClassroomService._classroomService.GetClassroomById(idClassroom);
+                if (classroomResponse != null)
+                    return classroomResponse;
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        /*
+         <summary> </summary>
+         */
+        [HttpGet]
+        [Route("Name/{nameClassroom}")]
+        public ActionResult<ClassroomResponse> GetClassByName([FromRoute] string nameClassroom)
+        {
+            try
+            {
+                var classroomResponse = _unitOfWork_ClassroomService._classroomService.GetClassroomByName(nameClassroom);
+                if (classroomResponse != null)
+                    return classroomResponse;
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        /*
+         <summary> </summary>
+         */
         [HttpPost]
         [Route("Create")]
         public ActionResult CreateClassroom([FromBody] ClassroomRequest ClassroomRequest)
@@ -30,7 +110,9 @@ namespace ClassServer.Controllers
                 return BadRequest(e.Message);
             }
         }
-
+        /*
+         <summary> </summary>
+         */
         [HttpPut]
         [Route("Update")]
         public ActionResult UpdateClassroom([FromBody] ClassroomRequest ClassroomRequest)
@@ -47,24 +129,27 @@ namespace ClassServer.Controllers
                 return BadRequest(e.Message);
             }
         }
-
+        /*
+         <summary> </summary>
+         */
         [HttpDelete]
-        [Route("Delete/{id}")]
-        public ActionResult DeleteClassroom([FromRoute] string id)
+        [Route("Delete/{idClassroom}")]
+        public ActionResult DeleteClassroom([FromRoute] string idClassroom)
         {
             try
             {
-                var check = _unitOfWork_ClassroomService._classroomService.DeleteClassroom(id);
+                var check = _unitOfWork_ClassroomService._classroomService.DeleteClassroom(idClassroom);
                 if (check != 1) return BadRequest();
                 return Ok();
             }
             catch (Exception e)
             {
-
                 return BadRequest(e.Message);
             }
         }
-
+        /*
+         <summary> </summary>
+         */
         [HttpDelete]
         [Route("DeleteMember/{idClassroom}/{idMember}")]
         public ActionResult DeleteMemberInClassroom([FromRoute] string idClassroom, string idMember)

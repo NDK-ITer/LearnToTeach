@@ -11,7 +11,8 @@ namespace Domain.Interfaces
         int CheckClassroomIsPrivate(Classroom classroom);
         Classroom GetClassroomById(string id);
         Classroom GetClassroomByName(string name);
-        IEnumerable<Classroom> GetAllClassrooms();
-        IEnumerable<Classroom> GetClassroomsArePrivate();
+        List<Classroom> GetAllClassrooms();
+        List<Classroom> GetClassroomsArePublic();
+        List<Classroom>? GetClassroomsArePrivate();
     }
 }
