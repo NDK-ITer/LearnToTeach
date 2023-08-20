@@ -38,14 +38,14 @@ namespace Application.Services
                 var classroom = new Classroom()
                 {
                     Id = idClassroom,
-                    Name = classroomRequest.name,
-                    IdUserHost = classroomRequest.idUserHost,
-                    Description = classroomRequest.description,
+                    Name = classroomRequest.classroomModel.name,
+                    IdUserHost = classroomRequest.classroomModel.idUserHost,
+                    Description = classroomRequest.classroomModel.description,
                 };
-                if (classroomRequest.isPrivate == true && !classroomRequest.key.IsNullOrEmpty())
+                if (classroomRequest.classroomModel.isPrivate == true && !classroomRequest.classroomModel.key.IsNullOrEmpty())
                 {
                     classroom.IsPrivate = true;
-                    classroom.KeyHash = KeyHash.Hash(classroomRequest.key);
+                    classroom.KeyHash = KeyHash.Hash(classroomRequest.classroomModel.key);
                 }
                 else
                 {
@@ -54,10 +54,10 @@ namespace Application.Services
                 }
 
                 //check and add member to this classroom
-                if (classroomRequest.Members != null)
+                if (classroomRequest.classroomModel.Members != null)
                 {
                     var listUserTemp = new List<ClassroomDetail>();
-                    foreach (var item in classroomRequest.Members)
+                    foreach (var item in classroomRequest.classroomModel.Members)
                     {
                         var classroomDetail = new ClassroomDetail() 
                         {
@@ -200,15 +200,15 @@ namespace Application.Services
             try
             {
                 //check "classroomRequest"
-                if (classroomRequest.idClassroom == string.Empty) return 0;
+                if (classroomRequest.classroomModel.idClassroom == string.Empty) return 0;
 
                 //Find classroom need to update
-                var classNeedUpdate = _unitOfWork.classroomRepository.GetById(classroomRequest.idClassroom);
+                var classNeedUpdate = _unitOfWork.classroomRepository.GetById(classroomRequest.classroomModel.idClassroom);
                 
                 //update
-                if (classroomRequest.isPrivate == true && !classroomRequest.key.IsNullOrEmpty())
+                if (classroomRequest.classroomModel.isPrivate == true && !classroomRequest.classroomModel.key.IsNullOrEmpty())
                 {
-                    classNeedUpdate.KeyHash = KeyHash.Hash(classroomRequest.key);
+                    classNeedUpdate.KeyHash = KeyHash.Hash(classroomRequest.classroomModel.key);
                     classNeedUpdate.IsPrivate = true;
                 }
                 classroomRequest.UpdateToClassroom(classNeedUpdate);
