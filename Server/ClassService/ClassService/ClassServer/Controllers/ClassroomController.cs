@@ -1,5 +1,5 @@
-﻿using Application.Requests;
-using Application.Responses;
+﻿using Application.Models;
+using Application.Requests;
 using Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -21,7 +21,7 @@ namespace ClassServer.Controllers
          */
         [HttpGet]
         [Route("GetAll")]
-        public ActionResult<List<ClassroomResponse>> GetAllClassroom()
+        public ActionResult<List<ClassroomModel>> GetAllClassroom()
         {
             try
             {
@@ -40,7 +40,7 @@ namespace ClassServer.Controllers
          */
         [HttpGet]
         [Route("GetPublic")]
-        public ActionResult<List<ClassroomResponse>> GetClassroomPublic()
+        public ActionResult<List<ClassroomModel>> GetClassroomPublic()
         {
             try
             {
@@ -59,7 +59,7 @@ namespace ClassServer.Controllers
          */
         [HttpGet]
         [Route("{idClassroom}")]
-        public ActionResult<ClassroomResponse> GetClassById([FromRoute] string idClassroom)
+        public ActionResult<ClassroomModel> GetClassById([FromRoute] string idClassroom)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace ClassServer.Controllers
          */
         [HttpGet]
         [Route("Name/{nameClassroom}")]
-        public ActionResult<ClassroomResponse> GetClassByName([FromRoute] string nameClassroom)
+        public ActionResult<ClassroomModel> GetClassByName([FromRoute] string nameClassroom)
         {
             try
             {

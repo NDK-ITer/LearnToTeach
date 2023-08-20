@@ -1,6 +1,7 @@
 ﻿using Domain.Interfaces;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Infrastructure.Repositories
 {
@@ -8,30 +9,35 @@ namespace Infrastructure.Repositories
     {
         protected readonly AuthenticationDbContext _context;
         protected /*readonly*/ DbSet<T> _dbSet;
+        protected IMemoryCache _cache;
+        protected MemoryCacheEntryOptions _options;
 
         public GenericRepository(AuthenticationDbContext context)
         {
             _context = context;
             _dbSet = _context.Set<T>();
+            _options = new MemoryCacheEntryOptions();
+            _options.AbsoluteExpiration = DateTime.Now.AddMinutes(30);
+            _options.SlidingExpiration = TimeSpan.FromMinutes(10);
         }
         public void Add(T entity)
         {
            _dbSet.Add(entity);
         }
 
-        public void AddRange(IEnumerable<T> entities)
+        public void AddRange(List<T> entities)
         {
             _dbSet.AddRange(entities);
         }
 
-        public IEnumerable<T>? Find(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        public List<T>? Find(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
         {
-            var result = _dbSet.Where(predicate);
+            var result = _dbSet.Where(predicate).ToList();
             if (result == null) { return null; }
             return result;
         }
 
-        public IEnumerable<T> GetAll()
+        public List<T> GetAll()
         {
             return _dbSet.ToList();
         }
@@ -48,7 +54,7 @@ namespace Infrastructure.Repositories
             _dbSet.Remove(entity);
         }
 
-        public void RemoveRange(IEnumerable<T> entities)
+        public void RemoveRange(List<T> entities)
         {
             _dbSet.RemoveRange(entities);
         }

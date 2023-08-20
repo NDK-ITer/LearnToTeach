@@ -14,7 +14,7 @@ namespace Infrastructure.Repositories
         protected /*readonly*/ DbSet<T> _dbSet;
         protected string _keyValueCache;
         protected readonly IMemoryCache _memoryCache;
-        protected MemoryCacheEntryOptions _options { get; set; }
+        protected MemoryCacheEntryOptions _options;
         protected GenericRepository(ClassroomDbContext context, IMemoryCache memoryCache)
         {
             _context = context;

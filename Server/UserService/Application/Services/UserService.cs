@@ -1,26 +1,52 @@
-﻿using Application.Requests;
+﻿using Application.Models;
+using Application.Requests;
 using Domain.Entities;
 using Infrastructure;
 using Infrastructure.Context;
 using Infrastructure.Repositories;
+using JwtAuthenticationManager;
+using JwtAuthenticationManager.Models;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Application.Services
 {
     public interface IUserService
     {
+        LoginReponse GetJwtUserInfor(string username, string password);
         bool RegisterUser(RegisterRequest registerRequest);
         bool EmailIsExist(string email);
         bool UsernameIsExist(string username);
         bool UpdateUser (User user);
-
+        bool LockUser (User user);
+        List<UserModel> GetAllUsers();
+        UserModel GetUserById(string idUser);
     }
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public UserService(AuthenticationDbContext context)
+        public UserService(AuthenticationDbContext context, IMemoryCache cache)
         {
-            _unitOfWork = new UnitOfWork(context);
+            _unitOfWork = new UnitOfWork(context, cache);
+        }
+
+        public LoginReponse? GetJwtUserInfor(string username, string password)//Login
+        {
+            var checkLogin = _unitOfWork.userRepository.CheckAccountValid(username, password);
+            if (!checkLogin) { return null; }
+            var user = _unitOfWork.userRepository.GetUserByUsername(username);
+            if (user.IsLock == true)
+            {
+                return null;
+            }
+            user.Role = _unitOfWork.roleRepository.GetRoleById(user.RoleId);
+            var jwtUserInfor = new JwtUserInfor()
+            {
+                Id = user.id,
+                Fullname = user.FirstName + " " + user.LastName,
+                Role = user.Role.Name
+            };
+            return JwtTokenHandler.GenerateJwtToken(jwtUserInfor);
         }
 
         public bool RegisterUser(RegisterRequest registerRequest)
@@ -75,8 +101,53 @@ namespace Application.Services
             }
             catch (Exception)
             {
-
                 return false;
+            }
+        }
+
+        public bool LockUser(User user)
+        {
+            try
+            {
+                if (user.IsLock == false) user.IsLock = true;
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public List<UserModel>? GetAllUsers()
+        {
+            try
+            {
+                var listUser = new List<UserModel>();
+                foreach (var item in _unitOfWork.userRepository.GetAllUsers())
+                {
+                    listUser.Add(new UserModel(item));
+                }
+                return listUser;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
+        public UserModel? GetUserById(string idUser)
+        {
+            try
+            {
+                var user = _unitOfWork.userRepository.GetUserById(idUser);
+                if (user == null) return null;
+                return new UserModel(user);
+            }
+            catch (Exception)
+            {
+
+                return null;
             }
         }
     }

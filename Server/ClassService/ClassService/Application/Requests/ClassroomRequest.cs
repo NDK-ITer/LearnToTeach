@@ -8,22 +8,28 @@ namespace Application.Requests
 {
     public class ClassroomRequest
     {
-        public ClassroomModel classroomModel { get; set; }
-        
+        public string? idClassroom { get; set; }
+        public string? description { get; set; }
+        public string? idUserHost { get; set; }
+        public string? key { get; set; }
+        public string? name { get; set; }
+        public bool isPrivate { get; set; }
+        public List<MemberModel>? Members { get; set; }
+
 
         //update data from "ClassroomRequest" to "Classroom"
         public void UpdateToClassroom(Classroom classroom)
         {
-            if (this.classroomModel.isPrivate == true && this.classroomModel.key.IsNullOrEmpty())
+            if (this.isPrivate == true && this.key.IsNullOrEmpty())
             {
-                classroom.KeyHash = KeyHash.Hash(this.classroomModel.key);
-                classroom.IsPrivate = this.classroomModel.isPrivate;
+                classroom.KeyHash = KeyHash.Hash(this.key);
+                classroom.IsPrivate = this.isPrivate;
             }
-            classroom.Description = this.classroomModel.description;
-            classroom.Name = this.classroomModel.name;
-            if (!this.classroomModel.Members.IsNullOrEmpty())
+            classroom.Description = this.description;
+            classroom.Name = this.name;
+            if (!this.Members.IsNullOrEmpty())
             {
-                foreach (var item in this.classroomModel.Members)
+                foreach (var item in this.Members)
                 {
                     classroom.ListUserId.Add( new ClassroomDetail() 
                         { 

@@ -1,5 +1,5 @@
-﻿using Application.Requests;
-using Application.Responses;
+﻿using Application.Models;
+using Application.Requests;
 using Domain.Entities;
 using Infrastructure;
 using Infrastructure.Context;
@@ -12,10 +12,10 @@ namespace Application.Services
 {
     public interface IClassroomService
     {
-        ClassroomResponse GetClassroomById(string idClassroom);
-        ClassroomResponse GetClassroomByName(string nameClassroom);
-        List<ClassroomResponse> GetAllClassroom();
-        List<ClassroomResponse> GetAllClassroomPublic();
+        ClassroomModel GetClassroomById(string idClassroom);
+        ClassroomModel GetClassroomByName(string nameClassroom);
+        List<ClassroomModel> GetAllClassroom();
+        List<ClassroomModel> GetAllClassroomPublic();
         int CreateClassroom(ClassroomRequest classroomRequest);
         int UpdateClassroom(ClassroomRequest classroomRequest);
         int DeleteClassroom(string idClass);
@@ -38,14 +38,14 @@ namespace Application.Services
                 var classroom = new Classroom()
                 {
                     Id = idClassroom,
-                    Name = classroomRequest.classroomModel.name,
-                    IdUserHost = classroomRequest.classroomModel.idUserHost,
-                    Description = classroomRequest.classroomModel.description,
+                    Name = classroomRequest.name,
+                    IdUserHost = classroomRequest.idUserHost,
+                    Description = classroomRequest.description,
                 };
-                if (classroomRequest.classroomModel.isPrivate == true && !classroomRequest.classroomModel.key.IsNullOrEmpty())
+                if (classroomRequest.isPrivate == true && !classroomRequest.key.IsNullOrEmpty())
                 {
                     classroom.IsPrivate = true;
-                    classroom.KeyHash = KeyHash.Hash(classroomRequest.classroomModel.key);
+                    classroom.KeyHash = KeyHash.Hash(classroomRequest.key);
                 }
                 else
                 {
@@ -54,10 +54,10 @@ namespace Application.Services
                 }
 
                 //check and add member to this classroom
-                if (classroomRequest.classroomModel.Members != null)
+                if (classroomRequest.Members != null)
                 {
                     var listUserTemp = new List<ClassroomDetail>();
-                    foreach (var item in classroomRequest.classroomModel.Members)
+                    foreach (var item in classroomRequest.Members)
                     {
                         var classroomDetail = new ClassroomDetail() 
                         {
@@ -97,18 +97,18 @@ namespace Application.Services
             }
         }
 
-        public List<ClassroomResponse>? GetAllClassroom()
+        public List<ClassroomModel>? GetAllClassroom()
         {
             try
             {
                 var listClassroom = _unitOfWork.classroomRepository.GetAllClassrooms();
-                var listClassroomResponse = new List<ClassroomResponse>();
+                var listClassroomModel = new List<ClassroomModel>();
                 foreach (var item in listClassroom) 
                 {
-                    listClassroomResponse.Add(new ClassroomResponse(item));
+                    listClassroomModel.Add(new ClassroomModel(item));
                 }
-                if (!listClassroomResponse.IsNullOrEmpty())
-                    return listClassroomResponse;
+                if (!listClassroomModel.IsNullOrEmpty())
+                    return listClassroomModel;
                 return null;
             }
             catch (Exception)
@@ -117,18 +117,18 @@ namespace Application.Services
             }
         }
 
-        public List<ClassroomResponse>? GetAllClassroomPublic()
+        public List<ClassroomModel>? GetAllClassroomPublic()
         {
             try
             {
                 var listClassroom = _unitOfWork.classroomRepository.GetClassroomsArePublic();
-                var listClassroomResponse = new List<ClassroomResponse>();
+                var listClassroomModel = new List<ClassroomModel>();
                 foreach (var item in listClassroom)
                 {
-                    listClassroomResponse.Add(new ClassroomResponse(item));
+                    listClassroomModel.Add(new ClassroomModel(item));
                 }
-                if (!listClassroomResponse.IsNullOrEmpty())
-                    return listClassroomResponse;
+                if (!listClassroomModel.IsNullOrEmpty())
+                    return listClassroomModel;
                 return null;
             }
             catch (Exception)
@@ -138,12 +138,12 @@ namespace Application.Services
             }
         }
 
-        public ClassroomResponse? GetClassroomById(string idClassroom)
+        public ClassroomModel? GetClassroomById(string idClassroom)
         {
             try
             {
                 var classroom = _unitOfWork.classroomRepository.GetClassroomById(idClassroom);
-                var classroomResponse = new ClassroomResponse(classroom);
+                var classroomResponse = new ClassroomModel(classroom);
                 if (classroom != null)
                     return classroomResponse;
                 return null;
@@ -154,12 +154,12 @@ namespace Application.Services
             }
         }
 
-        public ClassroomResponse? GetClassroomByName(string nameClassroom)
+        public ClassroomModel? GetClassroomByName(string nameClassroom)
         {
             try
             {
                 var classroom = _unitOfWork.classroomRepository.GetClassroomByName(nameClassroom);
-                var classroomResponse = new ClassroomResponse(classroom);
+                var classroomResponse = new ClassroomModel(classroom);
                 if (classroom != null)
                     return classroomResponse;
                 return null;
@@ -200,15 +200,15 @@ namespace Application.Services
             try
             {
                 //check "classroomRequest"
-                if (classroomRequest.classroomModel.idClassroom == string.Empty) return 0;
+                if (classroomRequest.idClassroom == string.Empty) return 0;
 
                 //Find classroom need to update
-                var classNeedUpdate = _unitOfWork.classroomRepository.GetById(classroomRequest.classroomModel.idClassroom);
+                var classNeedUpdate = _unitOfWork.classroomRepository.GetById(classroomRequest.idClassroom);
                 
                 //update
-                if (classroomRequest.classroomModel.isPrivate == true && !classroomRequest.classroomModel.key.IsNullOrEmpty())
+                if (classroomRequest.isPrivate == true && !classroomRequest.key.IsNullOrEmpty())
                 {
-                    classNeedUpdate.KeyHash = KeyHash.Hash(classroomRequest.classroomModel.key);
+                    classNeedUpdate.KeyHash = KeyHash.Hash(classroomRequest.key);
                     classNeedUpdate.IsPrivate = true;
                 }
                 classroomRequest.UpdateToClassroom(classNeedUpdate);

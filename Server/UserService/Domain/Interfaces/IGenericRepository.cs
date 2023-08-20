@@ -5,12 +5,12 @@ namespace Domain.Interfaces
     public interface IGenericRepository<T> where T : class
     {
         T GetById(string id);
-        IEnumerable<T> GetAll();
-        IEnumerable<T> Find(Expression<Func<T,bool>> predicate);
+        List<T> GetAll();
+        List<T> Find(Expression<Func<T,bool>> predicate);
         void Add(T entity);
-        void AddRange(IEnumerable<T> entities);
+        void AddRange(List<T> entities);
         void Update(T entity);
         void Remove(T entity);
-        void RemoveRange(IEnumerable<T> entities);
+        void RemoveRange(List<T> entities);
     }
 }

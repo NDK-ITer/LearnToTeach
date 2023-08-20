@@ -1,26 +1,21 @@
 ﻿using Infrastructure.Context;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Application.Services
 {
     public interface IUnitOfWork_UserService
     {
-        IAuthenticationService AuthenticationService { get; }
         IUserService UserService { get; }
         IRoleService RoleService { get; }
     }
     public class UnitOfWork_UserService : IUnitOfWork_UserService
     {
-        private readonly AuthenticationDbContext _context;
-
-        public UnitOfWork_UserService(AuthenticationDbContext context)
+        public UnitOfWork_UserService(AuthenticationDbContext context, IMemoryCache cache)
         {
-            _context = context;
-            AuthenticationService = new AuthenticationService(context);
-            UserService = new UserService(context);
+            UserService = new UserService(context, cache);
             RoleService = new RoleService(context);
         }
 
-        public IAuthenticationService AuthenticationService { get; private set; }
 
         public IUserService UserService { get; private set; }
 

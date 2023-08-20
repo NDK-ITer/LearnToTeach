@@ -23,7 +23,7 @@ namespace Server.Controllers
         [Route("Login")]
         public ActionResult<LoginReponse>? Login([FromBody]LoginRequest loginRequest)
         {
-            var jwt = _unitOfWork_UserService.AuthenticationService.GetJwtUserInfor(loginRequest.UserName, loginRequest.Password);
+            var jwt = _unitOfWork_UserService.UserService.GetJwtUserInfor(loginRequest.UserName, loginRequest.Password);
             if (jwt != null)
             {
                 return jwt;
@@ -51,12 +51,6 @@ namespace Server.Controllers
             }
             
         }
-
-        [HttpGet]
-        [Route("bool")]
-        public ActionResult<bool>? GetDateTime()
-        {
-            return true;
-        }
+        
     }
 }

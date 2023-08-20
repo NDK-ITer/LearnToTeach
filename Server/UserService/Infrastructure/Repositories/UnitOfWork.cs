@@ -1,5 +1,6 @@
 ﻿using Domain.Interfaces;
 using Infrastructure.Context;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Infrastructure.Repositories
 {
@@ -13,10 +14,10 @@ namespace Infrastructure.Repositories
     {
         private readonly AuthenticationDbContext _context;
 
-        public UnitOfWork(AuthenticationDbContext context)
+        public UnitOfWork(AuthenticationDbContext context, IMemoryCache cache)
         {
             _context = context;
-            userRepository = new UserRepository(context);
+            userRepository = new UserRepository(context, cache);
             roleRepository = new RoleRepository(context);
         }
 
