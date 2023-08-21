@@ -38,6 +38,24 @@ namespace UserServer.Controllers
             {
                 if (idUser == null) return BadRequest("idUser is null");
                 var result = _unitOfWork_UserService.UserService.GetUserById(idUser);
+                if (result == null) return NotFound();
+                return result;
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpGet]
+        [Route("role/{roleName}")]
+        public ActionResult<List<UserModel>> GetUserWithRole([FromRoute]string roleName) 
+        {
+            try
+            {
+                if (roleName == null) return BadRequest("roleName is null");
+                var result = _unitOfWork_UserService.UserService.GetUserWithRole(roleName);
+                if (result == null) return NotFound();
                 return result;
             }
             catch (Exception e)

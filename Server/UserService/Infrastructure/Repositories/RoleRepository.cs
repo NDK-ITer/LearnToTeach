@@ -9,7 +9,7 @@ namespace Infrastructure.Repositories
     {
         public RoleRepository(AuthenticationDbContext context) : base(context)
         {
-            _dbSet.Include(c => c.Users);
+            _dbSet.Include(c => c.Users).Load();
         }
         public Role? GetRoleById(string id) => GetById(id);
         public Role? GetRoleByName(string name) => Find(u => u.Name == name.ToUpper()).FirstOrDefault() as Role;

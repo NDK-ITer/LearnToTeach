@@ -7,6 +7,7 @@ using Infrastructure.Repositories;
 using JwtAuthenticationManager;
 using JwtAuthenticationManager.Models;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Application.Services
 {
@@ -19,6 +20,7 @@ namespace Application.Services
         bool UpdateUser (User user);
         bool LockUser (User user);
         List<UserModel> GetAllUsers();
+        List<UserModel> GetUserWithRole(string roleName);
         UserModel GetUserById(string idUser);
     }
     public class UserService : IUserService
@@ -143,6 +145,27 @@ namespace Application.Services
                 var user = _unitOfWork.userRepository.GetUserById(idUser);
                 if (user == null) return null;
                 return new UserModel(user);
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
+        public List<UserModel>? GetUserWithRole(string roleName)
+        {
+            try
+            {
+                if(roleName.IsNullOrEmpty()) return null;
+                var listUser = new List<UserModel>();
+                var users = _unitOfWork.roleRepository.GetRoleByName(roleName).Users;
+                if(users == null) return null;  
+                foreach (var item in users)
+                {
+                    listUser.Add(new UserModel(item));
+                }
+                return listUser;
             }
             catch (Exception)
             {
