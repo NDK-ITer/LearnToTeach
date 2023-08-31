@@ -14,7 +14,7 @@ namespace Application.Services
     public interface IUserService
     {
         LoginReponse GetJwtUserInfor(string username, string password);
-        bool RegisterUser(RegisterRequest registerRequest);
+        UserModel RegisterUser(RegisterRequest registerRequest);
         bool EmailIsExist(string email);
         bool UsernameIsExist(string username);
         bool UpdateUser (User user);
@@ -22,6 +22,8 @@ namespace Application.Services
         List<UserModel> GetAllUsers();
         List<UserModel> GetUserWithRole(string roleName);
         UserModel GetUserById(string idUser);
+        UserModel GetUserUsername(string username);
+
     }
     public class UserService : IUserService
     {
@@ -51,7 +53,7 @@ namespace Application.Services
             return JwtTokenHandler.GenerateJwtToken(jwtUserInfor);
         }
 
-        public bool RegisterUser(RegisterRequest registerRequest)
+        public UserModel? RegisterUser(RegisterRequest registerRequest)
         {
             try
             {
@@ -74,11 +76,11 @@ namespace Application.Services
                 };
                 _unitOfWork.userRepository.Register(userRegister);
                 _unitOfWork.SaveChange();
-                return true;
+                return new UserModel(userRegister);
             }
             catch (Exception)
             {
-                return false;
+                return null;
             }
         }
 
@@ -166,6 +168,22 @@ namespace Application.Services
                     listUser.Add(new UserModel(item));
                 }
                 return listUser;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
+        public UserModel? GetUserUsername(string username)
+        {
+            try
+            {
+                var user = _unitOfWork.userRepository.Find(u => u.UserName == username).FirstOrDefault();
+                if (user == null) return null;
+                var userModel = new UserModel(user);
+                return userModel;
             }
             catch (Exception)
             {

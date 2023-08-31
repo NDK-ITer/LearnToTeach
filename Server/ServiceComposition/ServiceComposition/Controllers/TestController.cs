@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ServiceComposition.Message;
 
 namespace ServiceComposition.Controllers
 {
@@ -6,9 +7,18 @@ namespace ServiceComposition.Controllers
     [ApiController]
     public class TestController : ControllerBase
     {
-        public TestController()
+        private readonly MessageConsumer messageConsumer;
+
+        public TestController(MessageConsumer messageConsumer)
         {
-            
+            this.messageConsumer = messageConsumer;
+        }
+
+        [HttpGet]
+        [Route("test")]
+        public ActionResult<string> Get()
+        {
+            return "hi";   
         }
     }
 }

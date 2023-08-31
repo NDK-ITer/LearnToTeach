@@ -18,8 +18,6 @@ builder.Services.AddMassTransit(mass =>
             h.Username("guest");
             h.Password("guest");
         });
-        //cfg.Host("amqp://guest:guest@localhost:5672");
-
     });
 
 });

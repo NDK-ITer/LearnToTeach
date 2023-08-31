@@ -1,5 +1,6 @@
 ﻿using Application.Models;
 using Application.Services;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UserServer.Controllers
@@ -9,9 +10,12 @@ namespace UserServer.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUnitOfWork_UserService _unitOfWork_UserService;
-        public UserController(IUnitOfWork_UserService unitOfWork_UserService)
+        private readonly IPublishEndpoint _publishEndpoint;
+        public UserController(IUnitOfWork_UserService unitOfWork_UserService,
+            IPublishEndpoint publishEndpoint)
         {
             _unitOfWork_UserService = unitOfWork_UserService;
+            _publishEndpoint = publishEndpoint;
         }
 
         [HttpGet]
@@ -39,6 +43,7 @@ namespace UserServer.Controllers
                 if (idUser == null) return BadRequest("idUser is null");
                 var result = _unitOfWork_UserService.UserService.GetUserById(idUser);
                 if (result == null) return NotFound();
+                _publishEndpoint.Publish(result);
                 return result;
             }
             catch (Exception e)

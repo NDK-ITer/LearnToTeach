@@ -4,22 +4,23 @@ using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using SendMail.ClassDefine;
 using SendMail.Interfaces;
+using UserServer.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AuthConnectString");
 // Add services to the container.
-builder.Services.AddMassTransit(x =>
+builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("Endpoints"));
+builder.Services.AddMassTransit(mass =>
 {
-    x.UsingRabbitMq((context, cfg) =>
+    mass.UsingRabbitMq((context, cfg) =>
     {
         cfg.Host("localhost", "/", h =>
         {
             h.Username("guest");
             h.Password("guest");
         });
-
-        cfg.ConfigureEndpoints(context);
     });
+
 });
 builder.Services.AddControllers();
 builder.Services.AddControllers();
