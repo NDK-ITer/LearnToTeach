@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="..\RabbitMQ_Lib\RabbitMQ_Lib.csproj" />
     <ProjectReference Include="..\SendMail\SendMail.csproj" />
   </ItemGroup>
 	

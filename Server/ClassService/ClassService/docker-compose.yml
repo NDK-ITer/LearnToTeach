@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  classserver:
+    image: ${DOCKER_REGISTRY-}classserver
+    build:
+      context: .
+      dockerfile: ClassServer/Dockerfile

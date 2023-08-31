@@ -1,6 +1,7 @@
 ﻿using Application.Models;
 using Application.Requests;
 using Application.Services;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -11,11 +12,16 @@ namespace ClassServer.Controllers
     public class ClassroomController : ControllerBase
     {
         private readonly IUnitOfWork_ClassroomService _unitOfWork_ClassroomService;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public ClassroomController(IUnitOfWork_ClassroomService unitOfWork_ClassroomService)
+        public ClassroomController(IUnitOfWork_ClassroomService unitOfWork_ClassroomService, 
+            IPublishEndpoint publishEndpoint
+            )
         {
             _unitOfWork_ClassroomService = unitOfWork_ClassroomService;
+            _publishEndpoint = publishEndpoint;
         }
+
         /*
          <summary> </summary>
          */
@@ -65,7 +71,12 @@ namespace ClassServer.Controllers
             {
                 var classroomResponse = _unitOfWork_ClassroomService._classroomService.GetClassroomById(idClassroom);
                 if (classroomResponse != null)
+                {
+                    //_publishEndpoint.Publish<ClassroomModel>(classroomResponse);
+                    //_bus.Publish(classroomResponse);
+                    _publishEndpoint.Publish(classroomResponse);
                     return classroomResponse;
+                }
                 return NotFound();
             }
             catch (Exception e)
