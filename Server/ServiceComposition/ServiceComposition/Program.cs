@@ -6,15 +6,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddMassTransit(mass =>
 {
-    mass.AddConsumer<MessageConsumer>();
+    mass.AddConsumer<ClassroomConsumer>();
+    mass.AddConsumer<UserConsumer>();
     mass.UsingRabbitMq((context, cfg) =>
     {
         cfg.Host("amqp://guest:guest@localhost:5672");
-        cfg.ReceiveEndpoint("classroom-service-queue", ep => {
-            ep.ConfigureConsumer<MessageConsumer>(context);
+
+        cfg.ReceiveEndpoint("classroom-service-queue", ep =>
+        {
+            ep.ConfigureConsumer<ClassroomConsumer>(context);
         });
         cfg.ReceiveEndpoint("user-service-queue", ep => {
-            ep.ConfigureConsumer<MessageConsumer>(context);
+            ep.ConfigureConsumer<UserConsumer>(context);
         });
     });
 });

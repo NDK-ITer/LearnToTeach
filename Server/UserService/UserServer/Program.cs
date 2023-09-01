@@ -14,20 +14,15 @@ builder.Services.AddMassTransit(mass =>
 {
     mass.UsingRabbitMq((context, cfg) =>
     {
-        cfg.Host("localhost", "/", h =>
-        {
-            h.Username("guest");
-            h.Password("guest");
-        });
+        cfg.Host("amqp://guest:guest@localhost:5672");
     });
 
 });
-builder.Services.AddControllers();
-builder.Services.AddControllers();
 // add Entity framework
 builder.Services.AddDbContext<AuthenticationDbContext>(option => option.UseSqlServer(connectionString));
 builder.Services.AddTransient<IUnitOfWork_UserService, UnitOfWork_UserService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.AddControllers();
 builder.Services.AddMemoryCache();
 var app = builder.Build();
 

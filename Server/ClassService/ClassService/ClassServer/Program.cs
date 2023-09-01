@@ -13,14 +13,11 @@ builder.Services.AddMassTransit(mass =>
 {
     mass.UsingRabbitMq((context, cfg) =>
     {
-        cfg.Host("localhost", "/", h =>
-        {
-            h.Username("guest");
-            h.Password("guest");
-        });
+        cfg.Host("amqp://guest:guest@localhost:5672");
     });
 
 });
+
 builder.Services.AddControllers();
 builder.Services.AddMemoryCache();
 builder.Services.AddHealthChecks();

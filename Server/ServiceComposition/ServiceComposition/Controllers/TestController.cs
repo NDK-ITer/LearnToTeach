@@ -7,11 +7,13 @@ namespace ServiceComposition.Controllers
     [ApiController]
     public class TestController : ControllerBase
     {
-        private readonly MessageConsumer messageConsumer;
+        private readonly ClassroomConsumer messageConsumer;
+        private readonly UserConsumer userConsumer;
 
-        public TestController(MessageConsumer messageConsumer)
+        public TestController(ClassroomConsumer messageConsumer, UserConsumer userConsumer)
         {
             this.messageConsumer = messageConsumer;
+            this.userConsumer = userConsumer;
         }
 
         [HttpGet]
