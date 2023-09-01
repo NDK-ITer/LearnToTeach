@@ -1,5 +1,5 @@
-﻿using MassTransit;
-using ModelObject.UserService.Models;
+﻿using Application.Models;
+using MassTransit;
 
 namespace ServiceComposition.Message
 {

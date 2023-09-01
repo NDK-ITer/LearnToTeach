@@ -1,14 +1,14 @@
-﻿using Application.Models;
-using MassTransit;
+﻿using MassTransit;
+using Application.Models;
 
 namespace ServiceComposition.Message
 {
     public class ClassroomConsumer : IConsumer<ClassroomModel>
     {
-        public object? classroomMessage { get; private set; }
+        public object? ClassroomMessage { get; private set; }
         public async Task Consume(ConsumeContext<ClassroomModel> context)
         {
-            classroomMessage = context.Message;
+            ClassroomMessage = context.Message;
         }
     }
 }

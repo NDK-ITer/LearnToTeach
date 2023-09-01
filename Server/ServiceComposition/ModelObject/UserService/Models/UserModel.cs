@@ -1,4 +1,4 @@
-﻿namespace ModelObject.UserService.Models
+﻿namespace Application.Models
 {
     public class UserModel
     {

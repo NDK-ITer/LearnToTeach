@@ -16,7 +16,8 @@ builder.Services.AddMassTransit(mass =>
         {
             ep.ConfigureConsumer<ClassroomConsumer>(context);
         });
-        cfg.ReceiveEndpoint("user-service-queue", ep => {
+        cfg.ReceiveEndpoint("user-service-queue", ep => 
+        {
             ep.ConfigureConsumer<UserConsumer>(context);
         });
     });

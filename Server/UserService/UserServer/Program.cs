@@ -19,11 +19,11 @@ builder.Services.AddMassTransit(mass =>
 
 });
 // add Entity framework
+builder.Services.AddControllers();
+builder.Services.AddMemoryCache();
 builder.Services.AddDbContext<AuthenticationDbContext>(option => option.UseSqlServer(connectionString));
 builder.Services.AddTransient<IUnitOfWork_UserService, UnitOfWork_UserService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
-builder.Services.AddControllers();
-builder.Services.AddMemoryCache();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
