@@ -4,6 +4,7 @@ using Application.Services;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using RabbitMQ_Lib.Models;
 
 namespace ClassServer.Controllers
 {
@@ -13,13 +14,16 @@ namespace ClassServer.Controllers
     {
         private readonly IUnitOfWork_ClassroomService _unitOfWork_ClassroomService;
         private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IBus _bus;
 
         public ClassroomController(IUnitOfWork_ClassroomService unitOfWork_ClassroomService, 
-            IPublishEndpoint publishEndpoint
+            IPublishEndpoint publishEndpoint,
+            IBus bus
             )
         {
             _unitOfWork_ClassroomService = unitOfWork_ClassroomService;
             _publishEndpoint = publishEndpoint;
+            _bus = bus;
         }
 
         /*
@@ -72,9 +76,15 @@ namespace ClassServer.Controllers
                 var classroomResponse = _unitOfWork_ClassroomService._classroomService.GetClassroomById(idClassroom);
                 if (classroomResponse != null)
                 {
-                    //_publishEndpoint.Publish<ClassroomModel>(classroomResponse);
-                    //_bus.Publish(classroomResponse);
-                    _publishEndpoint.Publish(classroomResponse);
+                    //_publishEndpoint.Publish(classroomResponse);
+                    var mess = new MessageModel() 
+                    {
+                        From = "ClassroomService",
+                        To = "UserService",
+                        ObjectInMessage = classroomResponse.idClassroom 
+                    };
+                    //_publishEndpoint.Publish(mess);
+                    _bus.Publish(mess);
                     return classroomResponse;
                 }
                 return NotFound();

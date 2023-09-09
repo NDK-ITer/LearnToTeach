@@ -7,12 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Flurl.Http" Version="4.0.0-pre3" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <Compile Remove="Views\StatusCode\**" />
+    <Content Remove="Views\StatusCode\**" />
+    <EmbeddedResource Remove="Views\StatusCode\**" />
+    <None Remove="Views\StatusCode\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\StatusCode\" />
+    <PackageReference Include="Flurl.Http" Version="4.0.0-pre3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>

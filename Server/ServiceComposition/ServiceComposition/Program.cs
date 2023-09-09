@@ -22,7 +22,10 @@ builder.Services.AddMassTransit(mass =>
         });
     });
 });
-builder.Services.AddLogging();
+//builder.Services.AddHttpClient("", c => c.BaseAddress = new Uri(""));
+//builder.Services.AddHttpClient("UserServer", c => c.BaseAddress = new Uri("https://localhost:9001"));
+//builder.Services.AddHttpClient("ClassroomServer", c => c.BaseAddress = new Uri("https://localhost:9002"));
+
 builder.Services.AddControllers();
 
 var app = builder.Build();

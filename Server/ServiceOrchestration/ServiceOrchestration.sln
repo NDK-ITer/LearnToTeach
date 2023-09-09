@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.33906.173
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SagaOrchestration", "SagaOrchestration\SagaOrchestration.csproj", "{E84BFEA5-5E13-4669-8C8D-A24080C37665}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQ_Lib", "RabbitMQ_Lib\RabbitMQ_Lib.csproj", "{9C1D2D65-538C-4590-8647-57C609AE1815}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{430CA9F2-0D3A-472B-944C-8539D74A1084}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E84BFEA5-5E13-4669-8C8D-A24080C37665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E84BFEA5-5E13-4669-8C8D-A24080C37665}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E84BFEA5-5E13-4669-8C8D-A24080C37665}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E84BFEA5-5E13-4669-8C8D-A24080C37665}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C1D2D65-538C-4590-8647-57C609AE1815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C1D2D65-538C-4590-8647-57C609AE1815}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C1D2D65-538C-4590-8647-57C609AE1815}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C1D2D65-538C-4590-8647-57C609AE1815}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9C1D2D65-538C-4590-8647-57C609AE1815} = {430CA9F2-0D3A-472B-944C-8539D74A1084}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {55F1D57A-6E0F-4891-9570-4E85903E38BC}
+	EndGlobalSection
+EndGlobal
