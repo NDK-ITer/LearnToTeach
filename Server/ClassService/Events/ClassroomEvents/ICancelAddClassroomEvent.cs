@@ -1,6 +1,6 @@
 ﻿namespace Events.ClassroomEvents
 {
-    public interface IAddClassroomEvent
+    public interface ICancelAddClassroomEvent
     {
         public Guid idClassroom { get; set; }
         public string? description { get; set; }
@@ -8,6 +8,6 @@
         public string? key { get; set; }
         public string? name { get; set; }
         public bool isPrivate { get; set; }
-        public string? IdMember { get; set; }
+        public List<MemberModel>? Members { get; set; }
     }
 }

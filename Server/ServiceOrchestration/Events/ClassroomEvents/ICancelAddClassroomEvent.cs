@@ -1,6 +1,6 @@
 ﻿namespace Events.ClassroomEvents
 {
-    public interface IAddClassroomEvent
+    public interface ICancelAddClassroomEvent
     {
         public Guid idClassroom { get; set; }
         public string? description { get; set; }

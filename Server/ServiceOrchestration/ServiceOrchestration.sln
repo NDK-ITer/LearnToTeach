@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQ_Lib", "RabbitMQ_Li
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{430CA9F2-0D3A-472B-944C-8539D74A1084}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Events", "Events\Events.csproj", "{63763955-B47A-41E4-9DA5-B6D1525619BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SagaStateMachine", "SagaStateMachine\SagaStateMachine.csproj", "{1A9CC4B9-1D9E-4694-99E7-40103C18F959}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +27,14 @@ Global
 		{9C1D2D65-538C-4590-8647-57C609AE1815}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C1D2D65-538C-4590-8647-57C609AE1815}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C1D2D65-538C-4590-8647-57C609AE1815}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63763955-B47A-41E4-9DA5-B6D1525619BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63763955-B47A-41E4-9DA5-B6D1525619BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63763955-B47A-41E4-9DA5-B6D1525619BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63763955-B47A-41E4-9DA5-B6D1525619BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A9CC4B9-1D9E-4694-99E7-40103C18F959}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A9CC4B9-1D9E-4694-99E7-40103C18F959}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A9CC4B9-1D9E-4694-99E7-40103C18F959}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A9CC4B9-1D9E-4694-99E7-40103C18F959}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

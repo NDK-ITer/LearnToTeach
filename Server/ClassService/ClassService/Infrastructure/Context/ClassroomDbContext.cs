@@ -2,8 +2,6 @@
 using Infrastructure.Configurations;
 using Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using XAct;
 
 namespace Infrastructure.Context
 {

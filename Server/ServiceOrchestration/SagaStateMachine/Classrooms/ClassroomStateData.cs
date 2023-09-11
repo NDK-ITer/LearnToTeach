@@ -1,19 +1,18 @@
 ﻿using Events.ClassroomEvents;
 using MassTransit;
 
-namespace SagaStateMachine.Classrooms
+namespace SagaStateMachine.Classrooms.AddClassroomState
 {
     public class ClassroomStateData : SagaStateMachineInstance
     {
         public Guid CorrelationId { get; set; }
         public string? CurrentState { get; set; }
-        public DateTime ClassroomCreatedDate { get; set; }
         public Guid IdClassroom { get; set; }
-        public string? description { get; set; }
-        public string? idUserHost { get; set; }
-        public string? key { get; set; }
-        public string? name { get; set; }
-        public bool isPrivate { get; set; }
-        public List<MemberModel>? Members { get; set; }
+        public string? Description { get; set; }
+        public string? IdUserHost { get; set; }
+        public string? Key { get; set; }
+        public string? Name { get; set; }
+        public bool IsPrivate { get; set; }
+        public string? IdMember { get; set; }
     }
 }

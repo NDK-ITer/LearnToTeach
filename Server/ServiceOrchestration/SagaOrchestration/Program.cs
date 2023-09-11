@@ -1,30 +1,20 @@
 using MassTransit;
-using RabbitMQ_Lib.Consumers;
+using SagaOrchestration.Models;
+using SagaStateMachine.Classrooms;
+using SagaStateMachine.Classrooms.AddClassroomState;
+using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("SagaConnectionString");
 
-// Add services to the container.
-//builder.Services.AddMassTransit(mass =>
-//{
-//    mass.AddConsumer<MessageConsumer>();
-//    mass.UsingRabbitMq((context, cfg) =>
-//    {
-//        cfg.Host("amqp://guest:guest@localhost:5672");
-
-//        cfg.ReceiveEndpoint("classroom-service-queue", ep =>
-//        {
-//            ep.ConfigureConsumer<MessageConsumer>(context);
-//        });
-//        cfg.ReceiveEndpoint("user-service-queue", ep =>
-//        {
-//            ep.ConfigureConsumer<MessageConsumer>(context);
-//        });
-//    });
-//});
+builder.Services.AddDbContext<SagaDbContext>(opt => opt.UseSqlServer(connectionString));
+// Register SagaContext
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddBus(provider => RabbitMQ_Lib.RabbitMQ.ConfigureBus(provider));
-    
+    cfg.AddSagaStateMachine<ClassroomStateMachine, ClassroomStateData>();
+    cfg.AddSagaStateMachine<MemberStateMachine, MemberStateData>();
 });
 builder.Services.AddControllers();
 
