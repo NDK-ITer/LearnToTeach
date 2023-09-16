@@ -120,7 +120,7 @@ namespace ClassServer.Controllers
                 var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue));
                 if (endPoint != null) 
                 {
-                    endPoint.Send<IConsumeValueClassroomEvent>(new
+                    endPoint.Send<IAddClassroomEvent>(new
                     {
                         idClassroom = new Guid(check.Id),
                         description = check.Description,

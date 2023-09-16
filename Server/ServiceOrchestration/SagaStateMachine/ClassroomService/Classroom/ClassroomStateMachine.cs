@@ -28,7 +28,7 @@ namespace SagaStateMachine.ClassroomService.Classroom
                     context.Saga.Name = context.Message.name;
                     context.Saga.Description = context.Message.description;
                     context.Saga.IsPrivate = context.Message.isPrivate;
-                }).TransitionTo(AddClassroom).Publish(context => context.Saga));
+                }).TransitionTo(AddClassroom).Publish(context => new ConsumeValueClassroomEvent(context.Saga)));
 
             // During AddClassroomEvent some other events might occurred 
             During(AddClassroom,
