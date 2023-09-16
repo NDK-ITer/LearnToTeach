@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SagaStateMachine.Classrooms;
-using SagaStateMachine.Classrooms.AddClassroomState;
+using SagaStateMachine.ClassroomService.Classroom;
+using SagaStateMachine.ClassroomService.Member;
 
 namespace SagaOrchestration.Models
 {

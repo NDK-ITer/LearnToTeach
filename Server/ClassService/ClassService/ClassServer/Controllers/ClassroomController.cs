@@ -1,10 +1,12 @@
 ﻿using Application.Models;
 using Application.Requests;
 using Application.Services;
+using ClassServer.Models;
+using Events.ClassroomServiceEvents.Classroom;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using RabbitMQ_Lib.Models;
 
 namespace ClassServer.Controllers
 {
@@ -13,16 +15,15 @@ namespace ClassServer.Controllers
     public class ClassroomController : ControllerBase
     {
         private readonly IUnitOfWork_ClassroomService _unitOfWork_ClassroomService;
-        private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IOptions<EndpointConfig> _queue;
         private readonly IBus _bus;
 
-        public ClassroomController(IUnitOfWork_ClassroomService unitOfWork_ClassroomService, 
-            IPublishEndpoint publishEndpoint,
-            IBus bus
-            )
+        public ClassroomController(IUnitOfWork_ClassroomService unitOfWork_ClassroomService,
+            IOptions<EndpointConfig> queue,
+            IBus bus)
         {
             _unitOfWork_ClassroomService = unitOfWork_ClassroomService;
-            _publishEndpoint = publishEndpoint;
+            _queue = queue;
             _bus = bus;
         }
 
@@ -76,15 +77,7 @@ namespace ClassServer.Controllers
                 var classroomResponse = _unitOfWork_ClassroomService._classroomService.GetClassroomById(idClassroom);
                 if (classroomResponse != null)
                 {
-                    //_publishEndpoint.Publish(classroomResponse);
-                    var mess = new MessageModel() 
-                    {
-                        From = "ClassroomService",
-                        To = "UserService",
-                        ObjectInMessage = classroomResponse.idClassroom 
-                    };
-                    //_publishEndpoint.Publish(mess);
-                    _bus.Publish(mess);
+                    
                     return classroomResponse;
                 }
                 return NotFound();
@@ -118,12 +111,24 @@ namespace ClassServer.Controllers
          */
         [HttpPost]
         [Route("Create")]
-        public ActionResult CreateClassroom([FromBody] ClassroomRequest ClassroomRequest)
+        public async Task<ActionResult> CreateClassroom([FromBody] ClassroomRequest classroomRequest)
         {
             try
             {
-                var check = _unitOfWork_ClassroomService._classroomService.CreateClassroom(ClassroomRequest);
-                if (check != 1) return BadRequest();
+                var check = _unitOfWork_ClassroomService._classroomService.CreateClassroom(classroomRequest);
+                if (check == null) return BadRequest();
+                var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue));
+                if (endPoint != null) 
+                {
+                    endPoint.Send<IConsumeValueClassroomEvent>(new
+                    {
+                        idClassroom = new Guid(check.Id),
+                        description = check.Description,
+                        idUserHost = check.IdUserHost,
+                        name = check.Name,
+                        isPrivate = check.IsPrivate,
+                    });
+                }
                 return Ok("Created Classroom is successful!");
             }
             catch (Exception e)

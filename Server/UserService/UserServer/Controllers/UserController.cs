@@ -2,7 +2,6 @@
 using Application.Services;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
-using RabbitMQ_Lib.Models;
 
 namespace UserServer.Controllers
 {
@@ -44,13 +43,6 @@ namespace UserServer.Controllers
                 if (idUser == null) return BadRequest("idUser is null");
                 var result = _unitOfWork_UserService.UserService.GetUserById(idUser);
                 if (result == null) return NotFound();
-                var mess = new MessageModel()
-                {
-                    From = "UserService",
-                    To = "ClassroomService",
-                    ObjectInMessage = result.id
-                };
-                _publishEndpoint.Publish(mess);
                 return result;
             }
             catch (Exception e)

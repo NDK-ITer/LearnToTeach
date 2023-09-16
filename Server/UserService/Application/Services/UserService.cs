@@ -8,6 +8,7 @@ using JwtAuthenticationManager;
 using JwtAuthenticationManager.Models;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
+using System.Linq.Expressions;
 
 namespace Application.Services
 {
@@ -19,6 +20,7 @@ namespace Application.Services
         bool UsernameIsExist(string username);
         bool UpdateUser (User user);
         bool LockUser (User user);
+        bool CheckUserIsExist(System.Linq.Expressions.Expression<Func<User, bool>> property);
         List<UserModel> GetAllUsers();
         List<UserModel> GetUserWithRole(string roleName);
         UserModel GetUserById(string idUser);
@@ -189,6 +191,24 @@ namespace Application.Services
             {
 
                 return null;
+            }
+        }
+
+        public bool CheckUserIsExist(Expression<Func<User, bool>> property)
+        {
+            try
+            {
+                var result = _unitOfWork.userRepository.Find(property);
+                if (result != null)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+
+                return false;
             }
         }
     }

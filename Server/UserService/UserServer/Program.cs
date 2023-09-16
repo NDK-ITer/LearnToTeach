@@ -2,7 +2,6 @@ using Application.Services;
 using Infrastructure.Context;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
-using RabbitMQ_Lib.Consumers;
 using SendMail.ClassDefine;
 using SendMail.Interfaces;
 using UserServer.Models;
@@ -11,17 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AuthConnectString");
 // Add services to the container.
 builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("Endpoints"));
-builder.Services.AddMassTransit(mass =>
+builder.Services.AddMassTransit(cfg =>
 {
-    mass.AddConsumer<MessageConsumer>();
-    mass.UsingRabbitMq((context, cfg) =>
-    {
-        cfg.Host("amqp://guest:guest@localhost:5672");
-        cfg.ReceiveEndpoint("user-service-queue", ep =>
-        {
-            ep.ConfigureConsumer<MessageConsumer>(context);
-        });
-    });
+    cfg.AddBus(provider => RabbitMQ_Lib.RabbitMQ.ConfigureBus(provider));
 
 });
 // add Entity framework

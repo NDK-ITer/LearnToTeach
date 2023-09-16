@@ -16,7 +16,7 @@ namespace Application.Services
         ClassroomModel GetClassroomByName(string nameClassroom);
         List<ClassroomModel> GetAllClassroom();
         List<ClassroomModel> GetAllClassroomPublic();
-        int CreateClassroom(ClassroomRequest classroomRequest);
+        Classroom CreateClassroom(ClassroomRequest classroomRequest);
         int UpdateClassroom(ClassroomRequest classroomRequest);
         int DeleteClassroom(string idClass);
         int RemoveMember(string idClassroom, string idMember);
@@ -29,7 +29,7 @@ namespace Application.Services
             _unitOfWork = new UnitOfWork(context, memoryCache);
         }
         
-        public int CreateClassroom(ClassroomRequest classroomRequest) //To create classroom with "classroomRequest"
+        public Classroom? CreateClassroom(ClassroomRequest classroomRequest) //To create classroom with "classroomRequest"
         {
             try
             {
@@ -74,11 +74,11 @@ namespace Application.Services
                 //add and save classroom to database
                 _unitOfWork.classroomRepository.RegisterClassroom(classroom);
                 _unitOfWork.SaveChange();
-                return 1;
+                return classroom;
             }
             catch (Exception)
             {
-                return -1;
+                return null;
             }
             
         }

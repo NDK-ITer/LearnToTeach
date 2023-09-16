@@ -2,6 +2,6 @@
 {
     public class RabbitMQQueues
     {
-        public const string SagaBusQueue = "Saga-Queue";
+        public string? SagaBusQueue { get; set; }
     }
 }

@@ -1,27 +1,27 @@
 using Application.Services;
+using ClassServer.Consumers;
 using ClassServer.Models;
 using Infrastructure.Context;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
-using RabbitMQ_Lib.Consumers;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ClassroomConnectString");
+var nameQueue = builder.Configuration.GetConnectionString("SagaBusQueue");
+var queue = builder.Configuration.GetSection("Endpoints");
 
 // Add services to the container.
-//builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("Endpoints"));
-builder.Services.AddMassTransit(mass =>
+builder.Services.Configure<EndpointConfig>(queue);
+builder.Services.AddMassTransit(cfg =>
 {
-    mass.AddConsumer<MessageConsumer>();
-    mass.UsingRabbitMq((context, cfg) =>
+    cfg.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
     {
-        cfg.Host("amqp://guest:guest@localhost:5672");
-        cfg.ReceiveEndpoint("classroom-service-queue", ep =>
+        cfg.ReceiveEndpoint(nameQueue, ep =>
         {
-            ep.ConfigureConsumer<MessageConsumer>(context);
+            ep.PrefetchCount = 10;
+            ep.ConfigureConsumer<GenerateCancelAddClassroomConsumer>(provider);
         });
-    });
-
+    }));
 });
 
 builder.Services.AddControllers();

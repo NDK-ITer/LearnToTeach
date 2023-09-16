@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="..\Events\Events.csproj" />
     <ProjectReference Include="..\RabbitMQ_Lib\RabbitMQ_Lib.csproj" />
   </ItemGroup>
 
