@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ClassroomConnectString");
 var nameQueue = builder.Configuration.GetConnectionString("SagaBusQueue");
-var queue = builder.Configuration.GetSection("Endpoints");
+var queue = builder.Configuration.GetSection("EndpointConfig");
 
 // Add services to the container.
 builder.Services.Configure<EndpointConfig>(queue);
@@ -20,8 +20,11 @@ builder.Services.AddMassTransit(cfg =>
         {
             ep.PrefetchCount = 10;
             ep.ConfigureConsumer<GenerateCancelAddClassroomConsumer>(provider);
+            ep.ConfigureConsumer<GetValueConsumer>(provider);
         });
     }));
+    cfg.AddConsumer<GenerateCancelAddClassroomConsumer>();
+    cfg.AddConsumer<GetValueConsumer>();
 });
 
 builder.Services.AddControllers();

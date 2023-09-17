@@ -16,14 +16,18 @@ builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddBus(provider => RabbitMQ_Lib.RabbitMQ.ConfigureBus(provider));
     cfg.AddSagaStateMachine<ClassroomStateMachine, ClassroomStateData>()
-    .EntityFrameworkRepository(r =>
-    {
-        r.ConcurrencyMode = ConcurrencyMode.Pessimistic; 
+        .EntityFrameworkRepository(r =>
+        {
+            r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
+            r.ExistingDbContext<SagaDbContext>();
+        });
 
-        r.ExistingDbContext<SagaDbContext>();
-    });
-    
-    cfg.AddSagaStateMachine<MemberStateMachine, MemberStateData>();
+    cfg.AddSagaStateMachine<MemberStateMachine, MemberStateData>()
+        .EntityFrameworkRepository(r =>
+        {
+            r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
+            r.ExistingDbContext<SagaDbContext>();
+        }); ;
 });
 builder.Services.AddControllers();
 

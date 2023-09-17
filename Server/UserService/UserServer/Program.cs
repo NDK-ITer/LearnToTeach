@@ -4,6 +4,7 @@ using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using SendMail.ClassDefine;
 using SendMail.Interfaces;
+using UserServer.Consumers;
 using UserServer.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,7 @@ builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("End
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddBus(provider => RabbitMQ_Lib.RabbitMQ.ConfigureBus(provider));
+    cfg.AddConsumer<ConsumeValueClassroomConsumer>();
 
 });
 // add Entity framework

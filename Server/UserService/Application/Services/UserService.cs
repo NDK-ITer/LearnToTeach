@@ -199,7 +199,7 @@ namespace Application.Services
             try
             {
                 var result = _unitOfWork.userRepository.Find(property);
-                if (result != null)
+                if (!result.IsNullOrEmpty())
                 {
                     return true;
                 }

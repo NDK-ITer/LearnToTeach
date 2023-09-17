@@ -115,18 +115,19 @@ namespace ClassServer.Controllers
         {
             try
             {
+                var queue = _queue.Value.SagaBusQueue;
                 var check = _unitOfWork_ClassroomService._classroomService.CreateClassroom(classroomRequest);
                 if (check == null) return BadRequest();
-                var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue));
+                var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + queue));
                 if (endPoint != null) 
                 {
-                    endPoint.Send<IAddClassroomEvent>(new
+                    endPoint.Send<IGetValueClassroomEvent>(new
                     {
-                        idClassroom = new Guid(check.Id),
+                        idClassroom = Guid.Parse(check.Id),
                         description = check.Description,
                         idUserHost = check.IdUserHost,
                         name = check.Name,
-                        isPrivate = check.IsPrivate,
+                        isPrivate = check.IsPrivate
                     });
                 }
                 return Ok("Created Classroom is successful!");

@@ -2,6 +2,6 @@
 {
     public class EndpointConfig
     {
-        public string QueueName { get; set; }
+        public string SagaBusQueue { get; set; }
     }
 }

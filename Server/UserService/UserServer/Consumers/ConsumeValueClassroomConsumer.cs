@@ -17,16 +17,16 @@ namespace UserServer.Consumers
             var data = context.Message;
             if (data != null)
             {
-                var checkUserExist = unitOfWork_UserService.UserService.CheckUserIsExist(prop => prop.id == data.idUserHost);
+                var checkUserExist = unitOfWork_UserService.UserService.CheckUserIsExist(prop => prop.id.Equals(data.idUserHost));
                 if (!checkUserExist)
                 {
                     await context.Publish<ICancelAddClassroomEvent>(new
                     {
-                          idClassroom = data.idClassroom,
-                          description = data.description,
-                          idUserHost = data.idUserHost,
-                          name = data.name,
-                          isPrivate = data.isPrivate,
+                        idClassroom = data.idClassroom,
+                        description = data.description,
+                        idUserHost = data.idUserHost,
+                        name = data.name,
+                        isPrivate = data.isPrivate,
                     });
                 }
             }
