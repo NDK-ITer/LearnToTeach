@@ -3,7 +3,9 @@ using Application.Services;
 using JwtAuthenticationManager.Models;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using SendMail.Interfaces;
+using UserServer.Models;
 
 namespace Server.Controllers
 {
@@ -12,16 +14,18 @@ namespace Server.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IUnitOfWork_UserService _unitOfWork_UserService;
-        private readonly IEmailSender _sendEmail;
-        private readonly IPublishEndpoint _publishEndpoint;
-
+        private readonly UserEventMessage _userEventMessage;
+        private readonly IOptions<EndpointConfig> _queue;
+        private readonly IBus _bus;
         public AccountController(IUnitOfWork_UserService unitOfWork_UserService,
-            IEmailSender sendEmail,
-            IPublishEndpoint publishEndpoint)
+            UserEventMessage userEventMessage,
+            IOptions<EndpointConfig> queue,
+            IBus bus)
         {
             _unitOfWork_UserService = unitOfWork_UserService;
-            _sendEmail = sendEmail;
-            _publishEndpoint = publishEndpoint;
+            _userEventMessage = userEventMessage;
+            _queue = queue;
+            _bus = bus;
         }
 
         [HttpPost]
@@ -32,7 +36,6 @@ namespace Server.Controllers
             var jwt = _unitOfWork_UserService.UserService.GetJwtUserInfor(loginRequest.UserName, loginRequest.Password);
             if (jwt != null && user != null)
             {
-                _publishEndpoint.Publish(user);
                 return jwt;
             }
             return StatusCode(204);
@@ -49,7 +52,6 @@ namespace Server.Controllers
                 //_sendEmail.SendEmailAsync(registerRequest.Email, "NDK", "ndk");
                 var user = _unitOfWork_UserService.UserService.RegisterUser(registerRequest);
                 if (user == null) return BadRequest("Register is false.");
-                _publishEndpoint.Publish(user);
                 return Ok();
             }
             catch (Exception e)

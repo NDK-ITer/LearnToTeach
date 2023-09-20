@@ -20,13 +20,13 @@ namespace ClassServer.Controllers
         private readonly ClassroomEventMessage _classroomStateMessage;
 
         public ClassroomController(IUnitOfWork_ClassroomService unitOfWork_ClassroomService,
-            IOptions<EndpointConfig> queue,
             ClassroomEventMessage classroomStateMessage,
+            IOptions<EndpointConfig> queue,
             IBus bus)
         {
             _unitOfWork_ClassroomService = unitOfWork_ClassroomService;
-            _queue = queue;
             _classroomStateMessage = classroomStateMessage;
+            _queue = queue;
             _bus = bus;
         }
 
@@ -118,10 +118,9 @@ namespace ClassServer.Controllers
         {
             try
             {
-                var queue = _queue.Value.SagaBusQueue;
                 var check = _unitOfWork_ClassroomService._classroomService.CreateClassroom(classroomRequest);
                 if (check == null) return BadRequest();
-                var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + queue));
+                var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
                 if (endPoint != null) 
                 {
                     endPoint.Send<IGetValueClassroomEvent>(new

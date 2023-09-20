@@ -1,4 +1,5 @@
 using MassTransit;
+using NotificationServer.Consumers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddBus(provider => RabbitMQ_Lib.RabbitMQ.ConfigureBus(provider));
-    //cfg.AddConsumer<>();
+    cfg.AddConsumer<ConsumeValueUserConsumer>();
 
 });
 builder.Services.AddControllers();

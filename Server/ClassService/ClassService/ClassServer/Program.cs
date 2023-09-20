@@ -4,6 +4,8 @@ using ClassServer.Models;
 using Infrastructure.Context;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using RabbitMQ_Lib;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ClassroomConnectString");
@@ -16,6 +18,11 @@ builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
     {
+        //cfg.Host(new Uri(RabbitMQConfig.RabbitMQURL), hst =>
+        //{
+        //    hst.Username(RabbitMQConfig.UserName);
+        //    hst.Password(RabbitMQConfig.Password);
+        //});
         cfg.ReceiveEndpoint(nameQueue, ep =>
         {
             ep.PrefetchCount = 10;
