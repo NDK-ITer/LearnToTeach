@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["SentEmailServer/SentEmailServer.csproj", "SentEmailServer/"]
-RUN dotnet restore "SentEmailServer/SentEmailServer.csproj"
+COPY ["NotificationServer/NotificationServer.csproj", "NotificationServer/"]
+RUN dotnet restore "NotificationServer/NotificationServer.csproj"
 COPY . .
-WORKDIR "/src/SentEmailServer"
-RUN dotnet build "SentEmailServer.csproj" -c Release -o /app/build
+WORKDIR "/src/NotificationServer"
+RUN dotnet build "NotificationServer.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "SentEmailServer.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "NotificationServer.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "SentEmailServer.dll"]
+ENTRYPOINT ["dotnet", "NotificationServer.dll"]

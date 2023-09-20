@@ -17,13 +17,16 @@ namespace ClassServer.Controllers
         private readonly IUnitOfWork_ClassroomService _unitOfWork_ClassroomService;
         private readonly IOptions<EndpointConfig> _queue;
         private readonly IBus _bus;
+        private readonly ClassroomEventMessage _classroomStateMessage;
 
         public ClassroomController(IUnitOfWork_ClassroomService unitOfWork_ClassroomService,
             IOptions<EndpointConfig> queue,
+            ClassroomEventMessage classroomStateMessage,
             IBus bus)
         {
             _unitOfWork_ClassroomService = unitOfWork_ClassroomService;
             _queue = queue;
+            _classroomStateMessage = classroomStateMessage;
             _bus = bus;
         }
 
@@ -127,7 +130,8 @@ namespace ClassServer.Controllers
                         description = check.Description,
                         idUserHost = check.IdUserHost,
                         name = check.Name,
-                        isPrivate = check.IsPrivate
+                        isPrivate = check.IsPrivate,
+                        eventMessage = _classroomStateMessage.Create
                     });
                 }
                 return Ok("Created Classroom is successful!");

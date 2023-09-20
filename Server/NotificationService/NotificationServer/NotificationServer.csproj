@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>76dbd189-a255-4a8f-aa32-4d993ccc83ae</UserSecretsId>
+    <UserSecretsId>c12ce97d-030d-4f47-bf53-c564a8251ee7</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Event\Event.csproj" />
     <ProjectReference Include="..\SendMail\SendMail.csproj" />
   </ItemGroup>
 

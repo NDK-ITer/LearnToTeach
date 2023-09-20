@@ -20,16 +20,17 @@ builder.Services.AddMassTransit(cfg =>
         {
             ep.PrefetchCount = 10;
             ep.ConfigureConsumer<GenerateCancelAddClassroomConsumer>(provider);
-            ep.ConfigureConsumer<GetValueConsumer>(provider);
+            ep.ConfigureConsumer<GetClassroomValueConsumer>(provider);
         });
     }));
     cfg.AddConsumer<GenerateCancelAddClassroomConsumer>();
-    cfg.AddConsumer<GetValueConsumer>();
+    cfg.AddConsumer<GetClassroomValueConsumer>();
 });
 
 builder.Services.AddControllers();
 builder.Services.AddMemoryCache();
 builder.Services.AddHealthChecks();
+builder.Services.AddTransient<ClassroomEventMessage>();
 builder.Services.AddDbContext<ClassroomDbContext>(option => option.UseSqlServer(connectionString));
 builder.Services.AddTransient<IUnitOfWork_ClassroomService, UnitOfWork_ClassroomService>();
 
