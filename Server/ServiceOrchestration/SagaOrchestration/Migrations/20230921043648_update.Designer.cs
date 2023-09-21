@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SagaOrchestration.Models;
 
@@ -11,9 +12,11 @@ using SagaOrchestration.Models;
 namespace SagaOrchestration.Migrations
 {
     [DbContext(typeof(SagaDbContext))]
-    partial class SagaContextModelSnapshot : ModelSnapshot
+    [Migration("20230921043648_update")]
+    partial class update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,35 +72,6 @@ namespace SagaOrchestration.Migrations
                     b.HasKey("CorrelationId");
 
                     b.ToTable("MemberStateData");
-                });
-
-            modelBuilder.Entity("SagaStateMachine.UserService.UserStateData", b =>
-                {
-                    b.Property<Guid>("CorrelationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CurrentState")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Fullname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("IdUser")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("CorrelationId");
-
-                    b.ToTable("UserStateData");
                 });
 #pragma warning restore 612, 618
         }

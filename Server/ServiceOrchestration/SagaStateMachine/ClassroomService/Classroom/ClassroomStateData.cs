@@ -9,9 +9,7 @@ namespace SagaStateMachine.ClassroomService.Classroom
         public Guid IdClassroom { get; set; }
         public string? Description { get; set; }
         public string? IdUserHost { get; set; }
-        public string? Key { get; set; }
         public string? Name { get; set; }
         public bool IsPrivate { get; set; }
-        public string? IdMember { get; set; }
     }
 }

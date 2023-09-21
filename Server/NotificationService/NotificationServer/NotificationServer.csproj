@@ -14,7 +14,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Event\Event.csproj" />
+    <ProjectReference Include="..\RabbitMQ_Lib\RabbitMQ_Lib.csproj" />
     <ProjectReference Include="..\SendMail\SendMail.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

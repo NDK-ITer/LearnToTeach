@@ -1,5 +1,6 @@
 ﻿using Application.Requests;
 using Application.Services;
+using Events.UserServiceEvents;
 using JwtAuthenticationManager.Models;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
@@ -43,15 +44,27 @@ namespace Server.Controllers
 
         [HttpPost]
         [Route("Register")]
-        public ActionResult Register([FromBody] RegisterRequest registerRequest)
+        public async Task<ActionResult> Register([FromBody] RegisterRequest registerRequest)
         {
             try
             {
                 if (_unitOfWork_UserService.UserService.EmailIsExist(registerRequest.Email)) return BadRequest("Email was Exist.");
                 if (_unitOfWork_UserService.UserService.UsernameIsExist(registerRequest.UserName)) return BadRequest("UserName was Exist.");
-                //_sendEmail.SendEmailAsync(registerRequest.Email, "NDK", "ndk");
                 var user = _unitOfWork_UserService.UserService.RegisterUser(registerRequest);
                 if (user == null) return BadRequest("Register is false.");
+                var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
+                if (endPoint != null)
+                {
+                    endPoint.Send<IGetValueUserEvent>(new
+                    {
+                        id = Guid.Parse(user.id),
+                        fullName = user.fullName,
+                        email = user.email,
+                        content = "test",
+                        eventMessage = _userEventMessage.ConfirmAccount
+                    });
+                }
+                
                 return Ok();
             }
             catch (Exception e)

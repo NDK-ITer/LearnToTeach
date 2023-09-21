@@ -4,6 +4,6 @@ namespace UserServer.Models
 {
     public class UserEventMessage: GenerateEventMessage
     {
-        public readonly string SentEmail = "SentEmail";
+        public readonly string ConfirmAccount = "ConfirmAccount";
     }
 }

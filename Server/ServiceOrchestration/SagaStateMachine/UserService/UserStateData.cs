@@ -6,11 +6,9 @@ namespace SagaStateMachine.UserService
     {
         public Guid CorrelationId { get ; set; }
         public string? CurrentState { get; set; }
-        public string id { get; set; }
-        public string UserName { get; set; }
+        public Guid IdUser { get; set; }
+        public string Fullname { get; set; }
         public string Email { get; set; }
-        public bool IsLock { get; set; }
-        public string TokenAccess { get; set; }
-        public string RoleId { get; set; }
+        public string Content { get; set; }
     }
 }

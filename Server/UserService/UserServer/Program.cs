@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AuthConnectString");
 var nameQueue = builder.Configuration.GetConnectionString("SagaBusQueue");
 // Add services to the container.
-builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("Endpoints"));
+builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("EndpointConfig"));
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
@@ -23,9 +23,17 @@ builder.Services.AddMassTransit(cfg =>
             hst.Password(RabbitMQConfig.Password);
         });
         cfg.ConfigureEndpoints(provider.GetRequiredService<IBusRegistrationContext>());
+
+        cfg.ReceiveEndpoint(nameQueue, ep =>
+        {
+            ep.PrefetchCount = 10;
+            ep.ConfigureConsumer<ConsumeValueClassroomConsumer>(provider);
+            ep.ConfigureConsumer<GetValueUserConsumer>(provider);
+        });
+        
     }));
     cfg.AddConsumer<ConsumeValueClassroomConsumer>();
-
+    cfg.AddConsumer<GetValueUserConsumer>();
 });
 // add Entity framework
 builder.Services.AddControllers();

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using RabbitMQ_Lib;
 using SagaStateMachine.ClassroomService.Classroom;
 using SagaStateMachine.ClassroomService.Member;
+using SagaStateMachine.UserService;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("SagaConnectionString");
@@ -23,6 +24,12 @@ builder.Services.AddMassTransit(cfg =>
         });
 
     cfg.AddSagaStateMachine<MemberStateMachine, MemberStateData>()
+        .EntityFrameworkRepository(r =>
+        {
+            r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
+            r.ExistingDbContext<SagaDbContext>();
+        }); ;
+    cfg.AddSagaStateMachine<UserStateMachine, UserStateData>()
         .EntityFrameworkRepository(r =>
         {
             r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
