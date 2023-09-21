@@ -61,6 +61,7 @@ namespace Server.Controllers
                         fullName = user.fullName,
                         email = user.email,
                         content = "test",
+                        subject = "Confirm your account",
                         eventMessage = _userEventMessage.ConfirmAccount
                     });
                 }

@@ -13,6 +13,8 @@ namespace SagaStateMachine.UserService
         public Guid id => userStateData.IdUser;
         public string FullName => userStateData.Fullname;
         public string Email => userStateData.Email;
+        public string Subject => userStateData.Subject;
         public string Content => userStateData.Content;
+
     }
 }

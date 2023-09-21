@@ -20,6 +20,7 @@ namespace SagaStateMachine.UserService
                     context.Saga.Fullname = context.Message.fullName;
                     context.Saga.Email = context.Message.email;
                     context.Saga.Content = context.Message.content;
+                    context.Saga.Subject = context.Message.subject;
                 }).TransitionTo(ConfirmUser).Publish(context => new SendMailEvent(context.Saga)));
         }
     }

@@ -18,7 +18,7 @@ namespace NotificationServer.Consumers
             var data = context.Message;
             if (data != null) 
             {
-                //_emailSender.SendEmailAsync(data.Email);
+                _emailSender.SendEmailAsync(data.Email,data.Subject,data.Content);
             }
         }
     }

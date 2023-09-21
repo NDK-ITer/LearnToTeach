@@ -25,6 +25,7 @@ namespace UserServer.Consumers
                         idUser = data.id,
                         fullName = data.fullName,
                         email = data.email,
+                        subject = data.subject,
                         content = data.content,
                     });
                 }
