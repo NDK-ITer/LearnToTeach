@@ -1,13 +1,14 @@
-﻿using System.Text;
-using XSystem.Security.Cryptography;
+﻿using System.Security.Cryptography;
+using System.Text;
+
 
 namespace Infrastructure
 {
-    public static class PasswordMethod
+    public static class SecurityMethods
     {
         public static string HashPassword(string password)
         {
-            using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
+            using (XSystem.Security.Cryptography.MD5CryptoServiceProvider md5 = new XSystem.Security.Cryptography.MD5CryptoServiceProvider())
             {
                 UTF8Encoding utf8 = new UTF8Encoding();
                 byte[] data = md5.ComputeHash(utf8.GetBytes(password));
@@ -22,6 +23,11 @@ namespace Infrastructure
                 return true;
             }
             return false;
+        }
+
+        public static string CreateRandomToken()
+        {
+            return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
         }
     }
 }

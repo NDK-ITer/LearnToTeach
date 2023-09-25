@@ -15,17 +15,18 @@ namespace Application.Services
     public interface IUserService
     {
         LoginReponse GetJwtUserInfor(string username, string password);
-        UserModel RegisterUser(RegisterRequest registerRequest);
+        User RegisterUser(RegisterRequest registerRequest);
         bool EmailIsExist(string email);
         bool UsernameIsExist(string username);
         bool UpdateUser (User user);
         bool LockUser (User user);
         bool CheckUserIsExist(System.Linq.Expressions.Expression<Func<User, bool>> property);
-        List<UserModel> GetAllUsers();
-        List<UserModel> GetUserWithRole(string roleName);
+        List<User> GetAllUsers();
+        List<User> GetUserWithRole(string roleName);
         UserModel GetUserById(string idUser);
         UserModel GetUserUsername(string username);
-
+        string GetUserToken(string id);
+        UserModel VerifyUserById(string id, string token);
     }
     public class UserService : IUserService
     {
@@ -36,6 +37,7 @@ namespace Application.Services
             _unitOfWork = new UnitOfWork(context, cache);
         }
 
+        
         public LoginReponse? GetJwtUserInfor(string username, string password)//Login
         {
             var checkLogin = _unitOfWork.userRepository.CheckAccountValid(username, password);
@@ -55,7 +57,7 @@ namespace Application.Services
             return JwtTokenHandler.GenerateJwtToken(jwtUserInfor);
         }
 
-        public UserModel? RegisterUser(RegisterRequest registerRequest)
+        public User? RegisterUser(RegisterRequest registerRequest)
         {
             try
             {
@@ -69,16 +71,18 @@ namespace Application.Services
                     FirstEmail = registerRequest.Email,
                     PresentEmail = registerRequest.Email,
                     Birthday = registerRequest.Brithday,
-                    PasswordHash = PasswordMethod.HashPassword(registerRequest.PasswordIsConfirmed),
+                    PasswordHash = SecurityMethods.HashPassword(registerRequest.PasswordIsConfirmed),
                     CreatedDate = DateTime.Now,
                     IsLock = false,
                     RoleId = role.Id,
-                    TokenAccess = string.Empty,
+                    TokenAccess = SecurityMethods.CreateRandomToken(),
+                    VerifiedDate = null,
+                    IsVerified = false,
                     Role = role
                 };
                 _unitOfWork.userRepository.Register(userRegister);
                 _unitOfWork.SaveChange();
-                return new UserModel(userRegister);
+                return userRegister;
             }
             catch (Exception)
             {
@@ -124,16 +128,11 @@ namespace Application.Services
             }
         }
 
-        public List<UserModel>? GetAllUsers()
+        public List<User>? GetAllUsers()
         {
             try
             {
-                var listUser = new List<UserModel>();
-                foreach (var item in _unitOfWork.userRepository.GetAllUsers())
-                {
-                    listUser.Add(new UserModel(item));
-                }
-                return listUser;
+                return _unitOfWork.userRepository.GetAllUsers();
             }
             catch (Exception)
             {
@@ -157,19 +156,16 @@ namespace Application.Services
             }
         }
 
-        public List<UserModel>? GetUserWithRole(string roleName)
+        public List<User>? GetUserWithRole(string roleName)
         {
             try
             {
                 if(roleName.IsNullOrEmpty()) return null;
-                var listUser = new List<UserModel>();
+                
                 var users = _unitOfWork.roleRepository.GetRoleByName(roleName).Users;
                 if(users == null) return null;  
-                foreach (var item in users)
-                {
-                    listUser.Add(new UserModel(item));
-                }
-                return listUser;
+                
+                return users;
             }
             catch (Exception)
             {
@@ -209,6 +205,45 @@ namespace Application.Services
             {
 
                 return false;
+            }
+        }
+
+        public string? GetUserToken(string id)
+        {
+            try
+            {
+                var tokenAccess = _unitOfWork.userRepository.GetUserById(id).TokenAccess;
+                return tokenAccess;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
+        public UserModel? VerifyUserById(string id, string token)
+        {
+            try
+            {
+                var userNeedVerify= _unitOfWork.userRepository.GetUserById(id);
+
+                if (userNeedVerify == null) return null;
+                if (userNeedVerify.TokenAccess != token) return null;
+                if (userNeedVerify.IsVerified == false)
+                {
+                    userNeedVerify.IsVerified = true;
+                    userNeedVerify.VerifiedDate = DateTime.Now;
+
+                    _unitOfWork.userRepository.UpdateUser(userNeedVerify);
+                    _unitOfWork.SaveChange();
+                }  
+                var userModel = new UserModel(userNeedVerify);
+                return userModel;
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
     }

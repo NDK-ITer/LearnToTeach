@@ -24,14 +24,14 @@ namespace Infrastructure.Repositories
         {
             if (_memoryCache.TryGetValue(_keyValueCache, out List<User> listUserInCache)) 
             {
-                var user = listUserInCache.FirstOrDefault(u => u.UserName == username && PasswordMethod.HashPassword(password) == u.PasswordHash);
+                var user = listUserInCache.FirstOrDefault(u => u.UserName == username && SecurityMethods.HashPassword(password) == u.PasswordHash);
                 if (user == null) { return false; }
                 return true;
             }
             else
             {
                 var listUser = new List<User>();
-                var user = _dbSet.FirstOrDefault(u => u.UserName == username && PasswordMethod.HashPassword(password) == u.PasswordHash);
+                var user = _dbSet.FirstOrDefault(u => u.UserName == username && SecurityMethods.HashPassword(password) == u.PasswordHash);
                 if (user != null)
                 {
                     listUser.Add(user);

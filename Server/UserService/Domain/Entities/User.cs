@@ -10,6 +10,8 @@
         public string PresentEmail { get; set; }
         public string PasswordHash { get; set; }
         public string TokenAccess { get; set; }
+        public DateTime? VerifiedDate { get; set; }
+        public bool IsVerified { get; set; }
         public DateTime Birthday { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool IsLock { get; set; }

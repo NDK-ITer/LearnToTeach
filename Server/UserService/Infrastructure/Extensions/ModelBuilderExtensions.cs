@@ -38,8 +38,10 @@ namespace Infrastructure.Extensions
                     Birthday = DateTime.Now,
                     CreatedDate = DateTime.Now,
                     RoleId = UserId,
-                    TokenAccess = string.Empty,
-                    PasswordHash = PasswordMethod.HashPassword("Testaccount123456789_001"),
+                    TokenAccess = SecurityMethods.CreateRandomToken(),
+                    VerifiedDate = DateTime.Now,
+                    IsVerified = true,
+                    PasswordHash = SecurityMethods.HashPassword("Testaccount123456789_001"),
                 },
                 new User()
                 {
@@ -53,8 +55,10 @@ namespace Infrastructure.Extensions
                     Birthday = DateTime.Now,
                     CreatedDate = DateTime.Now,
                     RoleId = AdminID,
-                    TokenAccess = string.Empty,
-                    PasswordHash = PasswordMethod.HashPassword("Adminaccount123456789_001"),
+                    TokenAccess = SecurityMethods.CreateRandomToken(),
+                    VerifiedDate = DateTime.Now,
+                    IsVerified = true,
+                    PasswordHash = SecurityMethods.HashPassword("Adminaccount123456789_001"),
                 }
                 );
             

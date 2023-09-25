@@ -13,6 +13,7 @@ var connectionString = builder.Configuration.GetConnectionString("AuthConnectStr
 var nameQueue = builder.Configuration.GetConnectionString("SagaBusQueue");
 // Add services to the container.
 builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("EndpointConfig"));
+builder.Services.Configure<ApiGatewayAddress>(builder.Configuration.GetSection("ApiGatewayAddress"));
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>

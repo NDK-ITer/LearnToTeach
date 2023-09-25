@@ -63,6 +63,7 @@ namespace Infrastructure.Repositories
         {
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
+            //_dbSet.Update(entity);
         }
     }
 }

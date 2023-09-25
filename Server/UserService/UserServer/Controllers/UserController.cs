@@ -26,7 +26,12 @@ namespace UserServer.Controllers
             {
                 var listUser = _unitOfWork_UserService.UserService.GetAllUsers();
                 if (listUser == null) { return NotFound("User is empty"); }
-                return listUser;
+                var listUserModel = new List<UserModel>();
+                foreach (var item in listUser)
+                {
+                    listUserModel.Add(new UserModel(item));
+                }
+                return listUserModel;
             }
             catch (Exception e)
             {
@@ -60,7 +65,12 @@ namespace UserServer.Controllers
                 if (roleName == null) return BadRequest("roleName is null");
                 var result = _unitOfWork_UserService.UserService.GetUserWithRole(roleName);
                 if (result == null) return NotFound();
-                return result;
+                var listUserModel = new List<UserModel>();
+                foreach (var item in result)
+                {
+                    listUserModel.Add(new UserModel(item));
+                }
+                return listUserModel;
             }
             catch (Exception e)
             {

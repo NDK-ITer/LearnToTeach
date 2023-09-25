@@ -4,6 +4,7 @@ using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AuthenticationDbContext))]
-    partial class AuthenticationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230924025215_updateIsVerified")]
+    partial class updateIsVerified
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,14 +53,14 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7f171b2d-a876-4c10-b2ad-2ebfe7549b1a",
+                            Id = "2c077bce-1438-46e3-b9be-2d7a8690dc3c",
                             Description = "",
                             Name = "ADMIN",
                             NomalizeName = "Admin"
                         },
                         new
                         {
-                            Id = "5ea8f252-bddc-4331-943e-d857aa72f168",
+                            Id = "dc12ee81-3add-46d8-9709-06f303a1adcd",
                             Description = "",
                             Name = "USER",
                             NomalizeName = "User"
@@ -133,9 +136,9 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            id = "08663590-4283-4c15-a453-fca6b8c8b7d1",
-                            Birthday = new DateTime(2023, 9, 24, 10, 0, 35, 100, DateTimeKind.Local).AddTicks(6427),
-                            CreatedDate = new DateTime(2023, 9, 24, 10, 0, 35, 100, DateTimeKind.Local).AddTicks(6439),
+                            id = "eb45a668-3b11-4ce7-9e41-08609d2d21d4",
+                            Birthday = new DateTime(2023, 9, 24, 9, 52, 14, 943, DateTimeKind.Local).AddTicks(4237),
+                            CreatedDate = new DateTime(2023, 9, 24, 9, 52, 14, 943, DateTimeKind.Local).AddTicks(4250),
                             FirstEmail = "test001@gmail.com",
                             FirstName = "test",
                             IsLock = false,
@@ -143,16 +146,16 @@ namespace Infrastructure.Migrations
                             LastName = "account",
                             PasswordHash = "nSUQ/133didCpNJLsvcLvQ==",
                             PresentEmail = "test001@gmail.com",
-                            RoleId = "5ea8f252-bddc-4331-943e-d857aa72f168",
-                            TokenAccess = "D3F404BB3713D7EEB4A4EE37D70451FA058B8773E27FCF1C746D63971873C3620501DA1B42763183DC39F17117063789336BF507D50E29B38902D63444241DEA",
+                            RoleId = "dc12ee81-3add-46d8-9709-06f303a1adcd",
+                            TokenAccess = "",
                             UserName = "testVersion_0001",
-                            VerifiedDate = new DateTime(2023, 9, 24, 10, 0, 35, 100, DateTimeKind.Local).AddTicks(6520)
+                            VerifiedDate = new DateTime(2023, 9, 24, 9, 52, 14, 943, DateTimeKind.Local).AddTicks(4251)
                         },
                         new
                         {
-                            id = "1161df41-7148-4ecf-9497-40b30e4759c6",
-                            Birthday = new DateTime(2023, 9, 24, 10, 0, 35, 100, DateTimeKind.Local).AddTicks(6622),
-                            CreatedDate = new DateTime(2023, 9, 24, 10, 0, 35, 100, DateTimeKind.Local).AddTicks(6623),
+                            id = "2acdc2c7-2738-4caf-97a5-d2cb2d720db3",
+                            Birthday = new DateTime(2023, 9, 24, 9, 52, 14, 943, DateTimeKind.Local).AddTicks(4348),
+                            CreatedDate = new DateTime(2023, 9, 24, 9, 52, 14, 943, DateTimeKind.Local).AddTicks(4349),
                             FirstEmail = "admin001@gmail.com",
                             FirstName = "Admin",
                             IsLock = false,
@@ -160,10 +163,10 @@ namespace Infrastructure.Migrations
                             LastName = "account",
                             PasswordHash = "VWBU8/+H4em26o8A92n+Tg==",
                             PresentEmail = "admin001@gmail.com",
-                            RoleId = "7f171b2d-a876-4c10-b2ad-2ebfe7549b1a",
-                            TokenAccess = "72838E661AD2BBC3AC9D91383A5C893C8C4A107291B12BEAEDC8ACCE2ACDDDC375F4A32A6906BA3751A205D2D16DFB720C90347AB768275BE742F8148DABD1A3",
+                            RoleId = "2c077bce-1438-46e3-b9be-2d7a8690dc3c",
+                            TokenAccess = "",
                             UserName = "adminVersion_0001",
-                            VerifiedDate = new DateTime(2023, 9, 24, 10, 0, 35, 100, DateTimeKind.Local).AddTicks(6628)
+                            VerifiedDate = new DateTime(2023, 9, 24, 9, 52, 14, 943, DateTimeKind.Local).AddTicks(4349)
                         });
                 });
 
