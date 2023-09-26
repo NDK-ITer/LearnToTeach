@@ -14,19 +14,33 @@ namespace Application.Services
 {
     public interface IUserService
     {
-        LoginReponse GetJwtUserInfor(string username, string password);
+        /// <summary>
+        /// AccountController
+        /// </summary>
+        /// <returns></returns>
+        LoginResponses LoginUser(string username, string password);
         User RegisterUser(RegisterRequest registerRequest);
+        User ConfirmEmailUser(string id, string token);
+        User ResetPasswordUser(string email, string newPassword);
+        /// <summary>
+        /// Difference
+        /// </summary>
+        ///  <returns></returns>
         bool EmailIsExist(string email);
         bool UsernameIsExist(string username);
         bool UpdateUser (User user);
         bool LockUser (User user);
         bool CheckUserIsExist(System.Linq.Expressions.Expression<Func<User, bool>> property);
+        /// <summary>
+        /// UserController
+        /// </summary>
+        /// <returns></returns>
         List<User> GetAllUsers();
         List<User> GetUserWithRole(string roleName);
-        UserModel GetUserById(string idUser);
-        UserModel GetUserUsername(string username);
+        User GetUserById(string idUser);
+        User GetUserUsername(string username);
         string GetUserToken(string id);
-        UserModel VerifyUserById(string id, string token);
+        
     }
     public class UserService : IUserService
     {
@@ -38,7 +52,7 @@ namespace Application.Services
         }
 
         
-        public LoginReponse? GetJwtUserInfor(string username, string password)//Login
+        public LoginResponses? LoginUser(string username, string password)//Login
         {
             var checkLogin = _unitOfWork.userRepository.CheckAccountValid(username, password);
             if (!checkLogin) { return null; }
@@ -142,13 +156,13 @@ namespace Application.Services
             }
         }
 
-        public UserModel? GetUserById(string idUser)
+        public User? GetUserById(string idUser)
         {
             try
             {
                 var user = _unitOfWork.userRepository.GetUserById(idUser);
                 if (user == null) return null;
-                return new UserModel(user);
+                return user;
             }
             catch (Exception)
             {
@@ -175,14 +189,13 @@ namespace Application.Services
             }
         }
 
-        public UserModel? GetUserUsername(string username)
+        public User? GetUserUsername(string username)
         {
             try
             {
                 var user = _unitOfWork.userRepository.Find(u => u.UserName == username).FirstOrDefault();
                 if (user == null) return null;
-                var userModel = new UserModel(user);
-                return userModel;
+                return user;
             }
             catch (Exception)
             {
@@ -223,7 +236,7 @@ namespace Application.Services
             }
         }
 
-        public UserModel? VerifyUserById(string id, string token)
+        public User? ConfirmEmailUser(string id, string token)
         {
             try
             {
@@ -239,11 +252,26 @@ namespace Application.Services
                     _unitOfWork.userRepository.UpdateUser(userNeedVerify);
                     _unitOfWork.SaveChange();
                 }  
-                var userModel = new UserModel(userNeedVerify);
-                return userModel;
+                return userNeedVerify;
             }
             catch (Exception)
             {
+                return null;
+            }
+        }
+
+        public User? ResetPasswordUser(string email, string newPassword)
+        {
+            try
+            {
+                var user = _unitOfWork.userRepository.GetUserByEmail(email);
+                user.PasswordHash = SecurityMethods.HashPassword(newPassword);
+                _unitOfWork.SaveChange();
+                return user;    
+            }
+            catch (Exception)
+            {
+
                 return null;
             }
         }

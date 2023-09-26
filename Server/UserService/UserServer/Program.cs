@@ -11,9 +11,11 @@ using UserServer.Models;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AuthConnectString");
 var nameQueue = builder.Configuration.GetConnectionString("SagaBusQueue");
-// Add services to the container.
+
+// Add from "appsettings.json"
 builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("EndpointConfig"));
-builder.Services.Configure<ApiGatewayAddress>(builder.Configuration.GetSection("ApiGatewayAddress"));
+builder.Services.Configure<Address>(builder.Configuration.GetSection("Address"));
+// Configuration "MassTransit" to use "RabbitMQ"
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
@@ -24,7 +26,7 @@ builder.Services.AddMassTransit(cfg =>
             hst.Password(RabbitMQConfig.Password);
         });
         cfg.ConfigureEndpoints(provider.GetRequiredService<IBusRegistrationContext>());
-
+        // Add endpiont to receive message in "RabbitMQ"
         cfg.ReceiveEndpoint(nameQueue, ep =>
         {
             ep.PrefetchCount = 10;
@@ -33,12 +35,21 @@ builder.Services.AddMassTransit(cfg =>
         });
         
     }));
+    // Configuration "Consumer"
     cfg.AddConsumer<ConsumeValueClassroomConsumer>();
     cfg.AddConsumer<GetValueUserConsumer>();
 });
-// add Entity framework
+// Configuration "Session" to store some value
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(1);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 builder.Services.AddControllers();
 builder.Services.AddMemoryCache();
+//
 builder.Services.AddDbContext<AuthenticationDbContext>(option => option.UseSqlServer(connectionString));
 builder.Services.AddTransient<IUnitOfWork_UserService, UnitOfWork_UserService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
@@ -52,5 +63,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseSession();
 
 app.Run();

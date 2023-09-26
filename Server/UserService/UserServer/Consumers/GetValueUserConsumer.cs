@@ -29,6 +29,17 @@ namespace UserServer.Consumers
                         content = data.content,
                     });
                 }
+                else if (data.eventMessage == _userEventMessage.ResetPassword)
+                {
+                    await context.Publish<IUserResetPasswordEvent>(new
+                    {
+                        idUser = data.id,
+                        fullName = data.fullName,
+                        email = data.email,
+                        subject = data.subject,
+                        content = data.content,
+                    });
+                }
             }
             
         }

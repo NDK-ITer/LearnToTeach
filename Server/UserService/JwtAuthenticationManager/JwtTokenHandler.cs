@@ -11,7 +11,7 @@ namespace JwtAuthenticationManager
         public const string JWT_SECURITY_KEY = "NguyenDuyKhg120802WithMySpecialNameIsNDK";
         private const int JWT_TOKEN_VALIDITY = 20;
 
-        public static LoginReponse? GenerateJwtToken(JwtUserInfor userAccount)
+        public static LoginResponses? GenerateJwtToken(JwtUserInfor userAccount)
         {
             //can be use data on database
             var tokenExprityTimeStamp = DateTime.Now.AddMinutes(JWT_TOKEN_VALIDITY);
@@ -36,7 +36,7 @@ namespace JwtAuthenticationManager
             var securityToken = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
             var token = jwtSecurityTokenHandler.WriteToken(securityToken);
 
-            return new LoginReponse
+            return new LoginResponses
             {
                 Id = userAccount.Id,
                 UserName = userAccount.Fullname,

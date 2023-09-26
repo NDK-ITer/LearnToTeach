@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JwtAuthenticationManager.Models
 {
-    public class LoginReponse
+    public class LoginResponses
     {
         public string Id { get; set; }
         public string UserName { get; set;}

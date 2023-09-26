@@ -48,7 +48,7 @@ namespace UserServer.Controllers
                 if (idUser == null) return BadRequest("idUser is null");
                 var result = _unitOfWork_UserService.UserService.GetUserById(idUser);
                 if (result == null) return NotFound();
-                return result;
+                return new UserModel(result);
             }
             catch (Exception e)
             {
