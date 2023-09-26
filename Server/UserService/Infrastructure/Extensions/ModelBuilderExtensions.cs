@@ -41,6 +41,7 @@ namespace Infrastructure.Extensions
                     TokenAccess = SecurityMethods.CreateRandomToken(),
                     VerifiedDate = DateTime.Now,
                     IsVerified = true,
+                    PhoneNumber = "0123456789",
                     PasswordHash = SecurityMethods.HashPassword("Testaccount123456789_001"),
                 },
                 new User()
@@ -58,6 +59,7 @@ namespace Infrastructure.Extensions
                     TokenAccess = SecurityMethods.CreateRandomToken(),
                     VerifiedDate = DateTime.Now,
                     IsVerified = true,
+                    PhoneNumber = "0123456789",
                     PasswordHash = SecurityMethods.HashPassword("Adminaccount123456789_001"),
                 }
                 );

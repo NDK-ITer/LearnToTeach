@@ -69,6 +69,7 @@ namespace Application.Services
                     FirstName = registerRequest.FirstName,
                     LastName = registerRequest.LastName,
                     FirstEmail = registerRequest.Email,
+                    PhoneNumber = registerRequest.PhoneNumber,
                     PresentEmail = registerRequest.Email,
                     Birthday = registerRequest.Brithday,
                     PasswordHash = SecurityMethods.HashPassword(registerRequest.PasswordIsConfirmed),

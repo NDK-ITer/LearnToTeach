@@ -1,6 +1,7 @@
 ﻿using Application.Requests;
 using Application.Services;
 using Events.UserServiceEvents;
+using Infrastructure;
 using JwtAuthenticationManager.Models;
 using MassTransit;
 using MassTransit.Internals.GraphValidation;
@@ -53,14 +54,16 @@ namespace Server.Controllers
             try
             {
                 if (_unitOfWork_UserService.UserService.EmailIsExist(registerRequest.Email)) return BadRequest("Email was Exist.");
-                if (_unitOfWork_UserService.UserService.UsernameIsExist(registerRequest.UserName)) return BadRequest("UserName was Exist.");
+                if (_unitOfWork_UserService.UserService.UsernameIsExist(registerRequest.UserName)) return BadRequest("Username was Exist.");
+                if (!PhoneNumberMethod.IsPhoneNumber(registerRequest.PhoneNumber)) return BadRequest("invalid phone number.");
                 var user = _unitOfWork_UserService.UserService.RegisterUser(registerRequest);
                 if (user == null) return BadRequest("Register is false.");
 
-
+                //Get user token
                 var userToken = user.TokenAccess;
+                //create URL to verify
                 var urlVerify = $"{_apigatewayAddress.Value.UserAddress}/api/Account/verify-account/?idUser={user.id}&token={userToken}";
-
+                //Publish a event to Saga orchestration
                 var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
                 if (endPoint != null)
                 {

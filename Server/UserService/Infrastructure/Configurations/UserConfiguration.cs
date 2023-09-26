@@ -19,6 +19,7 @@ namespace Infrastructure.Configurations
             builder.Property(x => x.PresentEmail).IsRequired(true).HasMaxLength(70);
             builder.Property(x => x.PasswordHash).IsRequired(true).HasMaxLength(200);
             builder.Property(x => x.RoleId).HasMaxLength(200);
+            builder.Property(x => x.PhoneNumber).HasMaxLength(20);
             builder.HasOne<Role>(user => user.Role)
                 .WithMany(role => role.Users)
                 .HasForeignKey(fk => fk.RoleId);

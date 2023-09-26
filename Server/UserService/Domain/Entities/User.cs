@@ -8,6 +8,7 @@
         public string LastName { get; set; }
         public string FirstEmail { get; set; }
         public string PresentEmail { get; set; }
+        public string PhoneNumber { get; set; }
         public string PasswordHash { get; set; }
         public string TokenAccess { get; set; }
         public DateTime? VerifiedDate { get; set; }

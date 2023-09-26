@@ -29,5 +29,11 @@ namespace Infrastructure
         {
             return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
         }
+
+        public static string CreateRandomOTP()
+        {
+            var random = new Random();
+            return (random.Next(999999)).ToString();
+        }
     }
 }
