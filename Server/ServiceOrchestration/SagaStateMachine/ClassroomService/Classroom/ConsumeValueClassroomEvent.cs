@@ -4,9 +4,9 @@ namespace SagaStateMachine.ClassroomService.Classroom
 {
     public class ConsumeValueClassroomEvent : IConsumeValueClassroomEvent
     {
-        private readonly ClassroomStateData classroomStateData;
+        private readonly AddClassroomStateData classroomStateData;
 
-        public ConsumeValueClassroomEvent(ClassroomStateData classroomStateData)
+        public ConsumeValueClassroomEvent(AddClassroomStateData classroomStateData)
         {
             this.classroomStateData = classroomStateData;
         }

@@ -1,16 +1,15 @@
-﻿using Events.ClassroomServiceEvents.Classroom;
-using Events.UserServiceEvents.User;
+﻿using Events.UserServiceEvents.User;
 using MassTransit;
 
-namespace SagaStateMachine.UserService
+namespace SagaStateMachine.UserService.ConfirmUserEmail
 {
-    public class UserStateMachine : MassTransitStateMachine<UserStateData>
+    public class ConfirmUserEmailStateMachine : MassTransitStateMachine<ConfirmUserEmailStateData>
     {
         public State ConfirmUser { get; private set; }
         public State UserResetPassword { get; private set; }
         public Event<IConfirmUserEvent> ConfirmUserEvent { get; set; }
         public Event<IUserResetPasswordEvent> UserResetPasswordEvent { get; set; }
-        public UserStateMachine()
+        public ConfirmUserEmailStateMachine()
         {
             InstanceState(s => s.CurrentState);
             Event(() => ConfirmUserEvent, a => a.CorrelateById(m => m.Message.idUser));
@@ -24,7 +23,7 @@ namespace SagaStateMachine.UserService
                     context.Saga.Email = context.Message.email;
                     context.Saga.Content = context.Message.content;
                     context.Saga.Subject = context.Message.subject;
-                }).TransitionTo(ConfirmUser).Publish(context => new SendMailEvent(context.Saga)));
+                }).TransitionTo(ConfirmUser).Publish(context => new ConsumeConfirmEmailEvent(context.Saga)));
 
             Initially(
                 When(UserResetPasswordEvent).Then(context =>
@@ -34,7 +33,7 @@ namespace SagaStateMachine.UserService
                     context.Saga.Email = context.Message.email;
                     context.Saga.Content = context.Message.content;
                     context.Saga.Subject = context.Message.subject;
-                }).TransitionTo(UserResetPassword).Publish(context => new SendMailEvent(context.Saga)));
+                }).TransitionTo(UserResetPassword).Publish(context => new ConsumeConfirmEmailEvent(context.Saga)));
 
         }
     }

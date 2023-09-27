@@ -2,7 +2,7 @@
 
 namespace SagaStateMachine.ClassroomService.Classroom
 {
-    public class ClassroomStateData : SagaStateMachineInstance
+    public class AddClassroomStateData : SagaStateMachineInstance
     {
         public Guid CorrelationId { get; set; }
         public string? CurrentState { get; set; }

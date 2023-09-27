@@ -3,7 +3,7 @@ using MassTransit;
 
 namespace SagaStateMachine.ClassroomService.Classroom
 {
-    public class ClassroomStateMachine : MassTransitStateMachine<ClassroomStateData>
+    public class AddClassroomStateMachine : MassTransitStateMachine<AddClassroomStateData>
     {
         // 2 states are going to happen
         public State AddClassroom { get; private set; }
@@ -14,7 +14,7 @@ namespace SagaStateMachine.ClassroomService.Classroom
         public Event<IAddClassroomEvent> AddClassroomEvent { get; private set; }
         public Event<ICancelAddClassroomEvent> CancelAddClassroomEvent { get; private set; }
 
-        public ClassroomStateMachine()
+        public AddClassroomStateMachine()
         {
             InstanceState(s => s.CurrentState);
             Event(() => AddClassroomEvent, a => a.CorrelateById(m => m.Message.idClassroom));

@@ -1,10 +1,10 @@
 ﻿using MassTransit;
 
-namespace SagaStateMachine.UserService
+namespace SagaStateMachine.UserService.ConfirmUserEmail
 {
-    public class UserStateData : SagaStateMachineInstance
+    public class ConfirmUserEmailStateData : SagaStateMachineInstance
     {
-        public Guid CorrelationId { get ; set; }
+        public Guid CorrelationId { get; set; }
         public string? CurrentState { get; set; }
         public Guid IdUser { get; set; }
         public string Fullname { get; set; }

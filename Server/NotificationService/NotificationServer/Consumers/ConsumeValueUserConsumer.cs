@@ -1,11 +1,10 @@
-﻿using Event.UserEvents;
-using Events.UserServiceEvents.Notification;
+﻿using Events.UserServiceEvents.Notification;
 using MassTransit;
 using SendMail.Interfaces;
 
 namespace NotificationServer.Consumers
 {
-    public class ConsumeValueUserConsumer : IConsumer<ISendEmailEvent>
+    public class ConsumeValueUserConsumer : IConsumer<IConsumeConfirmEmailEvent>
     {
         private readonly IEmailSender _emailSender;
 
@@ -13,7 +12,7 @@ namespace NotificationServer.Consumers
         {
             _emailSender = emailSender;
         }
-        public async Task Consume(ConsumeContext<ISendEmailEvent> context)
+        public async Task Consume(ConsumeContext<IConsumeConfirmEmailEvent> context)
         {
             var data = context.Message;
             if (data != null) 

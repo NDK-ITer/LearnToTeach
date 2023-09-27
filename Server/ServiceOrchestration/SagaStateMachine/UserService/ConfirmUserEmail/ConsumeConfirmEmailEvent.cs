@@ -1,15 +1,16 @@
 ﻿using Events.UserServiceEvents.Notification;
 
-namespace SagaStateMachine.UserService
+namespace SagaStateMachine.UserService.ConfirmUserEmail
 {
-    public class SendMailEvent : ISendEmailEvent
+    public class ConsumeConfirmEmailEvent : IConsumeConfirmEmailEvent
     {
-        private readonly UserStateData userStateData;
+        private readonly ConfirmUserEmailStateData userStateData;
 
-        public SendMailEvent(UserStateData userStateData)
+        public ConsumeConfirmEmailEvent(ConfirmUserEmailStateData userStateData)
         {
             this.userStateData = userStateData;
         }
+
         public Guid id => userStateData.IdUser;
         public string FullName => userStateData.Fullname;
         public string Email => userStateData.Email;

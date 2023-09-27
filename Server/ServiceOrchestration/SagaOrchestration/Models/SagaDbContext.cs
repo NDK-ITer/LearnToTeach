@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SagaStateMachine.ClassroomService.Classroom;
 using SagaStateMachine.ClassroomService.Member;
-using SagaStateMachine.UserService;
+using SagaStateMachine.UserService.ConfirmUserEmail;
 
 namespace SagaOrchestration.Models
 {
@@ -13,14 +13,14 @@ namespace SagaOrchestration.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ClassroomStateData>().HasKey(x => x.CorrelationId);
+            modelBuilder.Entity<AddClassroomStateData>().HasKey(x => x.CorrelationId);
             modelBuilder.Entity<MemberStateData>().HasKey(x => x.CorrelationId);
-            modelBuilder.Entity<UserStateData>().HasKey(x => x.CorrelationId);
+            modelBuilder.Entity<ConfirmUserEmailStateData>().HasKey(x => x.CorrelationId);
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<ClassroomStateData> ClassroomStateData { get; set; }
+        public DbSet<AddClassroomStateData> AddClassroomStateData { get; set; }
         public DbSet<MemberStateData> MemberStateData { get; set; }
-        public DbSet<UserStateData> UserStateData { get; set; }
+        public DbSet<ConfirmUserEmailStateData> ConfirmUserEmailStateData { get; set; }
     }
 }

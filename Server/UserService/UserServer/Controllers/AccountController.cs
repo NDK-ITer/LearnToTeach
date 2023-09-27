@@ -114,7 +114,7 @@ namespace Server.Controllers
 
         [HttpPost]
         [Route("change-password")]
-        public async Task<ActionResult> ChangePassword([FromBody]string? idUser)
+        public async Task<IActionResult> ChangePassword(string idUser)
         {
             try
             {
@@ -133,7 +133,7 @@ namespace Server.Controllers
                         id = Guid.Parse(user.id),
                         fullName = user.FirstName + " " + user.LastName,
                         email = user.PresentEmail,
-                        content = $"{otp} is your OTP. <br/>This OTP is exist in 60s. <br/>Don't share this OTP.",
+                        content = $"Dear {user.FirstName + " " + user.LastName}!<br/>{otp} is your OTP. <br/>This OTP is exist in 60s. <br/>Don't share this OTP.",
                         subject = "OTP to change password your account",
                         eventMessage = _userEventMessage.ResetPassword
                     });
