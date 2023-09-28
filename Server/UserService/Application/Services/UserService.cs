@@ -28,8 +28,8 @@ namespace Application.Services
         ///  <returns></returns>
         bool EmailIsExist(string email);
         bool UsernameIsExist(string username);
-        bool UpdateUser (User user);
-        bool LockUser (User user);
+        bool UpdateUser(User user);
+        bool LockUser(User user);
         bool CheckUserIsExist(System.Linq.Expressions.Expression<Func<User, bool>> property);
         /// <summary>
         /// UserController
@@ -39,8 +39,9 @@ namespace Application.Services
         List<User> GetUserWithRole(string roleName);
         User GetUserById(string idUser);
         User GetUserUsername(string username);
+        User GetUserByEmail(string email);
         string GetUserToken(string id);
-        
+
     }
     public class UserService : IUserService
     {
@@ -51,7 +52,7 @@ namespace Application.Services
             _unitOfWork = new UnitOfWork(context, cache);
         }
 
-        
+
         public LoginResponses? LoginUser(string username, string password)//Login
         {
             var checkLogin = _unitOfWork.userRepository.CheckAccountValid(username, password);
@@ -113,7 +114,7 @@ namespace Application.Services
 
         public bool UsernameIsExist(string username)
         {
-            if(_unitOfWork.userRepository.CheckUsernameIsExist(username)) return true;
+            if (_unitOfWork.userRepository.CheckUsernameIsExist(username)) return true;
             return false;
         }
 
@@ -175,11 +176,11 @@ namespace Application.Services
         {
             try
             {
-                if(roleName.IsNullOrEmpty()) return null;
-                
+                if (roleName.IsNullOrEmpty()) return null;
+
                 var users = _unitOfWork.roleRepository.GetRoleByName(roleName).Users;
-                if(users == null) return null;  
-                
+                if (users == null) return null;
+
                 return users;
             }
             catch (Exception)
@@ -240,7 +241,7 @@ namespace Application.Services
         {
             try
             {
-                var userNeedVerify= _unitOfWork.userRepository.GetUserById(id);
+                var userNeedVerify = _unitOfWork.userRepository.GetUserById(id);
 
                 if (userNeedVerify == null) return null;
                 if (userNeedVerify.TokenAccess != token) return null;
@@ -251,7 +252,7 @@ namespace Application.Services
 
                     _unitOfWork.userRepository.UpdateUser(userNeedVerify);
                     _unitOfWork.SaveChange();
-                }  
+                }
                 return userNeedVerify;
             }
             catch (Exception)
@@ -267,12 +268,28 @@ namespace Application.Services
                 var user = _unitOfWork.userRepository.GetUserByEmail(email);
                 user.PasswordHash = SecurityMethods.HashPassword(newPassword);
                 _unitOfWork.SaveChange();
-                return user;    
+                return user;
             }
             catch (Exception)
             {
 
                 return null;
+            }
+        }
+
+        public User? GetUserByEmail(string email)
+        {
+            try
+            {
+                if (email.IsNullOrEmpty()) return null;
+                var user = _unitOfWork.userRepository.GetUserByEmail(email);
+                if (user != null) return user;
+                return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

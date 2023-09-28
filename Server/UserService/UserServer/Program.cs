@@ -6,6 +6,7 @@ using RabbitMQ_Lib;
 using SendMail.ClassDefine;
 using SendMail.Interfaces;
 using UserServer.Consumers;
+using UserServer.Extensions;
 using UserServer.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,7 +44,7 @@ builder.Services.AddMassTransit(cfg =>
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(1);
+    options.IdleTimeout = TimeSpan.FromMinutes(SessionInforConfig.SessionTimeOut);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });

@@ -5,9 +5,11 @@ using Infrastructure;
 using JwtAuthenticationManager.Models;
 using MassTransit;
 using MassTransit.Internals.GraphValidation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SendMail.Interfaces;
+using UserServer.Extensions;
 using UserServer.Models;
 
 namespace Server.Controllers
@@ -121,9 +123,9 @@ namespace Server.Controllers
                 // Get user with idUser
                 var user = _unitOfWork_UserService.UserService.GetUserById(idUser);
                 if (user == null) return BadRequest();
-                var email = user.PresentEmail;
                 // Generate a OTP and store to Session with key value is "email"
                 var otp = SecurityMethods.CreateRandomOTP();
+                HttpContext.Session.SetString(user.PresentEmail, otp);
                 // Send the OTP to Email
                 var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
                 if (endPoint != null)
@@ -133,12 +135,12 @@ namespace Server.Controllers
                         id = Guid.Parse(user.id),
                         fullName = user.FirstName + " " + user.LastName,
                         email = user.PresentEmail,
-                        content = $"Dear {user.FirstName + " " + user.LastName}!<br/><span style=\"color: #53A8F8;font-weight: bold;\">{otp}</span> is your OTP. This OTP is exist in 60s. Don't share this OTP.",
+                        content = $"Dear {user.FirstName + " " + user.LastName}!<br/><span style=\"color: #53A8F8;font-weight: bold;\">{otp}</span> is your OTP. This OTP is exist in {SessionInforConfig.SessionTimeOut} minutes. Don't share this OTP.",
                         subject = "OTP to change password your account",
                         eventMessage = _userEventMessage.ResetPassword
                     });
                 }
-                return Ok($"Have sent OTP to {email}");
+                return Ok($"Have sent OTP to {user.PresentEmail}");
             }
             catch (Exception)
             {
@@ -146,13 +148,57 @@ namespace Server.Controllers
                 return BadRequest("Some thing wrong");
             }
         }
+
         [HttpPost]
-        [Route("verify-otp")]
-        public ActionResult VerifyOTP(string otp)
+        [Route("forget-password")]
+        public async Task<IActionResult> ForgetPassword(string email)
         {
             try
             {
-                return Ok();
+                // Get user with idUser
+                var user = _unitOfWork_UserService.UserService.GetUserById(email);
+                if (user == null) return BadRequest();
+                // Generate a OTP and store to Session with key value is "email"
+                var otp = SecurityMethods.CreateRandomOTP();
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString(user.PresentEmail)))
+                {
+                    HttpContext.Session.SetString(user.PresentEmail, otp);
+                }
+                // Send the OTP to Email
+                var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
+                if (endPoint != null)
+                {
+                    endPoint.Send<IGetValueUserEvent>(new
+                    {
+                        id = Guid.Parse(user.id),
+                        fullName = user.FirstName + " " + user.LastName,
+                        email = user.PresentEmail,
+                        content = $"Dear {user.FirstName + " " + user.LastName}!<br/><span style=\"color: #53A8F8;font-weight: bold;\">{otp}</span> is your OTP. This OTP is exist in {SessionInforConfig.SessionTimeOut} minutes. Don't share this OTP.",
+                        subject = "OTP to change password your account",
+                        eventMessage = _userEventMessage.ResetPassword
+                    });
+                }
+                return Ok($"Have sent OTP to {user.PresentEmail}");
+            }
+            catch (Exception)
+            {
+
+                return BadRequest("Some thing wrong");
+            }
+        }
+
+        [HttpPost]
+        [Route("verify-otp")]
+        public ActionResult VerifyOTP([FromBody]VerifyOTPModel verifyOTPModel)
+        {
+            try
+            {
+                var otp = HttpContext.Session.GetString(verifyOTPModel.email);
+                if (otp != verifyOTPModel.OTP)
+                {
+                    return BadRequest("Incorrect OTP");
+                }
+                return Ok("correct OTP");
             }
             catch (Exception)
             {
@@ -174,7 +220,6 @@ namespace Server.Controllers
                 if (ModelState.IsValid)
                 {
                     if (model.NewPassword!=model.ConfirmPassword) return BadRequest("Password isn't confirmed");
-                    
                 }
                 return Ok();
             }
