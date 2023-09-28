@@ -21,6 +21,15 @@ namespace SagaStateMachine.UserService.ResetPassword
                     context.Saga.Content = context.Message.content;
                     context.Saga.Subject = context.Message.subject;
                 }).TransitionTo(UserResetPassword).Publish(context => new ConsumeResetPasswordEvent(context.Saga)));
+            During(UserResetPassword,
+                When(UserResetPasswordEvent).Then(context =>
+                {
+                    context.Saga.IdUser = context.Message.idUser;
+                    context.Saga.Fullname = context.Message.fullName;
+                    context.Saga.Email = context.Message.email;
+                    context.Saga.Content = context.Message.content;
+                    context.Saga.Subject = context.Message.subject;
+                }).TransitionTo(UserResetPassword).Publish(context => new ConsumeResetPasswordEvent(context.Saga)));
 
         }
     }

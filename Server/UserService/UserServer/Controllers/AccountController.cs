@@ -133,7 +133,7 @@ namespace Server.Controllers
                         id = Guid.Parse(user.id),
                         fullName = user.FirstName + " " + user.LastName,
                         email = user.PresentEmail,
-                        content = $"Dear {user.FirstName + " " + user.LastName}!<br/>{otp} is your OTP. This OTP is exist in 60s. Don't share this OTP.",
+                        content = $"Dear {user.FirstName + " " + user.LastName}!<br/><span style=\"color: #53A8F8;font-weight: bold;\">{otp}</span> is your OTP. This OTP is exist in 60s. Don't share this OTP.",
                         subject = "OTP to change password your account",
                         eventMessage = _userEventMessage.ResetPassword
                     });
