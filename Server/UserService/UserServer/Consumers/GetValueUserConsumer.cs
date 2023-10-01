@@ -18,7 +18,7 @@ namespace UserServer.Consumers
             var data = context.Message;
             if (data != null) 
             {
-                if (data.eventMessage == _userEventMessage.ConfirmAccount)
+                if (data.eventMessage == _userEventMessage.ConfirmEmail)
                 {
                     await context.Publish<IConfirmUserEvent>(new
                     {

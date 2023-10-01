@@ -84,17 +84,53 @@ namespace Server.Controllers
                         email = user.PresentEmail,
                         content = $"<a href='{urlVerify}'>Click here</a> to verify your account",
                         subject = "Confirm your account",
-                        eventMessage = _userEventMessage.ConfirmAccount
+                        eventMessage = _userEventMessage.ConfirmEmail
                     });
                 }
 
-                return Ok();
+                return Ok($"Please check your email.");
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
 
+        }
+
+        [HttpGet]
+        [Route("confirm-email")]
+        public async Task<ActionResult> ConfirmEmail(string email)
+        {
+            try
+            {
+                var user = _unitOfWork_UserService.UserService.GetUserByEmail(email);
+                if (user == null) return BadRequest($"Not found user with {email}");
+                if (user.IsVerified) return StatusCode(201,"Email had been confirmed");
+                //Get user token
+                var userToken = user.TokenAccess;
+                //create URL to verify
+                var urlVerify = $"{_address.Value.UserAddress}/api/Account/verify-account/?idUser={user.id}&token={userToken}";
+                //Publish a event to Saga orchestration
+                var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
+                if (endPoint != null)
+                {
+                    endPoint.Send<IGetValueUserEvent>(new
+                    {
+                        id = Guid.Parse(user.id),
+                        fullName = user.FirstName + " " + user.LastName,
+                        email = user.PresentEmail,
+                        content = $"<a href='{urlVerify}'>Click here</a> to verify your account",
+                        subject = "Confirm your account",
+                        eventMessage = _userEventMessage.ConfirmEmail
+                    });
+                }
+                return Ok($"Please check your email.");
+            }
+            catch (Exception)
+            {
+
+                return BadRequest("Some thing wrong !");
+            }
         }
 
         [HttpGet]

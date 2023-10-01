@@ -28,6 +28,13 @@ namespace SagaStateMachine.ClassroomService.Member
                     context.Saga.IdMember = context.Message.IdMember;
                 }).TransitionTo(AddMember).Publish(context => new ConsumeValueMemberEvent(context.Saga)));
 
+            During(AddMember,
+                When(AddMemberEvent).Then(context =>
+                {
+                    context.Saga.IdClassroom = context.Message.idClassroom;
+                    context.Saga.IdMember = context.Message.IdMember;
+                }).TransitionTo(AddMember).Publish(context => new ConsumeValueMemberEvent(context.Saga)));
+
             // During AddClassroomEvent some other events might occurred 
             During(AddMember,
                 When(CancelAddMemberEvent).Then(context =>

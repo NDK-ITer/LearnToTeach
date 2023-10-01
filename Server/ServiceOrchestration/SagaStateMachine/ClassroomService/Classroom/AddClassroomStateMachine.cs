@@ -31,6 +31,16 @@ namespace SagaStateMachine.ClassroomService.Classroom
                     context.Saga.IdUserHost = context.Message.idUserHost;
                 }).TransitionTo(AddClassroom).Publish(context => new ConsumeValueClassroomEvent(context.Saga)));
 
+            During(AddClassroom,
+                When(AddClassroomEvent).Then(context =>
+                {
+                    context.Saga.IdClassroom = context.Message.idClassroom;
+                    context.Saga.Name = context.Message.name;
+                    context.Saga.Description = context.Message.description;
+                    context.Saga.IsPrivate = context.Message.isPrivate;
+                    context.Saga.IdUserHost = context.Message.idUserHost;
+                }).TransitionTo(AddClassroom).Publish(context => new ConsumeValueClassroomEvent(context.Saga)));
+
             // During AddClassroomEvent some other events might occurred 
             During(AddClassroom,
                 When(CancelAddClassroomEvent).Then(context =>
