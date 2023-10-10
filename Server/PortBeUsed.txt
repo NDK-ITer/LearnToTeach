@@ -1,0 +1,7 @@
+9000: ApiGateway
+9001: UserService
+9002: ClassroomService
+9003: DiscoveryService
+9008: NotificationService
+9009: ServiceOrchestration
+9011: Meeting-roomService
