@@ -2,6 +2,7 @@
   "Routes": [
     //Authentication Web Api
     {
+      //login
       "UpstreamPathTemplate": "/account/login",
       "UpstreamHttpMethod": [ "Post" ],
       "DownstreamHostAndPorts": [
@@ -11,6 +12,97 @@
         }
       ],
       "DownstreamPathTemplate": "/api/Account/Login",
+      "DownstreamScheme": "https"
+    },
+    {
+      //register
+      "UpstreamPathTemplate": "/account/register",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9001
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Account/register",
+      "DownstreamScheme": "https"
+    },
+    {
+      //confirm-email
+      "UpstreamPathTemplate": "/account/confirm-email",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9001
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Account/confirm-email",
+      "DownstreamScheme": "https"
+    },
+    {
+      //verify-account
+      "UpstreamPathTemplate": "/account/verify-account",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9001
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Account/verify-account",
+      "DownstreamScheme": "https"
+    },
+    {
+      //change-password
+      "UpstreamPathTemplate": "/account/change-password",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9001
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Account/change-password",
+      "DownstreamScheme": "https"
+    },
+    {
+      //forget-password
+      "UpstreamPathTemplate": "/account/forget-password",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9001
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Account/forget-password",
+      "DownstreamScheme": "https"
+    },
+    {
+      //verify-otp
+      "UpstreamPathTemplate": "/account/verify-otp",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9001
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Account/verify-otp",
+      "DownstreamScheme": "https"
+    },
+    {
+      //reset-password
+      "UpstreamPathTemplate": "/account/reset-password",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9001
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Account/reset-password",
       "DownstreamScheme": "https"
     },
     //Classroom Demo Web Api
