@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.33906.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{306C84B8-7350-4586-8D49-27F7A0B2BC37}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JwtAuthenticationManager", "..\Libraries\JwtAuthenticationManager\JwtAuthenticationManager.csproj", "{FB8810F8-8130-4764-A3F3-F971FCE48BE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JwtAuthenticationManager", "JwtAuthenticationManager\JwtAuthenticationManager.csproj", "{2462F2B3-B4CC-4761-A330-2EFBECA237AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{306C84B8-7350-4586-8D49-27F7A0B2BC37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{306C84B8-7350-4586-8D49-27F7A0B2BC37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{306C84B8-7350-4586-8D49-27F7A0B2BC37}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FB8810F8-8130-4764-A3F3-F971FCE48BE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB8810F8-8130-4764-A3F3-F971FCE48BE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB8810F8-8130-4764-A3F3-F971FCE48BE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB8810F8-8130-4764-A3F3-F971FCE48BE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2462F2B3-B4CC-4761-A330-2EFBECA237AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2462F2B3-B4CC-4761-A330-2EFBECA237AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2462F2B3-B4CC-4761-A330-2EFBECA237AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2462F2B3-B4CC-4761-A330-2EFBECA237AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

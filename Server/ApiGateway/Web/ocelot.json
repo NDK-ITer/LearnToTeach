@@ -1,6 +1,6 @@
 {
   "Routes": [
-    //Authentication Web Api
+    //UserService Web Api
     {
       //login
       "UpstreamPathTemplate": "/account/login",
@@ -105,9 +105,9 @@
       "DownstreamPathTemplate": "/api/Account/reset-password",
       "DownstreamScheme": "https"
     },
-    //Classroom Demo Web Api
+    //ClassroomService Web Api
     {
-      "UpstreamPathTemplate": "/classroom/all",
+      "UpstreamPathTemplate": "/classroom/public",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamHostAndPorts": [
         {
@@ -115,11 +115,16 @@
           "Port": 9002
         }
       ],
-      "DownstreamPathTemplate": "/api/Classroom/All",
+      "DownstreamPathTemplate": "/api/Classroom/public",
       "DownstreamScheme": "https",
+      //Authentication
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
       }
     }
   ],

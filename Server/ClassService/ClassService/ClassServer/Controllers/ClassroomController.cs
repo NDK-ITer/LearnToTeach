@@ -30,30 +30,8 @@ namespace ClassServer.Controllers
             _bus = bus;
         }
 
-        /*
-         <summary> </summary>
-         */
         [HttpGet]
-        [Route("GetAll")]
-        public ActionResult<List<ClassroomModel>> GetAllClassroom()
-        {
-            try
-            {
-                var classroomResponse = _unitOfWork_ClassroomService._classroomService.GetAllClassroom();
-                if(classroomResponse.IsNullOrEmpty()) return NotFound();
-                return classroomResponse;
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
-        /*
-         <summary> </summary>
-         */
-        [HttpGet]
-        [Route("GetPublic")]
+        [Route("public")]
         public ActionResult<List<ClassroomModel>> GetClassroomPublic()
         {
             try
@@ -67,10 +45,7 @@ namespace ClassServer.Controllers
                 return BadRequest(e.Message);
             }
         }
-
-        /*
-         <summary> </summary>
-         */
+        
         [HttpGet]
         [Route("{idClassroom}")]
         public ActionResult<ClassroomModel> GetClassById([FromRoute] string idClassroom)
@@ -90,11 +65,9 @@ namespace ClassServer.Controllers
                 return BadRequest(e.Message);
             }
         }
-        /*
-         <summary> </summary>
-         */
+        
         [HttpGet]
-        [Route("Name/{nameClassroom}")]
+        [Route("name/{nameClassroom}")]
         public ActionResult<ClassroomModel> GetClassByName([FromRoute] string nameClassroom)
         {
             try
@@ -109,11 +82,9 @@ namespace ClassServer.Controllers
                 return BadRequest(e.Message);
             }
         }
-        /*
-         <summary> </summary>
-         */
+        
         [HttpPost]
-        [Route("Create")]
+        [Route("create")]
         public async Task<ActionResult> CreateClassroom([FromBody] ClassroomRequest classroomRequest)
         {
             try
@@ -140,11 +111,9 @@ namespace ClassServer.Controllers
                 return BadRequest(e.Message);
             }
         }
-        /*
-         <summary> </summary>
-         */
+        
         [HttpPut]
-        [Route("Update")]
+        [Route("update")]
         public ActionResult UpdateClassroom([FromBody] ClassroomRequest ClassroomRequest)
         {
             try
@@ -159,11 +128,9 @@ namespace ClassServer.Controllers
                 return BadRequest(e.Message);
             }
         }
-        /*
-         <summary> </summary>
-         */
+        
         [HttpDelete]
-        [Route("Delete/{idClassroom}")]
+        [Route("delete/{idClassroom}")]
         public ActionResult DeleteClassroom([FromRoute] string idClassroom)
         {
             try
@@ -177,11 +144,9 @@ namespace ClassServer.Controllers
                 return BadRequest(e.Message);
             }
         }
-        /*
-         <summary> </summary>
-         */
+        
         [HttpDelete]
-        [Route("DeleteMember/{idClassroom}/{idMember}")]
+        [Route("deleteMember/{idClassroom}/{idMember}")]
         public ActionResult DeleteMemberInClassroom([FromRoute] string idClassroom, string idMember)
         {
             try
