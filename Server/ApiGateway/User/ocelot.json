@@ -1,8 +1,8 @@
 {
   "Routes": [
     //UserService Web Api
+    //login
     {
-      //login
       "UpstreamPathTemplate": "/account/login",
       "UpstreamHttpMethod": [ "Post" ],
       "DownstreamHostAndPorts": [
@@ -14,8 +14,8 @@
       "DownstreamPathTemplate": "/api/Account/Login",
       "DownstreamScheme": "https"
     },
+    //register
     {
-      //register
       "UpstreamPathTemplate": "/account/register",
       "UpstreamHttpMethod": [ "Post" ],
       "DownstreamHostAndPorts": [
@@ -27,8 +27,8 @@
       "DownstreamPathTemplate": "/api/Account/register",
       "DownstreamScheme": "https"
     },
+    //confirm-email
     {
-      //confirm-email
       "UpstreamPathTemplate": "/account/confirm-email",
       "UpstreamHttpMethod": [ "Post" ],
       "DownstreamHostAndPorts": [
@@ -40,8 +40,8 @@
       "DownstreamPathTemplate": "/api/Account/confirm-email",
       "DownstreamScheme": "https"
     },
+    //verify-account
     {
-      //verify-account
       "UpstreamPathTemplate": "/account/verify-account",
       "UpstreamHttpMethod": [ "Post" ],
       "DownstreamHostAndPorts": [
@@ -53,8 +53,8 @@
       "DownstreamPathTemplate": "/api/Account/verify-account",
       "DownstreamScheme": "https"
     },
+    //change-password
     {
-      //change-password
       "UpstreamPathTemplate": "/account/change-password",
       "UpstreamHttpMethod": [ "Post" ],
       "DownstreamHostAndPorts": [
@@ -64,10 +64,15 @@
         }
       ],
       "DownstreamPathTemplate": "/api/Account/change-password",
-      "DownstreamScheme": "https"
+      "DownstreamScheme": "https",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+
     },
+    //forget-password
     {
-      //forget-password
       "UpstreamPathTemplate": "/account/forget-password",
       "UpstreamHttpMethod": [ "Post" ],
       "DownstreamHostAndPorts": [
@@ -79,8 +84,8 @@
       "DownstreamPathTemplate": "/api/Account/forget-password",
       "DownstreamScheme": "https"
     },
+    //verify-otp
     {
-      //verify-otp
       "UpstreamPathTemplate": "/account/verify-otp",
       "UpstreamHttpMethod": [ "Post" ],
       "DownstreamHostAndPorts": [
@@ -92,8 +97,8 @@
       "DownstreamPathTemplate": "/api/Account/verify-otp",
       "DownstreamScheme": "https"
     },
+    //reset-password
     {
-      //reset-password
       "UpstreamPathTemplate": "/account/reset-password",
       "UpstreamHttpMethod": [ "Post" ],
       "DownstreamHostAndPorts": [
@@ -105,7 +110,9 @@
       "DownstreamPathTemplate": "/api/Account/reset-password",
       "DownstreamScheme": "https"
     },
+    
     //ClassroomService Web Api
+    //get classroom public
     {
       "UpstreamPathTemplate": "/classroom/public",
       "UpstreamHttpMethod": [ "Get" ],
@@ -116,6 +123,138 @@
         }
       ],
       "DownstreamPathTemplate": "/api/Classroom/public",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //get classroom by 'id'
+    {
+      "UpstreamPathTemplate": "/classroom/id",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Classroom/id",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //get classroom by 'name'
+    {
+      "UpstreamPathTemplate": "/classroom/name",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Classroom/name",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //create classroom
+    {
+      "UpstreamPathTemplate": "/classroom/create",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Classroom/create",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //upadte classroom
+    {
+      "UpstreamPathTemplate": "/classroom/update",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Classroom/update",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //delete classroom
+    {
+      "UpstreamPathTemplate": "/classroom/delete",
+      "UpstreamHttpMethod": [ "Delete" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Classroom/delete",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //remove member
+    {
+      "UpstreamPathTemplate": "/classroom/remove-member",
+      "UpstreamHttpMethod": [ "Delete" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Classroom/remove-member",
       "DownstreamScheme": "https",
       //Authentication
       "AuthenticationOptions": {

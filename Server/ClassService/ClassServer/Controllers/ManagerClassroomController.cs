@@ -8,12 +8,12 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace ClassServer.Controllers
 {
-    [Route("api/admin-classroom")]
+    [Route("api/manager-classroom")]
     [ApiController]
-    public class AdminClassroomController : ControllerBase
+    public class ManagerClassroomController : ControllerBase
     {
         private readonly IUnitOfWork_ClassroomService _unitOfWork_ClassroomService;
-        public AdminClassroomController(IUnitOfWork_ClassroomService unitOfWork_ClassroomService)
+        public ManagerClassroomController(IUnitOfWork_ClassroomService unitOfWork_ClassroomService)
         {
             _unitOfWork_ClassroomService = unitOfWork_ClassroomService;
         }

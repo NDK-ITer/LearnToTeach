@@ -35,11 +35,7 @@ namespace Server.Controllers
             _queue = queue;
             _bus = bus;
         }
-        /// <summary>
-        /// User Login
-        /// </summary>
-        /// <param name="loginRequest"></param>
-        /// <returns>LoginResponses</returns>
+        
         [HttpPost]
         [Route("login")]
         public ActionResult<LoginResponses>? Login([FromBody] LoginRequest loginRequest)
@@ -52,11 +48,7 @@ namespace Server.Controllers
             }
             return StatusCode(204);
         }
-        /// <summary>
-        /// User Register
-        /// </summary>
-        /// <param name="registerRequest"></param>
-        /// <returns>StatusCode</returns>
+        
         [HttpPost]
         [Route("register")]
         public async Task<ActionResult> Register([FromBody] RegisterRequest registerRequest)
@@ -242,11 +234,7 @@ namespace Server.Controllers
                 return BadRequest("Something was wrong!");
             }
         }
-        /// <summary>
-        /// "ForgotPassword" and "ChangePassword" will use this Action.
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
+        
         [HttpPost]
         [Route("reset-password")]
         public ActionResult ResetPassword([FromBody] ResetPasswordModel model)
@@ -261,7 +249,6 @@ namespace Server.Controllers
             }
             catch (Exception)
             {
-
                 return BadRequest("Some thing wrong");
             }
         }

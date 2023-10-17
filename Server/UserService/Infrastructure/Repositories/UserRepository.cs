@@ -25,7 +25,11 @@ namespace Infrastructure.Repositories
             if (_memoryCache.TryGetValue(_keyValueCache, out List<User> listUserInCache)) 
             {
                 var user = listUserInCache.FirstOrDefault(u => u.UserName == username && SecurityMethods.HashPassword(password) == u.PasswordHash);
-                if (user == null) { return false; }
+                if (user == null) 
+                {
+                    user = _dbSet.FirstOrDefault(u => u.UserName == username && SecurityMethods.HashPassword(password) == u.PasswordHash);
+                    listUserInCache.Add(user);
+                }
                 return true;
             }
             else

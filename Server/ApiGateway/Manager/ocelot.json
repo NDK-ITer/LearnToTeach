@@ -37,6 +37,7 @@
         "Role": "USER"
       }
     }
+
   ],
   "GlobalConfiguration": {
     "BaseUrl": "https://localhost:9004"

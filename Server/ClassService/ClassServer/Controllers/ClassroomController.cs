@@ -47,8 +47,8 @@ namespace ClassServer.Controllers
         }
         
         [HttpGet]
-        [Route("{idClassroom}")]
-        public ActionResult<ClassroomModel> GetClassById([FromRoute] string idClassroom)
+        [Route("id")]
+        public ActionResult<ClassroomModel> GetClassById(string idClassroom)
         {
             try
             {
@@ -67,8 +67,8 @@ namespace ClassServer.Controllers
         }
         
         [HttpGet]
-        [Route("name/{nameClassroom}")]
-        public ActionResult<ClassroomModel> GetClassByName([FromRoute] string nameClassroom)
+        [Route("name")]
+        public ActionResult<ClassroomModel> GetClassByName( string nameClassroom)
         {
             try
             {
@@ -130,8 +130,8 @@ namespace ClassServer.Controllers
         }
         
         [HttpDelete]
-        [Route("delete/{idClassroom}")]
-        public ActionResult DeleteClassroom([FromRoute] string idClassroom)
+        [Route("delete")]
+        public ActionResult DeleteClassroom(string idClassroom)
         {
             try
             {
@@ -146,8 +146,8 @@ namespace ClassServer.Controllers
         }
         
         [HttpDelete]
-        [Route("deleteMember/{idClassroom}/{idMember}")]
-        public ActionResult DeleteMemberInClassroom([FromRoute] string idClassroom, string idMember)
+        [Route("remove-member")]
+        public ActionResult DeleteMemberInClassroom(string idClassroom, string idMember)
         {
             try
             {
