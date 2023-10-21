@@ -40,10 +40,10 @@ function App() {
     <Router>
       <Switch>
         {createdClasses.map((item, index) => (
-          <Route key={index} exact path={`/${item.id}`}>
+          <ProtectedRoute key={index} user={loggedInMail} exact path={`/${item.id}`}>
             <Drawer />
             <Main classData={item} />
-          </Route>
+          </ProtectedRoute>
         ))}
         {joinedClasses.map((item, index) => (
           <Route key={index} exact path={`/${item.id}`}>

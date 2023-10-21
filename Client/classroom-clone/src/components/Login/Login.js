@@ -9,9 +9,9 @@ const Login = () => {
   console.log(loggedInUser);
   return (
     <div className="login">
-      <img className="login__logo" src={logo} alt="Classroom" />
+      {/* <img className="login__logo" src={logo} alt="Classroom" /> */}
 
-      <Button variant="contained" color="default" onClick={() => login()}>
+      <Button className="login__btn" variant="contained" color="default" onClick={() => login()}>
         Login Now!
       </Button>
     </div>
