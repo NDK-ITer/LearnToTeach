@@ -19,7 +19,7 @@ namespace UserServer.Controllers
         }
 
         [HttpGet]
-        [Route("GetAll")]
+        [Route("get-all")]
         public ActionResult<List<UserModel>> GetAllUser()
         {
             try
@@ -40,7 +40,7 @@ namespace UserServer.Controllers
         }
 
         [HttpGet]
-        [Route("{idUser}")]
+        [Route("")]
         public ActionResult<UserModel> GetUserById([FromRoute] string? idUser)
         {
             try
@@ -57,7 +57,7 @@ namespace UserServer.Controllers
             }
         }
         [HttpGet]
-        [Route("role/{roleName}")]
+        [Route("role")]
         public ActionResult<List<UserModel>> GetUserWithRole([FromRoute]string roleName) 
         {
             try
