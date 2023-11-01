@@ -4,11 +4,8 @@ using Events.UserServiceEvents;
 using Infrastructure;
 using JwtAuthenticationManager.Models;
 using MassTransit;
-using MassTransit.Internals.GraphValidation;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using SendMail.Interfaces;
 using UserServer.Extensions;
 using UserServer.Models;
 
