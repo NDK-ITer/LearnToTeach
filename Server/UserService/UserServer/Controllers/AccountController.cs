@@ -52,6 +52,10 @@ namespace Server.Controllers
         {
             try
             {
+                if (registerRequest.Password != registerRequest.PasswordIsConfirmed)
+                {
+                    return BadRequest("Password is not confirmed!");
+                }
                 if (_unitOfWork_UserService.UserService.EmailIsExist(registerRequest.Email)) return BadRequest("Email was Exist.");
                 if (_unitOfWork_UserService.UserService.UsernameIsExist(registerRequest.UserName)) return BadRequest("Username was Exist.");
                 if (!PhoneNumberMethod.IsPhoneNumber(registerRequest.PhoneNumber)) return BadRequest("invalid phone number.");

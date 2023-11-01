@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import VideoPlayer from './components/VideoPlayer';
 import Sidebar from './components/Sidebar';
-import Notifications from './components/Notifications';
+import Notifications from './components/Notification';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {

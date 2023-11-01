@@ -1,10 +1,15 @@
 user:
 
-https://localhost:9000/account/login
-https://localhost:9000/account/register
-https://localhost:9000/account/confirm-email
-https://localhost:9000/account/verify-account
-https://localhost:9000/account/change-password
-https://localhost:9000/account/forget-password
-https://localhost:9000/account/verify-otp
-https://localhost:9000/account/reset-password
+POST:	https://localhost:9000/account/login
+	https://localhost:9000/account/register
+	https://localhost:9000/account/change-password
+	https://localhost:9000/account/forget-password
+	https://localhost:9000/account/verify-otp
+	https://localhost:9000/account/reset-password
+
+GET:	https://localhost:9000/account/confirm-email
+	https://localhost:9000/account/verify-account
+	https://localhost:9000/account/reset-password
+	
+PUT:
+DEL:
