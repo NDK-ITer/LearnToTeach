@@ -11,6 +11,8 @@ import React from "react";
 import { CreateClass, JoinClass } from "..";
 import { useLocalContext } from "../../context/context";
 import { useStyles } from "./style";
+import { Link } from "react-router-dom";
+import "./style.css";
 
 const Header = ({ children }) => {
   const classes = useStyles();
@@ -31,7 +33,7 @@ const Header = ({ children }) => {
     handleClose();
     setCreateClassDialog(true);
   };
-
+ 
   const handleJoin = () => {
     handleClose();
     setJoinClassDialog(true);
@@ -42,9 +44,11 @@ const Header = ({ children }) => {
         <Toolbar className={classes.toolbar}>
           <div className={classes.headerWrapper}>
             {children}
-           
+
             <Typography variant="h6" className={classes.title}>
+            <Link className='logo' to={`/`}>
               HKC Classroom
+            </Link>
             </Typography>
           </div>
           <div className={classes.header__wrapper__right}>
@@ -64,7 +68,7 @@ const Header = ({ children }) => {
               <Avatar
                 onClick={() => logout()}
                 src={loggedInUser?.photoURL}
-                className={classes.icon}
+                className={classes.icon}                
               />
             </div>
           </div>
