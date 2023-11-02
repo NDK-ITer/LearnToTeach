@@ -3,24 +3,25 @@ using MassTransit;
 
 namespace SagaStateMachine.ClassroomService.Member
 {
-    public class MemberStateMachine : MassTransitStateMachine<MemberStateData>
+    public class AddMemberStateMachine : MassTransitStateMachine<AddMemberStateData>
     {
         // 2 states are going to happen
         public State AddMember { get; private set; }
         public State CancelAddMember { get; private set; }
+        public State AddMemberIsValid { get; private set; }
 
         // 2 events are going to happen
 
         public Event<IAddMemberEvent> AddMemberEvent { get; private set; }
         public Event<ICancelAddMemberEvent> CancelAddMemberEvent { get; private set; }
+        public Event<IAddMemberIsValidEvent> AddMemberIsValidEvent { get; private set; }
 
-        public MemberStateMachine()
+        public AddMemberStateMachine()
         {
             InstanceState(s => s.CurrentState);
             Event(() => AddMemberEvent, a => a.CorrelateById(m => m.Message.idClassroom));
             Event(() => CancelAddMemberEvent, a => a.CorrelateById(m => m.Message.idClassroom));
 
-            // A message coming from classroom service
             Initially(
                 When(AddMemberEvent).Then(context =>
                 {
@@ -42,6 +43,16 @@ namespace SagaStateMachine.ClassroomService.Member
                     context.Saga.IdClassroom = context.Message.idClassroom;
                     context.Saga.IdMember = context.Message.IdMember;
                 }).TransitionTo(CancelAddMember));
+
+            During(AddMember,
+                When(AddMemberIsValidEvent).Then(context =>
+                {
+                    context.Saga.IdClassroom = context.Message.IdClassroom;
+                    context.Saga.IdMember = context.Message.IdMember;
+                    context.Saga.NameMember = context.Message.NameMember;
+                    context.Saga.Avatar = context.Message.Avatar;
+                }).TransitionTo(AddMemberIsValid));
+
         }
     }
 }

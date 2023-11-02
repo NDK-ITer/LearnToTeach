@@ -25,8 +25,4 @@
     <ProjectReference Include="..\SagaStateMachine\SagaStateMachine.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

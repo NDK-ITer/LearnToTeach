@@ -85,6 +85,7 @@ namespace Application.Services
                     LastName = registerRequest.LastName,
                     FirstEmail = registerRequest.Email,
                     PhoneNumber = registerRequest.PhoneNumber,
+                    Avatar = registerRequest.Avatar,
                     PresentEmail = registerRequest.Email,
                     Birthday = registerRequest.Brithday,
                     PasswordHash = SecurityMethods.HashPassword(registerRequest.PasswordIsConfirmed),

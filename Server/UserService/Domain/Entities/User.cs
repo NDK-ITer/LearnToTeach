@@ -17,6 +17,7 @@
         public DateTime CreatedDate { get; set; }
         public bool IsLock { get; set; }
         public string RoleId { get; set; }
+        public string Avatar { get; set; }
         public Role Role { get; set; }
     }
 }

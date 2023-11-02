@@ -28,7 +28,7 @@ namespace Infrastructure.Extensions
             modelBuilder.Entity<User>().HasData(
                 new User()
                 {
-                    id = Guid.NewGuid().ToString(),
+                    id = "193ba283-bf34-40ad-a3be-10b1780cba0e",
                     UserName = "testVersion_0001",
                     FirstEmail = "test001@gmail.com",
                     PresentEmail = "test001@gmail.com",
@@ -42,11 +42,12 @@ namespace Infrastructure.Extensions
                     VerifiedDate = DateTime.Now,
                     IsVerified = true,
                     PhoneNumber = "0123456789",
+                    Avatar = "",
                     PasswordHash = SecurityMethods.HashPassword("Testaccount123456789_001"),
                 },
                 new User()
                 {
-                    id = Guid.NewGuid().ToString(),
+                    id = "2c75293b-f8e5-4862-9b13-5894a64895cd",
                     UserName = "adminVersion_0001",
                     FirstEmail = "admin001@gmail.com",
                     PresentEmail = "admin001@gmail.com",
@@ -60,6 +61,7 @@ namespace Infrastructure.Extensions
                     VerifiedDate = DateTime.Now,
                     IsVerified = true,
                     PhoneNumber = "0123456789",
+                    Avatar = "",
                     PasswordHash = SecurityMethods.HashPassword("Adminaccount123456789_001"),
                 }
                 );

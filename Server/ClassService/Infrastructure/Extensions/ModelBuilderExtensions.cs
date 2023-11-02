@@ -17,7 +17,7 @@ namespace Infrastructure.Extensions
                     CreateDate = DateTime.Now,
                     Name = "Class_1",
                     KeyHash = KeyHash.Hash("Class_1"),
-                    IdUserHost = "9d853125-0a15-40ee-bbc1-ee25fbdbacc1",
+                    IdUserHost = "1",
                     IsPrivate = true,
                     
                 },
@@ -27,7 +27,7 @@ namespace Infrastructure.Extensions
                     CreateDate = DateTime.Now,
                     Name = "Class_2",
                     KeyHash = null,
-                    IdUserHost = "9d853125-0a15-40ee-bbc1-ee25fbdbacc1",
+                    IdUserHost = "1",
                     IsPrivate = false,
                 }
                 );
@@ -35,14 +35,18 @@ namespace Infrastructure.Extensions
                 new ClassroomDetail
                 {
                     IdClass = idClass_1,
-                    IdUser = "c40aa1e2-8625-4974-a0b3-ae9e75485ea3",
+                    IdUser = "1",
+                    Name = string.Empty,
+                    Avatar = string.Empty,
                     Description = string.Empty,
                     Role = string.Empty
                 },
                 new ClassroomDetail
                 {
                     IdClass = idClass_2,
-                    IdUser = "c40aa1e2-8625-4974-a0b3-ae9e75485ea3",
+                    IdUser = "2",
+                    Name = string.Empty,
+                    Avatar = string.Empty,
                     Description = string.Empty,
                     Role = string.Empty
                 }

@@ -36,7 +36,12 @@ namespace ClassServer.Controllers
         {
             try
             {
-                var classroomResponse = _unitOfWork_ClassroomService._classroomService.GetAllClassroomPublic();
+                var classroom = _unitOfWork_ClassroomService._classroomService.GetAllClassroomPublic();
+                var classroomResponse = new List<ClassroomModel>();
+                foreach (var item in classroom)
+                {
+                    classroomResponse.Add(new ClassroomModel(item));
+                }
                 if (classroomResponse.IsNullOrEmpty()) return NotFound();
                 return classroomResponse;
             }
@@ -45,7 +50,7 @@ namespace ClassServer.Controllers
                 return BadRequest(e.Message);
             }
         }
-        
+
         [HttpGet]
         [Route("id")]
         public ActionResult<ClassroomModel> GetClassById(string idClassroom)
@@ -55,7 +60,26 @@ namespace ClassServer.Controllers
                 var classroomResponse = _unitOfWork_ClassroomService._classroomService.GetClassroomById(idClassroom);
                 if (classroomResponse != null)
                 {
-                    
+                    return new ClassroomModel(classroomResponse);
+                }
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("name")]
+        public ActionResult<ClassroomModel> GetClassByName(string nameClassroom)
+        {
+            try
+            {
+                var classroom = _unitOfWork_ClassroomService._classroomService.GetClassroomByName(nameClassroom);
+                if (classroom != null)
+                {
+                    var classroomResponse = new ClassroomModel(classroom);
                     return classroomResponse;
                 }
                 return NotFound();
@@ -65,24 +89,7 @@ namespace ClassServer.Controllers
                 return BadRequest(e.Message);
             }
         }
-        
-        [HttpGet]
-        [Route("name")]
-        public ActionResult<ClassroomModel> GetClassByName( string nameClassroom)
-        {
-            try
-            {
-                var classroomResponse = _unitOfWork_ClassroomService._classroomService.GetClassroomByName(nameClassroom);
-                if (classroomResponse != null)
-                    return classroomResponse;
-                return NotFound();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-        
+
         [HttpPost]
         [Route("create")]
         public async Task<ActionResult> CreateClassroom([FromBody] ClassroomRequest classroomRequest)
@@ -92,7 +99,7 @@ namespace ClassServer.Controllers
                 var check = _unitOfWork_ClassroomService._classroomService.CreateClassroom(classroomRequest);
                 if (check == null) return BadRequest();
                 var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
-                if (endPoint != null) 
+                if (endPoint != null)
                 {
                     endPoint.Send<IGetValueClassroomEvent>(new
                     {
@@ -111,7 +118,7 @@ namespace ClassServer.Controllers
                 return BadRequest(e.Message);
             }
         }
-        
+
         [HttpPut]
         [Route("update")]
         public ActionResult UpdateClassroom([FromBody] ClassroomRequest ClassroomRequest)
@@ -128,7 +135,7 @@ namespace ClassServer.Controllers
                 return BadRequest(e.Message);
             }
         }
-        
+
         [HttpDelete]
         [Route("delete")]
         public ActionResult DeleteClassroom(string idClassroom)
@@ -144,7 +151,7 @@ namespace ClassServer.Controllers
                 return BadRequest(e.Message);
             }
         }
-        
+
         [HttpDelete]
         [Route("remove-member")]
         public ActionResult DeleteMemberInClassroom(string idClassroom, string idMember)
@@ -158,6 +165,23 @@ namespace ClassServer.Controllers
             catch (Exception e)
             {
 
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("add-member")]
+        public async Task<ActionResult> AddMemberToClassroom(MemberRequest memberRequest)
+        {
+            try
+            {
+                if (memberRequest == null) return BadRequest("Request was null!");
+                if (memberRequest.listIdMember.IsNullOrEmpty()) return BadRequest("listMember was empty or null"); 
+                
+                return Ok();
+            }
+            catch (Exception e)
+            {
                 return BadRequest(e.Message);
             }
         }

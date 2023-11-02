@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AuthenticationDbContext))]
-    [Migration("20230924024316_updateVerifiedDate")]
-    partial class updateVerifiedDate
+    [Migration("20231102041333_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,14 +53,14 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b5d0cb25-688c-4eda-a7fd-9f2c71d12fd3",
+                            Id = "ac753d87-7767-4962-a8af-21ed07fa61ed",
                             Description = "",
                             Name = "ADMIN",
                             NomalizeName = "Admin"
                         },
                         new
                         {
-                            Id = "785c24a7-efed-4bb0-aedf-cf0be63d311a",
+                            Id = "e48104f6-74c3-4576-bdaf-13de5e9410b6",
                             Description = "",
                             Name = "USER",
                             NomalizeName = "User"
@@ -72,6 +72,11 @@ namespace Infrastructure.Migrations
                     b.Property<string>("id")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Avatar")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime2");
@@ -92,6 +97,9 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("IsLock")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsVerified")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -101,6 +109,11 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("PresentEmail")
                         .IsRequired()
@@ -121,7 +134,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("VerifiedDate")
+                    b.Property<DateTime?>("VerifiedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("id");
@@ -133,35 +146,41 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            id = "7b154a7c-f94a-429c-b623-563ff5762a71",
-                            Birthday = new DateTime(2023, 9, 24, 9, 43, 16, 357, DateTimeKind.Local).AddTicks(8696),
-                            CreatedDate = new DateTime(2023, 9, 24, 9, 43, 16, 357, DateTimeKind.Local).AddTicks(8709),
+                            id = "193ba283-bf34-40ad-a3be-10b1780cba0e",
+                            Avatar = "",
+                            Birthday = new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2323),
+                            CreatedDate = new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2336),
                             FirstEmail = "test001@gmail.com",
                             FirstName = "test",
                             IsLock = false,
+                            IsVerified = true,
                             LastName = "account",
                             PasswordHash = "nSUQ/133didCpNJLsvcLvQ==",
+                            PhoneNumber = "0123456789",
                             PresentEmail = "test001@gmail.com",
-                            RoleId = "785c24a7-efed-4bb0-aedf-cf0be63d311a",
-                            TokenAccess = "",
+                            RoleId = "e48104f6-74c3-4576-bdaf-13de5e9410b6",
+                            TokenAccess = "F3345E54FC54739F106961F5A5293CCE9E325B8C0E1D43A7723CA86B10D21AB4D60123823C2BBA787C82BED791095972C11E938D2C088EF46ED1443EB7A26CC4",
                             UserName = "testVersion_0001",
-                            VerifiedDate = new DateTime(2023, 9, 24, 9, 43, 16, 357, DateTimeKind.Local).AddTicks(8710)
+                            VerifiedDate = new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2387)
                         },
                         new
                         {
-                            id = "a04ec7e0-f458-4830-bf25-73c3fb2f3b9e",
-                            Birthday = new DateTime(2023, 9, 24, 9, 43, 16, 357, DateTimeKind.Local).AddTicks(8806),
-                            CreatedDate = new DateTime(2023, 9, 24, 9, 43, 16, 357, DateTimeKind.Local).AddTicks(8807),
+                            id = "2c75293b-f8e5-4862-9b13-5894a64895cd",
+                            Avatar = "",
+                            Birthday = new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2481),
+                            CreatedDate = new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2482),
                             FirstEmail = "admin001@gmail.com",
                             FirstName = "Admin",
                             IsLock = false,
+                            IsVerified = true,
                             LastName = "account",
                             PasswordHash = "VWBU8/+H4em26o8A92n+Tg==",
+                            PhoneNumber = "0123456789",
                             PresentEmail = "admin001@gmail.com",
-                            RoleId = "b5d0cb25-688c-4eda-a7fd-9f2c71d12fd3",
-                            TokenAccess = "",
+                            RoleId = "ac753d87-7767-4962-a8af-21ed07fa61ed",
+                            TokenAccess = "A6482AD8D7A03B81246F465A4EEC8C9835545C042FA665837B58ED01EED735202E77023E97CECAE5C59359523A5EA99D61CF90492C079E5EB6AE186202CAFA8F",
                             UserName = "adminVersion_0001",
-                            VerifiedDate = new DateTime(2023, 9, 24, 9, 43, 16, 357, DateTimeKind.Local).AddTicks(8808)
+                            VerifiedDate = new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2487)
                         });
                 });
 

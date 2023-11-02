@@ -24,7 +24,7 @@ builder.Services.AddMassTransit(cfg =>
             r.ExistingDbContext<SagaDbContext>();
         });
 
-    cfg.AddSagaStateMachine<MemberStateMachine, MemberStateData>()
+    cfg.AddSagaStateMachine<AddMemberStateMachine, AddMemberStateData>()
         .EntityFrameworkRepository(r =>
         {
             r.ConcurrencyMode = ConcurrencyMode.Pessimistic;

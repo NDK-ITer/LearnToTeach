@@ -37,12 +37,16 @@ namespace Infrastructure.Migrations
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     FirstEmail = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
                     PresentEmail = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     TokenAccess = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VerifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsVerified = table.Column<bool>(type: "bit", nullable: false),
                     Birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsLock = table.Column<bool>(type: "bit", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
+                    RoleId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Avatar = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,17 +64,17 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "Description", "Name", "NomalizeName" },
                 values: new object[,]
                 {
-                    { "414ccb36-d5fe-4e42-937b-ccfc133bcae2", "", "ADMIN", "Admin" },
-                    { "6cdaf2ef-dfe5-48db-bb63-94b6d46ebc1e", "", "USER", "User" }
+                    { "ac753d87-7767-4962-a8af-21ed07fa61ed", "", "ADMIN", "Admin" },
+                    { "e48104f6-74c3-4576-bdaf-13de5e9410b6", "", "USER", "User" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "id", "Birthday", "CreatedDate", "FirstEmail", "FirstName", "IsLock", "LastName", "PasswordHash", "PresentEmail", "RoleId", "TokenAccess", "UserName" },
+                columns: new[] { "id", "Avatar", "Birthday", "CreatedDate", "FirstEmail", "FirstName", "IsLock", "IsVerified", "LastName", "PasswordHash", "PhoneNumber", "PresentEmail", "RoleId", "TokenAccess", "UserName", "VerifiedDate" },
                 values: new object[,]
                 {
-                    { "8a931330-dfa6-4420-a4c7-481fb1a70bbf", new DateTime(2023, 7, 21, 10, 18, 49, 436, DateTimeKind.Local).AddTicks(9653), new DateTime(2023, 7, 21, 10, 18, 49, 436, DateTimeKind.Local).AddTicks(9654), "admin001@gmail.com", "Admin", false, "account", "VWBU8/+H4em26o8A92n+Tg==", "admin001@gmail.com", "414ccb36-d5fe-4e42-937b-ccfc133bcae2", "", "adminVersion_0001" },
-                    { "9d853125-0a15-40ee-bbc1-ee25fbdbacc1", new DateTime(2023, 7, 21, 10, 18, 49, 436, DateTimeKind.Local).AddTicks(9532), new DateTime(2023, 7, 21, 10, 18, 49, 436, DateTimeKind.Local).AddTicks(9544), "test001@gmail.com", "test", false, "account", "nSUQ/133didCpNJLsvcLvQ==", "test001@gmail.com", "6cdaf2ef-dfe5-48db-bb63-94b6d46ebc1e", "", "testVersion_0001" }
+                    { "193ba283-bf34-40ad-a3be-10b1780cba0e", "", new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2323), new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2336), "test001@gmail.com", "test", false, true, "account", "nSUQ/133didCpNJLsvcLvQ==", "0123456789", "test001@gmail.com", "e48104f6-74c3-4576-bdaf-13de5e9410b6", "F3345E54FC54739F106961F5A5293CCE9E325B8C0E1D43A7723CA86B10D21AB4D60123823C2BBA787C82BED791095972C11E938D2C088EF46ED1443EB7A26CC4", "testVersion_0001", new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2387) },
+                    { "2c75293b-f8e5-4862-9b13-5894a64895cd", "", new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2481), new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2482), "admin001@gmail.com", "Admin", false, true, "account", "VWBU8/+H4em26o8A92n+Tg==", "0123456789", "admin001@gmail.com", "ac753d87-7767-4962-a8af-21ed07fa61ed", "A6482AD8D7A03B81246F465A4EEC8C9835545C042FA665837B58ED01EED735202E77023E97CECAE5C59359523A5EA99D61CF90492C079E5EB6AE186202CAFA8F", "adminVersion_0001", new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2487) }
                 });
 
             migrationBuilder.CreateIndex(

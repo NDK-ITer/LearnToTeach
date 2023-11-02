@@ -4,13 +4,13 @@ namespace SagaStateMachine.ClassroomService.Member
 {
     public class ConsumeValueMemberEvent : IConsumeValueMemberEvent
     {
-        private readonly MemberStateData memberStateData;
+        private readonly AddMemberStateData memberStateData;
 
-        public ConsumeValueMemberEvent(MemberStateData memberStateData)
+        public ConsumeValueMemberEvent(AddMemberStateData memberStateData)
         {
             this.memberStateData = memberStateData;
         }
         public Guid idClassroom => memberStateData.IdClassroom;
-        public string? IdMember => memberStateData.IdMember;
+        public string IdMember => memberStateData.IdMember;
     }
 }

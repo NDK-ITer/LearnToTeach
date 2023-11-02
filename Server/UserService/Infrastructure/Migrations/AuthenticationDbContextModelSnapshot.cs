@@ -50,14 +50,14 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2dd4da4a-ef7b-45dc-803e-8d28838847ca",
+                            Id = "ac753d87-7767-4962-a8af-21ed07fa61ed",
                             Description = "",
                             Name = "ADMIN",
                             NomalizeName = "Admin"
                         },
                         new
                         {
-                            Id = "9af1df9b-4423-45f0-be02-874f4943a9d3",
+                            Id = "e48104f6-74c3-4576-bdaf-13de5e9410b6",
                             Description = "",
                             Name = "USER",
                             NomalizeName = "User"
@@ -69,6 +69,11 @@ namespace Infrastructure.Migrations
                     b.Property<string>("id")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Avatar")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime2");
@@ -139,8 +144,9 @@ namespace Infrastructure.Migrations
                         new
                         {
                             id = "193ba283-bf34-40ad-a3be-10b1780cba0e",
-                            Birthday = new DateTime(2023, 9, 26, 9, 11, 33, 830, DateTimeKind.Local).AddTicks(6264),
-                            CreatedDate = new DateTime(2023, 9, 26, 9, 11, 33, 830, DateTimeKind.Local).AddTicks(6276),
+                            Avatar = "",
+                            Birthday = new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2323),
+                            CreatedDate = new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2336),
                             FirstEmail = "test001@gmail.com",
                             FirstName = "test",
                             IsLock = false,
@@ -149,16 +155,17 @@ namespace Infrastructure.Migrations
                             PasswordHash = "nSUQ/133didCpNJLsvcLvQ==",
                             PhoneNumber = "0123456789",
                             PresentEmail = "test001@gmail.com",
-                            RoleId = "9af1df9b-4423-45f0-be02-874f4943a9d3",
-                            TokenAccess = "F3BBC5126D578B41D3C49A0E91E1518B3C0CB18274DC3ABB35A3947A09FF42BBE176868F90C5609D9D92DB76319C5846B569A27F209B733125AA132A59205D68",
+                            RoleId = "e48104f6-74c3-4576-bdaf-13de5e9410b6",
+                            TokenAccess = "F3345E54FC54739F106961F5A5293CCE9E325B8C0E1D43A7723CA86B10D21AB4D60123823C2BBA787C82BED791095972C11E938D2C088EF46ED1443EB7A26CC4",
                             UserName = "testVersion_0001",
-                            VerifiedDate = new DateTime(2023, 9, 26, 9, 11, 33, 830, DateTimeKind.Local).AddTicks(6328)
+                            VerifiedDate = new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2387)
                         },
                         new
                         {
                             id = "2c75293b-f8e5-4862-9b13-5894a64895cd",
-                            Birthday = new DateTime(2023, 9, 26, 9, 11, 33, 830, DateTimeKind.Local).AddTicks(6416),
-                            CreatedDate = new DateTime(2023, 9, 26, 9, 11, 33, 830, DateTimeKind.Local).AddTicks(6417),
+                            Avatar = "",
+                            Birthday = new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2481),
+                            CreatedDate = new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2482),
                             FirstEmail = "admin001@gmail.com",
                             FirstName = "Admin",
                             IsLock = false,
@@ -167,10 +174,10 @@ namespace Infrastructure.Migrations
                             PasswordHash = "VWBU8/+H4em26o8A92n+Tg==",
                             PhoneNumber = "0123456789",
                             PresentEmail = "admin001@gmail.com",
-                            RoleId = "2dd4da4a-ef7b-45dc-803e-8d28838847ca",
-                            TokenAccess = "506D7E16F7B68C4801F96446B44825C5711A87A007063BC1E58008BD64BB76A4C3FD6CF5F5EF81A3367DF1ABA417C4E10AF84F9C1786B5468769805944EE08FA",
+                            RoleId = "ac753d87-7767-4962-a8af-21ed07fa61ed",
+                            TokenAccess = "A6482AD8D7A03B81246F465A4EEC8C9835545C042FA665837B58ED01EED735202E77023E97CECAE5C59359523A5EA99D61CF90492C079E5EB6AE186202CAFA8F",
                             UserName = "adminVersion_0001",
-                            VerifiedDate = new DateTime(2023, 9, 26, 9, 11, 33, 830, DateTimeKind.Local).AddTicks(6422)
+                            VerifiedDate = new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2487)
                         });
                 });
 

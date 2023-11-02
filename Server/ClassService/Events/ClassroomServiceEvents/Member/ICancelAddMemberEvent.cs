@@ -3,6 +3,6 @@
     public interface ICancelAddMemberEvent
     {
         public Guid idClassroom { get; }
-        public string? IdMember { get; }
+        public string IdMember { get; }
     }
 }

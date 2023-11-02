@@ -30,7 +30,6 @@ namespace ClassServer.Consumers
                         isPrivate = data.isPrivate
                     });
                 }
-               
             }
         }
     }
