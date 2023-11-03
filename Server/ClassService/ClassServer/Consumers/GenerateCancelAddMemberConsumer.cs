@@ -16,7 +16,7 @@ namespace ClassServer.Consumers
             var data = context.Message;
             if (data != null)
             {
-                unitOfWork_ClassroomService._classroomService.RemoveMember(data.idClassroom.ToString(),data.IdMember);
+                //unitOfWork_ClassroomService._classroomService.RemoveMember(data.idClassroom.ToString(),data.IdMember);
             }
         }
     }

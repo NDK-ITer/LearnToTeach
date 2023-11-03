@@ -9,6 +9,7 @@ namespace Infrastructure.Repositories
         IClassroomRepository classroomRepository { get; }
         IMemberClassroomRepository memberClassroomRepository { get; }
         void SaveChange();
+        void Dispose();
     }
     public class UnitOfWork : IUnitOfWork
     {

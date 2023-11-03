@@ -13,6 +13,7 @@ namespace Infrastructure.Repositories
         {
             _keyValueCache = "MemberClassroomPublicMemoryCachingKey";
         }
+        public void AddMember(MemberClassroom memberClassroom) => Add(memberClassroom);
         public List<MemberClassroom>? GeMemberClassroomByIdUser(string idMemberClassroom)
         {
             if (idMemberClassroom == null) return null;

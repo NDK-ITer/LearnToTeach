@@ -19,18 +19,15 @@ namespace ClassServer.Consumers
             var data = context.Message;
             if (data != null)
             {
-                var classroom = unitOfWork_ClassroomService._classroomService.GetClassroomById(data.IdClassroom.ToString());
-                if (classroom != null)
+                var memberModel = new MemberModel()
                 {
-                    var member = new MemberModel()
-                    {
-                        idMember = data.IdMember,
-                        nameMember = data.NameMember,
-                        avatar = data.Avatar,
-                    };
-                    unitOfWork_ClassroomService._classroomService.UpdateMember(member, data.IdClassroom.ToString());
-
-                }
+                    idMember = data.IdMember,
+                    avatar = data.Avatar,
+                    nameMember = data.NameMember,
+                    role = null,
+                    description = null
+                };
+                var updateInforMember = unitOfWork_ClassroomService._memberService.UpdateInforMember(memberModel);
             }
         }
     }

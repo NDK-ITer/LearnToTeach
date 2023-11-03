@@ -11,11 +11,13 @@ namespace Application.Models
         public string? description { get; set; }
 
         public MemberModel(){}
-        public MemberModel(MemberClassroom classroomDetail)
+        public MemberModel(MemberClassroom memberClassroom)
         {
-            this.idMember = classroomDetail.IdUser;
-            this.role = classroomDetail.Role;
-            this.description = classroomDetail.Description;
+            this.idMember = memberClassroom.IdUser;
+            this.role = memberClassroom.Role;
+            this.description = memberClassroom.Description;
+            this.avatar = memberClassroom.Avatar;
+            this.nameMember = memberClassroom.Name;
         }
 
 

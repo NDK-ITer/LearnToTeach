@@ -20,7 +20,6 @@ namespace Application.Services
         int UpdateClassroom(ClassroomRequest classroomRequest);
         int DeleteClassroom(string idClass);
         int RemoveMember(string idClassroom, string idMember);
-        int UpdateMember(MemberModel memberModel, string idClassroom);
     }
     public class ClassroomService : IClassroomService
     {
@@ -53,24 +52,6 @@ namespace Application.Services
                     classroom.IsPrivate = false;
                     classroom.KeyHash = null;
                 }
-                //check and add member to this classroom
-                if (classroomRequest.Members != null)
-                {
-                    var listUserTemp = new List<MemberClassroom>();
-                    foreach (var item in classroomRequest.Members)
-                    {
-                        var classroomDetail = new MemberClassroom()
-                        {
-                            IdClass = idClassroom,
-                            IdUser = item.idMember,
-                            Description = item.description,
-                            Role = item.role,
-                        };
-                        listUserTemp.Add(classroomDetail);
-                    }
-                    classroom.ListUserId = listUserTemp;
-                }
-
                 //add and save classroom to database
                 _unitOfWork.classroomRepository.RegisterClassroom(classroom);
                 _unitOfWork.SaveChange();
@@ -206,21 +187,5 @@ namespace Application.Services
                 return -1;
             }
         }
-
-        public int UpdateMember(MemberModel memberModel, string idClassroom)
-        {
-            try
-            {
-                var classroom = _unitOfWork.classroomRepository.GetClassroomById(idClassroom);
-                if (classroom != null) return 0;
-                
-                return 1;
-            }
-            catch (Exception)
-            {
-                return -1;
-            }
-        }
-
     }
 }
