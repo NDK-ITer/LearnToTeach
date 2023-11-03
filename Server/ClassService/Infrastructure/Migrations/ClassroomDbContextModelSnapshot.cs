@@ -35,7 +35,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 11, 1, 14, 59, 25, 750, DateTimeKind.Local).AddTicks(8166));
+                        .HasDefaultValue(new DateTime(2023, 11, 3, 13, 50, 46, 361, DateTimeKind.Local).AddTicks(7606));
 
                     b.Property<string>("Description")
                         .HasMaxLength(100)
@@ -61,9 +61,28 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Classrooms", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "ee546ce7-842a-4dee-86d0-0db1ff3b64b4",
+                            CreateDate = new DateTime(2023, 11, 3, 13, 50, 46, 362, DateTimeKind.Local).AddTicks(5101),
+                            IdUserHost = "193ba283-bf34-40ad-a3be-10b1780cba0e",
+                            IsPrivate = true,
+                            KeyHash = "cA4FigUKj7deRjen/4NWmw==",
+                            Name = "Class_1"
+                        },
+                        new
+                        {
+                            Id = "0a006921-b4a4-40de-a1e6-9497daf09a2f",
+                            CreateDate = new DateTime(2023, 11, 3, 13, 50, 46, 362, DateTimeKind.Local).AddTicks(5277),
+                            IdUserHost = "2c75293b-f8e5-4862-9b13-5894a64895cd",
+                            IsPrivate = false,
+                            Name = "Class_2"
+                        });
                 });
 
-            modelBuilder.Entity("Domain.Entities.ClassroomDetail", b =>
+            modelBuilder.Entity("Domain.Entities.MemberClassroom", b =>
                 {
                     b.Property<string>("IdUser")
                         .HasMaxLength(200)
@@ -95,10 +114,30 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("IdClass");
 
-                    b.ToTable("ClassroomDetails", (string)null);
+                    b.ToTable("MemberClassroom", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            IdUser = "2c75293b-f8e5-4862-9b13-5894a64895cd",
+                            IdClass = "ee546ce7-842a-4dee-86d0-0db1ff3b64b4",
+                            Avatar = "",
+                            Description = "",
+                            Name = "Admin account",
+                            Role = ""
+                        },
+                        new
+                        {
+                            IdUser = "193ba283-bf34-40ad-a3be-10b1780cba0e",
+                            IdClass = "0a006921-b4a4-40de-a1e6-9497daf09a2f",
+                            Avatar = "",
+                            Description = "",
+                            Name = "test account",
+                            Role = ""
+                        });
                 });
 
-            modelBuilder.Entity("Domain.Entities.ClassroomDetail", b =>
+            modelBuilder.Entity("Domain.Entities.MemberClassroom", b =>
                 {
                     b.HasOne("Domain.Entities.Classroom", "classroom")
                         .WithMany("ListUserId")

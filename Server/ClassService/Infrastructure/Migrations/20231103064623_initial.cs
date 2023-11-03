@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialClassroom : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,10 +20,12 @@ namespace Infrastructure.Migrations
                     Id = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 8, 10, 8, 47, 15, 85, DateTimeKind.Local).AddTicks(5658)),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 11, 3, 13, 46, 23, 708, DateTimeKind.Local).AddTicks(1688)),
                     KeyHash = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     IdUserHost = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsPrivate = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
+                    NameUserHost = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    AvatarUserHost = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    IsPrivate = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,19 +33,21 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ClassroomDetails",
+                name: "MemberClassroom",
                 columns: table => new
                 {
                     IdUser = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     IdClass = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Avatar = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Role = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ClassroomDetails", x => new { x.IdUser, x.IdClass });
+                    table.PrimaryKey("PK_MemberClassroom", x => new { x.IdUser, x.IdClass });
                     table.ForeignKey(
-                        name: "FK_ClassroomDetails_Classrooms_IdClass",
+                        name: "FK_MemberClassroom_Classrooms_IdClass",
                         column: x => x.IdClass,
                         principalTable: "Classrooms",
                         principalColumn: "Id",
@@ -52,26 +56,25 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Classrooms",
-                columns: new[] { "Id", "CreateDate", "Description", "IdUserHost", "IsPrivate", "KeyHash", "Name" },
-                values: new object[] { "8ab8190e-a568-4359-8668-7466f5f820ee", new DateTime(2023, 8, 10, 8, 47, 15, 86, DateTimeKind.Local).AddTicks(1578), null, "9d853125-0a15-40ee-bbc1-ee25fbdbacc1", true, "cA4FigUKj7deRjen/4NWmw==", "Class_1" });
-
-            migrationBuilder.InsertData(
-                table: "Classrooms",
-                columns: new[] { "Id", "CreateDate", "Description", "IdUserHost", "KeyHash", "Name" },
-                values: new object[] { "b1323ea9-64f7-4a39-8a61-399c6a48bc86", new DateTime(2023, 8, 10, 8, 47, 15, 86, DateTimeKind.Local).AddTicks(1734), null, "9d853125-0a15-40ee-bbc1-ee25fbdbacc1", null, "Class_2" });
-
-            migrationBuilder.InsertData(
-                table: "ClassroomDetails",
-                columns: new[] { "IdClass", "IdUser", "Description", "Role" },
+                columns: new[] { "Id", "AvatarUserHost", "CreateDate", "Description", "IdUserHost", "IsPrivate", "KeyHash", "Name", "NameUserHost" },
                 values: new object[,]
                 {
-                    { "8ab8190e-a568-4359-8668-7466f5f820ee", "c40aa1e2-8625-4974-a0b3-ae9e75485ea3", "", "" },
-                    { "b1323ea9-64f7-4a39-8a61-399c6a48bc86", "c40aa1e2-8625-4974-a0b3-ae9e75485ea3", "", "" }
+                    { "11ebaeae-2995-4ca5-b156-481e6751981a", null, new DateTime(2023, 11, 3, 13, 46, 23, 708, DateTimeKind.Local).AddTicks(9145), null, "2c75293b-f8e5-4862-9b13-5894a64895cd", false, null, "Class_2", null },
+                    { "d0b069eb-7be8-4482-9f15-5515227644d5", null, new DateTime(2023, 11, 3, 13, 46, 23, 708, DateTimeKind.Local).AddTicks(8954), null, "193ba283-bf34-40ad-a3be-10b1780cba0e", true, "cA4FigUKj7deRjen/4NWmw==", "Class_1", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MemberClassroom",
+                columns: new[] { "IdClass", "IdUser", "Avatar", "Description", "Name", "Role" },
+                values: new object[,]
+                {
+                    { "11ebaeae-2995-4ca5-b156-481e6751981a", "193ba283-bf34-40ad-a3be-10b1780cba0e", "", "", "", "" },
+                    { "d0b069eb-7be8-4482-9f15-5515227644d5", "2c75293b-f8e5-4862-9b13-5894a64895cd", "", "", "", "" }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClassroomDetails_IdClass",
-                table: "ClassroomDetails",
+                name: "IX_MemberClassroom_IdClass",
+                table: "MemberClassroom",
                 column: "IdClass");
         }
 
@@ -79,7 +82,7 @@ namespace Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ClassroomDetails");
+                name: "MemberClassroom");
 
             migrationBuilder.DropTable(
                 name: "Classrooms");

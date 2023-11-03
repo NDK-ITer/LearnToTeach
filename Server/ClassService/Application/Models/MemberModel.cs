@@ -11,7 +11,7 @@ namespace Application.Models
         public string? description { get; set; }
 
         public MemberModel(){}
-        public MemberModel(ClassroomDetail classroomDetail)
+        public MemberModel(MemberClassroom classroomDetail)
         {
             this.idMember = classroomDetail.IdUser;
             this.role = classroomDetail.Role;

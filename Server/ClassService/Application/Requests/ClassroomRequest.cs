@@ -31,7 +31,7 @@ namespace Application.Requests
             {
                 foreach (var item in this.Members)
                 {
-                    classroom.ListUserId.Add( new ClassroomDetail() 
+                    classroom.ListUserId.Add( new MemberClassroom() 
                         { 
                             IdClass = classroom.Id,
                             IdUser = item.idMember,

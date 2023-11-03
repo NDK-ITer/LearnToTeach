@@ -56,10 +56,10 @@ namespace Application.Services
                 //check and add member to this classroom
                 if (classroomRequest.Members != null)
                 {
-                    var listUserTemp = new List<ClassroomDetail>();
+                    var listUserTemp = new List<MemberClassroom>();
                     foreach (var item in classroomRequest.Members)
                     {
-                        var classroomDetail = new ClassroomDetail()
+                        var classroomDetail = new MemberClassroom()
                         {
                             IdClass = idClassroom,
                             IdUser = item.idMember,

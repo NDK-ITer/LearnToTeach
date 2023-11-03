@@ -15,10 +15,10 @@ namespace Infrastructure.Context
         {
             modelBuilder.ApplyConfiguration(new ClassroomConfiguration());
             modelBuilder.ApplyConfiguration(new ClassroomDetailConfiguration());
-            //modelBuilder.SeedData();
+            modelBuilder.SeedData();
             //base.OnModelCreating(modelBuilder);
         }
         public DbSet<Classroom> Classrooms { get; set; }
-        public DbSet<ClassroomDetail> ClassroomDetails { get; set; }
+        public DbSet<MemberClassroom> MemberClassrooms { get; set; }
     }
 }

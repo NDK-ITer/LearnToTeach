@@ -24,8 +24,14 @@ namespace ClassServer.Controllers
         {
             try
             {
-                var classroomResponse = _unitOfWork_ClassroomService._classroomService.GetAllClassroom();
-                if (classroomResponse.IsNullOrEmpty()) return NotFound();
+                var classroom = _unitOfWork_ClassroomService._classroomService.GetAllClassroom();
+                if (classroom.IsNullOrEmpty()) return NotFound();
+                var classroomResponse = new List<ClassroomModel>();
+                foreach (var item in classroom)
+                {
+                    var classroomModel = new ClassroomModel(item);
+                    classroomResponse.Add(classroomModel);
+                }
                 return classroomResponse;
             }
             catch (Exception e)

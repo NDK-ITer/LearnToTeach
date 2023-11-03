@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ClassroomDbContext))]
-    [Migration("20230810014715_InitialClassroom")]
-    partial class InitialClassroom
+    [Migration("20231103064623_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,10 +31,14 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<string>("AvatarUserHost")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 10, 8, 47, 15, 85, DateTimeKind.Local).AddTicks(5658));
+                        .HasDefaultValue(new DateTime(2023, 11, 3, 13, 46, 23, 708, DateTimeKind.Local).AddTicks(1688));
 
                     b.Property<string>("Description")
                         .HasMaxLength(100)
@@ -44,9 +48,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsPrivate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
+                        .HasColumnType("bit");
 
                     b.Property<string>("KeyHash")
                         .HasMaxLength(200)
@@ -55,6 +57,10 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NameUserHost")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Classrooms", (string)null);
@@ -62,24 +68,24 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8ab8190e-a568-4359-8668-7466f5f820ee",
-                            CreateDate = new DateTime(2023, 8, 10, 8, 47, 15, 86, DateTimeKind.Local).AddTicks(1578),
-                            IdUserHost = "9d853125-0a15-40ee-bbc1-ee25fbdbacc1",
+                            Id = "d0b069eb-7be8-4482-9f15-5515227644d5",
+                            CreateDate = new DateTime(2023, 11, 3, 13, 46, 23, 708, DateTimeKind.Local).AddTicks(8954),
+                            IdUserHost = "193ba283-bf34-40ad-a3be-10b1780cba0e",
                             IsPrivate = true,
                             KeyHash = "cA4FigUKj7deRjen/4NWmw==",
                             Name = "Class_1"
                         },
                         new
                         {
-                            Id = "b1323ea9-64f7-4a39-8a61-399c6a48bc86",
-                            CreateDate = new DateTime(2023, 8, 10, 8, 47, 15, 86, DateTimeKind.Local).AddTicks(1734),
-                            IdUserHost = "9d853125-0a15-40ee-bbc1-ee25fbdbacc1",
+                            Id = "11ebaeae-2995-4ca5-b156-481e6751981a",
+                            CreateDate = new DateTime(2023, 11, 3, 13, 46, 23, 708, DateTimeKind.Local).AddTicks(9145),
+                            IdUserHost = "2c75293b-f8e5-4862-9b13-5894a64895cd",
                             IsPrivate = false,
                             Name = "Class_2"
                         });
                 });
 
-            modelBuilder.Entity("Domain.Entities.ClassroomDetail", b =>
+            modelBuilder.Entity("Domain.Entities.MemberClassroom", b =>
                 {
                     b.Property<string>("IdUser")
                         .HasMaxLength(200)
@@ -89,9 +95,19 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<string>("Avatar")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("Description")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Role")
                         .HasMaxLength(20)
@@ -101,26 +117,30 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("IdClass");
 
-                    b.ToTable("ClassroomDetails", (string)null);
+                    b.ToTable("MemberClassroom", (string)null);
 
                     b.HasData(
                         new
                         {
-                            IdUser = "c40aa1e2-8625-4974-a0b3-ae9e75485ea3",
-                            IdClass = "8ab8190e-a568-4359-8668-7466f5f820ee",
+                            IdUser = "2c75293b-f8e5-4862-9b13-5894a64895cd",
+                            IdClass = "d0b069eb-7be8-4482-9f15-5515227644d5",
+                            Avatar = "",
                             Description = "",
+                            Name = "",
                             Role = ""
                         },
                         new
                         {
-                            IdUser = "c40aa1e2-8625-4974-a0b3-ae9e75485ea3",
-                            IdClass = "b1323ea9-64f7-4a39-8a61-399c6a48bc86",
+                            IdUser = "193ba283-bf34-40ad-a3be-10b1780cba0e",
+                            IdClass = "11ebaeae-2995-4ca5-b156-481e6751981a",
+                            Avatar = "",
                             Description = "",
+                            Name = "",
                             Role = ""
                         });
                 });
 
-            modelBuilder.Entity("Domain.Entities.ClassroomDetail", b =>
+            modelBuilder.Entity("Domain.Entities.MemberClassroom", b =>
                 {
                     b.HasOne("Domain.Entities.Classroom", "classroom")
                         .WithMany("ListUserId")

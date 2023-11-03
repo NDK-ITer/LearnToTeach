@@ -1,6 +1,5 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Data;
 
 namespace Infrastructure.Extensions
 {
@@ -17,7 +16,7 @@ namespace Infrastructure.Extensions
                     CreateDate = DateTime.Now,
                     Name = "Class_1",
                     KeyHash = KeyHash.Hash("Class_1"),
-                    IdUserHost = "1",
+                    IdUserHost = "193ba283-bf34-40ad-a3be-10b1780cba0e",
                     IsPrivate = true,
                     
                 },
@@ -27,25 +26,25 @@ namespace Infrastructure.Extensions
                     CreateDate = DateTime.Now,
                     Name = "Class_2",
                     KeyHash = null,
-                    IdUserHost = "1",
+                    IdUserHost = "2c75293b-f8e5-4862-9b13-5894a64895cd",
                     IsPrivate = false,
                 }
                 );
-            modelBuilder.Entity<ClassroomDetail>().HasData(
-                new ClassroomDetail
+            modelBuilder.Entity<MemberClassroom>().HasData(
+                new MemberClassroom
                 {
                     IdClass = idClass_1,
-                    IdUser = "1",
-                    Name = string.Empty,
+                    IdUser = "2c75293b-f8e5-4862-9b13-5894a64895cd",
+                    Name = "Admin account",
                     Avatar = string.Empty,
                     Description = string.Empty,
                     Role = string.Empty
                 },
-                new ClassroomDetail
+                new MemberClassroom
                 {
                     IdClass = idClass_2,
-                    IdUser = "2",
-                    Name = string.Empty,
+                    IdUser = "193ba283-bf34-40ad-a3be-10b1780cba0e",
+                    Name = "test account",
                     Avatar = string.Empty,
                     Description = string.Empty,
                     Role = string.Empty

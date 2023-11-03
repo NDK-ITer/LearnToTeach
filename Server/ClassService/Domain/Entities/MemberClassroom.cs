@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities
 {
-    public class ClassroomDetail
+    public class MemberClassroom
     {
         public string IdUser { get; set; }
         public string Name { get; set; }

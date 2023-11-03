@@ -18,11 +18,20 @@ namespace Infrastructure.Repositories
         public void DeleteClassroom(string idClassroom)
         {
             if (idClassroom == null) return;
-            if (_memoryCache.TryGetValue<List<Classroom>>(_keyValueCache, out List<Classroom> classrooms))
+            if (_memoryCache.TryGetValue(_keyValueCache, out List<Classroom> classrooms))
             {
                 var classroomDelete = classrooms.FirstOrDefault(c => c.Id == idClassroom);
-                classrooms.Remove(classroomDelete);
-                Remove(classroomDelete);
+                if (classroomDelete != null)
+                {
+                    classrooms.Remove(classroomDelete);
+                    Remove(classroomDelete);
+                }
+                else
+                {
+                    classroomDelete = _dbSet.Find(idClassroom);
+                    Remove(classroomDelete);
+                }
+                
             }
             else
             {
@@ -67,7 +76,6 @@ namespace Infrastructure.Repositories
                 return null;
             }
         }
-
         public Classroom? GetClassroomByName(string name)
         {
             if (name == null) return null;
@@ -116,7 +124,6 @@ namespace Infrastructure.Repositories
                 return null;
             }
         }
-
         public List<Classroom>? GetClassroomsArePrivate()
         {
             return Find(c => c.IsPrivate == true).ToList();
