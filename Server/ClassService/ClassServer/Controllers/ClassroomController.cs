@@ -176,8 +176,20 @@ namespace ClassServer.Controllers
             try
             {
                 if (memberRequest == null) return BadRequest("Request was null!");
-                if (memberRequest.listIdMember.IsNullOrEmpty()) return BadRequest("listMember was empty or null"); 
-                
+                if (memberRequest.listIdMember.IsNullOrEmpty()) return BadRequest("listMember was empty or null");
+                //var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
+                //if (endPoint != null)
+                //{
+                //    endPoint.Send<IGetValueClassroomEvent>(new
+                //    {
+                //        idClassroom = Guid.Parse(check.Id),
+                //        description = check.Description,
+                //        idUserHost = check.IdUserHost,
+                //        name = check.Name,
+                //        isPrivate = check.IsPrivate,
+                //        eventMessage = _classroomStateMessage.Create
+                //    });
+                //}
                 return Ok();
             }
             catch (Exception e)

@@ -18,18 +18,17 @@ builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
     {
-        //cfg.Host(new Uri(RabbitMQConfig.RabbitMQURL), hst =>
-        //{
-        //    hst.Username(RabbitMQConfig.UserName);
-        //    hst.Password(RabbitMQConfig.Password);
-        //});
         cfg.ReceiveEndpoint(nameQueue, ep =>
         {
-            ep.PrefetchCount = 10;
+            ep.PrefetchCount = 20;
             ep.ConfigureConsumer<GenerateCancelAddClassroomConsumer>(provider);
+            ep.ConfigureConsumer<GenerateCancelAddClassroomConsumer>(provider);
+            ep.ConfigureConsumer<GenerateAddMemberIsValidConsumer>(provider);
             ep.ConfigureConsumer<GetClassroomValueConsumer>(provider);
         });
     }));
+    cfg.AddConsumer<GenerateAddMemberIsValidConsumer>();
+    cfg.AddConsumer<GenerateCancelAddClassroomConsumer>();
     cfg.AddConsumer<GenerateCancelAddClassroomConsumer>();
     cfg.AddConsumer<GetClassroomValueConsumer>();
 });
