@@ -19,28 +19,35 @@ namespace SagaStateMachine.ClassroomService.Member
         public AddMemberStateMachine()
         {
             InstanceState(s => s.CurrentState);
-            Event(() => AddMemberEvent, a => a.CorrelateById(m => m.Message.idClassroom));
-            Event(() => CancelAddMemberEvent, a => a.CorrelateById(m => m.Message.idClassroom));
+            Event(() => AddMemberEvent, a => a.CorrelateById(m => m.Message.IdClassroom));
+            Event(() => CancelAddMemberEvent, a => a.CorrelateById(m => m.Message.IdClassroom));
+            Event(() => AddMemberIsValidEvent, a => a.CorrelateById(m => m.Message.IdClassroom));
 
             Initially(
                 When(AddMemberEvent).Then(context =>
                 {
-                    context.Saga.IdClassroom = context.Message.idClassroom;
+                    context.Saga.IdClassroom = context.Message.IdClassroom;
                     context.Saga.IdMember = context.Message.IdMember;
+                    context.Saga.NameMember = context.Message.NameMember;
+                    context.Saga.Avatar = context.Message.Avatar;
                 }).TransitionTo(AddMember).Publish(context => new ConsumeValueMemberEvent(context.Saga)));
 
             During(AddMember,
                 When(AddMemberEvent).Then(context =>
                 {
-                    context.Saga.IdClassroom = context.Message.idClassroom;
+                    context.Saga.IdClassroom = context.Message.IdClassroom;
                     context.Saga.IdMember = context.Message.IdMember;
+                    context.Saga.NameMember = context.Message.NameMember;
+                    context.Saga.Avatar = context.Message.Avatar;
                 }).TransitionTo(AddMember).Publish(context => new ConsumeValueMemberEvent(context.Saga)));
 
             During(AddMember,
                 When(CancelAddMemberEvent).Then(context =>
                 {
-                    context.Saga.IdClassroom = context.Message.idClassroom;
+                    context.Saga.IdClassroom = context.Message.IdClassroom;
                     context.Saga.IdMember = context.Message.IdMember;
+                    context.Saga.NameMember = context.Message.NameMember;
+                    context.Saga.Avatar = context.Message.Avatar;
                 }).TransitionTo(CancelAddMember));
 
             During(AddMember,

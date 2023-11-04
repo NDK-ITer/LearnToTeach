@@ -87,7 +87,7 @@ namespace Application.Services
                     PhoneNumber = registerRequest.PhoneNumber,
                     Avatar = registerRequest.Avatar,
                     PresentEmail = registerRequest.Email,
-                    Birthday = registerRequest.Brithday,
+                    Birthday = registerRequest.Birthday,
                     PasswordHash = SecurityMethods.HashPassword(registerRequest.PasswordIsConfirmed),
                     CreatedDate = DateTime.Now,
                     IsLock = false,

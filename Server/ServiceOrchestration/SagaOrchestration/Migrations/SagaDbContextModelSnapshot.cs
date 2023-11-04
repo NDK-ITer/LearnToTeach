@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SagaOrchestration.Models;
 
@@ -12,11 +11,9 @@ using SagaOrchestration.Models;
 namespace SagaOrchestration.Migrations
 {
     [DbContext(typeof(SagaDbContext))]
-    [Migration("20230926235215_updateUserService_1")]
-    partial class updateUserService_1
+    partial class SagaDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,11 +51,14 @@ namespace SagaOrchestration.Migrations
                     b.ToTable("AddClassroomStateData");
                 });
 
-            modelBuilder.Entity("SagaStateMachine.ClassroomService.Member.MemberStateData", b =>
+            modelBuilder.Entity("SagaStateMachine.ClassroomService.Member.AddMemberStateData", b =>
                 {
                     b.Property<Guid>("CorrelationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CurrentState")
                         .HasColumnType("nvarchar(max)");
@@ -69,9 +69,12 @@ namespace SagaOrchestration.Migrations
                     b.Property<string>("IdMember")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NameMember")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("CorrelationId");
 
-                    b.ToTable("MemberStateData");
+                    b.ToTable("AddMemberStateData");
                 });
 
             modelBuilder.Entity("SagaStateMachine.UserService.ConfirmUserEmail.ConfirmUserEmailStateData", b =>
@@ -105,6 +108,39 @@ namespace SagaOrchestration.Migrations
                     b.HasKey("CorrelationId");
 
                     b.ToTable("ConfirmUserEmailStateData");
+                });
+
+            modelBuilder.Entity("SagaStateMachine.UserService.ResetPassword.ResetPasswordStateData", b =>
+                {
+                    b.Property<Guid>("CorrelationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CurrentState")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Fullname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("IdUser")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CorrelationId");
+
+                    b.ToTable("ResetPasswordStateData");
                 });
 #pragma warning restore 612, 618
         }

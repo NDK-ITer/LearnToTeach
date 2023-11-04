@@ -22,14 +22,14 @@ builder.Services.AddMassTransit(cfg =>
         {
             ep.PrefetchCount = 20;
             ep.ConfigureConsumer<GenerateCancelAddClassroomConsumer>(provider);
-            ep.ConfigureConsumer<GenerateCancelAddClassroomConsumer>(provider);
             ep.ConfigureConsumer<GenerateAddMemberIsValidConsumer>(provider);
+            ep.ConfigureConsumer<GenerateCancelAddMemberConsumer>(provider);
             ep.ConfigureConsumer<GetClassroomValueConsumer>(provider);
         });
     }));
     cfg.AddConsumer<GenerateAddMemberIsValidConsumer>();
     cfg.AddConsumer<GenerateCancelAddClassroomConsumer>();
-    cfg.AddConsumer<GenerateCancelAddClassroomConsumer>();
+    cfg.AddConsumer<GenerateCancelAddMemberConsumer>();
     cfg.AddConsumer<GetClassroomValueConsumer>();
 });
 

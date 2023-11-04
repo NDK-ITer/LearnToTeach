@@ -12,5 +12,7 @@ namespace SagaStateMachine.ClassroomService.Member
         }
         public Guid idClassroom => memberStateData.IdClassroom;
         public string IdMember => memberStateData.IdMember;
+        public string NameMember => memberStateData.NameMember;
+        public string Avatar => memberStateData.Avatar;
     }
 }

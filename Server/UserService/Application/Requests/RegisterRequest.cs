@@ -10,6 +10,6 @@
         public string Password { get; set; }
         public string PasswordIsConfirmed { get; set; }
         public string Avatar { get; set; }
-        public DateTime Brithday { get; set; }
+        public DateTime Birthday { get; set; }
     }
 }

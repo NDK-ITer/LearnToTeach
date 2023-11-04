@@ -12,8 +12,8 @@ using SagaOrchestration.Models;
 namespace SagaOrchestration.Migrations
 {
     [DbContext(typeof(SagaDbContext))]
-    [Migration("20230927002554_AddResetPasswordStateData")]
-    partial class AddResetPasswordStateData
+    [Migration("20231104162625_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,11 +54,14 @@ namespace SagaOrchestration.Migrations
                     b.ToTable("AddClassroomStateData");
                 });
 
-            modelBuilder.Entity("SagaStateMachine.ClassroomService.Member.MemberStateData", b =>
+            modelBuilder.Entity("SagaStateMachine.ClassroomService.Member.AddMemberStateData", b =>
                 {
                     b.Property<Guid>("CorrelationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CurrentState")
                         .HasColumnType("nvarchar(max)");
@@ -69,9 +72,12 @@ namespace SagaOrchestration.Migrations
                     b.Property<string>("IdMember")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NameMember")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("CorrelationId");
 
-                    b.ToTable("MemberStateData");
+                    b.ToTable("AddMemberStateData");
                 });
 
             modelBuilder.Entity("SagaStateMachine.UserService.ConfirmUserEmail.ConfirmUserEmailStateData", b =>
