@@ -2,7 +2,9 @@
 using Application.Requests;
 using Application.Services;
 using ClassServer.Models;
+using Domain.Entities;
 using Events.ClassroomServiceEvents.Classroom;
+using Events.ClassroomServiceEvents.Member;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -52,7 +54,7 @@ namespace ClassServer.Controllers
         }
 
         [HttpGet]
-        [Route("id")]
+        [Route("")]
         public ActionResult<ClassroomModel> GetClassById(string idClassroom)
         {
             try
@@ -171,26 +173,40 @@ namespace ClassServer.Controllers
 
         [HttpPost]
         [Route("add-member")]
-        public async Task<ActionResult> AddMemberToClassroom(MemberRequest memberRequest)
+        public async Task<ActionResult> AddMemberToClassroom([FromBody]MemberRequest memberRequest)
         {
             try
             {
                 if (memberRequest == null) return BadRequest("Request was null!");
                 if (memberRequest.listIdMember.IsNullOrEmpty()) return BadRequest("listMember was empty or null");
-                //var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
-                //if (endPoint != null)
-                //{
-                //    endPoint.Send<IGetValueClassroomEvent>(new
-                //    {
-                //        idClassroom = Guid.Parse(check.Id),
-                //        description = check.Description,
-                //        idUserHost = check.IdUserHost,
-                //        name = check.Name,
-                //        isPrivate = check.IsPrivate,
-                //        eventMessage = _classroomStateMessage.Create
-                //    });
-                //}
-                return Ok();
+                foreach (var item in memberRequest.listIdMember)
+                {
+                    var check = _unitOfWork_ClassroomService._memberService.AddMember(new MemberModel
+                    {
+                        idMember = item,
+                        avatar = "",
+                        nameMember = "",
+                        role = "member".ToUpper(),
+                        description = ""
+                    },memberRequest.idClassroom);
+                    if (check == 1)
+                    {
+                        var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
+                        if (endPoint != null)
+                        {
+                            endPoint.Send<IGetValueMemberEvent>(new
+                            {
+                                IdClassroom = Guid.Parse(memberRequest.idClassroom),
+                                IdMember = item,
+                                NameMember = "",
+                                Avatar = "",
+                                eventMessage = _classroomStateMessage.AddMember
+                            });
+                        }
+                    }
+                }
+                
+                return Ok("Add member successful, please wait a minute");
             }
             catch (Exception e)
             {

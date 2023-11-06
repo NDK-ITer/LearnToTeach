@@ -1,5 +1,4 @@
-﻿using Application.Models;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Infrastructure;
 using Microsoft.IdentityModel.Tokens;
 using XAct;

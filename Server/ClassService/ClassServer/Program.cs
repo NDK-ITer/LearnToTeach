@@ -25,12 +25,15 @@ builder.Services.AddMassTransit(cfg =>
             ep.ConfigureConsumer<GenerateAddMemberIsValidConsumer>(provider);
             ep.ConfigureConsumer<GenerateCancelAddMemberConsumer>(provider);
             ep.ConfigureConsumer<GetClassroomValueConsumer>(provider);
+            ep.ConfigureConsumer<GetMemberValueConsumer>(provider);
         });
     }));
     cfg.AddConsumer<GenerateAddMemberIsValidConsumer>();
     cfg.AddConsumer<GenerateCancelAddClassroomConsumer>();
     cfg.AddConsumer<GenerateCancelAddMemberConsumer>();
     cfg.AddConsumer<GetClassroomValueConsumer>();
+    cfg.AddConsumer<GetMemberValueConsumer>();
+
 });
 
 builder.Services.AddControllers();

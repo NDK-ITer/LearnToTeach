@@ -28,7 +28,8 @@ namespace SagaStateMachine.ClassroomService.Member
                 {
                     context.Saga.IdClassroom = context.Message.IdClassroom;
                     context.Saga.IdMember = context.Message.IdMember;
-                    
+                    context.Saga.NameMember = context.Message.NameMember;
+                    context.Saga.Avatar = context.Message.Avatar;
                 }).TransitionTo(AddMember).Publish(context => new ConsumeValueMemberEvent(context.Saga)));
 
             During(AddMember,
@@ -36,7 +37,8 @@ namespace SagaStateMachine.ClassroomService.Member
                 {
                     context.Saga.IdClassroom = context.Message.IdClassroom;
                     context.Saga.IdMember = context.Message.IdMember;
-                    
+                    context.Saga.NameMember = context.Message.NameMember;
+                    context.Saga.Avatar = context.Message.Avatar;
                 }).TransitionTo(AddMember).Publish(context => new ConsumeValueMemberEvent(context.Saga)));
 
             During(AddMember,
@@ -44,8 +46,9 @@ namespace SagaStateMachine.ClassroomService.Member
                 {
                     context.Saga.IdClassroom = context.Message.IdClassroom;
                     context.Saga.IdMember = context.Message.IdMember;
-                    
-                }).TransitionTo(CancelAddMember));
+                    context.Saga.NameMember = context.Message.NameMember;
+                    context.Saga.Avatar = context.Message.Avatar;
+                }).TransitionTo(CancelAddMember).Publish(context => new ConsumeValueMemberEvent(context.Saga)));
 
             During(AddMember,
                 When(AddMemberIsValidEvent).Then(context =>
@@ -54,7 +57,61 @@ namespace SagaStateMachine.ClassroomService.Member
                     context.Saga.IdMember = context.Message.IdMember;
                     context.Saga.NameMember = context.Message.NameMember;
                     context.Saga.Avatar = context.Message.Avatar;
-                }).TransitionTo(AddMemberIsValid));
+                }).TransitionTo(AddMemberIsValid).Publish(context => new ConsumeValueMemberEvent(context.Saga)));
+
+            During(AddMemberIsValid,
+                When(AddMemberIsValidEvent).Then(context =>
+                {
+                    context.Saga.IdClassroom = context.Message.IdClassroom;
+                    context.Saga.IdMember = context.Message.IdMember;
+                    context.Saga.NameMember = context.Message.NameMember;
+                    context.Saga.Avatar = context.Message.Avatar;
+                }).TransitionTo(AddMember).Publish(context => new ConsumeValueMemberEvent(context.Saga)));
+
+            During(AddMemberIsValid,
+                When(AddMemberEvent).Then(context =>
+                {
+                    context.Saga.IdClassroom = context.Message.IdClassroom;
+                    context.Saga.IdMember = context.Message.IdMember;
+                    context.Saga.NameMember = context.Message.NameMember;
+                    context.Saga.Avatar = context.Message.Avatar;
+                }).TransitionTo(CancelAddMember).Publish(context => new ConsumeValueMemberEvent(context.Saga)));
+
+            During(AddMemberIsValid,
+                When(CancelAddMemberEvent).Then(context =>
+                {
+                    context.Saga.IdClassroom = context.Message.IdClassroom;
+                    context.Saga.IdMember = context.Message.IdMember;
+                    context.Saga.NameMember = context.Message.NameMember;
+                    context.Saga.Avatar = context.Message.Avatar;
+                }).TransitionTo(AddMemberIsValid).Publish(context => new ConsumeValueMemberEvent(context.Saga)));
+
+            During(CancelAddMember,
+                When(AddMemberIsValidEvent).Then(context =>
+                {
+                    context.Saga.IdClassroom = context.Message.IdClassroom;
+                    context.Saga.IdMember = context.Message.IdMember;
+                    context.Saga.NameMember = context.Message.NameMember;
+                    context.Saga.Avatar = context.Message.Avatar;
+                }).TransitionTo(AddMember).Publish(context => new ConsumeValueMemberEvent(context.Saga)));
+
+            During(CancelAddMember,
+                When(AddMemberEvent).Then(context =>
+                {
+                    context.Saga.IdClassroom = context.Message.IdClassroom;
+                    context.Saga.IdMember = context.Message.IdMember;
+                    context.Saga.NameMember = context.Message.NameMember;
+                    context.Saga.Avatar = context.Message.Avatar;
+                }).TransitionTo(CancelAddMember).Publish(context => new ConsumeValueMemberEvent(context.Saga)));
+
+            During(CancelAddMember,
+                When(CancelAddMemberEvent).Then(context =>
+                {
+                    context.Saga.IdClassroom = context.Message.IdClassroom;
+                    context.Saga.IdMember = context.Message.IdMember;
+                    context.Saga.NameMember = context.Message.NameMember;
+                    context.Saga.Avatar = context.Message.Avatar;
+                }).TransitionTo(AddMemberIsValid).Publish(context => new ConsumeValueMemberEvent(context.Saga)));
 
         }
     }

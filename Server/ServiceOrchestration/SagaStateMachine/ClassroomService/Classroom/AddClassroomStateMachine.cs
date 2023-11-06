@@ -50,7 +50,7 @@ namespace SagaStateMachine.ClassroomService.Classroom
                     context.Saga.Description = context.Message.description;
                     context.Saga.IsPrivate = context.Message.isPrivate;
                     context.Saga.IdUserHost = context.Message.idUserHost;
-                }).TransitionTo(CancelAddClassroom));
+                }).TransitionTo(CancelAddClassroom).Publish(context => new ConsumeValueClassroomEvent(context.Saga)));
         }
     }
 }

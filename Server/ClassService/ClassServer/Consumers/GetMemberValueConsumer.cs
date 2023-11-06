@@ -8,7 +8,10 @@ namespace ClassServer.Consumers
     public class GetMemberValueConsumer : IConsumer<IGetValueMemberEvent>
     {
         private readonly ClassroomEventMessage classroomEventMessage;
-
+        public GetMemberValueConsumer(ClassroomEventMessage classroomEventMessage)
+        {
+            this.classroomEventMessage = classroomEventMessage;
+        }
         public async Task Consume(ConsumeContext<IGetValueMemberEvent> context)
         {
             var data = context.Message;
@@ -20,6 +23,8 @@ namespace ClassServer.Consumers
                     {
                         IdClassroom = data.IdClassroom,
                         IdMember = data.IdMember,
+                        Avatar = data.Avatar,
+                        NameMember = data.NameMember,
                     });
                 }
             }
