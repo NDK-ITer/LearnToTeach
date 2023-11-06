@@ -12,6 +12,7 @@ import { CreateClass, JoinClass } from "..";
 import { useLocalContext } from "../../context/context";
 import { useStyles } from "./style";
 import { Link } from "react-router-dom";
+import Button from '@mui/material/Button';
 import "./style.css";
 
 const Header = ({ children }) => {
@@ -52,9 +53,29 @@ const Header = ({ children }) => {
             </Typography>
           </div>
           <div className={classes.header__wrapper__right}>
-            <Add onClick={handleClick} className={classes.icon} />
+              <Button
+                onClick={handleJoin}
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ margin: 1, whiteSpace: "nowrap", backgroundColor: "rgb(108, 144, 46)", pr: 5, pl: 5}}
+                //className='button'
+              >
+                Tham gia lớp học
+              </Button>
+              <Button
+                onclick={handleCreate}
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ margin: 1, backgroundColor: "rgb(108, 144, 46)"}}
+                //className='button'
+              >
+                Tạo lớp học
+              </Button>
+            {/* <Add onClick={handleClick} className={classes.icon} /> */}
             <Apps className={classes.icon} />
-            <Menu
+            {/* <Menu
               id="simple-menu"
               anchorEl={anchorEl}
               keepMounted
@@ -63,14 +84,34 @@ const Header = ({ children }) => {
             >
               <MenuItem onClick={handleJoin}>Join Class</MenuItem>
               <MenuItem onClick={handleCreate}>Create Class</MenuItem>
-            </Menu>
+            </Menu> */}
+
             <div>
+              <Avatar
+                onClick={handleClick}
+                src={loggedInUser?.photoURL}
+                className={classes.icon}                
+              />
+              <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick="">Thông tin tài khoản</MenuItem>
+              <MenuItem onClick={() => logout()}>Đăng xuất</MenuItem>
+            </Menu>
+            </div>
+
+            
+            {/* <div>
               <Avatar
                 onClick={() => logout()}
                 src={loggedInUser?.photoURL}
                 className={classes.icon}                
               />
-            </div>
+            </div> */}
           </div>
         </Toolbar>
       </AppBar>
