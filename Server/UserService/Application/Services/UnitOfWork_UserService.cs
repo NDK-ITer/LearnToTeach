@@ -10,7 +10,7 @@ namespace Application.Services
     }
     public class UnitOfWork_UserService : IUnitOfWork_UserService
     {
-        public UnitOfWork_UserService(AuthenticationDbContext context, IMemoryCache cache)
+        public UnitOfWork_UserService(UserServiceDbContext context, IMemoryCache cache)
         {
             UserService = new UserService(context, cache);
             RoleService = new RoleService(context);

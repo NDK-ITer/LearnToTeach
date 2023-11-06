@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class UserServiceinitial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,7 +20,7 @@ namespace Infrastructure.Migrations
                     Id = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    NomalizeName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                    NormalizeName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,13 +59,34 @@ namespace Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ClassroomInfor",
+                columns: table => new
+                {
+                    IdClassroom = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    IdUser = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    IsHost = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClassroomInfor", x => new { x.IdUser, x.IdClassroom });
+                    table.ForeignKey(
+                        name: "FK_ClassroomInfor_Users_IdUser",
+                        column: x => x.IdUser,
+                        principalTable: "Users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Roles",
-                columns: new[] { "Id", "Description", "Name", "NomalizeName" },
+                columns: new[] { "Id", "Description", "Name", "NormalizeName" },
                 values: new object[,]
                 {
-                    { "ac753d87-7767-4962-a8af-21ed07fa61ed", "", "ADMIN", "Admin" },
-                    { "e48104f6-74c3-4576-bdaf-13de5e9410b6", "", "USER", "User" }
+                    { "3bfa0033-ec25-4271-9ca3-7f158bf5dab2", "", "ADMIN", "Admin" },
+                    { "fd62b292-ec16-4c4b-9e83-907a3e579041", "", "USER", "User" }
                 });
 
             migrationBuilder.InsertData(
@@ -73,8 +94,17 @@ namespace Infrastructure.Migrations
                 columns: new[] { "id", "Avatar", "Birthday", "CreatedDate", "FirstEmail", "FirstName", "IsLock", "IsVerified", "LastName", "PasswordHash", "PhoneNumber", "PresentEmail", "RoleId", "TokenAccess", "UserName", "VerifiedDate" },
                 values: new object[,]
                 {
-                    { "193ba283-bf34-40ad-a3be-10b1780cba0e", "", new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2323), new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2336), "test001@gmail.com", "test", false, true, "account", "nSUQ/133didCpNJLsvcLvQ==", "0123456789", "test001@gmail.com", "e48104f6-74c3-4576-bdaf-13de5e9410b6", "F3345E54FC54739F106961F5A5293CCE9E325B8C0E1D43A7723CA86B10D21AB4D60123823C2BBA787C82BED791095972C11E938D2C088EF46ED1443EB7A26CC4", "testVersion_0001", new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2387) },
-                    { "2c75293b-f8e5-4862-9b13-5894a64895cd", "", new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2481), new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2482), "admin001@gmail.com", "Admin", false, true, "account", "VWBU8/+H4em26o8A92n+Tg==", "0123456789", "admin001@gmail.com", "ac753d87-7767-4962-a8af-21ed07fa61ed", "A6482AD8D7A03B81246F465A4EEC8C9835545C042FA665837B58ED01EED735202E77023E97CECAE5C59359523A5EA99D61CF90492C079E5EB6AE186202CAFA8F", "adminVersion_0001", new DateTime(2023, 11, 2, 11, 13, 33, 75, DateTimeKind.Local).AddTicks(2487) }
+                    { "193ba283-bf34-40ad-a3be-10b1780cba0e", "", new DateTime(2023, 11, 6, 9, 24, 38, 137, DateTimeKind.Local).AddTicks(7063), new DateTime(2023, 11, 6, 9, 24, 38, 137, DateTimeKind.Local).AddTicks(7075), "test001@gmail.com", "test", false, true, "account", "nSUQ/133didCpNJLsvcLvQ==", "0123456789", "test001@gmail.com", "fd62b292-ec16-4c4b-9e83-907a3e579041", "4C1745F0002B41D8CBFC286958F1B825F09F2CDE8A1359DC43C43401532E0EA09E76BBA37D49E913BC6590F197E2A2CB42E2EDFF95F8037F41220E5267737150", "testVersion_0001", new DateTime(2023, 11, 6, 9, 24, 38, 137, DateTimeKind.Local).AddTicks(7135) },
+                    { "2c75293b-f8e5-4862-9b13-5894a64895cd", "", new DateTime(2023, 11, 6, 9, 24, 38, 137, DateTimeKind.Local).AddTicks(7223), new DateTime(2023, 11, 6, 9, 24, 38, 137, DateTimeKind.Local).AddTicks(7223), "admin001@gmail.com", "Admin", false, true, "account", "VWBU8/+H4em26o8A92n+Tg==", "0123456789", "admin001@gmail.com", "3bfa0033-ec25-4271-9ca3-7f158bf5dab2", "62BAEE704AD866A50E5AFCBEBCB040BBF73D19657FF692EAB3B5C56D18A94C1C3D4A810A062F84AA21DC3A2631DD289925888731DD6E198D894762D3DCEEF424", "adminVersion_0001", new DateTime(2023, 11, 6, 9, 24, 38, 137, DateTimeKind.Local).AddTicks(7226) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ClassroomInfor",
+                columns: new[] { "IdClassroom", "IdUser", "Description", "IsHost", "Name" },
+                values: new object[,]
+                {
+                    { "ee546ce7-842a-4dee-86d0-0db1ff3b64b4", "193ba283-bf34-40ad-a3be-10b1780cba0e", "", true, "Class_1" },
+                    { "0a006921-b4a4-40de-a1e6-9497daf09a2f", "2c75293b-f8e5-4862-9b13-5894a64895cd", "", true, "Class_2" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -86,6 +116,9 @@ namespace Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ClassroomInfor");
+
             migrationBuilder.DropTable(
                 name: "Users");
 

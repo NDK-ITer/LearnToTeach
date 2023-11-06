@@ -14,14 +14,14 @@ namespace Infrastructure.Extensions
                 {
                     Id = AdminID,
                     Name = "ADMIN",
-                    NomalizeName = "Admin",
+                    NormalizeName = "Admin",
                     Description = ""
                 },
                 new Role()
                 {
                     Id = UserId,
                     Name = "USER",
-                    NomalizeName = "User",
+                    NormalizeName = "User",
                     Description = ""
                 }
                 );
@@ -65,7 +65,25 @@ namespace Infrastructure.Extensions
                     PasswordHash = SecurityMethods.HashPassword("Adminaccount123456789_001"),
                 }
                 );
-            
+            modelBuilder.Entity<ClassroomInfor>().HasData(
+                new ClassroomInfor()
+                {
+                    IdClassroom = "ee546ce7-842a-4dee-86d0-0db1ff3b64b4",
+                    IdUser = "193ba283-bf34-40ad-a3be-10b1780cba0e",
+                    Name = "Class_1",
+                    Description = "",
+                    IsHost = true,
+                },
+                new ClassroomInfor()
+                {
+                    IdClassroom = "0a006921-b4a4-40de-a1e6-9497daf09a2f",
+                    IdUser = "2c75293b-f8e5-4862-9b13-5894a64895cd",
+                    Name = "Class_2",
+                    Description = "",
+                    IsHost = true,
+                }
+                );
+
 
         }
     }

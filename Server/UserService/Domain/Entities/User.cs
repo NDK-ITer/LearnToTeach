@@ -19,5 +19,6 @@
         public string RoleId { get; set; }
         public string Avatar { get; set; }
         public Role Role { get; set; }
+        public List<ClassroomInfor> ListClassroomInfor { get; set; }
     }
 }

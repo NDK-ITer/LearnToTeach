@@ -35,7 +35,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 11, 3, 13, 50, 46, 361, DateTimeKind.Local).AddTicks(7606));
+                        .HasDefaultValue(new DateTime(2023, 11, 6, 9, 25, 29, 912, DateTimeKind.Local).AddTicks(4929));
 
                     b.Property<string>("Description")
                         .HasMaxLength(100)
@@ -65,8 +65,8 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ee546ce7-842a-4dee-86d0-0db1ff3b64b4",
-                            CreateDate = new DateTime(2023, 11, 3, 13, 50, 46, 362, DateTimeKind.Local).AddTicks(5101),
+                            Id = "d0186509-69d2-4a76-a0d1-69c5916c0b02",
+                            CreateDate = new DateTime(2023, 11, 6, 9, 25, 29, 913, DateTimeKind.Local).AddTicks(3247),
                             IdUserHost = "193ba283-bf34-40ad-a3be-10b1780cba0e",
                             IsPrivate = true,
                             KeyHash = "cA4FigUKj7deRjen/4NWmw==",
@@ -74,8 +74,8 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = "0a006921-b4a4-40de-a1e6-9497daf09a2f",
-                            CreateDate = new DateTime(2023, 11, 3, 13, 50, 46, 362, DateTimeKind.Local).AddTicks(5277),
+                            Id = "02c47002-cc29-4b66-82bd-a86b7e3c6d5e",
+                            CreateDate = new DateTime(2023, 11, 6, 9, 25, 29, 913, DateTimeKind.Local).AddTicks(3514),
                             IdUserHost = "2c75293b-f8e5-4862-9b13-5894a64895cd",
                             IsPrivate = false,
                             Name = "Class_2"
@@ -93,7 +93,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Avatar")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -102,7 +101,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -120,7 +118,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             IdUser = "2c75293b-f8e5-4862-9b13-5894a64895cd",
-                            IdClass = "ee546ce7-842a-4dee-86d0-0db1ff3b64b4",
+                            IdClass = "d0186509-69d2-4a76-a0d1-69c5916c0b02",
                             Avatar = "",
                             Description = "",
                             Name = "Admin account",
@@ -129,7 +127,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             IdUser = "193ba283-bf34-40ad-a3be-10b1780cba0e",
-                            IdClass = "0a006921-b4a4-40de-a1e6-9497daf09a2f",
+                            IdClass = "02c47002-cc29-4b66-82bd-a86b7e3c6d5e",
                             Avatar = "",
                             Description = "",
                             Name = "test account",

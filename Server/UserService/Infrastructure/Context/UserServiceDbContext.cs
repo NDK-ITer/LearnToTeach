@@ -5,17 +5,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Context
 {
-    public class AuthenticationDbContext : DbContext
+    public class UserServiceDbContext : DbContext
     {
-        public AuthenticationDbContext(DbContextOptions<AuthenticationDbContext> options) : base(options)
+        public UserServiceDbContext(DbContextOptions<UserServiceDbContext> options) : base(options)
         {
-            //context = new AuthenticationDbContext(options);
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new ClassroomInforConfiguration());
             modelBuilder.SeedData();
             //base.OnModelCreating(modelBuilder);
         }

@@ -47,7 +47,7 @@ namespace Application.Services
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public UserService(AuthenticationDbContext context, IMemoryCache cache)
+        public UserService(UserServiceDbContext context, IMemoryCache cache)
         {
             _unitOfWork = new UnitOfWork(context, cache);
         }

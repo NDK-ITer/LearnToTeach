@@ -12,8 +12,8 @@ using SagaOrchestration.Models;
 namespace SagaOrchestration.Migrations
 {
     [DbContext(typeof(SagaDbContext))]
-    [Migration("20231104162625_initial")]
-    partial class initial
+    [Migration("20231106022402_ServiceOrchestration-initial")]
+    partial class ServiceOrchestrationinitial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

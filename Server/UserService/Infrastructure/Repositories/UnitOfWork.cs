@@ -12,9 +12,9 @@ namespace Infrastructure.Repositories
     }
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly AuthenticationDbContext _context;
+        private readonly UserServiceDbContext _context;
 
-        public UnitOfWork(AuthenticationDbContext context, IMemoryCache cache)
+        public UnitOfWork(UserServiceDbContext context, IMemoryCache cache)
         {
             _context = context;
             userRepository = new UserRepository(context, cache);
