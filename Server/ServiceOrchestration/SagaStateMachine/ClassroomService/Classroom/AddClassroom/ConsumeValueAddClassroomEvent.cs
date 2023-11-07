@@ -1,12 +1,12 @@
 ﻿using Events.ClassroomServiceEvents.Classroom;
 
-namespace SagaStateMachine.ClassroomService.Classroom
+namespace SagaStateMachine.ClassroomService.Classroom.AddClassroom
 {
-    public class ConsumeValueClassroomEvent : IConsumeValueClassroomEvent
+    public class ConsumeValueAddClassroomEvent : IConsumeValueClassroomEvent
     {
         private readonly AddClassroomStateData classroomStateData;
 
-        public ConsumeValueClassroomEvent(AddClassroomStateData classroomStateData)
+        public ConsumeValueAddClassroomEvent(AddClassroomStateData classroomStateData)
         {
             this.classroomStateData = classroomStateData;
         }

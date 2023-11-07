@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SagaStateMachine.ClassroomService.Classroom;
+using SagaStateMachine.ClassroomService.Classroom.AddClassroom;
 using SagaStateMachine.ClassroomService.Member;
 using SagaStateMachine.UserService.ConfirmUserEmail;
 using SagaStateMachine.UserService.ResetPassword;

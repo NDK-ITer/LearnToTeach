@@ -123,12 +123,28 @@ namespace ClassServer.Controllers
 
         [HttpPut]
         [Route("update")]
-        public ActionResult UpdateClassroom([FromBody] ClassroomRequest ClassroomRequest)
+        public async Task<ActionResult> UpdateClassroom([FromBody] ClassroomRequest ClassroomRequest)
         {
             try
             {
                 var check = _unitOfWork_ClassroomService._classroomService.UpdateClassroom(ClassroomRequest);
-                if (check == 1) return Ok("Updated Classroom is successful!");
+                if (check == 1)
+                {
+                    var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
+                    if (endPoint != null)
+                    {
+                        endPoint.Send<IGetValueClassroomEvent>(new
+                        {
+                            idClassroom = Guid.Parse(ClassroomRequest.idClassroom),
+                            description = ClassroomRequest.description,
+                            idUserHost = string.Empty,
+                            name = ClassroomRequest.name,
+                            isPrivate = ClassroomRequest.isPrivate,
+                            eventMessage = _classroomStateMessage.Update
+                        });
+                    }
+                    return Ok("Updated Classroom is successful!");
+                }
                 else if (check == 0) return BadRequest("Something is Wrong!");
                 else return BadRequest("Updated Classroom is fail!");
             }
@@ -173,7 +189,7 @@ namespace ClassServer.Controllers
 
         [HttpPost]
         [Route("add-member")]
-        public async Task<ActionResult> AddMemberToClassroom([FromBody]MemberRequest memberRequest)
+        public async Task<ActionResult> AddMemberToClassroom([FromBody] MemberRequest memberRequest)
         {
             try
             {
@@ -188,7 +204,7 @@ namespace ClassServer.Controllers
                         nameMember = "",
                         role = "member".ToUpper(),
                         description = ""
-                    },memberRequest.idClassroom);
+                    }, memberRequest.idClassroom);
                     if (check == 1)
                     {
                         var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
@@ -204,8 +220,12 @@ namespace ClassServer.Controllers
                             });
                         }
                     }
+                    else
+                    {
+                        return BadRequest("Error at add member");
+                    }
                 }
-                
+
                 return Ok("Add member successful, please wait a minute");
             }
             catch (Exception e)

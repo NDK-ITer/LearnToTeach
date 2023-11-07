@@ -1,4 +1,5 @@
-﻿using Application.Services;
+﻿using Application.Models;
+using Application.Services;
 using Events.ClassroomServiceEvents.Member;
 using MassTransit;
 
@@ -27,6 +28,12 @@ namespace UserServer.Consumers
                         NameMember = $"{user.FirstName} {user.LastName}",
                         Avatar = user.Avatar
                     });
+                    var classroomInfor = new AddClassroomInforModel()
+                    {
+                        IdClassroom = data.idClassroom.ToString(),
+                        IdUser = data.IdMember,
+                    };
+                    unitOfWork_UserService.ClassroomInforService.AddClassroomInfor(classroomInfor);
                 }
                 else
                 {

@@ -1,4 +1,5 @@
 ﻿using ClassServer.Models;
+using Domain.Entities;
 using Events.ClassroomServiceEvents.Classroom;
 using MassTransit;
 
@@ -28,6 +29,15 @@ namespace ClassServer.Consumers
                         idUserHost = data.idUserHost,
                         name = data.name,
                         isPrivate = data.isPrivate
+                    });
+                }
+                else if (data.eventMessage == classroomEventMessage.Update)
+                {
+                    await context.Publish<IUpdateClassroomEvent>(new
+                    {
+                        idClassroom = data.idClassroom,
+                        description = data.description,
+                        name = data.name
                     });
                 }
             }

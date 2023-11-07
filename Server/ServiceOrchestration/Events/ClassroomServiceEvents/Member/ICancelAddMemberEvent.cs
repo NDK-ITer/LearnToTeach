@@ -1,10 +1,11 @@
-﻿namespace Events.ClassroomServiceEvents.Member
+﻿using Events.ClassroomServiceEvents.Models;
+
+namespace Events.ClassroomServiceEvents.Member
 {
     public interface ICancelAddMemberEvent
     {
-        public Guid IdClassroom { get; set; }
-        public string IdMember { get; set; }
-        public string? NameMember { get; }
-        public string? Avatar { get; }
+        public Guid IdClassroom { get; }
+        public List<MemberEventModel> ListMember { get; }
+        
     }
 }

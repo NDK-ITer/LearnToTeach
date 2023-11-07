@@ -16,7 +16,11 @@ namespace ClassServer.Consumers
             var data = context.Message;
             if (data != null)
             {
-                unitOfWork_ClassroomService._classroomService.RemoveMember(data.idClassroom.ToString(),data.IdMember);
+                foreach (var item in data.ListMember)
+                {
+                    unitOfWork_ClassroomService._classroomService.RemoveMember(data.idClassroom.ToString(), item);
+
+                }
             }
         }
     }

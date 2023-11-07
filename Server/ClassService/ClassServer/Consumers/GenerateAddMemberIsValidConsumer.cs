@@ -19,15 +19,19 @@ namespace ClassServer.Consumers
             var data = context.Message;
             if (data != null)
             {
-                var memberModel = new MemberModel()
+                foreach (var item in data.ListMember)
                 {
-                    idMember = data.IdMember,
-                    avatar = data.Avatar,
-                    nameMember = data.NameMember,
-                    role = null,
-                    description = null
-                };
-                var updateInforMember = unitOfWork_ClassroomService._memberService.UpdateInforMember(memberModel);
+                    var memberModel = new MemberModel()
+                    {
+                        idMember = item.IdMember,
+                        avatar = item.Avatar,
+                        nameMember = item.NameMember,
+                        role = null,
+                        description = null
+                    };
+                    var updateInforMember = unitOfWork_ClassroomService._memberService.UpdateInforMember(memberModel);
+                }
+                
             }
         }
     }

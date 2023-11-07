@@ -2,8 +2,8 @@
 {
     public interface ICancelAddMemberEvent
     {
-        public Guid idClassroom { get; }
-        public string IdMember { get; }
+        public Guid IdClassroom { get; }
+        public List<string> ListMember { get; }
         
     }
 }

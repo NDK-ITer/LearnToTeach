@@ -1,5 +1,4 @@
-﻿using Application.Models;
-using Application.Requests;
+﻿using Application.Requests;
 using Domain.Entities;
 using Infrastructure;
 using Infrastructure.Context;

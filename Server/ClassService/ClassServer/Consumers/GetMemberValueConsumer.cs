@@ -1,5 +1,4 @@
 ﻿using ClassServer.Models;
-using Domain.Entities;
 using Events.ClassroomServiceEvents.Member;
 using MassTransit;
 
@@ -22,7 +21,7 @@ namespace ClassServer.Consumers
                     await context.Publish<IAddMemberEvent>(new
                     {
                         IdClassroom = data.IdClassroom,
-                        IdMember = data.IdMember,
+                        ListMember = data.ListMember,
                         Avatar = data.Avatar,
                         NameMember = data.NameMember,
                     });

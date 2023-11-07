@@ -2,10 +2,10 @@ using MassTransit;
 using SagaOrchestration.Models;
 using Microsoft.EntityFrameworkCore;
 using RabbitMQ_Lib;
-using SagaStateMachine.ClassroomService.Classroom;
 using SagaStateMachine.ClassroomService.Member;
 using SagaStateMachine.UserService.ConfirmUserEmail;
 using SagaStateMachine.UserService.ResetPassword;
+using SagaStateMachine.ClassroomService.Classroom.AddClassroom;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("SagaConnectionString");

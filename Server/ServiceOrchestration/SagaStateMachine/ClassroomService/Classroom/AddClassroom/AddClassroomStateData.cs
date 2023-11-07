@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 
-namespace SagaStateMachine.ClassroomService.Classroom
+namespace SagaStateMachine.ClassroomService.Classroom.AddClassroom
 {
     public class AddClassroomStateData : SagaStateMachineInstance
     {
