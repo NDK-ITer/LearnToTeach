@@ -1,5 +1,5 @@
 ﻿using Application.Services;
-using Events.ClassroomServiceEvents.Member;
+using Events.ClassroomServiceEvents.Member.AddMember;
 using MassTransit;
 
 namespace ClassServer.Consumers
@@ -18,7 +18,7 @@ namespace ClassServer.Consumers
             {
                 foreach (var item in data.ListMember)
                 {
-                    unitOfWork_ClassroomService._classroomService.RemoveMember(data.idClassroom.ToString(), item);
+                    unitOfWork_ClassroomService._classroomService.RemoveMember(data.IdClassroom.ToString(), item);
 
                 }
             }

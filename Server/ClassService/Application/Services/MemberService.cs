@@ -31,7 +31,7 @@ namespace Application.Services
                     Name = memberModel.nameMember,
                     Avatar = memberModel.avatar,
                     Role = memberModel.role,
-                    Description = memberModel.description
+                    Description = memberModel.description,
                 };
                 _unitOfWork.memberClassroomRepository.AddMember(member);
                 _unitOfWork.SaveChange();

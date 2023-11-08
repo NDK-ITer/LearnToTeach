@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SagaOrchestration.Models;
 
@@ -11,9 +12,11 @@ using SagaOrchestration.Models;
 namespace SagaOrchestration.Migrations
 {
     [DbContext(typeof(SagaDbContext))]
-    partial class SagaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231108030326_add-prop-nameClassroom")]
+    partial class addpropnameClassroom
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,11 +60,14 @@ namespace SagaOrchestration.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AddMemberStateDataCorrelationId")
+                    b.Property<Guid>("AddMemberStateDataCorrelationId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Avatar")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("CorrelationId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("IdMember")
                         .IsRequired()
@@ -166,9 +172,13 @@ namespace SagaOrchestration.Migrations
 
             modelBuilder.Entity("SagaStateMachine.ClassroomService.Member.AddMember.MemberModel", b =>
                 {
-                    b.HasOne("SagaStateMachine.ClassroomService.Member.AddMemberStateData", null)
+                    b.HasOne("SagaStateMachine.ClassroomService.Member.AddMemberStateData", "AddMemberStateData")
                         .WithMany("ListMember")
-                        .HasForeignKey("AddMemberStateDataCorrelationId");
+                        .HasForeignKey("AddMemberStateDataCorrelationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AddMemberStateData");
                 });
 
             modelBuilder.Entity("SagaStateMachine.ClassroomService.Member.AddMemberStateData", b =>

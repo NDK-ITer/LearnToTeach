@@ -1,11 +1,12 @@
-﻿namespace Events.ClassroomServiceEvents.Member
+﻿using Events.ClassroomServiceEvents.Models;
+
+namespace Events.ClassroomServiceEvents.Member
 {
     public interface IGetValueMemberEvent
     {
         public Guid IdClassroom { get; }
-        public List<string> ListMember { get; }
-        public string NameMember { get; }
-        public string Avatar { get; }
+        public string NameClassroom { get; }
+        public List<string> ListIdMember { get; }
         public string eventMessage { get; }
     }
 }

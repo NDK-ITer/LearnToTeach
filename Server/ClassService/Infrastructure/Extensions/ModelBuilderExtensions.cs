@@ -12,7 +12,7 @@ namespace Infrastructure.Extensions
             modelBuilder.Entity<Classroom>().HasData(
                 new Classroom
                 {
-                    Id = idClass_1,
+                    Id = "d0186509-69d2-4a76-a0d1-69c5916c0b02",
                     CreateDate = DateTime.Now,
                     Name = "Class_1",
                     KeyHash = KeyHash.Hash("Class_1"),
@@ -22,7 +22,7 @@ namespace Infrastructure.Extensions
                 },
                 new Classroom
                 {
-                    Id = idClass_2,
+                    Id = "02c47002-cc29-4b66-82bd-a86b7e3c6d5e",
                     CreateDate = DateTime.Now,
                     Name = "Class_2",
                     KeyHash = null,

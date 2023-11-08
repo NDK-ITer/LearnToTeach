@@ -37,7 +37,7 @@ namespace UserServer.Consumers
                         IdClassroom = data.idClassroom.ToString(),
                         IdUser = data.idUserHost,
                         Description = data.description,
-                        Name = data.name
+                        NameClassroom = data.name
                     };
                     unitOfWork_UserService.ClassroomInforService.AddClassroomInfor(classroomInfor);
                 }

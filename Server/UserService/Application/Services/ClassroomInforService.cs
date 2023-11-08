@@ -36,7 +36,7 @@ namespace Application.Services
                     IdUser = addClassroomInforModel.IdUser,
                     Name = "",
                     Description = "",
-                    IsHost = false
+                    IsHost = false,
                 };
                 if (classroom != null)//add member
                 {
@@ -45,7 +45,7 @@ namespace Application.Services
                 }
                 else//add new classroom
                 {
-                    if (!addClassroomInforModel.Name.IsNullOrEmpty()) classroomInfor.Name = addClassroomInforModel.Name;
+                    if (!addClassroomInforModel.NameClassroom.IsNullOrEmpty()) classroomInfor.Name = addClassroomInforModel.NameClassroom;
                     if (!addClassroomInforModel.Description.IsNullOrEmpty()) classroomInfor.Description = addClassroomInforModel.Description;
                     classroomInfor.IsHost = true;
                 }

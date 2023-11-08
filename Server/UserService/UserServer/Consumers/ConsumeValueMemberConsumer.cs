@@ -1,7 +1,10 @@
 ﻿using Application.Models;
 using Application.Services;
 using Events.ClassroomServiceEvents.Member;
+using Events.ClassroomServiceEvents.Member.AddMember;
+using Events.ClassroomServiceEvents.Models;
 using MassTransit;
+using Microsoft.IdentityModel.Tokens;
 
 namespace UserServer.Consumers
 {
@@ -18,30 +21,55 @@ namespace UserServer.Consumers
             var data = context.Message;
             if (data != null)
             {
-                var user = unitOfWork_UserService.UserService.GetUserById(data.IdMember);
-                if (user != null)
+                var addMemberIsValidEvent = new
                 {
-                    await context.Publish<IAddMemberIsValidEvent>(new
+                    IdClassroom = data.idClassroom,
+                    NameClassroom = data.NameClassroom,
+                    ListMember = new List<MemberEventModel>()
+                };
+                var cancelAddMemberEvent = new
+                {
+                    IdClassroom = data.idClassroom,
+                    ListMember = new List<MemberEventModel>()
+                };
+
+                foreach (var item in data.ListMember)
+                {
+                    var user = unitOfWork_UserService.UserService.GetUserById(item.IdMember);
+                    if (user != null)
                     {
-                        IdClassroom = data.idClassroom,
-                        IdMember = data.IdMember,
-                        NameMember = $"{user.FirstName} {user.LastName}",
-                        Avatar = user.Avatar
-                    });
-                    var classroomInfor = new AddClassroomInforModel()
+                        var classroomInfor = new AddClassroomInforModel()
+                        {
+                            IdClassroom = data.idClassroom.ToString(),
+                            IdUser = item.IdMember,
+                            NameClassroom = data.NameClassroom,
+                        };
+                        unitOfWork_UserService.ClassroomInforService.AddClassroomInfor(classroomInfor);
+                        addMemberIsValidEvent.ListMember.Add(new MemberEventModel()
+                        {
+                            NameMember = $"{user.FirstName} {user.LastName}",
+                            IdMember = item.IdMember,
+                            Avatar = user.Avatar
+                        });
+                    }
+                    else
                     {
-                        IdClassroom = data.idClassroom.ToString(),
-                        IdUser = data.IdMember,
-                    };
-                    unitOfWork_UserService.ClassroomInforService.AddClassroomInfor(classroomInfor);
+                        cancelAddMemberEvent.ListMember.Add(new MemberEventModel()
+                        {
+                            NameMember = $"{user.FirstName} {user.LastName}",
+                            IdMember = item.IdMember,
+                            Avatar = user.Avatar
+                        });
+                    }
                 }
-                else
+
+                if (!addMemberIsValidEvent.ListMember.IsNullOrEmpty())
                 {
-                    await context.Publish<ICancelAddMemberEvent>(new
-                    {
-                        IdClassroom = data.idClassroom,
-                        IdMember = data.IdMember
-                    });
+                    await context.Publish<IAddMemberIsValidEvent>(addMemberIsValidEvent);
+                }
+                if (!cancelAddMemberEvent.ListMember.IsNullOrEmpty())
+                {
+                    await context.Publish<ICancelAddMemberEvent>(cancelAddMemberEvent);
                 }
             }
         }

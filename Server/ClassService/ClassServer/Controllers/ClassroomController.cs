@@ -5,6 +5,7 @@ using ClassServer.Models;
 using Domain.Entities;
 using Events.ClassroomServiceEvents.Classroom;
 using Events.ClassroomServiceEvents.Member;
+using Events.ClassroomServiceEvents.Models;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -195,6 +196,15 @@ namespace ClassServer.Controllers
             {
                 if (memberRequest == null) return BadRequest("Request was null!");
                 if (memberRequest.listIdMember.IsNullOrEmpty()) return BadRequest("listMember was empty or null");
+                var classroom = _unitOfWork_ClassroomService._classroomService.GetClassroomById(memberRequest.idClassroom);
+                if (classroom == null) return BadRequest("Classroom is not exist!");
+                var getValueMemberEvent = new 
+                {
+                    IdClassroom = Guid.Parse(memberRequest.idClassroom),
+                    eventMessage = _classroomStateMessage.AddMember,
+                    ListIdMember = new List<string>(),
+                    NameClassroom = classroom.Name
+                };
                 foreach (var item in memberRequest.listIdMember)
                 {
                     var check = _unitOfWork_ClassroomService._memberService.AddMember(new MemberModel
@@ -207,23 +217,17 @@ namespace ClassServer.Controllers
                     }, memberRequest.idClassroom);
                     if (check == 1)
                     {
-                        var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
-                        if (endPoint != null)
-                        {
-                            endPoint.Send<IGetValueMemberEvent>(new
-                            {
-                                IdClassroom = Guid.Parse(memberRequest.idClassroom),
-                                IdMember = item,
-                                NameMember = "",
-                                Avatar = "",
-                                eventMessage = _classroomStateMessage.AddMember
-                            });
-                        }
+                        getValueMemberEvent.ListIdMember.Add(item);
                     }
-                    else
-                    {
-                        return BadRequest("Error at add member");
-                    }
+                }
+                var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
+                if (endPoint != null)
+                {
+                    endPoint.Send<IGetValueMemberEvent>(getValueMemberEvent);
+                }
+                else
+                {
+                    return BadRequest();
                 }
 
                 return Ok("Add member successful, please wait a minute");

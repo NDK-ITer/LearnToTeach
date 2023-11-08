@@ -1,6 +1,6 @@
 ﻿using Application.Models;
 using Application.Services;
-using Events.ClassroomServiceEvents.Member;
+using Events.ClassroomServiceEvents.Member.AddMember;
 using MassTransit;
 
 namespace ClassServer.Consumers
@@ -27,7 +27,7 @@ namespace ClassServer.Consumers
                         avatar = item.Avatar,
                         nameMember = item.NameMember,
                         role = null,
-                        description = null
+                        description = null,
                     };
                     var updateInforMember = unitOfWork_ClassroomService._memberService.UpdateInforMember(memberModel);
                 }
