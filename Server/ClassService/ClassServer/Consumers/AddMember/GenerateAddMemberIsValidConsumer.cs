@@ -27,7 +27,7 @@ namespace ClassServer.Consumers.AddMember
                     role = null,
                     description = null,
                 };
-                unitOfWork_ClassroomService._memberService.UpdateInforMember(memberModel/*,data.IdClassroom.ToString()*/);
+                unitOfWork_ClassroomService._memberService.UpdateInforMember(memberModel);
 
             }
         }
