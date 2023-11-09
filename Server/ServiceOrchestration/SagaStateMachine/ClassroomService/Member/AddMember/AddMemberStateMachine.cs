@@ -43,25 +43,25 @@ namespace SagaStateMachine.ClassroomService.Member.AddMember
                     context.Saga.Avatar = context.Message.Avatar;
                 }).Publish(context => new ConsumeValueAddMemberEvent(context.Saga)));
 
-            During(AddMember,
-                When(CancelAddMemberEvent).Then(context =>
-                {
-                    context.Saga.IdClassroom = context.Message.IdClassroom;
-                    context.Saga.IdMember = context.Message.IdMember;
-                    context.Saga.NameClassroom = context.Message.NameClassroom;
-                    context.Saga.NameMember = context.Message.NameMember;
-                    context.Saga.Avatar = context.Message.Avatar;
-                }));
+            //During(AddMember,
+            //    When(CancelAddMemberEvent).Then(context =>
+            //    {
+            //        context.Saga.IdClassroom = context.Message.IdClassroom;
+            //        context.Saga.IdMember = context.Message.IdMember;
+            //        context.Saga.NameClassroom = context.Message.NameClassroom;
+            //        context.Saga.NameMember = context.Message.NameMember;
+            //        context.Saga.Avatar = context.Message.Avatar;
+            //    }));
 
-            During(AddMember,
-                When(AddMemberIsValidEvent).Then(context =>
-                {
-                    context.Saga.IdClassroom = context.Message.IdClassroom;
-                    context.Saga.IdMember = context.Message.IdMember;
-                    context.Saga.NameClassroom = context.Message.NameClassroom;
-                    context.Saga.NameMember = context.Message.NameMember;
-                    context.Saga.Avatar = context.Message.Avatar;
-                }));
+            //During(AddMember,
+            //    When(AddMemberIsValidEvent).Then(context =>
+            //    {
+            //        context.Saga.IdClassroom = context.Message.IdClassroom;
+            //        context.Saga.IdMember = context.Message.IdMember;
+            //        context.Saga.NameClassroom = context.Message.NameClassroom;
+            //        context.Saga.NameMember = context.Message.NameMember;
+            //        context.Saga.Avatar = context.Message.Avatar;
+            //    }));
         }
     }
 }

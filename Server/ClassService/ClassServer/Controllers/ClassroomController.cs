@@ -2,10 +2,8 @@
 using Application.Requests;
 using Application.Services;
 using ClassServer.Models;
-using Domain.Entities;
 using Events.ClassroomServiceEvents.Classroom;
 using Events.ClassroomServiceEvents.Member;
-using Events.ClassroomServiceEvents.Models;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -200,6 +198,20 @@ namespace ClassServer.Controllers
                 if (classroom == null) return BadRequest("Classroom is not exist!");
                 foreach (var item in memberRequest.listIdMember)
                 {
+                    //var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
+                    //if (endPoint != null)
+                    //{
+                    //    endPoint.Send<IGetValueMemberEvent>(new
+                    //    {
+                    //        IdClassroom = Guid.Parse(memberRequest.idClassroom),
+                    //        IdMember = item,
+                    //        eventMessage = _classroomStateMessage.AddMember,
+                    //        NameMember = string.Empty,
+                    //        Avatar = string.Empty,
+                    //        NameClassroom = classroom.Name
+                    //    });
+                    //}
+
                     var check = _unitOfWork_ClassroomService._memberService.AddMember(new MemberModel
                     {
                         idMember = item,
@@ -224,7 +236,6 @@ namespace ClassServer.Controllers
                             });
                         }
                     }
-                    
                 }
 
                 return Ok("Add member successful, please wait a minute");

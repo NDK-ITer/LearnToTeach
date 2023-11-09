@@ -63,9 +63,12 @@ namespace Infrastructure.Repositories
         public void Update(T entity)
         {
             _dbSet.Attach(entity);
-            _dbSet.Update(entity);
             _context.Entry(entity).State = EntityState.Modified;
-            
+        }
+
+        public void UpdateRange(List<T> listEntity)
+        {
+            _dbSet.UpdateRange(listEntity);
         }
     }
 }

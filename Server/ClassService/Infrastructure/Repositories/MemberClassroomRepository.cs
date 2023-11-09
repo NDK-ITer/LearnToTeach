@@ -4,6 +4,7 @@ using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
+using System.Dynamic;
 using XAct;
 
 namespace Infrastructure.Repositories
@@ -45,7 +46,18 @@ namespace Infrastructure.Repositories
                 return null;
             }
         }
-        public void UpdateMemberClassroom(MemberClassroom memberClassroom) => Update(memberClassroom);
+        public void UpdateMemberClassroom(MemberClassroom memberClassroom)
+        {
+            var member = _dbSet.FirstOrDefault(p => p.IdUser == memberClassroom.IdUser && p.IdClass == memberClassroom.IdClass);
+            if (member != null)
+            {
+                member.Name = memberClassroom.Name;
+                member.Avatar = memberClassroom.Avatar;
+                member.Role = memberClassroom.Role;
+                member.Description = memberClassroom.Description;
+                Update(member);
+            }
+        }
         public bool DeleteMemberClassroom(string idMemberClassroomId, string idClassroom)
         {
             if (idMemberClassroomId.IsNullOrEmpty() || idClassroom.IsNullOrEmpty()) return false;

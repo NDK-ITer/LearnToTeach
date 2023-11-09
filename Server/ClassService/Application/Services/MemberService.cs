@@ -30,7 +30,7 @@ namespace Application.Services
                     IdUser = memberModel.idMember,
                     Name = memberModel.nameMember,
                     Avatar = memberModel.avatar,
-                    Role = memberModel.role,
+                    Role = "Member".ToUpper(),
                     Description = memberModel.description,
                 };
                 _unitOfWork.memberClassroomRepository.AddMember(member);
@@ -48,15 +48,16 @@ namespace Application.Services
             if (memberModel.IsNull()) return 0;
             try
             {
-                var listMember = _unitOfWork.memberClassroomRepository.GeMemberClassroomByIdUser(memberModel.idMember);
+                var listMember = _unitOfWork.memberClassroomRepository.Find(p => p.IdUser == memberModel.idMember).ToList();
                 foreach (var member in listMember)
                 {
                     member.Name = memberModel.nameMember;
                     member.Avatar = memberModel.avatar;
                     member.Description = memberModel.description;
                     _unitOfWork.memberClassroomRepository.UpdateMemberClassroom(member);
-                    _unitOfWork.SaveChange();
                 }
+                _unitOfWork.SaveChange();
+                _unitOfWork.Dispose();
                 return 1;
             }
             catch (Exception)
