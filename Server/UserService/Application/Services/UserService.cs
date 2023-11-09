@@ -47,7 +47,7 @@ namespace Application.Services
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public UserService(AuthenticationDbContext context, IMemoryCache cache)
+        public UserService(UserServiceDbContext context, IMemoryCache cache)
         {
             _unitOfWork = new UnitOfWork(context, cache);
         }
@@ -85,8 +85,9 @@ namespace Application.Services
                     LastName = registerRequest.LastName,
                     FirstEmail = registerRequest.Email,
                     PhoneNumber = registerRequest.PhoneNumber,
+                    Avatar = registerRequest.Avatar,
                     PresentEmail = registerRequest.Email,
-                    Birthday = registerRequest.Brithday,
+                    Birthday = registerRequest.Birthday,
                     PasswordHash = SecurityMethods.HashPassword(registerRequest.PasswordIsConfirmed),
                     CreatedDate = DateTime.Now,
                     IsLock = false,

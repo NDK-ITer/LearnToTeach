@@ -8,21 +8,23 @@ namespace Infrastructure.Repositories
     {
         IUserRepository userRepository { get; }
         IRoleRepository roleRepository { get; }
+        IClassroomInforRepository classroomRepository { get; }
         void SaveChange();
     }
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly AuthenticationDbContext _context;
+        private readonly UserServiceDbContext _context;
 
-        public UnitOfWork(AuthenticationDbContext context, IMemoryCache cache)
+        public UnitOfWork(UserServiceDbContext context, IMemoryCache cache)
         {
             _context = context;
             userRepository = new UserRepository(context, cache);
             roleRepository = new RoleRepository(context);
+            classroomRepository = new ClassroomInforRepository(context);
         }
 
         public IUserRepository userRepository { get; private set; }
-
+        public IClassroomInforRepository classroomRepository { get; private set; }
         public IRoleRepository roleRepository { get; private set; }
 
         public void Dispose()
@@ -33,6 +35,7 @@ namespace Infrastructure.Repositories
         public void SaveChange()
         {
             _context.SaveChanges();
+            _context.Dispose();
         }
     }
 }

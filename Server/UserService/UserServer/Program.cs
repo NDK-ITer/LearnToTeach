@@ -32,12 +32,14 @@ builder.Services.AddMassTransit(cfg =>
         {
             ep.PrefetchCount = 10;
             ep.ConfigureConsumer<ConsumeValueClassroomConsumer>(provider);
+            ep.ConfigureConsumer<ConsumeValueMemberConsumer>(provider);
             ep.ConfigureConsumer<GetValueUserConsumer>(provider);
         });
         
     }));
     // Configuration "Consumer"
     cfg.AddConsumer<ConsumeValueClassroomConsumer>();
+    cfg.AddConsumer<ConsumeValueMemberConsumer>();
     cfg.AddConsumer<GetValueUserConsumer>();
 });
 // Configuration "Session" to store some value
@@ -51,7 +53,7 @@ builder.Services.AddSession(options =>
 builder.Services.AddControllers();
 builder.Services.AddMemoryCache();
 //
-builder.Services.AddDbContext<AuthenticationDbContext>(option => option.UseSqlServer(connectionString));
+builder.Services.AddDbContext<UserServiceDbContext>(option => option.UseSqlServer(connectionString));
 builder.Services.AddTransient<IUnitOfWork_UserService, UnitOfWork_UserService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddTransient<UserEventMessage>();

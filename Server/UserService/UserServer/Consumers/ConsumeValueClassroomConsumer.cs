@@ -1,4 +1,5 @@
-﻿using Application.Services;
+﻿using Application.Models;
+using Application.Services;
 using Events.ClassroomServiceEvents.Classroom;
 using MassTransit;
 
@@ -28,6 +29,17 @@ namespace UserServer.Consumers
                         name = data.name,
                         isPrivate = data.isPrivate,
                     });
+                }
+                else
+                {
+                    var classroomInfor = new AddClassroomInforModel()
+                    {
+                        IdClassroom = data.idClassroom.ToString(),
+                        IdUser = data.idUserHost,
+                        Description = data.description,
+                        NameClassroom = data.name
+                    };
+                    unitOfWork_UserService.ClassroomInforService.AddClassroomInfor(classroomInfor);
                 }
             }
         }

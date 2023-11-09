@@ -7,7 +7,9 @@ namespace Infrastructure.Repositories
     public interface IUnitOfWork
     {
         IClassroomRepository classroomRepository { get; }
+        IMemberClassroomRepository memberClassroomRepository { get; }
         void SaveChange();
+        void Dispose();
     }
     public class UnitOfWork : IUnitOfWork
     {
@@ -17,8 +19,10 @@ namespace Infrastructure.Repositories
         {
             _context = context;
             classroomRepository = new ClassroomRepository(context, memoryCache);
+            memberClassroomRepository = new MemberClassroomRepository(context, memoryCache);
         }
         public IClassroomRepository classroomRepository { get; private set; }
+        public IMemberClassroomRepository memberClassroomRepository { get; private set; }
 
         public void Dispose()
         {

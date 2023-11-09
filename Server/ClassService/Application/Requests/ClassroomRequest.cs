@@ -1,5 +1,4 @@
-﻿using Application.Models;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Infrastructure;
 using Microsoft.IdentityModel.Tokens;
 using XAct;
@@ -14,8 +13,6 @@ namespace Application.Requests
         public string? key { get; set; }
         public string? name { get; set; }
         public bool isPrivate { get; set; }
-        public List<MemberModel>? Members { get; set; }
-
 
         //update data from "ClassroomRequest" to "Classroom"
         public void UpdateToClassroom(Classroom classroom)
@@ -27,20 +24,6 @@ namespace Application.Requests
             }
             classroom.Description = this.description;
             classroom.Name = this.name;
-            if (!this.Members.IsNullOrEmpty())
-            {
-                foreach (var item in this.Members)
-                {
-                    classroom.ListUserId.Add( new ClassroomDetail() 
-                        { 
-                            IdClass = classroom.Id,
-                            IdUser = item.idMember,
-                            Description = item.description,
-                            Role = item.role,
-                        });
-                }
-
-            }
             
         }
     }

@@ -11,7 +11,7 @@ namespace Infrastructure.Repositories
     {
         private IMemoryCache _memoryCache;
         private string _keyValueCache;
-        public UserRepository(AuthenticationDbContext context, IMemoryCache cache) : base(context)
+        public UserRepository(UserServiceDbContext context, IMemoryCache cache) : base(context)
         {
             _dbSet.Include(u => u.Role).Load();
             _memoryCache = cache;

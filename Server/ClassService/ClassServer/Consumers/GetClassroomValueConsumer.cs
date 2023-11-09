@@ -30,7 +30,15 @@ namespace ClassServer.Consumers
                         isPrivate = data.isPrivate
                     });
                 }
-               
+                else if (data.eventMessage == classroomEventMessage.Update)
+                {
+                    await context.Publish<IUpdateClassroomEvent>(new
+                    {
+                        idClassroom = data.idClassroom,
+                        description = data.description,
+                        name = data.name
+                    });
+                }
             }
         }
     }

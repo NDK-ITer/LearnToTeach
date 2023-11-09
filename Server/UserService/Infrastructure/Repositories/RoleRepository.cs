@@ -7,7 +7,7 @@ namespace Infrastructure.Repositories
 {
     public class RoleRepository : GenericRepository<Role>, IRoleRepository
     {
-        public RoleRepository(AuthenticationDbContext context) : base(context)
+        public RoleRepository(UserServiceDbContext context) : base(context)
         {
             _dbSet.Include(c => c.Users).Load();
         }

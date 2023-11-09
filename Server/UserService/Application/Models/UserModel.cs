@@ -9,6 +9,7 @@ namespace Application.Models
         public string? email { get; set; }
         public string? phoneNumber { get; set; }
         public string? role { get; set; }
+        public string? avatar { get; set; }
         public DateTime birthday { get; set; }
 
         public UserModel()
@@ -23,6 +24,7 @@ namespace Application.Models
             this.fullName = user.FirstName + " " + user.LastName;
             this.role = user.Role.Name;
             this.phoneNumber = user.PhoneNumber; 
+            this.avatar = user.Avatar;
         }
     }
 }

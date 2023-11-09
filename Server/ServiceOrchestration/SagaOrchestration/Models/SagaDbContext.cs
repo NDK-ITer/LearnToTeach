@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SagaStateMachine.ClassroomService.Classroom;
+using SagaStateMachine.ClassroomService.Classroom.AddClassroom;
 using SagaStateMachine.ClassroomService.Member;
+using SagaStateMachine.ClassroomService.Member.AddMember;
 using SagaStateMachine.UserService.ConfirmUserEmail;
 using SagaStateMachine.UserService.ResetPassword;
 
@@ -15,14 +16,14 @@ namespace SagaOrchestration.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AddClassroomStateData>().HasKey(x => x.CorrelationId);
-            modelBuilder.Entity<MemberStateData>().HasKey(x => x.CorrelationId);
+            modelBuilder.Entity<AddMemberStateData>().HasKey(x => x.CorrelationId);
             modelBuilder.Entity<ConfirmUserEmailStateData>().HasKey(x => x.CorrelationId);
             modelBuilder.Entity<ResetPasswordStateData>().HasKey(x => x.CorrelationId);
             base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<AddClassroomStateData> AddClassroomStateData { get; set; }
-        public DbSet<MemberStateData> MemberStateData { get; set; }
+        public DbSet<AddMemberStateData> AddMemberStateData { get; set; }
         public DbSet<ConfirmUserEmailStateData> ConfirmUserEmailStateData { get; set; }
         public DbSet<ResetPasswordStateData> ResetPasswordStateData { get; set; }
     }

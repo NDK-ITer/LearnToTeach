@@ -8,9 +8,9 @@ namespace Application.Services
     }
     public class RoleService : IRoleService
     {
-        private readonly AuthenticationDbContext _context;
+        private readonly UserServiceDbContext _context;
 
-        public RoleService(AuthenticationDbContext context) 
+        public RoleService(UserServiceDbContext context) 
         {
             _context = context;
         }   

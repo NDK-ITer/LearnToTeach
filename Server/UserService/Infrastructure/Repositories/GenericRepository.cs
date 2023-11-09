@@ -7,12 +7,12 @@ namespace Infrastructure.Repositories
 {
     public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected readonly AuthenticationDbContext _context;
+        protected readonly UserServiceDbContext _context;
         protected /*readonly*/ DbSet<T> _dbSet;
         protected IMemoryCache _cache;
         protected MemoryCacheEntryOptions _options;
 
-        public GenericRepository(AuthenticationDbContext context)
+        public GenericRepository(UserServiceDbContext context)
         {
             _context = context;
             _dbSet = _context.Set<T>();
@@ -63,7 +63,6 @@ namespace Infrastructure.Repositories
         {
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
-            //_dbSet.Update(entity);
         }
     }
 }

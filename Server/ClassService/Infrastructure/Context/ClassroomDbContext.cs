@@ -19,6 +19,6 @@ namespace Infrastructure.Context
             //base.OnModelCreating(modelBuilder);
         }
         public DbSet<Classroom> Classrooms { get; set; }
-        public DbSet<ClassroomDetail> ClassroomDetails { get; set; }
+        public DbSet<MemberClassroom> MemberClassrooms { get; set; }
     }
 }

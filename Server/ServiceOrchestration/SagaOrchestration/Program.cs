@@ -2,10 +2,11 @@ using MassTransit;
 using SagaOrchestration.Models;
 using Microsoft.EntityFrameworkCore;
 using RabbitMQ_Lib;
-using SagaStateMachine.ClassroomService.Classroom;
 using SagaStateMachine.ClassroomService.Member;
 using SagaStateMachine.UserService.ConfirmUserEmail;
 using SagaStateMachine.UserService.ResetPassword;
+using SagaStateMachine.ClassroomService.Classroom.AddClassroom;
+using SagaStateMachine.ClassroomService.Member.AddMember;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("SagaConnectionString");
@@ -24,7 +25,7 @@ builder.Services.AddMassTransit(cfg =>
             r.ExistingDbContext<SagaDbContext>();
         });
 
-    cfg.AddSagaStateMachine<MemberStateMachine, MemberStateData>()
+    cfg.AddSagaStateMachine<AddMemberStateMachine, AddMemberStateData>()
         .EntityFrameworkRepository(r =>
         {
             r.ConcurrencyMode = ConcurrencyMode.Pessimistic;

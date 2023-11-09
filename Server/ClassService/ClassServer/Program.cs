@@ -1,5 +1,7 @@
 using Application.Services;
 using ClassServer.Consumers;
+using ClassServer.Consumers.AddClassroom;
+using ClassServer.Consumers.AddMember;
 using ClassServer.Models;
 using Infrastructure.Context;
 using MassTransit;
@@ -18,20 +20,22 @@ builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
     {
-        //cfg.Host(new Uri(RabbitMQConfig.RabbitMQURL), hst =>
-        //{
-        //    hst.Username(RabbitMQConfig.UserName);
-        //    hst.Password(RabbitMQConfig.Password);
-        //});
         cfg.ReceiveEndpoint(nameQueue, ep =>
         {
-            ep.PrefetchCount = 10;
+            ep.PrefetchCount = 20;
             ep.ConfigureConsumer<GenerateCancelAddClassroomConsumer>(provider);
+            ep.ConfigureConsumer<GenerateAddMemberIsValidConsumer>(provider);
+            ep.ConfigureConsumer<GenerateCancelAddMemberConsumer>(provider);
             ep.ConfigureConsumer<GetClassroomValueConsumer>(provider);
+            ep.ConfigureConsumer<GetMemberValueConsumer>(provider);
         });
     }));
+    cfg.AddConsumer<GenerateAddMemberIsValidConsumer>();
     cfg.AddConsumer<GenerateCancelAddClassroomConsumer>();
+    cfg.AddConsumer<GenerateCancelAddMemberConsumer>();
     cfg.AddConsumer<GetClassroomValueConsumer>();
+    cfg.AddConsumer<GetMemberValueConsumer>();
+
 });
 
 builder.Services.AddControllers();

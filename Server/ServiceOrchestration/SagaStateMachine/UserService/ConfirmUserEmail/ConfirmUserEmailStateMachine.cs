@@ -1,6 +1,5 @@
 ﻿using Events.UserServiceEvents.User;
 using MassTransit;
-using SagaStateMachine.UserService.ResetPassword;
 
 namespace SagaStateMachine.UserService.ConfirmUserEmail
 {
