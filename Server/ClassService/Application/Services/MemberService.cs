@@ -35,7 +35,6 @@ namespace Application.Services
                 };
                 _unitOfWork.memberClassroomRepository.AddMember(member);
                 _unitOfWork.SaveChange();
-                _unitOfWork.Dispose();
                 return 1;
             }
             catch (Exception)
@@ -49,20 +48,14 @@ namespace Application.Services
             if (memberModel.IsNull()) return 0;
             try
             {
-                var members = _unitOfWork.memberClassroomRepository.GeMemberClassroomByIdUser(memberModel.idMember);
-                foreach (var member in members)
+                var listMember = _unitOfWork.memberClassroomRepository.GeMemberClassroomByIdUser(memberModel.idMember);
+                foreach (var member in listMember)
                 {
-                    bool flat = false;
-                    if (memberModel.nameMember != null) { member.Name = memberModel.nameMember; flat = true; }
-                    if (memberModel.avatar != null) { member.Avatar = memberModel.avatar; flat = true; }
-                    if (memberModel.role != null) { member.Role = memberModel.role; flat = true; }
-                    if (memberModel.description != null) { member.Description = memberModel.description; flat = true; }
-                    if (flat)
-                    {
-                        _unitOfWork.memberClassroomRepository.UpdateMemberClassroom(member);
-                        _unitOfWork.SaveChange();
-                        _unitOfWork.Dispose();
-                    }
+                    member.Name = memberModel.nameMember;
+                    member.Avatar = memberModel.avatar;
+                    member.Description = memberModel.description;
+                    _unitOfWork.memberClassroomRepository.UpdateMemberClassroom(member);
+                    _unitOfWork.SaveChange();
                 }
                 return 1;
             }

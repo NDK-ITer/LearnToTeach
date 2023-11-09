@@ -31,10 +31,10 @@ namespace UserServer.Consumers
                     await context.Publish<IAddMemberIsValidEvent>(new
                     {
                         IdClassroom = data.IdClassroom,
-                        IdMember = data.IdMember,
+                        IdMember = user.id,
                         NameClassroom = data.NameClassroom,
-                        NameMember = data.NameMember,
-                        Avatar = data.Avatar,
+                        NameMember = $"{user.FirstName} {user.LastName}",
+                        Avatar = user.Avatar,
                     });
                 }
                 else

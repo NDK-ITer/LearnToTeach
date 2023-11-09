@@ -31,7 +31,7 @@ namespace SagaStateMachine.ClassroomService.Member.AddMember
                     context.Saga.NameClassroom = context.Message.NameClassroom;
                     context.Saga.NameMember = context.Message.NameMember;
                     context.Saga.Avatar = context.Message.Avatar;
-                }).TransitionTo(AddMember).Publish(context => new ConsumeValueAddMemberEvent(context.Saga)));
+                }).Publish(context => new ConsumeValueAddMemberEvent(context.Saga)));
 
             During(AddMember,
                 When(AddMemberEvent).Then(context =>

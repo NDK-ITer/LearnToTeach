@@ -1,5 +1,4 @@
 ﻿using ClassServer.Models;
-using Domain.Entities;
 using Events.ClassroomServiceEvents.Classroom;
 using MassTransit;
 

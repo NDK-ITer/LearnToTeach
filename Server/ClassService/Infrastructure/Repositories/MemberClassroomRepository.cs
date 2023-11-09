@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
 using Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
 using XAct;
@@ -33,7 +34,7 @@ namespace Infrastructure.Repositories
             }
             else
             {
-                var listMemberClassroom = _dbSet.Where(p => p.IdUser == idMemberClassroom).ToList();
+                var listMemberClassroom = _dbSet.AsNoTracking().Where(p => p.IdUser == idMemberClassroom).ToList();
                 var listMemberClassroomCacheInitial = new List<MemberClassroom>();
                 if (listMemberClassroom != null)
                 {

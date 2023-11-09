@@ -33,21 +33,21 @@ namespace Infrastructure.Extensions
             modelBuilder.Entity<MemberClassroom>().HasData(
                 new MemberClassroom
                 {
-                    IdClass = idClass_1,
+                    IdClass = "d0186509-69d2-4a76-a0d1-69c5916c0b02",
                     IdUser = "2c75293b-f8e5-4862-9b13-5894a64895cd",
                     Name = "Admin account",
                     Avatar = string.Empty,
                     Description = string.Empty,
-                    Role = string.Empty
+                    Role = "MEMBER"
                 },
                 new MemberClassroom
                 {
-                    IdClass = idClass_2,
+                    IdClass = "02c47002-cc29-4b66-82bd-a86b7e3c6d5e",
                     IdUser = "193ba283-bf34-40ad-a3be-10b1780cba0e",
                     Name = "test account",
                     Avatar = string.Empty,
                     Description = string.Empty,
-                    Role = string.Empty
+                    Role = "MEMBER"
                 }
                 );
         }
