@@ -6,6 +6,7 @@ using SagaStateMachine.ClassroomService.Member;
 using SagaStateMachine.UserService.ConfirmUserEmail;
 using SagaStateMachine.UserService.ResetPassword;
 using SagaStateMachine.ClassroomService.Classroom.AddClassroom;
+using SagaStateMachine.ClassroomService.Member.AddMember;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("SagaConnectionString");

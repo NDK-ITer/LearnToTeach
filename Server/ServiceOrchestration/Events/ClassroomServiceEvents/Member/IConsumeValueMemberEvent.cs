@@ -1,11 +1,10 @@
-﻿using Events.ClassroomServiceEvents.Models;
-
-namespace Events.ClassroomServiceEvents.Member
+﻿namespace Events.ClassroomServiceEvents.Member
 {
     public interface IConsumeValueMemberEvent
     {
         public Guid idClassroom { get; }
         public string NameClassroom { get; }
-        public List<MemberEventModel> ListMember {  get; }
+        public string NameMember { get; }
+        public string Avatar { get;}
     }
 }

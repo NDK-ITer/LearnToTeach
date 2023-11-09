@@ -2,7 +2,7 @@
 using Events.ClassroomServiceEvents.Classroom;
 using MassTransit;
 
-namespace ClassServer.Consumers
+namespace ClassServer.Consumers.AddClassroom
 {
     public class GenerateCancelAddClassroomConsumer : IConsumer<ICancelAddClassroomEvent>
     {

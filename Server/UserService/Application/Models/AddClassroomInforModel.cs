@@ -6,6 +6,5 @@
         public string IdUser { get; set; }
         public string? NameClassroom { get; set; }
         public string? Description { get; set; }
-        //public bool IsHost { get; set; }
     }
 }

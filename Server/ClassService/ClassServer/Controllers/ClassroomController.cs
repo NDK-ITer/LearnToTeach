@@ -198,13 +198,6 @@ namespace ClassServer.Controllers
                 if (memberRequest.listIdMember.IsNullOrEmpty()) return BadRequest("listMember was empty or null");
                 var classroom = _unitOfWork_ClassroomService._classroomService.GetClassroomById(memberRequest.idClassroom);
                 if (classroom == null) return BadRequest("Classroom is not exist!");
-                var getValueMemberEvent = new 
-                {
-                    IdClassroom = Guid.Parse(memberRequest.idClassroom),
-                    eventMessage = _classroomStateMessage.AddMember,
-                    ListIdMember = new List<string>(),
-                    NameClassroom = classroom.Name
-                };
                 foreach (var item in memberRequest.listIdMember)
                 {
                     var check = _unitOfWork_ClassroomService._memberService.AddMember(new MemberModel
@@ -217,17 +210,21 @@ namespace ClassServer.Controllers
                     }, memberRequest.idClassroom);
                     if (check == 1)
                     {
-                        getValueMemberEvent.ListIdMember.Add(item);
+                        var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
+                        if (endPoint != null)
+                        {
+                            endPoint.Send<IGetValueMemberEvent>(new
+                            {
+                                IdClassroom = Guid.Parse(memberRequest.idClassroom),
+                                IdMember = item,
+                                eventMessage = _classroomStateMessage.AddMember,
+                                NameMember = string.Empty,
+                                Avatar = string.Empty,
+                                NameClassroom = classroom.Name
+                            });
+                        }
                     }
-                }
-                var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
-                if (endPoint != null)
-                {
-                    endPoint.Send<IGetValueMemberEvent>(getValueMemberEvent);
-                }
-                else
-                {
-                    return BadRequest();
+                    
                 }
 
                 return Ok("Add member successful, please wait a minute");

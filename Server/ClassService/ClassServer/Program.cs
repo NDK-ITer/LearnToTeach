@@ -1,5 +1,7 @@
 using Application.Services;
 using ClassServer.Consumers;
+using ClassServer.Consumers.AddClassroom;
+using ClassServer.Consumers.AddMember;
 using ClassServer.Models;
 using Infrastructure.Context;
 using MassTransit;

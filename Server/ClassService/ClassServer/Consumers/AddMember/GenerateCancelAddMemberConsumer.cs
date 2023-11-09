@@ -2,7 +2,7 @@
 using Events.ClassroomServiceEvents.Member.AddMember;
 using MassTransit;
 
-namespace ClassServer.Consumers
+namespace ClassServer.Consumers.AddMember
 {
     public class GenerateCancelAddMemberConsumer : IConsumer<ICancelAddMemberEvent>
     {
@@ -16,11 +16,7 @@ namespace ClassServer.Consumers
             var data = context.Message;
             if (data != null)
             {
-                foreach (var item in data.ListMember)
-                {
-                    unitOfWork_ClassroomService._classroomService.RemoveMember(data.IdClassroom.ToString(), item);
-
-                }
+                unitOfWork_ClassroomService._classroomService.RemoveMember(data.IdClassroom.ToString(), data.IdMember);
             }
         }
     }

@@ -3,7 +3,7 @@ using Application.Services;
 using Events.ClassroomServiceEvents.Member.AddMember;
 using MassTransit;
 
-namespace ClassServer.Consumers
+namespace ClassServer.Consumers.AddMember
 {
     public class GenerateAddMemberIsValidConsumer : IConsumer<IAddMemberIsValidEvent>
     {
@@ -19,19 +19,16 @@ namespace ClassServer.Consumers
             var data = context.Message;
             if (data != null)
             {
-                foreach (var item in data.ListMember)
+                var memberModel = new MemberModel()
                 {
-                    var memberModel = new MemberModel()
-                    {
-                        idMember = item.IdMember,
-                        avatar = item.Avatar,
-                        nameMember = item.NameMember,
-                        role = null,
-                        description = null,
-                    };
-                    var updateInforMember = unitOfWork_ClassroomService._memberService.UpdateInforMember(memberModel);
-                }
-                
+                    idMember = data.IdMember,
+                    avatar = data.Avatar,
+                    nameMember = data.NameMember,
+                    role = null,
+                    description = null,
+                };
+                var updateInforMember = unitOfWork_ClassroomService._memberService.UpdateInforMember(memberModel);
+
             }
         }
     }
