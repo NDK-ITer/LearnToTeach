@@ -1,4 +1,4 @@
-﻿using Events.UserServiceEvents.User;
+﻿using Events.UserServiceEvents.User.UserResetPassword;
 using MassTransit;
 
 namespace SagaStateMachine.UserService.ResetPassword

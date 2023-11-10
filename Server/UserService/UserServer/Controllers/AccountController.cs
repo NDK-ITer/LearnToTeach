@@ -37,8 +37,8 @@ namespace Server.Controllers
         [Route("login")]
         public ActionResult<LoginResponses>? Login([FromBody] LoginRequest loginRequest)
         {
-            var user = _unitOfWork_UserService.UserService.GetUserUsername(loginRequest.UserName);
-            var jwt = _unitOfWork_UserService.UserService.LoginUser(loginRequest.UserName, loginRequest.Password);
+            var user = _unitOfWork_UserService.UserService.GetUserByEmail(loginRequest.Email);
+            var jwt = _unitOfWork_UserService.UserService.LoginUser(loginRequest.Email, loginRequest.Password);
             if (jwt != null && user != null)
             {
                 return jwt;
@@ -254,5 +254,35 @@ namespace Server.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("edit-infor")]
+        public async Task<ActionResult> EditInformation([FromBody] EditInforRequest editInforRequest)
+        {
+            try
+            {
+                var check = _unitOfWork_UserService.UserService.UpdateUser(editInforRequest);
+                if (!check)
+                {
+                    return BadRequest("Edit information is fail");
+                }
+                var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
+                if (endPoint != null)
+                {
+                    endPoint.Send<IGetValueUserEvent>(new
+                    {
+                        id = Guid.Parse(editInforRequest.IdUser),
+                        fullName = editInforRequest.FirstName + " " + editInforRequest.LastName,
+                        avatar = editInforRequest.Avatar,
+                        eventMessage = _userEventMessage.Update
+                    });
+                }
+                return Ok("Edit information is successful");
+            }
+            catch (Exception)
+            {
+
+                return BadRequest("Error! when edit information");
+            }
+        }
     }
 }

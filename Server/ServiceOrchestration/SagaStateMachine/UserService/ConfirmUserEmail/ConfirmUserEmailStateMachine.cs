@@ -1,4 +1,4 @@
-﻿using Events.UserServiceEvents.User;
+﻿using Events.UserServiceEvents.User.ConfirmUser;
 using MassTransit;
 
 namespace SagaStateMachine.UserService.ConfirmUserEmail

@@ -7,6 +7,7 @@ using SagaStateMachine.UserService.ConfirmUserEmail;
 using SagaStateMachine.UserService.ResetPassword;
 using SagaStateMachine.ClassroomService.Classroom.AddClassroom;
 using SagaStateMachine.ClassroomService.Member.AddMember;
+using SagaStateMachine.UserService.UpdateUserInfor;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("SagaConnectionString");
@@ -38,6 +39,12 @@ builder.Services.AddMassTransit(cfg =>
             r.ExistingDbContext<SagaDbContext>();
         });
     cfg.AddSagaStateMachine<ResetPasswordStateMachine, ResetPasswordStateData>()
+        .EntityFrameworkRepository(r =>
+        {
+            r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
+            r.ExistingDbContext<SagaDbContext>();
+        });
+    cfg.AddSagaStateMachine<UpdateUserInforStateMachine, UpdateUserInforStateData>()
         .EntityFrameworkRepository(r =>
         {
             r.ConcurrencyMode = ConcurrencyMode.Pessimistic;

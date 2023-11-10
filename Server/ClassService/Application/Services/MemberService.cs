@@ -51,9 +51,10 @@ namespace Application.Services
                 var listMember = _unitOfWork.memberClassroomRepository.Find(p => p.IdUser == memberModel.idMember).ToList();
                 foreach (var member in listMember)
                 {
-                    member.Name = memberModel.nameMember;
-                    member.Avatar = memberModel.avatar;
-                    member.Description = memberModel.description;
+                    if (!memberModel.nameMember.IsNullOrEmpty()) { member.Name = memberModel.nameMember; }
+                    if (!memberModel.avatar.IsNullOrEmpty()) { member.Avatar = memberModel.avatar; }
+                    if (!memberModel.description.IsNullOrEmpty()) { member.Description = memberModel.description; }
+                    if (!memberModel.role.IsNullOrEmpty()) { member.Role = memberModel.role; }
                     _unitOfWork.memberClassroomRepository.UpdateMemberClassroom(member);
                 }
                 _unitOfWork.SaveChange();
