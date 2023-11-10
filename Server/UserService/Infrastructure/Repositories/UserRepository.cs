@@ -20,14 +20,14 @@ namespace Infrastructure.Repositories
 
         public void Register(User user) => Add(user);
         public void UpdateUser(User user) => Update(user);
-        public bool CheckAccountValid(string username, string password)
+        public bool CheckAccountValid(string email, string password)
         {
             if (_memoryCache.TryGetValue(_keyValueCache, out List<User> listUserInCache)) 
             {
-                var user = listUserInCache.FirstOrDefault(u => u.UserName == username && SecurityMethods.HashPassword(password) == u.PasswordHash);
+                var user = listUserInCache.FirstOrDefault(u => u.PresentEmail == email && SecurityMethods.HashPassword(password) == u.PasswordHash);
                 if (user == null) 
                 {
-                    user = _dbSet.FirstOrDefault(u => u.UserName == username && SecurityMethods.HashPassword(password) == u.PasswordHash);
+                    user = _dbSet.FirstOrDefault(u => u.PresentEmail == email && SecurityMethods.HashPassword(password) == u.PasswordHash);
                     listUserInCache.Add(user);
                 }
                 return true;
@@ -35,7 +35,7 @@ namespace Infrastructure.Repositories
             else
             {
                 var listUser = new List<User>();
-                var user = _dbSet.FirstOrDefault(u => u.UserName == username && SecurityMethods.HashPassword(password) == u.PasswordHash);
+                var user = _dbSet.FirstOrDefault(u => u.PresentEmail == email && SecurityMethods.HashPassword(password) == u.PasswordHash);
                 if (user != null)
                 {
                     listUser.Add(user);
@@ -85,7 +85,7 @@ namespace Infrastructure.Repositories
             if (_memoryCache.TryGetValue(_keyValueCache, out List<User> listUserInCache))
             {
                 var user = listUserInCache.FirstOrDefault(u => u.PresentEmail == email);
-                if (user == null)
+                if (user != null)
                 {
                     user = _dbSet.FirstOrDefault(u => u.PresentEmail == email);
                     if (user != null)

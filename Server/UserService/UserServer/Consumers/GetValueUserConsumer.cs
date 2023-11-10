@@ -1,5 +1,6 @@
 ﻿using Events.UserServiceEvents;
 using Events.UserServiceEvents.User;
+using Events.UserServiceEvents.User.UpdateUserInfor;
 using MassTransit;
 using UserServer.Models;
 
@@ -38,6 +39,15 @@ namespace UserServer.Consumers
                         email = data.email,
                         subject = data.subject,
                         content = data.content,
+                    });
+                }
+                else if (data.eventMessage == _userEventMessage.Update)
+                {
+                    await context.Publish<IUpdateUserInforEvent>(new
+                    {
+                        IdUser = data.id,
+                        FullName = data.fullName,
+                        Avatar = data.avatar,
                     });
                 }
             }

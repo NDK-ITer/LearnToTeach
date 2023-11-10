@@ -40,6 +40,8 @@ namespace JwtAuthenticationManager
             {
                 Id = userAccount.Id,
                 UserName = userAccount.Fullname,
+                Email = userAccount.Email,
+                Avatar = userAccount.Avatar,
                 ExpiresIn = (int)tokenExprityTimeStamp.Subtract(DateTime.Now).TotalSeconds,
                 JwtToken = token,
             };

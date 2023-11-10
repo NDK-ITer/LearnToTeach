@@ -28,7 +28,7 @@ namespace Application.Services
         ///  <returns></returns>
         bool EmailIsExist(string email);
         bool UsernameIsExist(string username);
-        bool UpdateUser(User user);
+        bool UpdateUser(EditInforRequest editInforRequest);
         bool LockUser(User user);
         bool CheckUserIsExist(System.Linq.Expressions.Expression<Func<User, bool>> property);
         /// <summary>
@@ -53,11 +53,11 @@ namespace Application.Services
         }
 
 
-        public LoginResponses? LoginUser(string username, string password)//Login
+        public LoginResponses? LoginUser(string email, string password)//Login
         {
-            var checkLogin = _unitOfWork.userRepository.CheckAccountValid(username, password);
+            var checkLogin = _unitOfWork.userRepository.CheckAccountValid(email, password);
             if (!checkLogin) { return null; }
-            var user = _unitOfWork.userRepository.GetUserByUsername(username);
+            var user = _unitOfWork.userRepository.GetUserByEmail(email);
             if (user.IsLock == true)
             {
                 return null;
@@ -66,6 +66,8 @@ namespace Application.Services
             var jwtUserInfor = new JwtUserInfor()
             {
                 Id = user.id,
+                Email = user.PresentEmail,
+                Avatar = user.Avatar,
                 Fullname = user.FirstName + " " + user.LastName,
                 Role = user.Role.Name
             };
@@ -119,12 +121,22 @@ namespace Application.Services
             return false;
         }
 
-        public bool UpdateUser(User user)
+        public bool UpdateUser(EditInforRequest editInforRequest)
         {
             try
             {
-                _unitOfWork.userRepository.Update(user);
-                return true;
+                var user = _unitOfWork.userRepository.Find(p => p.id == editInforRequest.IdUser).FirstOrDefault();
+                if (user != null)
+                {
+                    if (!editInforRequest.FirstName.IsNullOrEmpty()) { user.FirstName = editInforRequest.FirstName; }
+                    if (!editInforRequest.LastName.IsNullOrEmpty()) { user.LastName = editInforRequest.LastName; }
+                    if (!editInforRequest.Avatar.IsNullOrEmpty()) { user.Avatar = editInforRequest.Avatar; }
+                    _unitOfWork.userRepository.Update(user);
+                    _unitOfWork.SaveChange();
+                    _unitOfWork.Dispose();
+                    return true;
+                }
+                return false;
             }
             catch (Exception)
             {

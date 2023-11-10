@@ -4,6 +4,7 @@ using SagaStateMachine.ClassroomService.Member;
 using SagaStateMachine.ClassroomService.Member.AddMember;
 using SagaStateMachine.UserService.ConfirmUserEmail;
 using SagaStateMachine.UserService.ResetPassword;
+using SagaStateMachine.UserService.UpdateUserInfor;
 
 namespace SagaOrchestration.Models
 {
@@ -19,6 +20,7 @@ namespace SagaOrchestration.Models
             modelBuilder.Entity<AddMemberStateData>().HasKey(x => x.CorrelationId);
             modelBuilder.Entity<ConfirmUserEmailStateData>().HasKey(x => x.CorrelationId);
             modelBuilder.Entity<ResetPasswordStateData>().HasKey(x => x.CorrelationId);
+            modelBuilder.Entity<UpdateUserInforStateData>().HasKey(x => x.CorrelationId);
             base.OnModelCreating(modelBuilder);
         }
 
@@ -26,5 +28,6 @@ namespace SagaOrchestration.Models
         public DbSet<AddMemberStateData> AddMemberStateData { get; set; }
         public DbSet<ConfirmUserEmailStateData> ConfirmUserEmailStateData { get; set; }
         public DbSet<ResetPasswordStateData> ResetPasswordStateData { get; set; }
+        public DbSet<UpdateUserInforStateData> updateUserInforStateDatas { get; set; }
     }
 }

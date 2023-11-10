@@ -1,4 +1,4 @@
-﻿namespace Events.UserServiceEvents.User
+﻿namespace Events.UserServiceEvents.User.UserResetPassword
 {
     public interface IUserResetPasswordEvent
     {

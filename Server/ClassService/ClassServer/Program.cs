@@ -2,6 +2,7 @@ using Application.Services;
 using ClassServer.Consumers;
 using ClassServer.Consumers.AddClassroom;
 using ClassServer.Consumers.AddMember;
+using ClassServer.Consumers.UpdateUserInfor;
 using ClassServer.Models;
 using Infrastructure.Context;
 using MassTransit;
@@ -28,6 +29,7 @@ builder.Services.AddMassTransit(cfg =>
             ep.ConfigureConsumer<GenerateCancelAddMemberConsumer>(provider);
             ep.ConfigureConsumer<GetClassroomValueConsumer>(provider);
             ep.ConfigureConsumer<GetMemberValueConsumer>(provider);
+            ep.ConfigureConsumer<ConsumeUpdateUserInforConsumer>(provider);
         });
     }));
     cfg.AddConsumer<GenerateAddMemberIsValidConsumer>();
@@ -35,6 +37,7 @@ builder.Services.AddMassTransit(cfg =>
     cfg.AddConsumer<GenerateCancelAddMemberConsumer>();
     cfg.AddConsumer<GetClassroomValueConsumer>();
     cfg.AddConsumer<GetMemberValueConsumer>();
+    cfg.AddConsumer<ConsumeUpdateUserInforConsumer>();
 
 });
 
