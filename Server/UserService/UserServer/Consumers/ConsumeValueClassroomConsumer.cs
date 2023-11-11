@@ -45,6 +45,14 @@ namespace UserServer.Consumers
                             NameClassroom = data.name
                         };
                         unitOfWork_UserService.ClassroomInforService.AddClassroomInfor(classroomInfor);
+                        var user = unitOfWork_UserService.UserService.GetUserById(data.idUserHost);
+                        await context.Publish<IAddClassroomIsValidEvent>(new
+                        {
+                            idClassroom = data.idClassroom,
+                            idUserHost = data.idUserHost,
+                            nameUserHost = $"{user.FirstName} {user.LastName}",
+                            avatar = user.Avatar
+                        });
                     }
                 }
                 else if (data.eventMessage == userEventMessage.Update)
@@ -57,7 +65,6 @@ namespace UserServer.Consumers
                     };
                     unitOfWork_UserService.ClassroomInforService.UpdateClassroomInfor(updateClassroomInforModel);
                 }
-               
             }
         }
     }

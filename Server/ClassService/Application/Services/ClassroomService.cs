@@ -1,4 +1,5 @@
-﻿using Application.Requests;
+﻿using Application.Models;
+using Application.Requests;
 using Domain.Entities;
 using Infrastructure;
 using Infrastructure.Context;
@@ -17,6 +18,7 @@ namespace Application.Services
         List<Classroom> GetAllClassroomPublic();
         Classroom CreateClassroom(ClassroomRequest classroomRequest);
         int UpdateClassroom(ClassroomRequest classroomRequest);
+        int UpdateClassroom(ClassroomUpdateModel classroomUpdateModel);
         int DeleteClassroom(string idClass);
         int RemoveMember(string idClassroom, string idMember);
     }
@@ -183,6 +185,26 @@ namespace Application.Services
             catch (Exception)
             {
 
+                return -1;
+            }
+        }
+
+        public int UpdateClassroom(ClassroomUpdateModel classroomUpdateModel)
+        {
+            try
+            {
+                if (classroomUpdateModel.IsNull()) return 0;
+                var classroom = _unitOfWork.classroomRepository.Find(p => p.Id == classroomUpdateModel.idClassroom).FirstOrDefault();
+                if (classroom.IsNull()) return 0;
+                if (!classroomUpdateModel.nameUserHost.IsNullOrEmpty()) classroom.NameUserHost = classroomUpdateModel.nameUserHost;
+                if (!classroomUpdateModel.avatarUserHost.IsNullOrEmpty()) classroom.AvatarUserHost = classroomUpdateModel.avatarUserHost;
+                _unitOfWork.classroomRepository.Update(classroom);
+                _unitOfWork.SaveChange();
+                _unitOfWork.Dispose();
+                return 1;
+            }
+            catch (Exception)
+            {
                 return -1;
             }
         }

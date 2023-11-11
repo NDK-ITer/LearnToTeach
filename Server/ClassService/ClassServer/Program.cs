@@ -26,6 +26,7 @@ builder.Services.AddMassTransit(cfg =>
             ep.PrefetchCount = 20;
             ep.ConfigureConsumer<GenerateCancelAddClassroomConsumer>(provider);
             ep.ConfigureConsumer<GenerateAddMemberIsValidConsumer>(provider);
+            ep.ConfigureConsumer<GenerateAddClassroomIsValidConsumer>(provider);
             ep.ConfigureConsumer<GenerateCancelAddMemberConsumer>(provider);
             ep.ConfigureConsumer<GetClassroomValueConsumer>(provider);
             ep.ConfigureConsumer<GetMemberValueConsumer>(provider);
@@ -33,6 +34,7 @@ builder.Services.AddMassTransit(cfg =>
         });
     }));
     cfg.AddConsumer<GenerateAddMemberIsValidConsumer>();
+    cfg.AddConsumer<GenerateAddClassroomIsValidConsumer>();
     cfg.AddConsumer<GenerateCancelAddClassroomConsumer>();
     cfg.AddConsumer<GenerateCancelAddMemberConsumer>();
     cfg.AddConsumer<GetClassroomValueConsumer>();
