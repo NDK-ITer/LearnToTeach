@@ -1,4 +1,6 @@
-﻿namespace Events.ClassroomServiceEvents.Classroom
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace Events.ClassroomServiceEvents.Classroom
 {
     public interface IConsumeValueClassroomEvent
     {
@@ -7,5 +9,6 @@
         public string? idUserHost { get; }
         public string? name { get; }
         public bool isPrivate { get; }
+        public string eventMessage { get; }
     }
 }

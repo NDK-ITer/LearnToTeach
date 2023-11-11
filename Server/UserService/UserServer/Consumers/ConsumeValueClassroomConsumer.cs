@@ -2,45 +2,62 @@
 using Application.Services;
 using Events.ClassroomServiceEvents.Classroom;
 using MassTransit;
+using UserServer.Models;
 
 namespace UserServer.Consumers
 {
     public class ConsumeValueClassroomConsumer : IConsumer<IConsumeValueClassroomEvent>
     {
         private readonly IUnitOfWork_UserService unitOfWork_UserService;
+        private readonly UserEventMessage userEventMessage;
 
-        public ConsumeValueClassroomConsumer(IUnitOfWork_UserService unitOfWork_UserService)
+        public ConsumeValueClassroomConsumer(IUnitOfWork_UserService unitOfWork_UserService, UserEventMessage userEventMessage)
         {
             this.unitOfWork_UserService = unitOfWork_UserService;
+            this.userEventMessage = userEventMessage;
         }
         public async Task Consume(ConsumeContext<IConsumeValueClassroomEvent> context)
         {
             var data = context.Message;
             if (data != null)
             {
-                var checkUserExist = unitOfWork_UserService.UserService.CheckUserIsExist(prop => prop.id.Equals(data.idUserHost));
-                if (!checkUserExist)
+                if (data.eventMessage == userEventMessage.Create)
                 {
-                    await context.Publish<ICancelAddClassroomEvent>(new
+                    var checkUserExist = unitOfWork_UserService.UserService.CheckUserIsExist(prop => prop.id.Equals(data.idUserHost));
+                    if (!checkUserExist)
                     {
-                        idClassroom = data.idClassroom,
-                        description = data.description,
-                        idUserHost = data.idUserHost,
-                        name = data.name,
-                        isPrivate = data.isPrivate,
-                    });
+                        await context.Publish<ICancelAddClassroomEvent>(new
+                        {
+                            idClassroom = data.idClassroom,
+                            description = data.description,
+                            idUserHost = data.idUserHost,
+                            name = data.name,
+                            isPrivate = data.isPrivate,
+                        });
+                    }
+                    else
+                    {
+                        var classroomInfor = new AddClassroomInforModel()
+                        {
+                            IdClassroom = data.idClassroom.ToString(),
+                            IdUser = data.idUserHost,
+                            Description = data.description,
+                            NameClassroom = data.name
+                        };
+                        unitOfWork_UserService.ClassroomInforService.AddClassroomInfor(classroomInfor);
+                    }
                 }
-                else
+                else if (data.eventMessage == userEventMessage.Update)
                 {
-                    var classroomInfor = new AddClassroomInforModel()
+                    var updateClassroomInforModel = new UpdateClassroomInforModel()
                     {
-                        IdClassroom = data.idClassroom.ToString(),
-                        IdUser = data.idUserHost,
+                        IdClassroom = data.idClassroom.ToString() ,
                         Description = data.description,
-                        NameClassroom = data.name
+                        Name = data.name
                     };
-                    unitOfWork_UserService.ClassroomInforService.AddClassroomInfor(classroomInfor);
+                    unitOfWork_UserService.ClassroomInforService.UpdateClassroomInfor(updateClassroomInforModel);
                 }
+               
             }
         }
     }

@@ -5,9 +5,8 @@ using RabbitMQ_Lib;
 using SagaStateMachine.ClassroomService.Member;
 using SagaStateMachine.UserService.ConfirmUserEmail;
 using SagaStateMachine.UserService.ResetPassword;
-using SagaStateMachine.ClassroomService.Classroom.AddClassroom;
-using SagaStateMachine.ClassroomService.Member.AddMember;
 using SagaStateMachine.UserService.UpdateUserInfor;
+using SagaStateMachine.ClassroomService.Classroom;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("SagaConnectionString");
@@ -19,14 +18,14 @@ builder.Services.AddDbContext<SagaDbContext>(opt => opt.UseSqlServer(connectionS
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddBus(provider => RabbitMQ_Lib.RabbitMQ.ConfigureBus(provider));
-    cfg.AddSagaStateMachine<AddClassroomStateMachine, AddClassroomStateData>()
+    cfg.AddSagaStateMachine<ClassroomStateMachine, ClassroomStateData>()
         .EntityFrameworkRepository(r =>
         {
             r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
             r.ExistingDbContext<SagaDbContext>();
         });
 
-    cfg.AddSagaStateMachine<AddMemberStateMachine, AddMemberStateData>()
+    cfg.AddSagaStateMachine<MemberStateMachine, MemberStateData>()
         .EntityFrameworkRepository(r =>
         {
             r.ConcurrencyMode = ConcurrencyMode.Pessimistic;

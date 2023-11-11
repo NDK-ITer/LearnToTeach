@@ -196,22 +196,9 @@ namespace ClassServer.Controllers
                 if (memberRequest.listIdMember.IsNullOrEmpty()) return BadRequest("listMember was empty or null");
                 var classroom = _unitOfWork_ClassroomService._classroomService.GetClassroomById(memberRequest.idClassroom);
                 if (classroom == null) return BadRequest("Classroom is not exist!");
+                var listCheckFalse = new Dictionary<string,bool>();
                 foreach (var item in memberRequest.listIdMember)
                 {
-                    //var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
-                    //if (endPoint != null)
-                    //{
-                    //    endPoint.Send<IGetValueMemberEvent>(new
-                    //    {
-                    //        IdClassroom = Guid.Parse(memberRequest.idClassroom),
-                    //        IdMember = item,
-                    //        eventMessage = _classroomStateMessage.AddMember,
-                    //        NameMember = string.Empty,
-                    //        Avatar = string.Empty,
-                    //        NameClassroom = classroom.Name
-                    //    });
-                    //}
-
                     var check = _unitOfWork_ClassroomService._memberService.AddMember(new MemberModel
                     {
                         idMember = item,
@@ -229,15 +216,22 @@ namespace ClassServer.Controllers
                             {
                                 IdClassroom = Guid.Parse(memberRequest.idClassroom),
                                 IdMember = item,
-                                eventMessage = _classroomStateMessage.AddMember,
+                                eventMessage = _classroomStateMessage.Create,
                                 NameMember = string.Empty,
                                 Avatar = string.Empty,
                                 NameClassroom = classroom.Name
                             });
                         }
                     }
+                    else
+                    {
+                        listCheckFalse.Add(item,false);
+                    }
                 }
-
+                if (!listCheckFalse.IsNullOrEmpty())
+                {
+                    return BadRequest($"have {listCheckFalse.Count} false");
+                }
                 return Ok("Add member successful, please wait a minute");
             }
             catch (Exception e)

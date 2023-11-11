@@ -1,6 +1,4 @@
-﻿using Events.ClassroomServiceEvents.Models;
-
-namespace Events.ClassroomServiceEvents.Member.AddMember
+﻿namespace Events.ClassroomServiceEvents.Member.AddMember
 {
     public interface IAddMemberIsValidEvent
     {

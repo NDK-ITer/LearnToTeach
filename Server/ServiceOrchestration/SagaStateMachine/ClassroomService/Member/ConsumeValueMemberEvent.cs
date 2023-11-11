@@ -1,11 +1,11 @@
 ﻿using Events.ClassroomServiceEvents.Member;
 
-namespace SagaStateMachine.ClassroomService.Member.AddMember
+namespace SagaStateMachine.ClassroomService.Member
 {
-    public class ConsumeValueAddMemberEvent : IConsumeValueMemberEvent
+    public class ConsumeValueMemberEvent : IConsumeValueMemberEvent
     {
-        private readonly AddMemberStateData memberStateData;
-        public ConsumeValueAddMemberEvent(AddMemberStateData memberStateData)
+        private readonly MemberStateData memberStateData;
+        public ConsumeValueMemberEvent(MemberStateData memberStateData)
         {
             this.memberStateData = memberStateData;
         }
@@ -14,5 +14,6 @@ namespace SagaStateMachine.ClassroomService.Member.AddMember
         public string NameClassroom => memberStateData.NameClassroom;
         public string NameMember => memberStateData.NameMember;
         public string Avatar => memberStateData.Avatar;
+        public string Event => memberStateData.Event;
     }
 }

@@ -18,17 +18,15 @@ namespace ClassServer.Consumers
             
             if (data is not null)
             {
-                if (data.eventMessage == classroomEventMessage.AddMember)
+                await context.Publish<IMemberEvent>(new
                 {
-                    await context.Publish<IAddMemberEvent>(new
-                    {
-                        IdClassroom = data.IdClassroom,
-                        IdMember = data.IdMember,
-                        NameClassroom = data.NameClassroom,
-                        NameMember = data.NameMember,
-                        Avatar = data.Avatar,
-                    });
-                }
+                    IdClassroom = data.IdClassroom,
+                    IdMember = data.IdMember,
+                    NameClassroom = data.NameClassroom,
+                    NameMember = data.NameMember,
+                    Avatar = data.Avatar,
+                    Event = data.eventMessage
+                });
             }
         }
     }

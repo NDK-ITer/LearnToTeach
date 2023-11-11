@@ -139,7 +139,7 @@ namespace Application.Services
             try
             {
                 if (updateClassroomInforModel == null) return 0;
-                var classroom = _unitOfWork.classroomRepository.GetClassroomInfor(p => p.IdClassroom == updateClassroomInforModel.IdClassroom);
+                var classroom = _unitOfWork.classroomRepository.Find(p => p.IdClassroom == updateClassroomInforModel.IdClassroom);
                 foreach (var item in classroom)
                 {
                     item.Description = updateClassroomInforModel.Description;

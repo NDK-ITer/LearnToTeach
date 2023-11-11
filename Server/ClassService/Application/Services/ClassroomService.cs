@@ -169,7 +169,7 @@ namespace Application.Services
             try
             {
                 if (classroomRequest.idClassroom == string.Empty) return 0;
-                var classNeedUpdate = _unitOfWork.classroomRepository.GetClassroomById(classroomRequest.idClassroom);
+                var classNeedUpdate = _unitOfWork.classroomRepository.Find(p => p.Id == classroomRequest.idClassroom).FirstOrDefault();
                 if (classroomRequest.isPrivate == true && !classroomRequest.key.IsNullOrEmpty())
                 {
                     classNeedUpdate.KeyHash = KeyHash.Hash(classroomRequest.key);

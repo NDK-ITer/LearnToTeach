@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SagaOrchestration.Models;
 
@@ -11,9 +12,11 @@ using SagaOrchestration.Models;
 namespace SagaOrchestration.Migrations
 {
     [DbContext(typeof(SagaDbContext))]
-    partial class SagaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231111073413_ServerOchestration-update-EventMessagecolumn")]
+    partial class ServerOchestrationupdateEventMessagecolumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,7 +55,7 @@ namespace SagaOrchestration.Migrations
 
                     b.HasKey("CorrelationId");
 
-                    b.ToTable("ClassroomStateData");
+                    b.ToTable("AddClassroomStateData");
                 });
 
             modelBuilder.Entity("SagaStateMachine.ClassroomService.Member.MemberStateData", b =>
@@ -84,7 +87,7 @@ namespace SagaOrchestration.Migrations
 
                     b.HasKey("CorrelationId");
 
-                    b.ToTable("MemberStateData");
+                    b.ToTable("AddMemberStateData");
                 });
 
             modelBuilder.Entity("SagaStateMachine.UserService.ConfirmUserEmail.ConfirmUserEmailStateData", b =>
@@ -173,7 +176,7 @@ namespace SagaOrchestration.Migrations
 
                     b.HasKey("CorrelationId");
 
-                    b.ToTable("UpdateUserInforStateData");
+                    b.ToTable("updateUserInforStateDatas");
                 });
 #pragma warning restore 612, 618
         }

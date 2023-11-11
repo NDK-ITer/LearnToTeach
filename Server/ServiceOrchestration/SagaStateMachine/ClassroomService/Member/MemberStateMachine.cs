@@ -1,9 +1,10 @@
-﻿using Events.ClassroomServiceEvents.Member.AddMember;
+﻿using Events.ClassroomServiceEvents.Member;
+using Events.ClassroomServiceEvents.Member.AddMember;
 using MassTransit;
 
-namespace SagaStateMachine.ClassroomService.Member.AddMember
+namespace SagaStateMachine.ClassroomService.Member
 {
-    public class AddMemberStateMachine : MassTransitStateMachine<AddMemberStateData>
+    public class MemberStateMachine : MassTransitStateMachine<MemberStateData>
     {
         // 2 states are going to happen
         public State AddMember { get; private set; }
@@ -12,11 +13,11 @@ namespace SagaStateMachine.ClassroomService.Member.AddMember
 
         // 2 events are going to happen
 
-        public Event<IAddMemberEvent> AddMemberEvent { get; private set; }
+        public Event<IMemberEvent> AddMemberEvent { get; private set; }
         public Event<ICancelAddMemberEvent> CancelAddMemberEvent { get; private set; }
         public Event<IAddMemberIsValidEvent> AddMemberIsValidEvent { get; private set; }
 
-        public AddMemberStateMachine()
+        public MemberStateMachine()
         {
             InstanceState(s => s.CurrentState);
             Event(() => AddMemberEvent, a => a.CorrelateById(m => m.Message.IdClassroom));
@@ -31,7 +32,8 @@ namespace SagaStateMachine.ClassroomService.Member.AddMember
                     context.Saga.NameClassroom = context.Message.NameClassroom;
                     context.Saga.NameMember = context.Message.NameMember;
                     context.Saga.Avatar = context.Message.Avatar;
-                }).Publish(context => new ConsumeValueAddMemberEvent(context.Saga)));
+                    context.Saga.Event = context.Message.Event;
+                }).Publish(context => new ConsumeValueMemberEvent(context.Saga)));
 
             During(AddMember,
                 When(AddMemberEvent).Then(context =>
@@ -41,7 +43,8 @@ namespace SagaStateMachine.ClassroomService.Member.AddMember
                     context.Saga.NameClassroom = context.Message.NameClassroom;
                     context.Saga.NameMember = context.Message.NameMember;
                     context.Saga.Avatar = context.Message.Avatar;
-                }).Publish(context => new ConsumeValueAddMemberEvent(context.Saga)));
+                    context.Saga.Event = context.Message.Event;
+                }).Publish(context => new ConsumeValueMemberEvent(context.Saga)));
         }
     }
 }

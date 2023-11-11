@@ -1,8 +1,8 @@
 ﻿using MassTransit;
 
-namespace SagaStateMachine.ClassroomService.Member.AddMember
+namespace SagaStateMachine.ClassroomService.Member
 {
-    public class AddMemberStateData : SagaStateMachineInstance
+    public class MemberStateData : SagaStateMachineInstance
     {
         public Guid CorrelationId { get; set; }
         public string? CurrentState { get; set; }
@@ -11,5 +11,6 @@ namespace SagaStateMachine.ClassroomService.Member.AddMember
         public string? NameClassroom { get; set; }
         public string? NameMember { get; set; }
         public string? Avatar { get; set; }
+        public string? Event { get; set; }
     }
 }

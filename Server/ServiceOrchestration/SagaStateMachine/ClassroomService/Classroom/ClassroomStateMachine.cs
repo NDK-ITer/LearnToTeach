@@ -1,9 +1,9 @@
 ﻿using Events.ClassroomServiceEvents.Classroom;
 using MassTransit;
 
-namespace SagaStateMachine.ClassroomService.Classroom.AddClassroom
+namespace SagaStateMachine.ClassroomService.Classroom
 {
-    public class AddClassroomStateMachine : MassTransitStateMachine<AddClassroomStateData>
+    public class ClassroomStateMachine : MassTransitStateMachine<ClassroomStateData>
     {
         // 2 states are going to happen
         public State AddClassroom { get; private set; }
@@ -11,10 +11,10 @@ namespace SagaStateMachine.ClassroomService.Classroom.AddClassroom
 
         // 2 events are going to happen
 
-        public Event<IAddClassroomEvent> AddClassroomEvent { get; private set; }
+        public Event<IClassroomEvent> AddClassroomEvent { get; private set; }
         public Event<ICancelAddClassroomEvent> CancelAddClassroomEvent { get; private set; }
 
-        public AddClassroomStateMachine()
+        public ClassroomStateMachine()
         {
             InstanceState(s => s.CurrentState);
             Event(() => AddClassroomEvent, a => a.CorrelateById(m => m.Message.idClassroom));
@@ -29,6 +29,7 @@ namespace SagaStateMachine.ClassroomService.Classroom.AddClassroom
                     context.Saga.Description = context.Message.description;
                     context.Saga.IsPrivate = context.Message.isPrivate;
                     context.Saga.IdUserHost = context.Message.idUserHost;
+                    context.Saga.EventMessage = context.Message.eventMessage;
                 }).TransitionTo(AddClassroom).Publish(context => new ConsumeValueAddClassroomEvent(context.Saga)));
 
             During(AddClassroom,
@@ -39,6 +40,7 @@ namespace SagaStateMachine.ClassroomService.Classroom.AddClassroom
                     context.Saga.Description = context.Message.description;
                     context.Saga.IsPrivate = context.Message.isPrivate;
                     context.Saga.IdUserHost = context.Message.idUserHost;
+                    context.Saga.EventMessage = context.Message.eventMessage;
                 }).TransitionTo(AddClassroom).Publish(context => new ConsumeValueAddClassroomEvent(context.Saga)));
 
             During(AddClassroom,

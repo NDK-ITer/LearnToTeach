@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using System.Data;
 
 namespace Application.Models
 {
@@ -6,7 +7,6 @@ namespace Application.Models
     {
         public string? idClassroom { get; set; }
         public string? description { get; set; }
-        public string? idUserHost { get; set; }
         public string? key { get; set; }
         public string? name { get; set; }
         public bool isPrivate { get; set; }
@@ -18,7 +18,17 @@ namespace Application.Models
                 this.idClassroom = classroom.Id;
                 this.name = classroom.Name;
                 this.description = classroom.Description;
-                Members = new List<MemberModel>();
+                Members = new List<MemberModel>()
+                {
+                    new MemberModel()
+                    {
+                        idMember = classroom.IdUserHost,
+                        nameMember = classroom.NameUserHost,
+                        avatar = classroom.AvatarUserHost,
+                        role = "Host",
+                        description = "All in this classroom",
+                    }
+                };
                 foreach (var item in classroom.ListUserId)
                 {
                     Members.Add(new MemberModel(item));
