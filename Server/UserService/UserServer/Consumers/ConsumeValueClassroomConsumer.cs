@@ -23,8 +23,8 @@ namespace UserServer.Consumers
             {
                 if (data.eventMessage == userEventMessage.Create)
                 {
-                    var checkUserExist = unitOfWork_UserService.UserService.CheckUserIsExist(prop => prop.id.Equals(data.idUserHost));
-                    if (!checkUserExist)
+                    var user = unitOfWork_UserService.UserService.GetUserById(data.idUserHost);
+                    if (user == null)
                     {
                         await context.Publish<ICancelAddClassroomEvent>(new
                         {
@@ -45,7 +45,6 @@ namespace UserServer.Consumers
                             NameClassroom = data.name
                         };
                         unitOfWork_UserService.ClassroomInforService.AddClassroomInfor(classroomInfor);
-                        var user = unitOfWork_UserService.UserService.GetUserById(data.idUserHost);
                         await context.Publish<IAddClassroomIsValidEvent>(new
                         {
                             idClassroom = data.idClassroom,

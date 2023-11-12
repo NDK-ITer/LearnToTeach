@@ -30,7 +30,7 @@ namespace SagaStateMachine.ClassroomService.Classroom
                     context.Saga.IsPrivate = context.Message.isPrivate;
                     context.Saga.IdUserHost = context.Message.idUserHost;
                     context.Saga.EventMessage = context.Message.eventMessage;
-                }).TransitionTo(AddClassroom).Publish(context => new ConsumeValueAddClassroomEvent(context.Saga)));
+                }).TransitionTo(AddClassroom).Publish(context => new ConsumeValueClassroomEvent(context.Saga)));
 
             During(AddClassroom,
                 When(AddClassroomEvent).Then(context =>
@@ -41,17 +41,7 @@ namespace SagaStateMachine.ClassroomService.Classroom
                     context.Saga.IsPrivate = context.Message.isPrivate;
                     context.Saga.IdUserHost = context.Message.idUserHost;
                     context.Saga.EventMessage = context.Message.eventMessage;
-                }).TransitionTo(AddClassroom).Publish(context => new ConsumeValueAddClassroomEvent(context.Saga)));
-
-            During(AddClassroom,
-                When(CancelAddClassroomEvent).Then(context =>
-                {
-                    context.Saga.IdClassroom = context.Message.idClassroom;
-                    context.Saga.Name = context.Message.name;
-                    context.Saga.Description = context.Message.description;
-                    context.Saga.IsPrivate = context.Message.isPrivate;
-                    context.Saga.IdUserHost = context.Message.idUserHost;
-                }).TransitionTo(CancelAddClassroom).Publish(context => new ConsumeValueAddClassroomEvent(context.Saga)));
+                }).TransitionTo(AddClassroom).Publish(context => new ConsumeValueClassroomEvent(context.Saga)));
         }
     }
 }

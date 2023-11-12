@@ -35,6 +35,16 @@ namespace SagaStateMachine.ClassroomService.Member
                     context.Saga.Event = context.Message.Event;
                 }).Publish(context => new ConsumeValueMemberEvent(context.Saga)));
 
+            Initially(
+                When(AddMemberIsValidEvent).Then(context =>
+                {
+                    context.Saga.IdClassroom = context.Message.IdClassroom;
+                    context.Saga.IdMember = context.Message.IdMember;
+                    context.Saga.NameClassroom = context.Message.NameClassroom;
+                    context.Saga.NameMember = context.Message.NameMember;
+                    context.Saga.Avatar = context.Message.Avatar;
+                }));
+
             During(AddMember,
                 When(AddMemberEvent).Then(context =>
                 {
@@ -45,6 +55,16 @@ namespace SagaStateMachine.ClassroomService.Member
                     context.Saga.Avatar = context.Message.Avatar;
                     context.Saga.Event = context.Message.Event;
                 }).Publish(context => new ConsumeValueMemberEvent(context.Saga)));
+
+            During(AddMember,
+                When(AddMemberIsValidEvent).Then(context =>
+                {
+                    context.Saga.IdClassroom = context.Message.IdClassroom;
+                    context.Saga.IdMember = context.Message.IdMember;
+                    context.Saga.NameClassroom = context.Message.NameClassroom;
+                    context.Saga.NameMember = context.Message.NameMember;
+                    context.Saga.Avatar = context.Message.Avatar;
+                }));
         }
     }
 }

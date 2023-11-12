@@ -1,5 +1,6 @@
 ﻿using Application.Models;
 using Application.Services;
+using Domain.Entities;
 using Events.ClassroomServiceEvents.Classroom;
 using MassTransit;
 
@@ -20,8 +21,11 @@ namespace ClassServer.Consumers.AddClassroom
             {
                 var updateClassroomModel = new ClassroomUpdateModel()
                 {
-
+                    idClassroom = data.idClassroom.ToString(),
+                    nameUserHost = data.nameUserHost,
+                    avatarUserHost = data.avatar
                 };
+                unitOfWork_ClassroomService._classroomService.UpdateClassroom(updateClassroomModel);
             }
         }
     }
