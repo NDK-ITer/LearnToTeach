@@ -1,6 +1,7 @@
 ﻿using Events.UserServiceEvents;
-using Events.UserServiceEvents.User;
+using Events.UserServiceEvents.User.ConfirmUser;
 using Events.UserServiceEvents.User.UpdateUserInfor;
+using Events.UserServiceEvents.User.UserResetPassword;
 using MassTransit;
 using UserServer.Models;
 
