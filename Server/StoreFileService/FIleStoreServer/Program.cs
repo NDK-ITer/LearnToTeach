@@ -1,4 +1,6 @@
+using FIleStoreServer.Consumers;
 using FIleStoreServer.Model;
+using FIleStoreServer.Model.NewFolder;
 using MassTransit;
 using Microsoft.Extensions.FileProviders;
 using RabbitMQ_Lib;
@@ -14,6 +16,7 @@ builder.Services.Configure<Address>(builder.Configuration.GetSection("Address"))
 builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("EndpointConfig"));
 builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddTransient<EventMessage>();
+builder.Services.AddTransient<ServerName>();
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
@@ -28,12 +31,12 @@ builder.Services.AddMassTransit(cfg =>
         cfg.ReceiveEndpoint(nameQueue, ep =>
         {
             ep.PrefetchCount = 10;
-            //ep.ConfigureConsumer<ConsumeValueClassroomConsumer>(provider);
+            ep.ConfigureConsumer<ConsumeUploadFileConsumer>(provider);
         });
 
     }));
     // Configuration "Consumer"
-    //cfg.AddConsumer<ConsumeValueClassroomConsumer>();
+    cfg.AddConsumer<ConsumeUploadFileConsumer>();
 });
 
 var app = builder.Build();
@@ -46,7 +49,7 @@ app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
            Path.Combine(builder.Environment.ContentRootPath, "Files")),
-    RequestPath = "/source"
+    RequestPath = ""
 });
 
 app.UseAuthorization();

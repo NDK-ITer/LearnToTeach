@@ -6,6 +6,7 @@ namespace Application.Models
     public class ClassroomModel
     {
         public string? idClassroom { get; set; }
+        public string? avatarClassroom { get; set; }
         public string? description { get; set; }
         public string? key { get; set; }
         public string? name { get; set; }
@@ -16,6 +17,7 @@ namespace Application.Models
             if (classroom != null)
             {
                 this.idClassroom = classroom.Id;
+                this.avatarClassroom = classroom.AvatarClassroom;
                 this.name = classroom.Name;
                 this.description = classroom.Description;
                 Members = new List<MemberModel>()

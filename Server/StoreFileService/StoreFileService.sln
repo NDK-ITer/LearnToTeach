@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepositoryFile", "Repositor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Events", "Events\Events.csproj", "{73765932-3D01-4237-8ADD-E0EC28CF8B11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileMethod", "FileMethod\FileMethod.csproj", "{D161392F-1B05-42A7-8774-183CDB54CE68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMethod", "FileMethod\FileMethod.csproj", "{D161392F-1B05-42A7-8774-183CDB54CE68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
