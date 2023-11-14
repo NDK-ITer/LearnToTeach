@@ -1,7 +1,6 @@
 ﻿using Application.Models;
 using Application.Services;
-using Domain.Entities;
-using Events.ClassroomServiceEvents.Classroom;
+using Events.ClassroomServiceEvents.Classroom.AddClassroom;
 using MassTransit;
 
 namespace ClassServer.Consumers.AddClassroom

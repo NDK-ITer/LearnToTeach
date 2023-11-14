@@ -1,5 +1,0 @@
-
-Consul
-Steeltoe
-Eureka
-ZooKeeper 

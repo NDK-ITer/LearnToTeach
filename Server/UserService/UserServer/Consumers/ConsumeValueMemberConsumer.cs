@@ -2,6 +2,7 @@
 using Application.Services;
 using Events.ClassroomServiceEvents.Member;
 using Events.ClassroomServiceEvents.Member.AddMember;
+using Events.ClassroomServiceEvents.Member.MemberLeaveClassroom;
 using MassTransit;
 using UserServer.Models;
 
@@ -52,6 +53,18 @@ namespace UserServer.Consumers
                             NameClassroom = data.NameClassroom,
                             NameMember = data.NameMember,
                             Avatar = data.Avatar,
+                        });
+                    }
+                }
+                else if (data.Event == userEventMessage.Delete)
+                {
+                    var check = unitOfWork_UserService.ClassroomInforService.DeleteClassroomInfor(data.IdMember, data.IdClassroom.ToString());
+                    if (check == 1)
+                    {
+                        await context.Publish<ILeaveClassroomIsValidEvent>(new
+                        {
+                            IdClassroom = data.IdClassroom,
+                            IdMember = data.IdMember,
                         });
                     }
                 }

@@ -2,21 +2,20 @@ using Application.Services;
 using ClassServer.Consumers;
 using ClassServer.Consumers.AddClassroom;
 using ClassServer.Consumers.AddMember;
+using ClassServer.Consumers.RemoveClassroom;
 using ClassServer.Consumers.UpdateUserInfor;
 using ClassServer.Models;
 using Infrastructure.Context;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using RabbitMQ_Lib;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ClassroomConnectString");
 var nameQueue = builder.Configuration.GetConnectionString("SagaBusQueue");
-var queue = builder.Configuration.GetSection("EndpointConfig");
 
 // Add services to the container.
-builder.Services.Configure<EndpointConfig>(queue);
+builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("EndpointConfig"));
+builder.Services.Configure<ServerInfor>(builder.Configuration.GetSection("ServerInfor"));
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
@@ -31,6 +30,7 @@ builder.Services.AddMassTransit(cfg =>
             ep.ConfigureConsumer<GetClassroomValueConsumer>(provider);
             ep.ConfigureConsumer<GetMemberValueConsumer>(provider);
             ep.ConfigureConsumer<ConsumeUpdateUserInforConsumer>(provider);
+            ep.ConfigureConsumer<GenerateRemoveClassroomIsValidConsumer>(provider);
         });
     }));
     cfg.AddConsumer<GenerateAddMemberIsValidConsumer>();
@@ -39,6 +39,7 @@ builder.Services.AddMassTransit(cfg =>
     cfg.AddConsumer<GenerateCancelAddMemberConsumer>();
     cfg.AddConsumer<GetClassroomValueConsumer>();
     cfg.AddConsumer<GetMemberValueConsumer>();
+    cfg.AddConsumer<GenerateRemoveClassroomIsValidConsumer>();
     cfg.AddConsumer<ConsumeUpdateUserInforConsumer>();
 
 });

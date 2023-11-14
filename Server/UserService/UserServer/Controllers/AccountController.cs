@@ -19,15 +19,18 @@ namespace Server.Controllers
         private readonly UserEventMessage _userEventMessage;
         private readonly IOptions<EndpointConfig> _queue;
         private readonly IOptions<Address> _address;
+        private readonly IOptions<ServerInfor> _serverInfor;
         private readonly IBus _bus;
         public AccountController(IUnitOfWork_UserService unitOfWork_UserService,
             UserEventMessage userEventMessage,
             IOptions<EndpointConfig> queue,
             IOptions<Address> address,
+            IOptions<ServerInfor> serverInfor,
             IBus bus)
         {
             _unitOfWork_UserService = unitOfWork_UserService;
             _address = address;
+            _serverInfor = serverInfor;
             _userEventMessage = userEventMessage;
             _queue = queue;
             _bus = bus;

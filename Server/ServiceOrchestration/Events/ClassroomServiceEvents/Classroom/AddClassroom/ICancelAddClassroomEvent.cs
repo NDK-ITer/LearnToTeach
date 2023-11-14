@@ -1,4 +1,4 @@
-﻿namespace Events.ClassroomServiceEvents.Classroom
+﻿namespace Events.ClassroomServiceEvents.Classroom.AddClassroom
 {
     public interface ICancelAddClassroomEvent
     {

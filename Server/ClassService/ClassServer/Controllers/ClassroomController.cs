@@ -17,16 +17,19 @@ namespace ClassServer.Controllers
     {
         private readonly IUnitOfWork_ClassroomService _unitOfWork_ClassroomService;
         private readonly IOptions<EndpointConfig> _queue;
+        private readonly IOptions<ServerInfor> _serverInfor;
         private readonly IBus _bus;
         private readonly ClassroomEventMessage _classroomStateMessage;
 
         public ClassroomController(IUnitOfWork_ClassroomService unitOfWork_ClassroomService,
             ClassroomEventMessage classroomStateMessage,
             IOptions<EndpointConfig> queue,
+            IOptions<ServerInfor> serverInfor,
             IBus bus)
         {
             _unitOfWork_ClassroomService = unitOfWork_ClassroomService;
             _classroomStateMessage = classroomStateMessage;
+            _serverInfor = serverInfor;
             _queue = queue;
             _bus = bus;
         }
@@ -155,12 +158,23 @@ namespace ClassServer.Controllers
 
         [HttpDelete]
         [Route("delete")]
-        public ActionResult DeleteClassroom(string idClassroom)
+        public async Task<ActionResult> DeleteClassroom(string idClassroom)
         {
             try
             {
-                var check = _unitOfWork_ClassroomService._classroomService.DeleteClassroom(idClassroom);
-                if (check != 1) return BadRequest();
+                var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
+                if (endPoint != null)
+                {
+                    endPoint.Send<IGetValueClassroomEvent>(new
+                    {
+                        idClassroom = Guid.Parse(idClassroom),
+                        description = string.Empty,
+                        idUserHost = string.Empty,
+                        name = string.Empty,
+                        isPrivate = false,
+                        eventMessage = _classroomStateMessage.Delete,
+                    });
+                }
                 return Ok();
             }
             catch (Exception e)

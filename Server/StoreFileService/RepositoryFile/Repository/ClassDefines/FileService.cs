@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using RepositoryFile.Repository.Interfaces;
-using Microsoft.AspNetCore.Hosting;
+//using Microsoft.AspNetCore.Hosting;
 
 namespace RepositoryFile.Repository.ClassDefines
 {
     public class FileService : IFileService
     {
-        public FileService(IWebHostEnvironment evn)
+        public FileService(/*IWebHostEnvironment evn*/)
         {
             
         }

@@ -1,5 +1,6 @@
 using FIleStoreServer.Model;
 using MassTransit;
+using Microsoft.Extensions.FileProviders;
 using RabbitMQ_Lib;
 using RepositoryFile.Repository.ClassDefines;
 using RepositoryFile.Repository.Interfaces;
@@ -12,6 +13,7 @@ builder.Services.AddControllers();
 builder.Services.Configure<Address>(builder.Configuration.GetSection("Address"));
 builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("EndpointConfig"));
 builder.Services.AddTransient<IFileService, FileService>();
+builder.Services.AddTransient<EventMessage>();
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
@@ -39,6 +41,13 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+           Path.Combine(builder.Environment.ContentRootPath, "Files")),
+    RequestPath = "/source"
+});
 
 app.UseAuthorization();
 

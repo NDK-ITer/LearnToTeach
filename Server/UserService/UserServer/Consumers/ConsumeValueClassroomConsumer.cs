@@ -1,6 +1,7 @@
 ﻿using Application.Models;
 using Application.Services;
 using Events.ClassroomServiceEvents.Classroom;
+using Events.ClassroomServiceEvents.Classroom.AddClassroom;
 using MassTransit;
 using UserServer.Models;
 
@@ -63,6 +64,17 @@ namespace UserServer.Consumers
                         Name = data.name
                     };
                     unitOfWork_UserService.ClassroomInforService.UpdateClassroomInfor(updateClassroomInforModel);
+                }
+                else if (data.eventMessage == userEventMessage.Delete)
+                {
+                    var classroomInfor = unitOfWork_UserService.ClassroomInforService.DeleteClassroomInfor(data.idClassroom.ToString());
+                    if (classroomInfor == 1)
+                    {
+                        await context.Publish<IRemoveClassroomIsValidEvent>(new
+                        {
+                            IdClassroom = data.idClassroom,
+                        });
+                    }
                 }
             }
         }

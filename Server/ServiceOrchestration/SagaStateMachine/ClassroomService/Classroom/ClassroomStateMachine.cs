@@ -1,4 +1,5 @@
 ﻿using Events.ClassroomServiceEvents.Classroom;
+using Events.ClassroomServiceEvents.Classroom.AddClassroom;
 using MassTransit;
 
 namespace SagaStateMachine.ClassroomService.Classroom

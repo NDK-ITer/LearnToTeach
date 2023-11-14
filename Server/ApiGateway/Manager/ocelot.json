@@ -34,7 +34,7 @@
       },
       //Allow role with "USER"
       "RouteClaimsRequirement": {
-        "Role": "USER"
+        "Role": "ADMIN"
       }
     }
 
