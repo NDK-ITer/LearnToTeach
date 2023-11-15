@@ -5,6 +5,7 @@ import "./style.css";
 import firebase from "firebase";
 import { useLocalContext } from "../../context/context";
 import { Announcment } from "..";
+
 const Main = ({ classData }) => {
   const { loggedInMail } = useLocalContext();
 
@@ -40,9 +41,10 @@ const Main = ({ classData }) => {
     });
   };
   return (
-    <div className="main">
-      <div className="main__wrapper">
-        <div className="main__content">
+    
+    <div className="main"> 
+      <div className="main__wrapper">  
+        <div className="main__content">    
           <div className="main__wrapper1">
             <div className="main__bgImage">
               <div className="main__emptyStyles" />

@@ -38,9 +38,10 @@ export const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
   },
   button: {
-    margin: 1,
+    margin: "1px",
     
     whiteSpace: "nowrap",
-    backgroundColor: "rgb(108, 144, 46)",
+    //backgroundColor: "rgb(108, 144, 46)",
+    backgroundColor: "darkgreen",
   },
 }));
