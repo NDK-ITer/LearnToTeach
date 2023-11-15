@@ -38,7 +38,7 @@ namespace Server.Controllers
         
         [HttpPost]
         [Route("login")]
-        public ActionResult<LoginResponses>? Login([FromBody] LoginRequest loginRequest)
+        public ActionResult<LoginResponses>? Login([FromForm] LoginRequest loginRequest)
         {
             var user = _unitOfWork_UserService.UserService.GetUserByEmail(loginRequest.Email);
             var jwt = _unitOfWork_UserService.UserService.LoginUser(loginRequest.Email, loginRequest.Password);
@@ -51,7 +51,7 @@ namespace Server.Controllers
         
         [HttpPost]
         [Route("register")]
-        public async Task<ActionResult> Register([FromBody] RegisterRequest registerRequest)
+        public async Task<ActionResult> Register([FromForm] RegisterRequest registerRequest)
         {
             try
             {
@@ -221,7 +221,7 @@ namespace Server.Controllers
 
         [HttpPost]
         [Route("verify-otp")]
-        public ActionResult VerifyOTP([FromBody]VerifyOTPModel verifyOTPModel)
+        public ActionResult VerifyOTP([FromForm] VerifyOTPModel verifyOTPModel)
         {
             try
             {
@@ -241,7 +241,7 @@ namespace Server.Controllers
         
         [HttpPost]
         [Route("reset-password")]
-        public ActionResult ResetPassword([FromBody] ResetPasswordModel model)
+        public ActionResult ResetPassword([FromForm] ResetPasswordModel model)
         {
             try
             {
@@ -259,7 +259,7 @@ namespace Server.Controllers
 
         [HttpPost]
         [Route("edit-infor")]
-        public async Task<ActionResult> EditInformation([FromBody] EditInforRequest editInforRequest)
+        public async Task<ActionResult> EditInformation([FromForm] EditInforRequest editInforRequest)
         {
             try
             {

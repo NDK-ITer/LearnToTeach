@@ -1,3 +1,4 @@
+using FileStoreServer.FileMethods;
 using FIleStoreServer.Consumers;
 using FIleStoreServer.Model;
 using FIleStoreServer.Model.NewFolder;
@@ -17,6 +18,7 @@ builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("End
 builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddTransient<EventMessage>();
 builder.Services.AddTransient<ServerName>();
+builder.Services.AddTransient<ImageMethod>();
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>

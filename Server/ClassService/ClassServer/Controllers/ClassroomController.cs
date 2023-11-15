@@ -96,7 +96,7 @@ namespace ClassServer.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<ActionResult> CreateClassroom([FromBody] ClassroomRequest classroomRequest)
+        public async Task<ActionResult> CreateClassroom([FromForm] ClassroomRequest classroomRequest)
         {
             try
             {
@@ -125,7 +125,7 @@ namespace ClassServer.Controllers
 
         [HttpPut]
         [Route("update")]
-        public async Task<ActionResult> UpdateClassroom([FromBody] ClassroomRequest ClassroomRequest)
+        public async Task<ActionResult> UpdateClassroom([FromForm] ClassroomRequest ClassroomRequest)
         {
             try
             {
@@ -202,7 +202,7 @@ namespace ClassServer.Controllers
 
         [HttpPost]
         [Route("add-member")]
-        public async Task<ActionResult> AddMemberToClassroom([FromBody] MemberRequest memberRequest)
+        public async Task<ActionResult> AddMemberToClassroom([FromForm] MemberRequest memberRequest)
         {
             try
             {

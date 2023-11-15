@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Events\Events.csproj" />
-    <ProjectReference Include="..\FileMethod\FileMethod.csproj" />
     <ProjectReference Include="..\RabbitMQ_Lib\RabbitMQ_Lib.csproj" />
     <ProjectReference Include="..\RepositoryFile\RepositoryFile.csproj" />
   </ItemGroup>

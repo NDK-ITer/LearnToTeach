@@ -1,4 +1,5 @@
 ﻿using Events;
+using FileStoreServer.FileMethods;
 using FIleStoreServer.Model;
 using FIleStoreServer.Model.NewFolder;
 using MassTransit;
@@ -9,11 +10,13 @@ namespace FIleStoreServer.Consumers
     {
         private readonly ServerName serverName;
         private readonly EventMessage eventMessage;
+        private readonly ImageMethod imageMethod;
 
-        public ConsumeUploadFileConsumer(ServerName serverName, EventMessage eventMessage)
+        public ConsumeUploadFileConsumer(ServerName serverName, EventMessage eventMessage, ImageMethod imageMethod)
         {
             this.serverName = serverName;
             this.eventMessage = eventMessage;
+            this.imageMethod = imageMethod;
         }
         public async Task Consume(ConsumeContext<IConsumerUploadFileEvent> context)
         {
