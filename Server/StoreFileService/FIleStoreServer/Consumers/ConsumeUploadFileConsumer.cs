@@ -1,5 +1,5 @@
-﻿using Events;
-using Events.ClassroomServiceEvents.Classroom;
+﻿using Events.ClassroomServiceEvents.Classroom;
+using Events.StoreFileServiceEvent;
 using Events.UserServiceEvents.User;
 using FileStoreServer.FileMethods;
 using FIleStoreServer.Model;

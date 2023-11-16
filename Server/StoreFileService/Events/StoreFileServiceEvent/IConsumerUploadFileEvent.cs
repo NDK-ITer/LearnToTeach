@@ -1,4 +1,4 @@
-﻿namespace Events
+﻿namespace Events.StoreFileServiceEvent
 {
     public interface IConsumerUploadFileEvent
     {
