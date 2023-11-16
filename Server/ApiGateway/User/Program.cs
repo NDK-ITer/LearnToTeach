@@ -14,7 +14,7 @@ builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CORSPolicy",policy =>
     {
-        policy.WithOrigins("https://localhost:3000")
+        policy.AllowAnyOrigin()
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -24,6 +24,6 @@ var app = builder.Build();
 await app.UseOcelot();
 
 app.UseAuthentication();
-app.UseCors("CORSPolicy");
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod());
 app.UseAuthorization();
 app.Run();
