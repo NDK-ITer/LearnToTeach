@@ -19,7 +19,7 @@ namespace SagaStateMachine.StoreFileService
                     context.Saga.FileByteString = context.Message.FileByteString;
                     context.Saga.ServerName = context.Message.ServerName;
                     context.Saga.Event = context.Message.Event;
-                }).Publish(context => new ConsumerUploadFileEvent(context.Saga)));
+                }).TransitionTo(UploadFile).Publish(context => new ConsumerUploadFileEvent(context.Saga)));
             During(UploadFile,
                 When(UploadFileEvent).Then(context =>
                 {

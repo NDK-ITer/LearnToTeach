@@ -43,16 +43,7 @@ namespace UserServer.Consumers
                         content = data.content,
                     });
                 }
-                else if (data.eventMessage == _userEventMessage.UploadFile)
-                {
-                    await context.Publish<IUploadFileEvent>(new
-                    {
-                        Id = data.id,
-                        Event = _userEventMessage.Create,
-                        FileByteString = data.avatar,
-                        ServerName = data.serverName
-                    });
-                }
+                
                 else if (data.eventMessage == _userEventMessage.Update)
                 {
                     await context.Publish<IUpdateUserInforEvent>(new
@@ -60,6 +51,25 @@ namespace UserServer.Consumers
                         IdUser = data.id,
                         FullName = data.fullName,
                         Avatar = data.avatar,
+                    });
+                }
+                else if (data.eventMessage == _userEventMessage.Create)
+                {
+                    //await context.Publish<IConfirmUserEvent>(new
+                    //{
+                    //    idUser = data.id,
+                    //    fullName = data.fullName,
+                    //    email = data.email,
+                    //    subject = data.subject,
+                    //    content = data.content,
+                    //});
+
+                    await context.Publish<IUploadFileEvent>(new
+                    {
+                        Id = data.id,
+                        Event = _userEventMessage.Create,
+                        FileByteString = data.avatar,
+                        ServerName = data.serverName
                     });
                 }
             }

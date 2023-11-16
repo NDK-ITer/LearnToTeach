@@ -1,4 +1,5 @@
 using Application.Services;
+using FileStoreServer.FileMethods;
 using Infrastructure.Context;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
@@ -58,6 +59,7 @@ builder.Services.AddDbContext<UserServiceDbContext>(option => option.UseSqlServe
 builder.Services.AddTransient<IUnitOfWork_UserService, UnitOfWork_UserService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddTransient<UserEventMessage>();
+builder.Services.AddTransient<ImageMethod>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

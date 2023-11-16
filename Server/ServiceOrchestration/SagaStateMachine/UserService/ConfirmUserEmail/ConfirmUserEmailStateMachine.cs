@@ -29,7 +29,7 @@ namespace SagaStateMachine.UserService.ConfirmUserEmail
                     context.Saga.Email = context.Message.email;
                     context.Saga.Content = context.Message.content;
                     context.Saga.Subject = context.Message.subject;
-                }).TransitionTo(ConfirmUser).Publish(context => new ConsumeConfirmEmailEvent(context.Saga)));
+                }).Publish(context => new ConsumeConfirmEmailEvent(context.Saga)));
         }
     }
 }

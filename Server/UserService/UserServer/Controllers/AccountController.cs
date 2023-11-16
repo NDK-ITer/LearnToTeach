@@ -83,16 +83,10 @@ namespace Server.Controllers
                         fullName = user.FirstName + " " + user.LastName,
                         email = user.PresentEmail,
                         content = $"<a href='{urlVerify}'>Click here</a> to verify your account",
-                        subject = "Confirm your account",
-                        eventMessage = _userEventMessage.ConfirmEmail
-                    });
-
-                    endPoint.Send<IGetValueUserEvent>(new
-                    {
-                        id = Guid.Parse(user.id),
                         avatar = _imageMethod.GenerateToString(registerRequest.Avatar),
                         serverName = _serverInfor.Value.Name,
-                        eventMessage = _userEventMessage.UploadFile
+                        subject = "Confirm your account",
+                        eventMessage = _userEventMessage.Create
                     });
                 }
 
