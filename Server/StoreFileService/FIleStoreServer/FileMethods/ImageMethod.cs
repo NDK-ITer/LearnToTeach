@@ -41,7 +41,7 @@ namespace FileStoreServer.FileMethods
                 string base64String = imgStringBase64;
                 byte[] imageBytes = Convert.FromBase64String(base64String);
                 File.WriteAllBytes(path, imageBytes);
-                var linkServer = $"{link.Value.ThisServiceAddress}/";
+                var linkServer = $"{link.Value.ThisServiceAddress}";
                 var imageName = $"{imgName}.png";
                 var result = new Tuple<string, string>(linkServer, imageName);
                 return result;

@@ -4,6 +4,7 @@ using Events.UserServiceEvents.User.ConfirmUser;
 using Events.UserServiceEvents.User.UpdateUserInfor;
 using Events.UserServiceEvents.User.UserResetPassword;
 using MassTransit;
+using Microsoft.IdentityModel.Tokens;
 using UserServer.Models;
 
 namespace UserServer.Consumers
@@ -43,7 +44,6 @@ namespace UserServer.Consumers
                         content = data.content,
                     });
                 }
-                
                 else if (data.eventMessage == _userEventMessage.Update)
                 {
                     await context.Publish<IUpdateUserInforEvent>(new
@@ -52,17 +52,27 @@ namespace UserServer.Consumers
                         FullName = data.fullName,
                         Avatar = data.avatar,
                     });
+                    if (data.avatar.IsNullOrEmpty())
+                    {
+                        await context.Publish<IUploadFileEvent>(new
+                        {
+                            Id = data.id,
+                            Event = _userEventMessage.Update,
+                            FileByteString = data.avatar,
+                            ServerName = data.serverName
+                        });
+                    }
                 }
                 else if (data.eventMessage == _userEventMessage.Create)
                 {
-                    //await context.Publish<IConfirmUserEvent>(new
-                    //{
-                    //    idUser = data.id,
-                    //    fullName = data.fullName,
-                    //    email = data.email,
-                    //    subject = data.subject,
-                    //    content = data.content,
-                    //});
+                    await context.Publish<IConfirmUserEvent>(new
+                    {
+                        idUser = data.id,
+                        fullName = data.fullName,
+                        email = data.email,
+                        subject = data.subject,
+                        content = data.content,
+                    });
 
                     await context.Publish<IUploadFileEvent>(new
                     {

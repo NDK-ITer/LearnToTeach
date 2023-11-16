@@ -198,6 +198,7 @@ namespace Application.Services
                 if (classroom.IsNull()) return 0;
                 if (!classroomUpdateModel.nameUserHost.IsNullOrEmpty()) classroom.NameUserHost = classroomUpdateModel.nameUserHost;
                 if (!classroomUpdateModel.avatarUserHost.IsNullOrEmpty()) classroom.AvatarUserHost = classroomUpdateModel.avatarUserHost;
+                if (!classroomUpdateModel.linkAvatar.IsNullOrEmpty()) classroom.LinkAvatar = classroomUpdateModel.linkAvatar;
                 if (!classroomUpdateModel.avatarClassroom.IsNullOrEmpty()) classroom.AvatarClassroom = classroomUpdateModel.avatarClassroom;
                 _unitOfWork.classroomRepository.Update(classroom);
                 _unitOfWork.SaveChange();

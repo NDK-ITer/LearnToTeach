@@ -6,5 +6,6 @@
         public string nameUserHost { get; set; }
         public string avatarUserHost { get; set; }
         public string avatarClassroom { get; set; }
+        public string linkAvatar { get; set; }
     }
 }
