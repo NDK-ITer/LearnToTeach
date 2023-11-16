@@ -7,6 +7,7 @@ using RabbitMQ_Lib;
 using SendMail.ClassDefine;
 using SendMail.Interfaces;
 using UserServer.Consumers;
+using UserServer.Consumers.UploadFile;
 using UserServer.Extensions;
 using UserServer.Models;
 
@@ -36,6 +37,7 @@ builder.Services.AddMassTransit(cfg =>
             ep.ConfigureConsumer<ConsumeValueClassroomConsumer>(provider);
             ep.ConfigureConsumer<ConsumeValueMemberConsumer>(provider);
             ep.ConfigureConsumer<GetValueUserConsumer>(provider);
+            ep.ConfigureConsumer<GenerateUploadFileIsValidConsumer>(provider);
         });
         
     }));
@@ -43,6 +45,7 @@ builder.Services.AddMassTransit(cfg =>
     cfg.AddConsumer<ConsumeValueClassroomConsumer>();
     cfg.AddConsumer<ConsumeValueMemberConsumer>();
     cfg.AddConsumer<GetValueUserConsumer>();
+    cfg.AddConsumer<GenerateUploadFileIsValidConsumer>();
 });
 // Configuration "Session" to store some value
 builder.Services.AddDistributedMemoryCache();

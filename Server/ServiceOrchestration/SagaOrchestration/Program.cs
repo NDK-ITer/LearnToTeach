@@ -7,6 +7,7 @@ using SagaStateMachine.UserService.ConfirmUserEmail;
 using SagaStateMachine.UserService.ResetPassword;
 using SagaStateMachine.UserService.UpdateUserInfor;
 using SagaStateMachine.ClassroomService.Classroom;
+using SagaStateMachine.StoreFileService;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("SagaConnectionString");
@@ -30,7 +31,7 @@ builder.Services.AddMassTransit(cfg =>
         {
             r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
             r.ExistingDbContext<SagaDbContext>();
-        }); 
+        });
     cfg.AddSagaStateMachine<ConfirmUserEmailStateMachine, ConfirmUserEmailStateData>()
         .EntityFrameworkRepository(r =>
         {
@@ -44,6 +45,12 @@ builder.Services.AddMassTransit(cfg =>
             r.ExistingDbContext<SagaDbContext>();
         });
     cfg.AddSagaStateMachine<UpdateUserInforStateMachine, UpdateUserInforStateData>()
+        .EntityFrameworkRepository(r =>
+        {
+            r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
+            r.ExistingDbContext<SagaDbContext>();
+        }); 
+    cfg.AddSagaStateMachine<UploadFileStateMachine, UploadFileStateData>()
         .EntityFrameworkRepository(r =>
         {
             r.ConcurrencyMode = ConcurrencyMode.Pessimistic;
