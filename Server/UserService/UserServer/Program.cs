@@ -25,8 +25,7 @@ builder.Services.AddCors(opt =>
     {
         policy.WithOrigins("https://localhost:3000")
                .AllowAnyHeader()
-               .AllowAnyMethod()
-               .AllowCredentials();
+               .AllowAnyMethod();
     });
 });
 // Configuration "MassTransit" to use "RabbitMQ"

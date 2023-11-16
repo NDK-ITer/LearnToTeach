@@ -23,8 +23,7 @@ builder.Services.AddCors(opt =>
     {
         policy.WithOrigins("https://localhost:3000")
                .AllowAnyHeader()
-               .AllowAnyMethod()
-               .AllowCredentials();
+               .AllowAnyMethod();
     });
 });
 builder.Services.AddMassTransit(cfg =>
