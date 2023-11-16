@@ -4,8 +4,6 @@ using FIleStoreServer.Model;
 using MassTransit;
 using Microsoft.Extensions.FileProviders;
 using RabbitMQ_Lib;
-using RepositoryFile.Repository.ClassDefines;
-using RepositoryFile.Repository.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 var nameQueue = builder.Configuration.GetConnectionString("SagaBusQueue");
@@ -14,7 +12,6 @@ var nameQueue = builder.Configuration.GetConnectionString("SagaBusQueue");
 builder.Services.AddControllers();
 builder.Services.Configure<Address>(builder.Configuration.GetSection("Address"));
 builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("EndpointConfig"));
-builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddTransient<EventMessage>();
 builder.Services.AddTransient<ServerName>();
 builder.Services.AddTransient<ImageMethod>();
