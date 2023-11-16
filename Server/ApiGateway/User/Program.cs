@@ -12,12 +12,12 @@ builder.Services.AddOcelot(builder.Configuration);
 builder.Services.AddCustomJwtAuthentication();
 builder.Services.AddCors(opt =>
 {
-    opt.AddDefaultPolicy(builder =>
+    opt.AddDefaultPolicy(policy =>
     {
-        builder.WithOrigins("https://localhost:3000")
+        policy.WithOrigins("https://localhost:3000")
                .AllowAnyHeader()
-               .AllowAnyMethod()
-               .AllowCredentials();
+               .AllowAnyMethod();
+               //.AllowCredentials();
     });
 });
 
