@@ -17,6 +17,10 @@ namespace Application.Requests
         //update data from "ClassroomRequest" to "Classroom"
         public void UpdateToClassroom(Classroom classroom)
         {
+            if (classroom == null)
+            {
+                classroom = new Classroom();
+            }
             if (this.isPrivate == true && this.key.IsNullOrEmpty())
             {
                 classroom.KeyHash = KeyHash.Hash(this.key);
@@ -24,7 +28,6 @@ namespace Application.Requests
             }
             classroom.Description = this.description;
             classroom.Name = this.name;
-            
         }
     }
 }

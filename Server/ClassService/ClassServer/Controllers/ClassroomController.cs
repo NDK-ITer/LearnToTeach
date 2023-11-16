@@ -17,16 +17,19 @@ namespace ClassServer.Controllers
     {
         private readonly IUnitOfWork_ClassroomService _unitOfWork_ClassroomService;
         private readonly IOptions<EndpointConfig> _queue;
+        private readonly IOptions<ServerInfor> _serverInfor;
         private readonly IBus _bus;
         private readonly ClassroomEventMessage _classroomStateMessage;
 
         public ClassroomController(IUnitOfWork_ClassroomService unitOfWork_ClassroomService,
             ClassroomEventMessage classroomStateMessage,
             IOptions<EndpointConfig> queue,
+            IOptions<ServerInfor> serverInfor,
             IBus bus)
         {
             _unitOfWork_ClassroomService = unitOfWork_ClassroomService;
             _classroomStateMessage = classroomStateMessage;
+            _serverInfor = serverInfor;
             _queue = queue;
             _bus = bus;
         }
@@ -93,7 +96,7 @@ namespace ClassServer.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<ActionResult> CreateClassroom([FromBody] ClassroomRequest classroomRequest)
+        public async Task<ActionResult> CreateClassroom([FromForm] ClassroomRequest classroomRequest)
         {
             try
             {
@@ -122,7 +125,7 @@ namespace ClassServer.Controllers
 
         [HttpPut]
         [Route("update")]
-        public async Task<ActionResult> UpdateClassroom([FromBody] ClassroomRequest ClassroomRequest)
+        public async Task<ActionResult> UpdateClassroom([FromForm] ClassroomRequest ClassroomRequest)
         {
             try
             {
@@ -155,12 +158,23 @@ namespace ClassServer.Controllers
 
         [HttpDelete]
         [Route("delete")]
-        public ActionResult DeleteClassroom(string idClassroom)
+        public async Task<ActionResult> DeleteClassroom(string idClassroom)
         {
             try
             {
-                var check = _unitOfWork_ClassroomService._classroomService.DeleteClassroom(idClassroom);
-                if (check != 1) return BadRequest();
+                var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
+                if (endPoint != null)
+                {
+                    endPoint.Send<IGetValueClassroomEvent>(new
+                    {
+                        idClassroom = Guid.Parse(idClassroom),
+                        description = string.Empty,
+                        idUserHost = string.Empty,
+                        name = string.Empty,
+                        isPrivate = false,
+                        eventMessage = _classroomStateMessage.Delete,
+                    });
+                }
                 return Ok();
             }
             catch (Exception e)
@@ -188,7 +202,7 @@ namespace ClassServer.Controllers
 
         [HttpPost]
         [Route("add-member")]
-        public async Task<ActionResult> AddMemberToClassroom([FromBody] MemberRequest memberRequest)
+        public async Task<ActionResult> AddMemberToClassroom([FromForm] MemberRequest memberRequest)
         {
             try
             {
@@ -196,22 +210,9 @@ namespace ClassServer.Controllers
                 if (memberRequest.listIdMember.IsNullOrEmpty()) return BadRequest("listMember was empty or null");
                 var classroom = _unitOfWork_ClassroomService._classroomService.GetClassroomById(memberRequest.idClassroom);
                 if (classroom == null) return BadRequest("Classroom is not exist!");
+                var listCheckFalse = new Dictionary<string,bool>();
                 foreach (var item in memberRequest.listIdMember)
                 {
-                    //var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
-                    //if (endPoint != null)
-                    //{
-                    //    endPoint.Send<IGetValueMemberEvent>(new
-                    //    {
-                    //        IdClassroom = Guid.Parse(memberRequest.idClassroom),
-                    //        IdMember = item,
-                    //        eventMessage = _classroomStateMessage.AddMember,
-                    //        NameMember = string.Empty,
-                    //        Avatar = string.Empty,
-                    //        NameClassroom = classroom.Name
-                    //    });
-                    //}
-
                     var check = _unitOfWork_ClassroomService._memberService.AddMember(new MemberModel
                     {
                         idMember = item,
@@ -229,15 +230,22 @@ namespace ClassServer.Controllers
                             {
                                 IdClassroom = Guid.Parse(memberRequest.idClassroom),
                                 IdMember = item,
-                                eventMessage = _classroomStateMessage.AddMember,
+                                eventMessage = _classroomStateMessage.Create,
                                 NameMember = string.Empty,
                                 Avatar = string.Empty,
                                 NameClassroom = classroom.Name
                             });
                         }
                     }
+                    else
+                    {
+                        listCheckFalse.Add(item,false);
+                    }
                 }
-
+                if (!listCheckFalse.IsNullOrEmpty())
+                {
+                    return BadRequest($"have {listCheckFalse.Count} false");
+                }
                 return Ok("Add member successful, please wait a minute");
             }
             catch (Exception e)

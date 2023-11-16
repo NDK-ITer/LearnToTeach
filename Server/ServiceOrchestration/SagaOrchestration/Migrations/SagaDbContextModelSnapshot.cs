@@ -22,7 +22,7 @@ namespace SagaOrchestration.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("SagaStateMachine.ClassroomService.Classroom.AddClassroom.AddClassroomStateData", b =>
+            modelBuilder.Entity("SagaStateMachine.ClassroomService.Classroom.ClassroomStateData", b =>
                 {
                     b.Property<Guid>("CorrelationId")
                         .ValueGeneratedOnAdd()
@@ -32,6 +32,10 @@ namespace SagaOrchestration.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EventMessage")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("IdClassroom")
@@ -48,10 +52,10 @@ namespace SagaOrchestration.Migrations
 
                     b.HasKey("CorrelationId");
 
-                    b.ToTable("AddClassroomStateData");
+                    b.ToTable("ClassroomStateData");
                 });
 
-            modelBuilder.Entity("SagaStateMachine.ClassroomService.Member.AddMember.AddMemberStateData", b =>
+            modelBuilder.Entity("SagaStateMachine.ClassroomService.Member.MemberStateData", b =>
                 {
                     b.Property<Guid>("CorrelationId")
                         .ValueGeneratedOnAdd()
@@ -61,6 +65,9 @@ namespace SagaOrchestration.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CurrentState")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Event")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("IdClassroom")
@@ -77,7 +84,36 @@ namespace SagaOrchestration.Migrations
 
                     b.HasKey("CorrelationId");
 
-                    b.ToTable("AddMemberStateData");
+                    b.ToTable("MemberStateData");
+                });
+
+            modelBuilder.Entity("SagaStateMachine.StoreFileService.UploadFileStateData", b =>
+                {
+                    b.Property<Guid>("CorrelationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CurrentState")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Event")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileByteString")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ServerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CorrelationId");
+
+                    b.ToTable("UploadFileStateData");
                 });
 
             modelBuilder.Entity("SagaStateMachine.UserService.ConfirmUserEmail.ConfirmUserEmailStateData", b =>
@@ -166,7 +202,7 @@ namespace SagaOrchestration.Migrations
 
                     b.HasKey("CorrelationId");
 
-                    b.ToTable("updateUserInforStateDatas");
+                    b.ToTable("UpdateUserInforStateData");
                 });
 #pragma warning restore 612, 618
         }

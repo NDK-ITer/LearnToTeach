@@ -1,5 +1,5 @@
 ﻿using Application.Services;
-using Events.ClassroomServiceEvents.Classroom;
+using Events.ClassroomServiceEvents.Classroom.AddClassroom;
 using MassTransit;
 
 namespace ClassServer.Consumers.AddClassroom

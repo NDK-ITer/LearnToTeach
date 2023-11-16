@@ -1,6 +1,4 @@
-﻿using Events.ClassroomServiceEvents.Models;
-
-namespace Events.ClassroomServiceEvents.Member
+﻿namespace Events.ClassroomServiceEvents.Member
 {
     public interface IConsumeValueMemberEvent
     {
@@ -9,5 +7,6 @@ namespace Events.ClassroomServiceEvents.Member
         public string NameClassroom { get; }
         public string NameMember { get; }
         public string Avatar { get; }
+        public string Event { get; }
     }
 }

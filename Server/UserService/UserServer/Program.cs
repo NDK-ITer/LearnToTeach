@@ -16,6 +16,7 @@ var nameQueue = builder.Configuration.GetConnectionString("SagaBusQueue");
 // Add from "appsettings.json"
 builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("EndpointConfig"));
 builder.Services.Configure<Address>(builder.Configuration.GetSection("Address"));
+builder.Services.Configure<ServerInfor>(builder.Configuration.GetSection("ServerInfor"));
 // Configuration "MassTransit" to use "RabbitMQ"
 builder.Services.AddMassTransit(cfg =>
 {

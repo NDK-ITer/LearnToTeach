@@ -67,7 +67,7 @@ namespace Application.Services
             {
                 Id = user.id,
                 Email = user.PresentEmail,
-                Avatar = user.Avatar,
+                Avatar = $"{user.LinkAvatar}/{user.Avatar}",
                 Fullname = user.FirstName + " " + user.LastName,
                 Role = user.Role.Name
             };
@@ -87,7 +87,8 @@ namespace Application.Services
                     LastName = registerRequest.LastName,
                     FirstEmail = registerRequest.Email,
                     PhoneNumber = registerRequest.PhoneNumber,
-                    Avatar = registerRequest.Avatar,
+                    Avatar = string.Empty,
+                    LinkAvatar = string.Empty,
                     PresentEmail = registerRequest.Email,
                     Birthday = registerRequest.Birthday,
                     PasswordHash = SecurityMethods.HashPassword(registerRequest.PasswordIsConfirmed),
@@ -131,6 +132,7 @@ namespace Application.Services
                     if (!editInforRequest.FirstName.IsNullOrEmpty()) { user.FirstName = editInforRequest.FirstName; }
                     if (!editInforRequest.LastName.IsNullOrEmpty()) { user.LastName = editInforRequest.LastName; }
                     if (!editInforRequest.Avatar.IsNullOrEmpty()) { user.Avatar = editInforRequest.Avatar; }
+                    if (!editInforRequest.LinkAvatar.IsNullOrEmpty()) { user.LinkAvatar = editInforRequest.LinkAvatar; }
                     _unitOfWork.userRepository.Update(user);
                     _unitOfWork.SaveChange();
                     _unitOfWork.Dispose();

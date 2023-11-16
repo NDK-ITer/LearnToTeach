@@ -3,6 +3,7 @@
     public interface IGetValueClassroomEvent
     {
         public Guid idClassroom { get; }
+        public string avatarClassroom { get; }
         public string? description { get; }
         public string? idUserHost { get; }
         public string? name { get; }

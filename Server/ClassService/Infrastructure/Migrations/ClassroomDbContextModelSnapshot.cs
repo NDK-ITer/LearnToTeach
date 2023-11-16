@@ -28,14 +28,18 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<string>("AvatarClassroom")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<string>("AvatarUserHost")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 11, 6, 9, 25, 29, 912, DateTimeKind.Local).AddTicks(4929));
+                        .HasDefaultValue(new DateTime(2023, 11, 16, 10, 41, 27, 759, DateTimeKind.Local).AddTicks(2635));
 
                     b.Property<string>("Description")
                         .HasMaxLength(100)
@@ -50,6 +54,10 @@ namespace Infrastructure.Migrations
                     b.Property<string>("KeyHash")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("LinkAvatar")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -66,18 +74,24 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = "d0186509-69d2-4a76-a0d1-69c5916c0b02",
-                            CreateDate = new DateTime(2023, 11, 6, 9, 25, 29, 913, DateTimeKind.Local).AddTicks(3247),
+                            AvatarClassroom = "",
+                            AvatarUserHost = "",
+                            CreateDate = new DateTime(2023, 11, 16, 10, 41, 27, 759, DateTimeKind.Local).AddTicks(9881),
                             IdUserHost = "193ba283-bf34-40ad-a3be-10b1780cba0e",
                             IsPrivate = true,
                             KeyHash = "cA4FigUKj7deRjen/4NWmw==",
+                            LinkAvatar = "",
                             Name = "Class_1"
                         },
                         new
                         {
                             Id = "02c47002-cc29-4b66-82bd-a86b7e3c6d5e",
-                            CreateDate = new DateTime(2023, 11, 6, 9, 25, 29, 913, DateTimeKind.Local).AddTicks(3514),
+                            AvatarClassroom = "",
+                            AvatarUserHost = "",
+                            CreateDate = new DateTime(2023, 11, 16, 10, 41, 27, 760, DateTimeKind.Local).AddTicks(63),
                             IdUserHost = "2c75293b-f8e5-4862-9b13-5894a64895cd",
                             IsPrivate = false,
+                            LinkAvatar = "",
                             Name = "Class_2"
                         });
                 });
@@ -97,6 +111,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Description")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("LinkAvatar")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -121,8 +139,9 @@ namespace Infrastructure.Migrations
                             IdClass = "d0186509-69d2-4a76-a0d1-69c5916c0b02",
                             Avatar = "",
                             Description = "",
+                            LinkAvatar = "",
                             Name = "Admin account",
-                            Role = ""
+                            Role = "MEMBER"
                         },
                         new
                         {
@@ -130,8 +149,9 @@ namespace Infrastructure.Migrations
                             IdClass = "02c47002-cc29-4b66-82bd-a86b7e3c6d5e",
                             Avatar = "",
                             Description = "",
+                            LinkAvatar = "",
                             Name = "test account",
-                            Role = ""
+                            Role = "MEMBER"
                         });
                 });
 

@@ -1,12 +1,13 @@
 ﻿using Domain.Entities;
+using System.Data;
 
 namespace Application.Models
 {
     public class ClassroomModel
     {
         public string? idClassroom { get; set; }
+        public string? avatarClassroom { get; set; }
         public string? description { get; set; }
-        public string? idUserHost { get; set; }
         public string? key { get; set; }
         public string? name { get; set; }
         public bool isPrivate { get; set; }
@@ -16,9 +17,20 @@ namespace Application.Models
             if (classroom != null)
             {
                 this.idClassroom = classroom.Id;
+                this.avatarClassroom = $"{classroom.LinkAvatar}/{classroom.AvatarClassroom}";
                 this.name = classroom.Name;
                 this.description = classroom.Description;
-                Members = new List<MemberModel>();
+                Members = new List<MemberModel>()
+                {
+                    new MemberModel()
+                    {
+                        idMember = classroom.IdUserHost,
+                        nameMember = classroom.NameUserHost,
+                        avatar = $"{classroom.LinkAvatar}/{classroom.AvatarUserHost}",
+                        role = "Host",
+                        description = "All in this classroom",
+                    }
+                };
                 foreach (var item in classroom.ListUserId)
                 {
                     Members.Add(new MemberModel(item));

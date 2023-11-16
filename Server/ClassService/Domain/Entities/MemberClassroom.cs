@@ -4,6 +4,7 @@
     {
         public string IdUser { get; set; }
         public string? Name { get; set; }
+        public string? LinkAvatar { get; set; }
         public string? Avatar { get; set; }
         public string IdClass { get; set; }
         public string? Role { get; set; }

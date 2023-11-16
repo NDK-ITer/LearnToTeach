@@ -32,6 +32,11 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<string>("Avatar")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -39,6 +44,11 @@ namespace Infrastructure.Migrations
 
                     b.Property<bool>("IsHost")
                         .HasColumnType("bit");
+
+                    b.Property<string>("LinkAvatar")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -54,16 +64,20 @@ namespace Infrastructure.Migrations
                         {
                             IdUser = "193ba283-bf34-40ad-a3be-10b1780cba0e",
                             IdClassroom = "ee546ce7-842a-4dee-86d0-0db1ff3b64b4",
+                            Avatar = "",
                             Description = "",
                             IsHost = true,
+                            LinkAvatar = "",
                             Name = "Class_1"
                         },
                         new
                         {
                             IdUser = "2c75293b-f8e5-4862-9b13-5894a64895cd",
                             IdClassroom = "0a006921-b4a4-40de-a1e6-9497daf09a2f",
+                            Avatar = "",
                             Description = "",
                             IsHost = true,
+                            LinkAvatar = "",
                             Name = "Class_2"
                         });
                 });
@@ -96,14 +110,14 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3bfa0033-ec25-4271-9ca3-7f158bf5dab2",
+                            Id = "6c397b90-c8e4-40db-8e49-49ab3f0bda64",
                             Description = "",
                             Name = "ADMIN",
                             NormalizeName = "Admin"
                         },
                         new
                         {
-                            Id = "fd62b292-ec16-4c4b-9e83-907a3e579041",
+                            Id = "11750602-8c16-40d1-8991-4fefc0858b40",
                             Description = "",
                             Name = "USER",
                             NormalizeName = "User"
@@ -148,6 +162,11 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("LinkAvatar")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -191,39 +210,41 @@ namespace Infrastructure.Migrations
                         {
                             id = "193ba283-bf34-40ad-a3be-10b1780cba0e",
                             Avatar = "",
-                            Birthday = new DateTime(2023, 11, 6, 9, 24, 38, 137, DateTimeKind.Local).AddTicks(7063),
-                            CreatedDate = new DateTime(2023, 11, 6, 9, 24, 38, 137, DateTimeKind.Local).AddTicks(7075),
+                            Birthday = new DateTime(2023, 11, 16, 10, 43, 11, 675, DateTimeKind.Local).AddTicks(6172),
+                            CreatedDate = new DateTime(2023, 11, 16, 10, 43, 11, 675, DateTimeKind.Local).AddTicks(6183),
                             FirstEmail = "test001@gmail.com",
                             FirstName = "test",
                             IsLock = false,
                             IsVerified = true,
                             LastName = "account",
+                            LinkAvatar = "",
                             PasswordHash = "nSUQ/133didCpNJLsvcLvQ==",
                             PhoneNumber = "0123456789",
                             PresentEmail = "test001@gmail.com",
-                            RoleId = "fd62b292-ec16-4c4b-9e83-907a3e579041",
-                            TokenAccess = "4C1745F0002B41D8CBFC286958F1B825F09F2CDE8A1359DC43C43401532E0EA09E76BBA37D49E913BC6590F197E2A2CB42E2EDFF95F8037F41220E5267737150",
+                            RoleId = "11750602-8c16-40d1-8991-4fefc0858b40",
+                            TokenAccess = "5F5A5B09CAC68E3090D3DDE024B40DAEC657E332A182C4020407C2CA0CA1E3D1C4374853223A9E325D10C7CD09AE600EECE97B34CB451D4D1BA95BED98A5E47D",
                             UserName = "testVersion_0001",
-                            VerifiedDate = new DateTime(2023, 11, 6, 9, 24, 38, 137, DateTimeKind.Local).AddTicks(7135)
+                            VerifiedDate = new DateTime(2023, 11, 16, 10, 43, 11, 675, DateTimeKind.Local).AddTicks(6238)
                         },
                         new
                         {
                             id = "2c75293b-f8e5-4862-9b13-5894a64895cd",
                             Avatar = "",
-                            Birthday = new DateTime(2023, 11, 6, 9, 24, 38, 137, DateTimeKind.Local).AddTicks(7223),
-                            CreatedDate = new DateTime(2023, 11, 6, 9, 24, 38, 137, DateTimeKind.Local).AddTicks(7223),
+                            Birthday = new DateTime(2023, 11, 16, 10, 43, 11, 675, DateTimeKind.Local).AddTicks(6328),
+                            CreatedDate = new DateTime(2023, 11, 16, 10, 43, 11, 675, DateTimeKind.Local).AddTicks(6328),
                             FirstEmail = "admin001@gmail.com",
                             FirstName = "Admin",
                             IsLock = false,
                             IsVerified = true,
                             LastName = "account",
+                            LinkAvatar = "",
                             PasswordHash = "VWBU8/+H4em26o8A92n+Tg==",
                             PhoneNumber = "0123456789",
                             PresentEmail = "admin001@gmail.com",
-                            RoleId = "3bfa0033-ec25-4271-9ca3-7f158bf5dab2",
-                            TokenAccess = "62BAEE704AD866A50E5AFCBEBCB040BBF73D19657FF692EAB3B5C56D18A94C1C3D4A810A062F84AA21DC3A2631DD289925888731DD6E198D894762D3DCEEF424",
+                            RoleId = "6c397b90-c8e4-40db-8e49-49ab3f0bda64",
+                            TokenAccess = "20BEEC96FCFF4507D35B65D18952FEF9913531418A3EBF0B68A2128FB2864697EED308F3A4F0AACDDA59A1907FA0D53065CC658D61C1254C453A5745622B1FA1",
                             UserName = "adminVersion_0001",
-                            VerifiedDate = new DateTime(2023, 11, 6, 9, 24, 38, 137, DateTimeKind.Local).AddTicks(7226)
+                            VerifiedDate = new DateTime(2023, 11, 16, 10, 43, 11, 675, DateTimeKind.Local).AddTicks(6334)
                         });
                 });
 

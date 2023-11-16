@@ -16,6 +16,9 @@ namespace Infrastructure.Extensions
                     CreateDate = DateTime.Now,
                     Name = "Class_1",
                     KeyHash = KeyHash.Hash("Class_1"),
+                    AvatarClassroom = string.Empty,
+                    AvatarUserHost = string.Empty,
+                    LinkAvatar = string.Empty,
                     IdUserHost = "193ba283-bf34-40ad-a3be-10b1780cba0e",
                     IsPrivate = true,
                     
@@ -26,6 +29,9 @@ namespace Infrastructure.Extensions
                     CreateDate = DateTime.Now,
                     Name = "Class_2",
                     KeyHash = null,
+                    AvatarClassroom = string.Empty,
+                    AvatarUserHost = string.Empty,
+                    LinkAvatar = string.Empty,
                     IdUserHost = "2c75293b-f8e5-4862-9b13-5894a64895cd",
                     IsPrivate = false,
                 }
@@ -37,6 +43,7 @@ namespace Infrastructure.Extensions
                     IdUser = "2c75293b-f8e5-4862-9b13-5894a64895cd",
                     Name = "Admin account",
                     Avatar = string.Empty,
+                    LinkAvatar = string.Empty,
                     Description = string.Empty,
                     Role = "MEMBER"
                 },
@@ -46,6 +53,7 @@ namespace Infrastructure.Extensions
                     IdUser = "193ba283-bf34-40ad-a3be-10b1780cba0e",
                     Name = "test account",
                     Avatar = string.Empty,
+                    LinkAvatar = string.Empty,
                     Description = string.Empty,
                     Role = "MEMBER"
                 }

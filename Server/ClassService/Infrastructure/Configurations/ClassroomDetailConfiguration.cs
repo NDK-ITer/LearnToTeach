@@ -16,6 +16,7 @@ namespace Infrastructure.Configurations
             builder.Property(x => x.Description).HasMaxLength(100);
             builder.Property(x => x.Name).HasMaxLength(50);
             builder.Property(x => x.Avatar).HasMaxLength(100);
+            builder.Property(x => x.LinkAvatar).HasMaxLength(100);
             builder.HasOne<Classroom>(c => c.classroom)
                 .WithMany(cd => cd.ListUserId)
                 .HasForeignKey(fk => fk.IdClass);

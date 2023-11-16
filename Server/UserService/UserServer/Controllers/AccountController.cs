@@ -1,6 +1,7 @@
 ﻿using Application.Requests;
 using Application.Services;
 using Events.UserServiceEvents;
+using FileStoreServer.FileMethods;
 using Infrastructure;
 using JwtAuthenticationManager.Models;
 using MassTransit;
@@ -19,23 +20,29 @@ namespace Server.Controllers
         private readonly UserEventMessage _userEventMessage;
         private readonly IOptions<EndpointConfig> _queue;
         private readonly IOptions<Address> _address;
+        private readonly IOptions<ServerInfor> _serverInfor;
+        private readonly ImageMethod _imageMethod;
         private readonly IBus _bus;
         public AccountController(IUnitOfWork_UserService unitOfWork_UserService,
             UserEventMessage userEventMessage,
             IOptions<EndpointConfig> queue,
             IOptions<Address> address,
+            IOptions<ServerInfor> serverInfor,
+            ImageMethod imageMethod,
             IBus bus)
         {
             _unitOfWork_UserService = unitOfWork_UserService;
             _address = address;
+            _imageMethod = imageMethod;
+            _serverInfor = serverInfor;
             _userEventMessage = userEventMessage;
             _queue = queue;
             _bus = bus;
         }
-        
+
         [HttpPost]
         [Route("login")]
-        public ActionResult<LoginResponses>? Login([FromBody] LoginRequest loginRequest)
+        public ActionResult<LoginResponses>? Login([FromForm] LoginRequest loginRequest)
         {
             var user = _unitOfWork_UserService.UserService.GetUserByEmail(loginRequest.Email);
             var jwt = _unitOfWork_UserService.UserService.LoginUser(loginRequest.Email, loginRequest.Password);
@@ -45,10 +52,10 @@ namespace Server.Controllers
             }
             return StatusCode(204);
         }
-        
+
         [HttpPost]
         [Route("register")]
-        public async Task<ActionResult> Register([FromBody] RegisterRequest registerRequest)
+        public async Task<ActionResult> Register([FromForm] RegisterRequest registerRequest)
         {
             try
             {
@@ -79,6 +86,14 @@ namespace Server.Controllers
                         subject = "Confirm your account",
                         eventMessage = _userEventMessage.ConfirmEmail
                     });
+
+                    endPoint.Send<IGetValueUserEvent>(new
+                    {
+                        id = Guid.Parse(user.id),
+                        avatar = _imageMethod.GenerateToString(registerRequest.Avatar),
+                        serverName = _serverInfor.Value.Name,
+                        eventMessage = _userEventMessage.UploadFile
+                    });
                 }
 
                 return Ok($"Please check your email.");
@@ -98,7 +113,7 @@ namespace Server.Controllers
             {
                 var user = _unitOfWork_UserService.UserService.GetUserByEmail(email);
                 if (user == null) return BadRequest($"Not found user with {email}");
-                if (user.IsVerified) return StatusCode(201,"Email had been confirmed");
+                if (user.IsVerified) return StatusCode(201, "Email had been confirmed");
                 //Get user token
                 var userToken = user.TokenAccess;
                 //create URL to verify
@@ -132,7 +147,7 @@ namespace Server.Controllers
         {
             try
             {
-                var user = _unitOfWork_UserService.UserService.ConfirmEmailUser(idUser,token);
+                var user = _unitOfWork_UserService.UserService.ConfirmEmailUser(idUser, token);
                 if (user == null) return BadRequest();
                 var url = string.Empty;
                 return Ok("Verify is Successful");
@@ -218,7 +233,7 @@ namespace Server.Controllers
 
         [HttpPost]
         [Route("verify-otp")]
-        public ActionResult VerifyOTP([FromBody]VerifyOTPModel verifyOTPModel)
+        public ActionResult VerifyOTP([FromForm] VerifyOTPModel verifyOTPModel)
         {
             try
             {
@@ -235,16 +250,16 @@ namespace Server.Controllers
                 return BadRequest("Something was wrong!");
             }
         }
-        
+
         [HttpPost]
         [Route("reset-password")]
-        public ActionResult ResetPassword([FromBody] ResetPasswordModel model)
+        public ActionResult ResetPassword([FromForm] ResetPasswordModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if (model.NewPassword!=model.ConfirmPassword) return BadRequest("Password isn't confirmed");
+                    if (model.NewPassword != model.ConfirmPassword) return BadRequest("Password isn't confirmed");
                 }
                 return Ok();
             }
@@ -256,7 +271,7 @@ namespace Server.Controllers
 
         [HttpPost]
         [Route("edit-infor")]
-        public async Task<ActionResult> EditInformation([FromBody] EditInforRequest editInforRequest)
+        public async Task<ActionResult> EditInformation([FromForm] EditInforRequest editInforRequest)
         {
             try
             {
