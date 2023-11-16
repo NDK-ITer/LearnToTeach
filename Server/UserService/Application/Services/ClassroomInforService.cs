@@ -36,17 +36,23 @@ namespace Application.Services
                     IdUser = addClassroomInforModel.IdUser,
                     Name = "",
                     Description = "",
+                    LinkAvatar = string.Empty,
+                    Avatar = string.Empty,
                     IsHost = false,
                 };
                 if (classroom != null)//add member
                 {
                     classroomInfor.Name = classroom.Name;
                     classroomInfor.Description = classroom.Description;
+                    classroomInfor.Avatar = classroom.Avatar;
+                    classroomInfor.LinkAvatar = classroom.LinkAvatar;
                 }
                 else//add new classroom
                 {
                     if (!addClassroomInforModel.NameClassroom.IsNullOrEmpty()) classroomInfor.Name = addClassroomInforModel.NameClassroom;
                     if (!addClassroomInforModel.Description.IsNullOrEmpty()) classroomInfor.Description = addClassroomInforModel.Description;
+                    if (!addClassroomInforModel.LinkAvatar.IsNullOrEmpty()) classroomInfor.LinkAvatar = addClassroomInforModel.LinkAvatar;
+                    if (!addClassroomInforModel.Avatar.IsNullOrEmpty()) classroomInfor.Avatar = addClassroomInforModel.Avatar;
                     classroomInfor.IsHost = true;
                 }
                 _unitOfWork.classroomRepository.Add(classroomInfor);
@@ -144,6 +150,8 @@ namespace Application.Services
                 {
                     item.Description = updateClassroomInforModel.Description;
                     item.Name = updateClassroomInforModel.Name;
+                    item.LinkAvatar = updateClassroomInforModel.LinkAvatar;
+                    item.Avatar = updateClassroomInforModel.Avatar;
                     _unitOfWork.classroomRepository.UpdateClassroomInfor(item);
                 };
                 _unitOfWork.SaveChange();

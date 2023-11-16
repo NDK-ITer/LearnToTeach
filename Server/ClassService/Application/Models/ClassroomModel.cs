@@ -17,7 +17,7 @@ namespace Application.Models
             if (classroom != null)
             {
                 this.idClassroom = classroom.Id;
-                this.avatarClassroom = classroom.AvatarClassroom;
+                this.avatarClassroom = $"{classroom.LinkAvatar}/{classroom.AvatarClassroom}";
                 this.name = classroom.Name;
                 this.description = classroom.Description;
                 Members = new List<MemberModel>()
@@ -26,7 +26,7 @@ namespace Application.Models
                     {
                         idMember = classroom.IdUserHost,
                         nameMember = classroom.NameUserHost,
-                        avatar = classroom.AvatarUserHost,
+                        avatar = $"{classroom.LinkAvatar}/{classroom.AvatarUserHost}",
                         role = "Host",
                         description = "All in this classroom",
                     }

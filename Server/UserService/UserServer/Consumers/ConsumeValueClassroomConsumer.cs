@@ -61,6 +61,8 @@ namespace UserServer.Consumers
                     {
                         IdClassroom = data.idClassroom.ToString() ,
                         Description = data.description,
+                        LinkAvatar = string.Empty,
+                        Avatar = string.Empty,
                         Name = data.name
                     };
                     unitOfWork_UserService.ClassroomInforService.UpdateClassroomInfor(updateClassroomInforModel);

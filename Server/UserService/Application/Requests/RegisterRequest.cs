@@ -1,4 +1,6 @@
-﻿namespace Application.Requests
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Application.Requests
 {
     public class RegisterRequest
     {
@@ -9,7 +11,7 @@
         public string PhoneNumber { get; set; }
         public string Password { get; set; }
         public string PasswordIsConfirmed { get; set; }
-        public string Avatar { get; set; }
+        public IFormFile Avatar { get; set; }
         public DateTime Birthday { get; set; }
     }
 }

@@ -30,6 +30,7 @@ namespace Application.Services
                     IdUser = memberModel.idMember,
                     Name = memberModel.nameMember,
                     Avatar = memberModel.avatar,
+                    LinkAvatar = memberModel.linkAvatar,
                     Role = "Member".ToUpper(),
                     Description = memberModel.description,
                 };
@@ -53,6 +54,7 @@ namespace Application.Services
                 {
                     if (!memberModel.nameMember.IsNullOrEmpty()) { member.Name = memberModel.nameMember; }
                     if (!memberModel.avatar.IsNullOrEmpty()) { member.Avatar = memberModel.avatar; }
+                    if (!memberModel.linkAvatar.IsNullOrEmpty()) { member.LinkAvatar = memberModel.linkAvatar; }
                     if (!memberModel.description.IsNullOrEmpty()) { member.Description = memberModel.description; }
                     if (!memberModel.role.IsNullOrEmpty()) { member.Role = memberModel.role; }
                     _unitOfWork.memberClassroomRepository.UpdateMemberClassroom(member);

@@ -1,7 +1,6 @@
 using FileStoreServer.FileMethods;
 using FIleStoreServer.Consumers;
 using FIleStoreServer.Model;
-using FIleStoreServer.Model.NewFolder;
 using MassTransit;
 using Microsoft.Extensions.FileProviders;
 using RabbitMQ_Lib;

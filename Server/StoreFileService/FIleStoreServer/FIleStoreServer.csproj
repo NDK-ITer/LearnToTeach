@@ -14,12 +14,12 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Files\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Events\Events.csproj" />
     <ProjectReference Include="..\RabbitMQ_Lib\RabbitMQ_Lib.csproj" />
-    <ProjectReference Include="..\RepositoryFile\RepositoryFile.csproj" />
   </ItemGroup>
 
 </Project>

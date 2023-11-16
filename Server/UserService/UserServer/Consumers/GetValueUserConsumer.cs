@@ -1,4 +1,5 @@
-﻿using Events.UserServiceEvents;
+﻿using Events.MultiServiceUseEvent;
+using Events.UserServiceEvents;
 using Events.UserServiceEvents.User.ConfirmUser;
 using Events.UserServiceEvents.User.UpdateUserInfor;
 using Events.UserServiceEvents.User.UserResetPassword;
@@ -40,6 +41,16 @@ namespace UserServer.Consumers
                         email = data.email,
                         subject = data.subject,
                         content = data.content,
+                    });
+                }
+                else if (data.eventMessage == _userEventMessage.UploadFile)
+                {
+                    await context.Publish<IUploadFileEvent>(new
+                    {
+                        Id = data.id,
+                        Event = _userEventMessage.Create,
+                        FileByteString = data.avatar,
+                        ServerName = data.serverName
                     });
                 }
                 else if (data.eventMessage == _userEventMessage.Update)

@@ -10,6 +10,7 @@
         public string? IdUserHost { get; set; }
         public string? NameUserHost { get; set; }
         public string? AvatarClassroom { get; set; }
+        public string? LinkAvatar{ get; set; }
         public string? AvatarUserHost { get; set; }
         public bool IsPrivate { get; set; }
         public List<MemberClassroom>? ListUserId { get; set; }

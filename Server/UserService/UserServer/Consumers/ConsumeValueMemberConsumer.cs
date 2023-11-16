@@ -39,9 +39,9 @@ namespace UserServer.Consumers
                         {
                             IdClassroom = data.IdClassroom,
                             IdMember = user.id,
-                            NameClassroom = data.NameClassroom,
                             NameMember = $"{user.FirstName} {user.LastName}",
                             Avatar = user.Avatar,
+                            LinkAvatar = user.LinkAvatar,
                         });
                     }
                     else

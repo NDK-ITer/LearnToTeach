@@ -1,4 +1,4 @@
-﻿namespace FIleStoreServer.Model.NewFolder
+﻿namespace FIleStoreServer.Model
 {
     public class ServerName
     {

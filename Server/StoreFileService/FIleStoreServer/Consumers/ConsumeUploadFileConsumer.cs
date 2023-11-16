@@ -1,7 +1,8 @@
 ﻿using Events;
+using Events.ClassroomServiceEvents.Classroom;
+using Events.UserServiceEvents.User;
 using FileStoreServer.FileMethods;
 using FIleStoreServer.Model;
-using FIleStoreServer.Model.NewFolder;
 using MassTransit;
 
 namespace FIleStoreServer.Consumers
@@ -27,7 +28,13 @@ namespace FIleStoreServer.Consumers
                 {
                     if (data.Event == eventMessage.Create || data.Event == eventMessage.Update)
                     {
-
+                        var imageInfor = imageMethod.SaveImage("Files",data.FileByteString,data.Id.ToString());
+                        await context.Publish<IUserServiceUploadIsValid>(new
+                        {
+                            Id = data.Id,
+                            Link = imageInfor.Item1,
+                            NameImage = imageInfor.Item2,
+                        });
                     }
                     else if (data.Event == eventMessage.Delete)
                     {
@@ -38,7 +45,13 @@ namespace FIleStoreServer.Consumers
                 {
                     if (data.Event == eventMessage.Create || data.Event == eventMessage.Update)
                     {
-
+                        var imageInfor = imageMethod.SaveImage("Files", data.FileByteString, data.Id.ToString());
+                        await context.Publish<IClassroomServiceUploadIsValid>(new
+                        {
+                            Id = data.Id,
+                            Link = imageInfor.Item1,
+                            NameImage = imageInfor.Item2,
+                        });
                     }
                     else if (data.Event == eventMessage.Delete)
                     {

@@ -43,6 +43,7 @@ namespace Infrastructure.Extensions
                     IsVerified = true,
                     PhoneNumber = "0123456789",
                     Avatar = "",
+                    LinkAvatar = string.Empty,
                     PasswordHash = SecurityMethods.HashPassword("Testaccount123456789_001"),
                 },
                 new User()
@@ -62,6 +63,7 @@ namespace Infrastructure.Extensions
                     IsVerified = true,
                     PhoneNumber = "0123456789",
                     Avatar = "",
+                    LinkAvatar = string.Empty,
                     PasswordHash = SecurityMethods.HashPassword("Adminaccount123456789_001"),
                 }
                 );
@@ -72,6 +74,8 @@ namespace Infrastructure.Extensions
                     IdUser = "193ba283-bf34-40ad-a3be-10b1780cba0e",
                     Name = "Class_1",
                     Description = "",
+                    Avatar = string.Empty,
+                    LinkAvatar = string.Empty,
                     IsHost = true,
                 },
                 new ClassroomInfor()
@@ -80,6 +84,8 @@ namespace Infrastructure.Extensions
                     IdUser = "2c75293b-f8e5-4862-9b13-5894a64895cd",
                     Name = "Class_2",
                     Description = "",
+                    Avatar = string.Empty,
+                    LinkAvatar = string.Empty,
                     IsHost = true,
                 }
                 );
