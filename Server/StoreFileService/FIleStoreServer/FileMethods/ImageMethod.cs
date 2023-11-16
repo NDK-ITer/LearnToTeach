@@ -43,7 +43,8 @@ namespace FileStoreServer.FileMethods
                 File.WriteAllBytes(path, imageBytes);
                 var linkServer = $"{link.Value.ThisServiceAddress}/";
                 var imageName = $"{imgName}.png";
-                return new Tuple<string, string>(linkServer, imageName);
+                var result = new Tuple<string, string>(linkServer, imageName);
+                return result;
             }
             catch (Exception)
             {
