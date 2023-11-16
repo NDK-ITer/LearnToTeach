@@ -26,6 +26,7 @@ await app.UseOcelot();
 
 
 app.UseAuthentication();
+app.UseCors();
 app.UseAuthorization();
 
 app.Run();
