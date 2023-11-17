@@ -12,11 +12,11 @@ builder.Services.AddOcelot(builder.Configuration);
 builder.Services.AddCustomJwtAuthentication();
 builder.Services.AddCors(opt =>
 {
-    opt.AddPolicy("CORSPolicy",policy =>
+    opt.AddPolicy("myCorsPolicy", builder =>
     {
-        policy.AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
     });
 });
 
@@ -24,6 +24,6 @@ var app = builder.Build();
 await app.UseOcelot();
 
 app.UseAuthentication();
-app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod());
+app.UseCors("myCorsPolicy");
 app.UseAuthorization();
 app.Run();

@@ -4,7 +4,8 @@
     //login
     {
       "UpstreamPathTemplate": "/account/login",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post" ,"Options"],
+      //"CorsPolicyName": "myCorsPolicy",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -17,7 +18,7 @@
     //register
     {
       "UpstreamPathTemplate": "/account/register",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -30,7 +31,7 @@
     //confirm-email
     {
       "UpstreamPathTemplate": "/account/confirm-email",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -43,7 +44,7 @@
     //verify-account
     {
       "UpstreamPathTemplate": "/account/verify-account",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -56,7 +57,7 @@
     //change-password
     {
       "UpstreamPathTemplate": "/account/change-password",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -74,7 +75,7 @@
     //forget-password
     {
       "UpstreamPathTemplate": "/account/forget-password",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -87,7 +88,7 @@
     //verify-otp
     {
       "UpstreamPathTemplate": "/account/verify-otp",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -100,7 +101,7 @@
     //reset-password
     {
       "UpstreamPathTemplate": "/account/reset-password",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -110,12 +111,12 @@
       "DownstreamPathTemplate": "/api/Account/reset-password",
       "DownstreamScheme": "https"
     },
-    
+
     //ClassroomService Web Api
     //get classroom public
     {
       "UpstreamPathTemplate": "/classroom/public",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": [ "Get", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -137,7 +138,7 @@
     //get classroom by 'id'
     {
       "UpstreamPathTemplate": "/classroom/id",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": [ "Get", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -159,7 +160,7 @@
     //get classroom by 'name'
     {
       "UpstreamPathTemplate": "/classroom/name",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": [ "Get", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -181,7 +182,7 @@
     //create classroom
     {
       "UpstreamPathTemplate": "/classroom/create",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -203,7 +204,7 @@
     //upadte classroom
     {
       "UpstreamPathTemplate": "/classroom/update",
-      "UpstreamHttpMethod": [ "Put" ],
+      "UpstreamHttpMethod": [ "Put", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -225,7 +226,7 @@
     //delete classroom
     {
       "UpstreamPathTemplate": "/classroom/delete",
-      "UpstreamHttpMethod": [ "Delete" ],
+      "UpstreamHttpMethod": [ "Delete", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -247,7 +248,7 @@
     //remove member
     {
       "UpstreamPathTemplate": "/classroom/remove-member",
-      "UpstreamHttpMethod": [ "Delete" ],
+      "UpstreamHttpMethod": [ "Delete", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -269,5 +270,6 @@
   ],
   "GlobalConfiguration": {
     "BaseUrl": "https://localhost:9000"
-  }
+  },
+  "Aggregates": []
 }

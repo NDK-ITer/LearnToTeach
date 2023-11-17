@@ -41,8 +41,9 @@ namespace Server.Controllers
         }
 
         [HttpPost]
+        [HttpOptions]
         [Route("login")]
-        public ActionResult<LoginResponses>? Login([FromForm] LoginRequest loginRequest)
+        public ActionResult<LoginResponses>? Login([FromBody] LoginRequest loginRequest)
         {
             var user = _unitOfWork_UserService.UserService.GetUserByEmail(loginRequest.Email);
             var jwt = _unitOfWork_UserService.UserService.LoginUser(loginRequest.Email, loginRequest.Password);
@@ -54,6 +55,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
+        [HttpOptions]
         [Route("register")]
         public async Task<ActionResult> Register([FromForm] RegisterRequest registerRequest)
         {
@@ -100,6 +102,7 @@ namespace Server.Controllers
         }
 
         [HttpGet]
+        [HttpOptions]
         [Route("confirm-email")]
         public async Task<ActionResult> ConfirmEmail(string email)
         {
@@ -136,6 +139,7 @@ namespace Server.Controllers
         }
 
         [HttpGet]
+        [HttpOptions]
         [Route("verify-account")]
         public ActionResult<string> VerifyAccount(string idUser, string token)
         {
@@ -153,6 +157,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
+        [HttpOptions]
         [Route("change-password")]
         public async Task<IActionResult> ChangePassword(string idUser)
         {
@@ -188,6 +193,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
+        [HttpOptions]
         [Route("forget-password")]
         public async Task<IActionResult> ForgetPassword(string email)
         {
@@ -226,6 +232,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
+        [HttpOptions]
         [Route("verify-otp")]
         public ActionResult VerifyOTP([FromForm] VerifyOTPModel verifyOTPModel)
         {
@@ -246,6 +253,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
+        [HttpOptions]
         [Route("reset-password")]
         public ActionResult ResetPassword([FromForm] ResetPasswordModel model)
         {
@@ -264,6 +272,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
+        [HttpOptions]
         [Route("edit-infor")]
         public async Task<ActionResult> EditInformation([FromForm] EditInforRequest editInforRequest)
         {

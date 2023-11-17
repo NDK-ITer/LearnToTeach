@@ -17,15 +17,15 @@ var nameQueue = builder.Configuration.GetConnectionString("SagaBusQueue");
 // Add services to the container.
 builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("EndpointConfig"));
 builder.Services.Configure<ServerInfor>(builder.Configuration.GetSection("ServerInfor"));
-builder.Services.AddCors(opt =>
-{
-    opt.AddPolicy("CORSPolicy", policy =>
-    {
-        policy.WithOrigins("https://localhost:3000")
-               .AllowAnyHeader()
-               .AllowAnyMethod();
-    });
-});
+//builder.Services.AddCors(opt =>
+//{
+//    opt.AddPolicy("CORSPolicy", policy =>
+//    {
+//        policy.WithOrigins("https://localhost:3000")
+//               .AllowAnyHeader()
+//               .AllowAnyMethod();
+//    });
+//});
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
@@ -74,6 +74,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseCors("CORSPolicy");
+//app.UseCors("CORSPolicy");
 
 app.Run();
