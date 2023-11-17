@@ -19,19 +19,7 @@ var nameQueue = builder.Configuration.GetConnectionString("SagaBusQueue");
 builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("EndpointConfig"));
 builder.Services.Configure<Address>(builder.Configuration.GetSection("Address"));
 builder.Services.Configure<ServerInfor>(builder.Configuration.GetSection("ServerInfor"));
-<<<<<<< HEAD
-builder.Services.AddCors(opt =>
-{
-    opt.AddPolicy("CORSPolicy", policy =>
-    {
-        policy.WithOrigins("*")
-               .AllowAnyMethod().AllowAnyHeader();
 
-    });
-});
-=======
->>>>>>> c371bd57433eea646f2cfcabbb8b0c95349c5809
-// Configuration "MassTransit" to use "RabbitMQ"
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
