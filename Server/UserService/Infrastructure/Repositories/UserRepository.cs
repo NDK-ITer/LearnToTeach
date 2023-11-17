@@ -28,6 +28,10 @@ namespace Infrastructure.Repositories
                 if (user == null) 
                 {
                     user = _dbSet.FirstOrDefault(u => u.PresentEmail == email && SecurityMethods.HashPassword(password) == u.PasswordHash);
+                    if(user == null)
+                    {
+                        return false;
+                    }
                     listUserInCache.Add(user);
                 }
                 return true;

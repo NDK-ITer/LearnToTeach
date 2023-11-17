@@ -14,14 +14,13 @@ export const register = createAsyncThunk('user/register', async (payload) => {
 });
 
 export const login = createAsyncThunk('account/login', async (payload) => {
-    console.log(payload)
+
     const data = await userApi.login(payload);
 
     // save data to local storage
-    localStorage.setItem(StorageKeys.TOKEN, data.jwt);
-    localStorage.setItem(StorageKeys.USER, JSON.stringify(data.user));
-
-    return data.user;
+    localStorage.setItem(StorageKeys.TOKEN, data.jwtToken);
+    localStorage.setItem(StorageKeys.USER, JSON.stringify(data));
+    return data;
 });
 
 const userSlice = createSlice({

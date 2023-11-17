@@ -35,8 +35,14 @@ function Login(props) {
             const action = login(values);
             const resultAction = await dispatch(action);
             unwrapResult(resultAction);
-            console.log(resultAction);
-            enqueueSnackbar('Login successfully!!! 🎉', { variant: 'success' });
+            const check = resultAction.payload
+            console.log(action)
+            if (typeof check.id !== 'undefined') {
+                enqueueSnackbar('Login successfully!!! 🎉', { variant: 'success' });
+            } else {
+                enqueueSnackbar('account error!!!', { variant: 'error' });
+            }
+
         } catch (error) {
             console.log('Failed to login:', error);
             enqueueSnackbar(error.message, { variant: 'error' });

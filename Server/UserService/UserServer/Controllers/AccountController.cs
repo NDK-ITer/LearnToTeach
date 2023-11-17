@@ -42,7 +42,7 @@ namespace Server.Controllers
 
         [HttpPost]
         [Route("login")]
-        public ActionResult<LoginResponses>? Login([FromForm] LoginRequest loginRequest)
+        public ActionResult<LoginResponses>? Login( LoginRequest loginRequest)
         {
             var user = _unitOfWork_UserService.UserService.GetUserByEmail(loginRequest.Email);
             var jwt = _unitOfWork_UserService.UserService.LoginUser(loginRequest.Email, loginRequest.Password);
