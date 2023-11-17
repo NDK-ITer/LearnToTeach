@@ -63,6 +63,15 @@ builder.Services.AddTransient<IUnitOfWork_UserService, UnitOfWork_UserService>()
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddTransient<UserEventMessage>();
 builder.Services.AddTransient<ImageMethod>();
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("myCorsPolicy", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -72,6 +81,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("myCorsPolicy");
 
 app.UseSession();
 
