@@ -35,6 +35,7 @@ namespace ClassServer.Controllers
         }
 
         [HttpGet]
+        [HttpOptions]
         [Route("public")]
         public ActionResult<List<ClassroomModel>> GetClassroomPublic()
         {
@@ -56,6 +57,7 @@ namespace ClassServer.Controllers
         }
 
         [HttpGet]
+        [HttpOptions]
         [Route("")]
         public ActionResult<ClassroomModel> GetClassById(string idClassroom)
         {
@@ -75,6 +77,7 @@ namespace ClassServer.Controllers
         }
 
         [HttpGet]
+        [HttpOptions]
         [Route("name")]
         public ActionResult<ClassroomModel> GetClassByName(string nameClassroom)
         {
@@ -95,6 +98,7 @@ namespace ClassServer.Controllers
         }
 
         [HttpPost]
+        [HttpOptions]
         [Route("create")]
         public async Task<ActionResult> CreateClassroom([FromForm] ClassroomRequest classroomRequest)
         {
@@ -124,6 +128,7 @@ namespace ClassServer.Controllers
         }
 
         [HttpPut]
+        [HttpOptions]
         [Route("update")]
         public async Task<ActionResult> UpdateClassroom([FromForm] ClassroomRequest ClassroomRequest)
         {
@@ -157,6 +162,7 @@ namespace ClassServer.Controllers
         }
 
         [HttpDelete]
+        [HttpOptions]
         [Route("delete")]
         public async Task<ActionResult> DeleteClassroom(string idClassroom)
         {
@@ -184,6 +190,7 @@ namespace ClassServer.Controllers
         }
 
         [HttpDelete]
+        [HttpOptions]
         [Route("remove-member")]
         public ActionResult DeleteMemberInClassroom(string idClassroom, string idMember)
         {
@@ -201,6 +208,7 @@ namespace ClassServer.Controllers
         }
 
         [HttpPost]
+        [HttpOptions]
         [Route("add-member")]
         public async Task<ActionResult> AddMemberToClassroom([FromForm] MemberRequest memberRequest)
         {

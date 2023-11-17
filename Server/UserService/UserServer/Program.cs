@@ -19,6 +19,7 @@ var nameQueue = builder.Configuration.GetConnectionString("SagaBusQueue");
 builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("EndpointConfig"));
 builder.Services.Configure<Address>(builder.Configuration.GetSection("Address"));
 builder.Services.Configure<ServerInfor>(builder.Configuration.GetSection("ServerInfor"));
+<<<<<<< HEAD
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CORSPolicy", policy =>
@@ -28,6 +29,8 @@ builder.Services.AddCors(opt =>
 
     });
 });
+=======
+>>>>>>> c371bd57433eea646f2cfcabbb8b0c95349c5809
 // Configuration "MassTransit" to use "RabbitMQ"
 builder.Services.AddMassTransit(cfg =>
 {
@@ -72,6 +75,15 @@ builder.Services.AddTransient<IUnitOfWork_UserService, UnitOfWork_UserService>()
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddTransient<UserEventMessage>();
 builder.Services.AddTransient<ImageMethod>();
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("myCorsPolicy", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -82,8 +94,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseSession();
+app.UseCors("myCorsPolicy");
 
-app.UseCors("CORSPolicy");
+app.UseSession();
 
 app.Run();

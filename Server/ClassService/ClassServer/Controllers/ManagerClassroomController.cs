@@ -19,6 +19,7 @@ namespace ClassServer.Controllers
         }
 
         [HttpGet]
+        [HttpOptions]
         [Route("GetAll")]
         public ActionResult<List<ClassroomModel>> GetAllClassroom()
         {
