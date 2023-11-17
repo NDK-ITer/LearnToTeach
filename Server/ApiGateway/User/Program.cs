@@ -10,20 +10,9 @@ builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
     .AddEnvironmentVariables();
 builder.Services.AddOcelot(builder.Configuration);
 builder.Services.AddCustomJwtAuthentication();
-builder.Services.AddCors(opt =>
-{
-    opt.AddPolicy("myCorsPolicy", builder =>
-    {
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
-    });
-});
-
 var app = builder.Build();
 await app.UseOcelot();
 
 app.UseAuthentication();
-app.UseCors("myCorsPolicy");
 app.UseAuthorization();
 app.Run();
