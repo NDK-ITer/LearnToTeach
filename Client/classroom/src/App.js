@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Login from 'components/Auth/Login';
 import Register from 'components/Auth/Register';
+import NotFound from 'components/NotFound';
 function App() {
   return (
     <div className="app">
@@ -11,8 +12,8 @@ function App() {
 
         <Redirect from="/home" to="/" exact />
         <Route path="/SignIn" component={Login} exact />
-        <Route path="/SingnUp" component={Register} exact />
-
+        <Route path="/SignUp" component={Register} exact />
+        <Route component={NotFound} />
       </Switch>
     </div>
   );
