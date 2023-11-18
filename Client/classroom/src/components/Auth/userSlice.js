@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import userApi from 'api/userApi';
 import StorageKeys from 'constants/storage-keys';
 
-export const register = createAsyncThunk('user/register', async (payload) => {
+export const register = createAsyncThunk('account/register', async (payload) => {
     console.log("payload" + payload)
     const data = await userApi.register(payload);
 
@@ -15,7 +15,10 @@ export const register = createAsyncThunk('user/register', async (payload) => {
 
 export const login = createAsyncThunk('account/login', async (payload) => {
 
-    const data = await userApi.login(payload);
+    const formData = new FormData()
+    formData.append('Email', payload.Email);
+    formData.append('Password', payload.Password);
+    const data = await userApi.login(formData);
 
     // save data to local storage
     localStorage.setItem(StorageKeys.TOKEN, data.jwtToken);

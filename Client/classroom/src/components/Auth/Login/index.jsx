@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import LoginForm from '../LoginForm';
 import st from './styles.module.css'
 
@@ -29,7 +30,7 @@ function Copyright(props) {
 function Login(props) {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
-
+    const history = useHistory();
     const handleSubmit = async (values) => {
         try {
             const action = login(values);
@@ -39,6 +40,7 @@ function Login(props) {
             console.log(action)
             if (typeof check.id !== 'undefined') {
                 enqueueSnackbar('Login successfully!!! 🎉', { variant: 'success' });
+                history.push('/');
             } else {
                 enqueueSnackbar('account error!!!', { variant: 'error' });
             }
@@ -75,7 +77,7 @@ function Login(props) {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="/SingnUp" variant="body2">
+                                <Link href="/SignUp" variant="body2">
                                     {"Chưa có tài khoản? Đăng ký ngay"}
                                 </Link>
                             </Grid>
