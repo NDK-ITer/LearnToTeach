@@ -14,6 +14,7 @@ namespace Infrastructure.Repositories
         public UserRepository(UserServiceDbContext context, IMemoryCache cache) : base(context)
         {
             _dbSet.Include(u => u.Role).Load();
+            _dbSet.Include(u => u.ListClassroomInfor).Load();
             _memoryCache = cache;
             _keyValueCache = "userWhichHaveBeenGet";
         }
@@ -22,19 +23,31 @@ namespace Infrastructure.Repositories
         public void UpdateUser(User user) => Update(user);
         public bool CheckAccountValid(string email, string password)
         {
+            var passwordDecode = SecurityMethods.HashPassword(password);
             if (_memoryCache.TryGetValue(_keyValueCache, out List<User> listUserInCache)) 
             {
-                var user = listUserInCache.FirstOrDefault(u => u.PresentEmail == email && SecurityMethods.HashPassword(password) == u.PasswordHash);
+                var user = listUserInCache.FirstOrDefault(u => u.PresentEmail == email);
                 if (user == null) 
                 {
-                    user = _dbSet.FirstOrDefault(u => u.PresentEmail == email && SecurityMethods.HashPassword(password) == u.PasswordHash);
-                    if(user == null)
+                    user = _dbSet.FirstOrDefault(u => u.PresentEmail == email);
+                    if (user != null)
                     {
+                        listUserInCache.Add(user);
+                        if (user.PasswordHash == passwordDecode)
+                        {
+                            return true;
+                        }
                         return false;
                     }
-                    listUserInCache.Add(user);
                 }
-                return true;
+                else
+                {
+                    if (user.PasswordHash == passwordDecode)
+                    {
+                        return true;
+                    }
+                }
+                return false;
             }
             else
             {

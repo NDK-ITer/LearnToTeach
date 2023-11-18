@@ -52,7 +52,7 @@ namespace Server.Controllers
             {
                 return jwt;
             }
-            return StatusCode(204);
+            return BadRequest("");
         }
 
         [HttpPost]
