@@ -14,6 +14,8 @@ namespace SagaStateMachine.ClassroomService.Classroom
         public string? description => classroomStateData.Description;
         public string? idUserHost => classroomStateData.IdUserHost;
         public string? name => classroomStateData.Name;
+        public string? avatar => classroomStateData.Avatar;
+        public string? linkAvatar => classroomStateData.LinkAvatar;
         public string? eventMessage => classroomStateData.EventMessage;
         public bool isPrivate => classroomStateData.IsPrivate;
     }

@@ -1,5 +1,6 @@
 ﻿using Application.Models;
 using Application.Services;
+using Domain.Entities;
 using Events.ClassroomServiceEvents.Classroom.AddClassroom;
 using MassTransit;
 
@@ -18,15 +19,14 @@ namespace ClassServer.Consumers.AddClassroom
             var data = context.Message;
             if (data != null)
             {
-                var updateClassroomModel = new UpdateClassroomModel()
+                var updateMemberModel = new UpdateMemberModel()
                 {
-                    idClassroom = data.idClassroom.ToString(),
-                    nameUserHost = data.nameUserHost,
-                    avatarUserHost = data.avatar,
-                    idUserHost = data.idUserHost,
-                    linkAvatar = data.linkAvatar
+                    idMember = data.idUserHost,
+                    nameMember = data.nameUserHost,
+                    avatar = data.avatarMember,
+                    linkAvatar = data.linkAvatar,
                 };
-                unitOfWork_ClassroomService._classroomService.UpdateClassroom(updateClassroomModel);
+                unitOfWork_ClassroomService._memberService.UpdateInforMember(updateMemberModel);
             }
         }
     }

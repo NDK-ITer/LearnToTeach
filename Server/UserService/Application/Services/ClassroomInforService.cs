@@ -148,13 +148,14 @@ namespace Application.Services
                 var classroom = _unitOfWork.classroomRepository.Find(p => p.IdClassroom == updateClassroomInforModel.IdClassroom);
                 foreach (var item in classroom)
                 {
-                    item.Description = updateClassroomInforModel.Description;
-                    item.Name = updateClassroomInforModel.Name;
-                    item.LinkAvatar = updateClassroomInforModel.LinkAvatar;
-                    item.Avatar = updateClassroomInforModel.Avatar;
+                    if (!updateClassroomInforModel.Description.IsNullOrEmpty()) item.Description = updateClassroomInforModel.Description;
+                    if (!updateClassroomInforModel.Name.IsNullOrEmpty()) item.Name = updateClassroomInforModel.Name;
+                    if (!updateClassroomInforModel.LinkAvatar.IsNullOrEmpty()) item.LinkAvatar = updateClassroomInforModel.LinkAvatar;
+                    if (!updateClassroomInforModel.Avatar.IsNullOrEmpty()) item.Avatar = updateClassroomInforModel.Avatar;
                     _unitOfWork.classroomRepository.UpdateClassroomInfor(item);
                 };
                 _unitOfWork.SaveChange();
+                _unitOfWork.Dispose();
                 return 1;
             }
             catch (Exception)

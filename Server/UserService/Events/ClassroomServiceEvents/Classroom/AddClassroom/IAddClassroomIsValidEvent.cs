@@ -5,7 +5,8 @@
         public Guid idClassroom { get; }
         public string? idUserHost { get; }
         public string? nameUserHost { get; }
-        public string? avatar { get; }
+        public string? avatarClassroom { get; }
+        public string? avatarMember { get; }
         public string? linkAvatar { get; }
     }
 }

@@ -18,7 +18,7 @@ namespace Application.Services
         List<Classroom> GetAllClassroomPublic();
         Classroom CreateClassroom(AddClassroomModel classroomRequest);
         int UpdateClassroom(ClassroomRequest classroomRequest);
-        int UpdateClassroom(UpdateClassroomModel classroomUpdateModel);
+        Classroom UpdateClassroom(UpdateClassroomModel classroomUpdateModel);
         int DeleteClassroom(string idClass);
         int RemoveMember(string idClassroom, string idMember);
     }
@@ -214,14 +214,13 @@ namespace Application.Services
             }
         }
 
-        public int UpdateClassroom(UpdateClassroomModel classroomUpdateModel)
+        public Classroom? UpdateClassroom(UpdateClassroomModel classroomUpdateModel)
         {
             try
             {
-                if (classroomUpdateModel.IsNull()) return 0;
-                if (classroomUpdateModel.idClassroom.IsNullOrEmpty()) return 0;
+                if (classroomUpdateModel.IsNull()) return null;
+                if (classroomUpdateModel.idClassroom.IsNullOrEmpty()) return null;
                 var classroom = _unitOfWork.classroomRepository.Find(p => p.Id == classroomUpdateModel.idClassroom).FirstOrDefault();
-                var member = _unitOfWork.memberRepository.Find(p => p.IdMember == classroomUpdateModel.idUserHost).FirstOrDefault();
                 if (!classroom.IsNull())
                 {
                     if (!classroomUpdateModel.linkAvatar.IsNullOrEmpty()) classroom.LinkAvatar = classroomUpdateModel.linkAvatar;
@@ -229,23 +228,13 @@ namespace Application.Services
                     _unitOfWork.classroomRepository.Update(classroom);
                     _unitOfWork.SaveChange();
                     _unitOfWork.Dispose();
-                    return 1;
+                    return classroom;
                 }
-                else if (!member.IsNull()) 
-                {
-                    if (!classroomUpdateModel.linkAvatar.IsNullOrEmpty()) member.LinkAvatar = classroomUpdateModel.linkAvatar;
-                    if (!classroomUpdateModel.nameUserHost.IsNullOrEmpty()) member.Name = classroomUpdateModel.nameUserHost;
-                    if (!classroomUpdateModel.avatarUserHost.IsNullOrEmpty()) member.Avatar = classroomUpdateModel.avatarUserHost;
-                    _unitOfWork.classroomRepository.Update(classroom);
-                    _unitOfWork.SaveChange();
-                    _unitOfWork.Dispose();
-                    return 1;
-                }
-                return 0;
+                return null;
             }
             catch (Exception)
             {
-                return -1;
+                return null;
             }
         }
     }

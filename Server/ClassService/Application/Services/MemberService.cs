@@ -59,7 +59,7 @@ namespace Application.Services
         }
         public int UpdateInforMember(UpdateMemberModel memberModel)
         {
-            if (memberModel.IsNull()) return 0;
+            if (memberModel.IsNull() || memberModel.idMember.IsNullOrEmpty()) return 0;
             try
             {
                 var member = _unitOfWork.memberRepository.Find(p => p.IdMember == memberModel.idMember).FirstOrDefault();
