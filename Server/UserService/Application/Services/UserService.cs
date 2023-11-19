@@ -83,8 +83,8 @@ namespace Application.Services
                 {
                     id = Guid.NewGuid().ToString(),
                     UserName = registerRequest.UserName,
-                    FirstName = registerRequest.FirstName,
-                    LastName = registerRequest.LastName,
+                    FirstName = registerRequest.FirstName.IsNullOrEmpty() ? registerRequest.UserName : string.Empty,
+                    LastName = registerRequest.LastName.IsNullOrEmpty() ? registerRequest.UserName : string.Empty,
                     FirstEmail = registerRequest.Email,
                     PhoneNumber = registerRequest.PhoneNumber,
                     Avatar = string.Empty,

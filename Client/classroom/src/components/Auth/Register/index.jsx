@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import RegisterForm from '../RegisterForm';
-
+import { useHistory } from 'react-router-dom';
 import st from './styles.module.css'
 
 
@@ -34,17 +34,29 @@ function Copyright(props) {
 function Register(props) {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
-
+    const history = useHistory();
     const handleSubmit = async (values) => {
 
-        // auto set username = email
-        // values.UserName = values.Email;
+        try {
+            const action = register(values);
+            const resultAction = await dispatch(action);
+            unwrapResult(resultAction);
+            const check = resultAction.payload
+            console.log(resultAction.payload)
+            if (typeof check.status != 'undefined') {
+                if (check.status === 1) {
+                    enqueueSnackbar(check.message, { variant: 'success' });
+                    history.push('/SignIn');
+                } else {
+                    enqueueSnackbar(check.message, { variant: 'error' });
+                }
 
-        const action = register(values);
-        const resultAction = await dispatch(action);
-        unwrapResult(resultAction);
-        console.log(resultAction.payload)
-        enqueueSnackbar('Register successfully!!! 🎉', { variant: 'success' });
+            }
+
+        } catch (error) {
+            console.log('Failed to login:', error);
+            enqueueSnackbar(error.message, { variant: 'error' });
+        }
 
     };
 

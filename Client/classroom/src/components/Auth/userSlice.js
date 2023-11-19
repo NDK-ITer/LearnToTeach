@@ -5,14 +5,16 @@ import StorageKeys from 'constants/storage-keys';
 export const register = createAsyncThunk('account/register', async (payload) => {
 
     const formData = new FormData()
+    console.log('PhoneNumber' + payload.PhoneNumber)
     formData.append('UserName', payload.UserName);
     formData.append('Email', payload.Email);
+    formData.append('PhoneNumber', payload.PhoneNumber);
     formData.append('Password', payload.Password);
     formData.append('PasswordIsConfirmed', payload.PasswordIsConfirmed);
 
     const data = await userApi.register(formData);
 
-    return 1;
+    return data;
 });
 
 export const login = createAsyncThunk('account/login', async (payload) => {

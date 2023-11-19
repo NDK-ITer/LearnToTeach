@@ -99,7 +99,7 @@ function RegisterForm(props) {
             <form onSubmit={form.handleSubmit(handleSubmit)}>
                 <InputField name="UserName" label="User Name" form={form} />
                 <InputField name="Email" label="Email" form={form} />
-                <InputField name="PhoneNumber" label="PhoneNumber" form={form} type='number' />
+                <InputField name="PhoneNumber" label="PhoneNumber" form={form}  />
                 <PasswordField name="Password" label="Password" form={form} />
                 <PasswordField name="PasswordIsConfirmed" label="Retype Password" form={form} />
 
