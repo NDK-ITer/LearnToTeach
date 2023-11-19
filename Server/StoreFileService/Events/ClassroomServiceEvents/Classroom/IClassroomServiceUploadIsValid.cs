@@ -3,7 +3,7 @@
     public interface IClassroomServiceUploadIsValid
     {
         public Guid Id { get; }
-        public string Link { get; }
+        public string LinkImage { get; }
         public string NameImage { get; }
     }
 }

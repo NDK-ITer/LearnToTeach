@@ -36,6 +36,17 @@ namespace Application.Services
             {
                 //Create a classroom
                 var idClassroom = Guid.NewGuid().ToString();
+                var member = _unitOfWork.memberRepository.GetById(classroomRequest.idUserHost);
+                if (member == null)
+                {
+                    member = new Member()
+                    {
+                        IdMember = classroomRequest.idUserHost,
+                        Name = string.Empty,
+                        Avatar = string.Empty,
+                        LinkAvatar = string.Empty
+                    };
+                }
                 var classroom = new Classroom()
                 {
                     Id = idClassroom,
@@ -54,13 +65,7 @@ namespace Application.Services
                 };
                 classroom.ListMember = new List<Member>()
                 {
-                    new Member()
-                    {
-                        IdMember = classroomRequest.idUserHost,
-                        Name = string.Empty,
-                        Avatar = string.Empty,
-                        LinkAvatar = string.Empty
-                    }
+                    member
                 };
 
                 if (classroomRequest.isPrivate == true && !classroomRequest.key.IsNullOrEmpty())
@@ -217,18 +222,26 @@ namespace Application.Services
                 if (classroomUpdateModel.idClassroom.IsNullOrEmpty()) return 0;
                 var classroom = _unitOfWork.classroomRepository.Find(p => p.Id == classroomUpdateModel.idClassroom).FirstOrDefault();
                 var member = _unitOfWork.memberRepository.Find(p => p.IdMember == classroomUpdateModel.idUserHost).FirstOrDefault();
-                if (classroom.IsNull()) return 0;
-                if (member.IsNull()) return 0;
-                if (!classroomUpdateModel.linkAvatar.IsNullOrEmpty()) classroom.LinkAvatar = classroomUpdateModel.linkAvatar;
-                if (!classroomUpdateModel.linkAvatar.IsNullOrEmpty()) member.LinkAvatar = classroomUpdateModel.linkAvatar;
-                if (!classroomUpdateModel.linkAvatar.IsNullOrEmpty()) classroom.LinkAvatar = classroomUpdateModel.linkAvatar;
-                if (!classroomUpdateModel.avatarClassroom.IsNullOrEmpty()) classroom.Avatar = classroomUpdateModel.avatarClassroom;
-                if (!classroomUpdateModel.nameUserHost.IsNullOrEmpty()) member.Name = classroomUpdateModel.nameUserHost;
-                if (!classroomUpdateModel.avatarUserHost.IsNullOrEmpty()) member.Avatar = classroomUpdateModel.avatarUserHost;
-                _unitOfWork.classroomRepository.Update(classroom);
-                _unitOfWork.SaveChange();
-                _unitOfWork.Dispose();
-                return 1;
+                if (!classroom.IsNull())
+                {
+                    if (!classroomUpdateModel.linkAvatar.IsNullOrEmpty()) classroom.LinkAvatar = classroomUpdateModel.linkAvatar;
+                    if (!classroomUpdateModel.avatarClassroom.IsNullOrEmpty()) classroom.Avatar = classroomUpdateModel.avatarClassroom;
+                    _unitOfWork.classroomRepository.Update(classroom);
+                    _unitOfWork.SaveChange();
+                    _unitOfWork.Dispose();
+                    return 1;
+                }
+                else if (!member.IsNull()) 
+                {
+                    if (!classroomUpdateModel.linkAvatar.IsNullOrEmpty()) member.LinkAvatar = classroomUpdateModel.linkAvatar;
+                    if (!classroomUpdateModel.nameUserHost.IsNullOrEmpty()) member.Name = classroomUpdateModel.nameUserHost;
+                    if (!classroomUpdateModel.avatarUserHost.IsNullOrEmpty()) member.Avatar = classroomUpdateModel.avatarUserHost;
+                    _unitOfWork.classroomRepository.Update(classroom);
+                    _unitOfWork.SaveChange();
+                    _unitOfWork.Dispose();
+                    return 1;
+                }
+                return 0;
             }
             catch (Exception)
             {

@@ -21,7 +21,7 @@ namespace ClassServer.Consumers.UploadFile
                 var classroomUpdate = new UpdateClassroomModel()
                 {
                     idClassroom = data.Id.ToString(),
-                    linkAvatar = data.Link,
+                    linkAvatar = data.LinkImage,
                     avatarClassroom = data.NameImage
                 };
                 unitOfWork_ClassroomService._classroomService.UpdateClassroom(classroomUpdate);
