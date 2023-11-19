@@ -51,7 +51,7 @@ namespace Server.Controllers
         {
             try
             {
-                var resultstatus = new resultStatus()
+                var resultstatus = new ResultStatus()
                 {
                     status = -3,
                     message = ""
@@ -89,7 +89,7 @@ namespace Server.Controllers
         {
             try
             {
-                var resultstatus = new resultStatus()
+                var resultstatus = new ResultStatus()
                 {
                     status = -5,
                     message = ""
@@ -157,8 +157,17 @@ namespace Server.Controllers
         {
             try
             {
+                var resultstatus = new ResultStatus()
+                {
+                    status = -1,
+                    message = string.Empty
+                };
                 var user = _unitOfWork_UserService.UserService.GetUserByEmail(email);
-                if (user == null) return BadRequest($"Not found user with {email}");
+                if (user == null)
+                {
+                    resultstatus.message = $"Not found user with {email}";
+                    return BadRequest(resultstatus);
+                }
                 if (user.IsVerified) return StatusCode(201, "Email had been confirmed");
                 //Get user token
                 var userToken = user.TokenAccess;
@@ -177,8 +186,10 @@ namespace Server.Controllers
                         subject = "Confirm your account",
                         eventMessage = _userEventMessage.ConfirmEmail
                     });
+                    resultstatus.status = 1;
+                    resultstatus.message = $"Please check your email.";
                 }
-                return Ok($"Please check your email.");
+                return Ok(resultstatus);
             }
             catch (Exception)
             {
