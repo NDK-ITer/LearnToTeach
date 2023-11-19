@@ -7,7 +7,9 @@ import PasswordField from 'components/form-controls/PasswordField';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import Common from 'constants/common';
 import * as yup from 'yup';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,26 +47,30 @@ function RegisterForm(props) {
     const classes = useStyles();
 
     const schema = yup.object().shape({
-        fullName: yup
+        UserName: yup
             .string()
             .required('Please enter your full name.')
             .test('should has at least two words', 'Please enter at least two words.', (value) => {
                 return value.split(' ').length >= 2;
             }),
 
-        email: yup.string().required('Please enter your email.').email('Please enter a valid email address.'),
-        password: yup.string().required('Please enter your password').min(6, 'Please enter at least 6 characters.'),
-        retypePassword: yup
+        Email: yup.string().required('Please enter your email.').email('Please enter a valid email address.'),
+        PhoneNumber: yup.string()
+            .required('Please enter your phoneNumber.')
+            .matches(Common.phoneRegExp, 'Phone number is not valid'),
+        Password: yup.string().required('Please enter your password').min(6, 'Please enter at least 6 characters.'),
+        PasswordIsConfirmed: yup
             .string()
             .required('Please retype your password.')
-            .oneOf([yup.ref('password')], 'Password does not match'),
+            .oneOf([yup.ref('Password')], 'Password does not match'),
     });
     const form = useForm({
         defaultValues: {
-            fullName: '',
-            email: '',
-            password: '',
-            retypePassword: '',
+            UserName: '',
+            Email: '',
+            PhoneNumber: '',
+            Password: '',
+            PasswordIsConfirmed: '',
         },
         resolver: yupResolver(schema),
     });
@@ -91,11 +97,11 @@ function RegisterForm(props) {
             </Typography>
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <InputField name="fullName" label="Full Name" form={form} />
-                <ImageUpload name="avarta" form={form} />
-                <InputField name="email" label="Email" form={form} />
-                <PasswordField name="password" label="Password" form={form} />
-                <PasswordField name="retypePassword" label="Retype Password" form={form} />
+                <InputField name="UserName" label="User Name" form={form} />
+                <InputField name="Email" label="Email" form={form} />
+                <InputField name="PhoneNumber" label="PhoneNumber" form={form} type='number' />
+                <PasswordField name="Password" label="Password" form={form} />
+                <PasswordField name="PasswordIsConfirmed" label="Retype Password" form={form} />
 
                 <Button
                     disabled={isSubmitting}

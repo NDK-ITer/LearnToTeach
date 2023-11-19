@@ -7,6 +7,9 @@ using JwtAuthenticationManager.Models;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
+using System.Net;
+using System.Text;
 using UserServer.Extensions;
 using UserServer.Models;
 
@@ -46,13 +49,37 @@ namespace Server.Controllers
 
         public ActionResult<LoginResponses>? Login([FromForm] LoginRequest loginRequest)
         {
-            var user = _unitOfWork_UserService.UserService.GetUserByEmail(loginRequest.Email);
-            var jwt = _unitOfWork_UserService.UserService.LoginUser(loginRequest.Email, loginRequest.Password);
-            if (jwt != null && user != null)
+            try
             {
-                return jwt;
+                var resultstatus = new resultStatus()
+                {
+                    status = -3,
+                    message = ""
+                };
+
+                var user = _unitOfWork_UserService.UserService.GetUserByEmail(loginRequest.Email);
+
+                var jwt = _unitOfWork_UserService.UserService.LoginUser(loginRequest.Email, loginRequest.Password);
+                if (user == null)
+                {
+                    resultstatus.status = -2;
+                    resultstatus.message = "account not found";
+                }
+                else if (jwt == null)
+                {
+                    resultstatus.status = -1;
+                    resultstatus.message = "password incorrect";
+                }
+                else if (user != null && jwt != null)
+                {
+                    return jwt;
+                }
+                return Ok(resultstatus);
             }
-            return BadRequest("");
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost]
@@ -62,16 +89,36 @@ namespace Server.Controllers
         {
             try
             {
+                var resultstatus = new resultStatus()
+                {
+                    status = -5,
+                    message = ""
+                };
                 if (registerRequest.Password != registerRequest.PasswordIsConfirmed)
                 {
-                    return BadRequest("Password is not confirmed!");
+                    resultstatus.status = -4;
+                    resultstatus.message = "Password is not confirmed!";
+                    return Ok(resultstatus);
                 }
-                if (_unitOfWork_UserService.UserService.EmailIsExist(registerRequest.Email)) return BadRequest("Email was Exist.");
-                if (_unitOfWork_UserService.UserService.UsernameIsExist(registerRequest.UserName)) return BadRequest("Username was Exist.");
-                if (!PhoneNumberMethod.IsPhoneNumber(registerRequest.PhoneNumber)) return BadRequest("invalid phone number.");
+                if (_unitOfWork_UserService.UserService.EmailIsExist(registerRequest.Email))
+                {
+                    resultstatus.status = -3;
+                    resultstatus.message = "Email was Exist.";
+                    return Ok(resultstatus);
+                }
+                if (!PhoneNumberMethod.IsPhoneNumber(registerRequest.PhoneNumber))
+                {
+                    resultstatus.status = -2;
+                    resultstatus.message = "invalid phone number.";
+                    return Ok(resultstatus);
+                }
                 var user = _unitOfWork_UserService.UserService.RegisterUser(registerRequest);
-                if (user == null) return BadRequest("Register is false.");
-
+                if (user == null)
+                {
+                    resultstatus.status = -1;
+                    resultstatus.message = "Register is false.";
+                    return Ok(resultstatus);
+                }
                 //Get user token
                 var userToken = user.TokenAccess;
                 //create URL to verify
@@ -92,8 +139,9 @@ namespace Server.Controllers
                         eventMessage = _userEventMessage.Create
                     });
                 }
-
-                return Ok($"Please check your email.");
+                resultstatus.status = 1;
+                resultstatus.message = "Register Success Please check your email.";
+                return Ok(resultstatus);
             }
             catch (Exception e)
             {

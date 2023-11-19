@@ -3,14 +3,16 @@ import userApi from 'api/userApi';
 import StorageKeys from 'constants/storage-keys';
 
 export const register = createAsyncThunk('account/register', async (payload) => {
-    console.log("payload" + payload)
-    const data = await userApi.register(payload);
 
-    // save data to local storage
-    localStorage.setItem(StorageKeys.TOKEN, data.jwt);
-    localStorage.setItem(StorageKeys.USER, JSON.stringify(data.user));
+    const formData = new FormData()
+    formData.append('UserName', payload.UserName);
+    formData.append('Email', payload.Email);
+    formData.append('Password', payload.Password);
+    formData.append('PasswordIsConfirmed', payload.PasswordIsConfirmed);
 
-    return data.user;
+    const data = await userApi.register(formData);
+
+    return 1;
 });
 
 export const login = createAsyncThunk('account/login', async (payload) => {
@@ -19,7 +21,7 @@ export const login = createAsyncThunk('account/login', async (payload) => {
     formData.append('Email', payload.Email);
     formData.append('Password', payload.Password);
     const data = await userApi.login(formData);
-
+    console.log(data);
     // save data to local storage
     localStorage.setItem(StorageKeys.TOKEN, data.jwtToken);
     localStorage.setItem(StorageKeys.USER, JSON.stringify(data));

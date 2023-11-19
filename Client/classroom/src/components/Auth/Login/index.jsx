@@ -37,12 +37,12 @@ function Login(props) {
             const resultAction = await dispatch(action);
             unwrapResult(resultAction);
             const check = resultAction.payload
-            console.log(action)
+            console.log(resultAction.payload)
             if (typeof check.id !== 'undefined') {
                 enqueueSnackbar('Login successfully!!! 🎉', { variant: 'success' });
                 history.push('/');
-            } else {
-                enqueueSnackbar('account error!!!', { variant: 'error' });
+            } else if (typeof check.status != 'undefined') {
+                enqueueSnackbar(check.message, { variant: 'error' });
             }
 
         } catch (error) {
