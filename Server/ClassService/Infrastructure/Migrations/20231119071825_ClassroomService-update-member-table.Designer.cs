@@ -4,6 +4,7 @@ using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ClassroomDbContext))]
-    partial class ClassroomDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231119071825_ClassroomService-update-member-table")]
+    partial class ClassroomServiceupdatemembertable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,18 +31,25 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("Avatar")
+                    b.Property<string>("AvatarClassroom")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AvatarUserHost")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 11, 19, 15, 39, 21, 755, DateTimeKind.Local).AddTicks(7307));
+                        .HasDefaultValue(new DateTime(2023, 11, 19, 14, 18, 25, 545, DateTimeKind.Local).AddTicks(2885));
 
                     b.Property<string>("Description")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("IdUserHost")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsPrivate")
                         .HasColumnType("bit");
@@ -55,6 +65,10 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NameUserHost")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Classrooms", (string)null);
@@ -62,7 +76,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Member", b =>
                 {
-                    b.Property<string>("IdMember")
+                    b.Property<string>("IdUser")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -78,7 +92,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("IdMember");
+                    b.HasKey("IdUser");
 
                     b.ToTable("Member", (string)null);
                 });
@@ -93,9 +107,18 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("LinkAvatar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Role")
                         .HasMaxLength(20)

@@ -1,4 +1,4 @@
-﻿namespace FileStoreServer.FileMethods
+﻿namespace ClassServer.FileMethods
 {
     public class ImageMethod : GenericFileMethod
     {

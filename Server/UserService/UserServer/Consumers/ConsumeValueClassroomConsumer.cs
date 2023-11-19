@@ -51,7 +51,8 @@ namespace UserServer.Consumers
                             idClassroom = data.idClassroom,
                             idUserHost = data.idUserHost,
                             nameUserHost = $"{user.FirstName} {user.LastName}",
-                            avatar = user.Avatar
+                            avatar = user.Avatar,
+                            linkAvatar = user.LinkAvatar,
                         });
                     }
                 }

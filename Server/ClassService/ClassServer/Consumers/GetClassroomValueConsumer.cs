@@ -33,7 +33,7 @@ namespace ClassServer.Consumers
                 await context.Publish<IUploadFileEvent>(new
                 {
                     Id = data.idClassroom,
-                    FileByteString = data.avatarClassroom,
+                    FileByteString = data.avatar,
                     Event = data.eventMessage,
                     ServerName = _serverInfor.Value.Name
                 });

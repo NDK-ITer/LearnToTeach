@@ -15,10 +15,14 @@ namespace Infrastructure.Configurations
             builder.Property(x => x.Description).HasMaxLength(100);
             builder.Property(x => x.IsPrivate).IsRequired();
             builder.Property(x => x.KeyHash).HasMaxLength(200);
-            builder.Property(x => x.NameUserHost).HasMaxLength(50);
-            builder.Property(x => x.AvatarUserHost).HasMaxLength(200);
-            builder.Property(x => x.AvatarClassroom).HasMaxLength(200);
+            builder.Property(x => x.Avatar).HasMaxLength(200);
             builder.Property(x => x.LinkAvatar).HasMaxLength(100);
+            builder.HasMany(p => p.ListMember)
+                .WithMany(p => p.ListClassroom)
+                .UsingEntity<MemberClassroom>(
+                    l => l.HasOne/*<Member>*/(e => e.Member).WithMany(e => e.ListMemberClassroom).HasForeignKey(e => e.IdUser),
+                    r => r.HasOne/*<Classroom>*/(e => e.Classroom).WithMany(e => e.ListMemberClassroom).HasForeignKey(e => e.IdClass)
+                );
         }
     }
 }

@@ -18,7 +18,7 @@ namespace ClassServer.Consumers.UpdateUserInfor
             var data = context.Message;
             if (data != null)
             {
-                var memberModel = new MemberModel()
+                var memberModel = new UpdateMemberModel()
                 {
                     idMember = data.IdUser.ToString(),
                     nameMember = data.FullName,

@@ -14,11 +14,13 @@ namespace Infrastructure.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ClassroomConfiguration());
-            modelBuilder.ApplyConfiguration(new ClassroomDetailConfiguration());
-            modelBuilder.SeedData();
+            modelBuilder.ApplyConfiguration(new MemberClassroomConfiguration());
+            modelBuilder.ApplyConfiguration(new MemberConfiguration());
+            //modelBuilder.SeedData();
             //base.OnModelCreating(modelBuilder);
         }
         public DbSet<Classroom> Classrooms { get; set; }
         public DbSet<MemberClassroom> MemberClassrooms { get; set; }
+        public DbSet<Member> Members { get; set; }
     }
 }

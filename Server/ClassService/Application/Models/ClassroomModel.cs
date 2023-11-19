@@ -17,23 +17,12 @@ namespace Application.Models
             if (classroom != null)
             {
                 this.idClassroom = classroom.Id;
-                this.avatarClassroom = $"{classroom.LinkAvatar}/{classroom.AvatarClassroom}";
+                this.avatarClassroom = $"{classroom.LinkAvatar}/{classroom.Avatar}";
                 this.name = classroom.Name;
                 this.description = classroom.Description;
-                Members = new List<MemberModel>()
+                foreach (var item in classroom.ListMember)
                 {
-                    new MemberModel()
-                    {
-                        idMember = classroom.IdUserHost,
-                        nameMember = classroom.NameUserHost,
-                        avatar = $"{classroom.LinkAvatar}/{classroom.AvatarUserHost}",
-                        role = "Host",
-                        description = "All in this classroom",
-                    }
-                };
-                foreach (var item in classroom.ListUserId)
-                {
-                    Members.Add(new MemberModel(item));
+                    Members.Add(new MemberModel(item, classroom.Id));
                 }
             }
         }

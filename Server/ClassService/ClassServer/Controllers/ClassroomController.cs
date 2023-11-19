@@ -1,6 +1,7 @@
 ﻿using Application.Models;
 using Application.Requests;
 using Application.Services;
+using ClassServer.FileMethods;
 using ClassServer.Models;
 using Events.ClassroomServiceEvents.Classroom;
 using Events.ClassroomServiceEvents.Member;
@@ -17,19 +18,19 @@ namespace ClassServer.Controllers
     {
         private readonly IUnitOfWork_ClassroomService _unitOfWork_ClassroomService;
         private readonly IOptions<EndpointConfig> _queue;
-        private readonly IOptions<ServerInfor> _serverInfor;
+        private readonly ImageMethod _imageMethod;
         private readonly IBus _bus;
         private readonly ClassroomEventMessage _classroomStateMessage;
 
         public ClassroomController(IUnitOfWork_ClassroomService unitOfWork_ClassroomService,
             ClassroomEventMessage classroomStateMessage,
             IOptions<EndpointConfig> queue,
-            IOptions<ServerInfor> serverInfor,
+            ImageMethod imageMethod,
             IBus bus)
         {
             _unitOfWork_ClassroomService = unitOfWork_ClassroomService;
             _classroomStateMessage = classroomStateMessage;
-            _serverInfor = serverInfor;
+            _imageMethod = imageMethod;
             _queue = queue;
             _bus = bus;
         }
@@ -100,11 +101,30 @@ namespace ClassServer.Controllers
         [HttpPost]
         [HttpOptions]
         [Route("create")]
-        public async Task<ActionResult> CreateClassroom([FromForm] ClassroomRequest classroomRequest)
+        public async Task<IActionResult> CreateClassroom([FromForm] ClassroomRequest classroomRequest)
         {
+            var resultMessage = new ResultStatus()
+            {
+                Status = 0,
+                Message = string.Empty
+            };
             try
             {
-                var check = _unitOfWork_ClassroomService._classroomService.CreateClassroom(classroomRequest);
+                if (classroomRequest.idUserHost.IsNullOrEmpty())
+                {
+                    resultMessage.Message = "\"idUserHost\" is null or empty";
+                    return BadRequest(resultMessage);
+                }
+                
+                var addClassroomModel = new AddClassroomModel()
+                {
+                    idClassroom = classroomRequest.idClassroom,
+                    idUserHost = classroomRequest.idUserHost,
+                    description = classroomRequest.description,
+                    name = classroomRequest.name,
+                    isPrivate = classroomRequest.isPrivate,
+                };
+                var check = _unitOfWork_ClassroomService._classroomService.CreateClassroom(addClassroomModel);
                 if (check == null) return BadRequest();
                 var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
                 if (endPoint != null)
@@ -113,28 +133,34 @@ namespace ClassServer.Controllers
                     {
                         idClassroom = Guid.Parse(check.Id),
                         description = check.Description,
-                        idUserHost = check.IdUserHost,
+                        idUserHost = classroomRequest.idUserHost,
                         name = check.Name,
+                        avatar = _imageMethod.GenerateToString(classroomRequest.Avatar),
                         isPrivate = check.IsPrivate,
                         eventMessage = _classroomStateMessage.Create
                     });
                 }
-                return Ok("Created Classroom is successful!");
+                resultMessage.Status = 1;
+                resultMessage.Message = "Created Classroom is successful!";
+                return Ok(resultMessage);
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                resultMessage.Status = -1;
+                resultMessage.Message = e.Message;
+                return BadRequest(resultMessage);
             }
         }
 
         [HttpPut]
         [HttpOptions]
         [Route("update")]
-        public async Task<ActionResult> UpdateClassroom([FromForm] ClassroomRequest ClassroomRequest)
+        public async Task<ActionResult> UpdateClassroom([FromForm] ClassroomRequest classroomRequest)
         {
             try
             {
-                var check = _unitOfWork_ClassroomService._classroomService.UpdateClassroom(ClassroomRequest);
+                
+                var check = _unitOfWork_ClassroomService._classroomService.UpdateClassroom(classroomRequest);
                 if (check == 1)
                 {
                     var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
@@ -142,11 +168,12 @@ namespace ClassServer.Controllers
                     {
                         endPoint.Send<IGetValueClassroomEvent>(new
                         {
-                            idClassroom = Guid.Parse(ClassroomRequest.idClassroom),
-                            description = ClassroomRequest.description,
+                            idClassroom = Guid.Parse(classroomRequest.idClassroom),
+                            description = classroomRequest.description,
                             idUserHost = string.Empty,
-                            name = ClassroomRequest.name,
-                            isPrivate = ClassroomRequest.isPrivate,
+                            name = classroomRequest.name,
+                            isPrivate = classroomRequest.isPrivate,
+                            avatar = _imageMethod.GenerateToString(classroomRequest.Avatar),
                             eventMessage = _classroomStateMessage.Update
                         });
                     }
@@ -221,13 +248,11 @@ namespace ClassServer.Controllers
                 var listCheckFalse = new Dictionary<string,bool>();
                 foreach (var item in memberRequest.listIdMember)
                 {
-                    var check = _unitOfWork_ClassroomService._memberService.AddMember(new MemberModel
+                    var check = _unitOfWork_ClassroomService._memberService.AddMember(new UpdateMemberModel
                     {
                         idMember = item,
                         avatar = "",
                         nameMember = "",
-                        role = "member".ToUpper(),
-                        description = ""
                     }, memberRequest.idClassroom);
                     if (check == 1)
                     {

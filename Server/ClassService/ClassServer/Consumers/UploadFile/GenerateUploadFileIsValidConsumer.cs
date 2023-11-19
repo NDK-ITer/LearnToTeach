@@ -18,7 +18,7 @@ namespace ClassServer.Consumers.UploadFile
             var data = context.Message;
             if (data != null)
             {
-                var classroomUpdate = new ClassroomUpdateModel()
+                var classroomUpdate = new UpdateClassroomModel()
                 {
                     idClassroom = data.Id.ToString(),
                     linkAvatar = data.Link,

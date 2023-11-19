@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Infrastructure;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Http;
 using XAct;
 
 namespace Application.Requests
@@ -13,6 +14,7 @@ namespace Application.Requests
         public string? key { get; set; }
         public string? name { get; set; }
         public bool isPrivate { get; set; }
+        public IFormFile? Avatar { get; set; }
 
         //update data from "ClassroomRequest" to "Classroom"
         public void UpdateToClassroom(Classroom classroom)

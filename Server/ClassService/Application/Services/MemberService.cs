@@ -9,8 +9,8 @@ namespace Application.Services
 {
     public interface IMemberService
     {
-        int AddMember(MemberModel memberModel, string idClassroom);
-        int UpdateInforMember(MemberModel memberModel);
+        int AddMember(UpdateMemberModel memberModel, string idClassroom);
+        int UpdateInforMember(UpdateMemberModel memberModel);
     }
     public class MemberService : IMemberService
     {
@@ -19,23 +19,36 @@ namespace Application.Services
         {
             _unitOfWork = new UnitOfWork(context, memoryCache);
         }
-        public int AddMember(MemberModel memberModel, string idClassroom)
+        public int AddMember(UpdateMemberModel memberModel, string idClassroom)
         {
             if (memberModel.IsNull() || idClassroom.IsNullOrEmpty()) return 0;
             try
             {
-                var member = new MemberClassroom()
+                var classroom = _unitOfWork.classroomRepository.Find(p => p.Id == idClassroom).FirstOrDefault();
+                if (classroom == null) return 0;
+                var member = _unitOfWork.memberRepository.Find(p => p.IdMember == memberModel.idMember).FirstOrDefault();
+                if (member == null)
                 {
-                    IdClass = idClassroom,
-                    IdUser = memberModel.idMember,
-                    Name = memberModel.nameMember,
-                    Avatar = memberModel.avatar,
-                    LinkAvatar = memberModel.linkAvatar,
+                    member = new Member()
+                    {
+                        IdMember = memberModel.idMember,
+                        Name = memberModel.nameMember,
+                        Avatar = memberModel.avatar,
+                        LinkAvatar = memberModel.linkAvatar,
+                    };
+                }
+                var memberClass = new MemberClassroom()
+                {
+                    IdClass = classroom.Id,
+                    IdUser = member.IdMember,
                     Role = "Member".ToUpper(),
-                    Description = memberModel.description,
+                    Description = "",
                 };
-                _unitOfWork.memberClassroomRepository.AddMember(member);
+                classroom.ListMember.Add(member);
+                classroom.ListMemberClassroom.Add(memberClass);
+                _unitOfWork.classroomRepository.Update(classroom);
                 _unitOfWork.SaveChange();
+                _unitOfWork.Dispose();
                 return 1;
             }
             catch (Exception)
@@ -44,24 +57,23 @@ namespace Application.Services
                 return -1;
             }
         }
-        public int UpdateInforMember(MemberModel memberModel)
+        public int UpdateInforMember(UpdateMemberModel memberModel)
         {
             if (memberModel.IsNull()) return 0;
             try
             {
-                var listMember = _unitOfWork.memberClassroomRepository.Find(p => p.IdUser == memberModel.idMember).ToList();
-                foreach (var member in listMember)
+                var member = _unitOfWork.memberRepository.Find(p => p.IdMember == memberModel.idMember).FirstOrDefault();
+                if (member != null)
                 {
                     if (!memberModel.nameMember.IsNullOrEmpty()) { member.Name = memberModel.nameMember; }
                     if (!memberModel.avatar.IsNullOrEmpty()) { member.Avatar = memberModel.avatar; }
                     if (!memberModel.linkAvatar.IsNullOrEmpty()) { member.LinkAvatar = memberModel.linkAvatar; }
-                    if (!memberModel.description.IsNullOrEmpty()) { member.Description = memberModel.description; }
-                    if (!memberModel.role.IsNullOrEmpty()) { member.Role = memberModel.role; }
-                    _unitOfWork.memberClassroomRepository.UpdateMemberClassroom(member);
+                    _unitOfWork.memberRepository.UpdateMember(member);
+                    _unitOfWork.SaveChange();
+                    _unitOfWork.Dispose();
+                    return 1;
                 }
-                _unitOfWork.SaveChange();
-                _unitOfWork.Dispose();
-                return 1;
+                return 0;
             }
             catch (Exception)
             {

@@ -5,6 +5,7 @@ using ClassServer.Consumers.AddMember;
 using ClassServer.Consumers.RemoveClassroom;
 using ClassServer.Consumers.UpdateUserInfor;
 using ClassServer.Consumers.UploadFile;
+using ClassServer.FileMethods;
 using ClassServer.Models;
 using Infrastructure.Context;
 using MassTransit;
@@ -53,6 +54,7 @@ builder.Services.AddHealthChecks();
 builder.Services.AddTransient<ClassroomEventMessage>();
 builder.Services.AddDbContext<ClassroomDbContext>(option => option.UseSqlServer(connectionString));
 builder.Services.AddTransient<IUnitOfWork_ClassroomService, UnitOfWork_ClassroomService>();
+builder.Services.AddTransient<ImageMethod>();
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("myCorsPolicy", builder =>

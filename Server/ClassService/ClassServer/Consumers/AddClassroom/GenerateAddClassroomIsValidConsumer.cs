@@ -18,11 +18,13 @@ namespace ClassServer.Consumers.AddClassroom
             var data = context.Message;
             if (data != null)
             {
-                var updateClassroomModel = new ClassroomUpdateModel()
+                var updateClassroomModel = new UpdateClassroomModel()
                 {
                     idClassroom = data.idClassroom.ToString(),
                     nameUserHost = data.nameUserHost,
-                    avatarUserHost = data.avatar
+                    avatarUserHost = data.avatar,
+                    idUserHost = data.idUserHost,
+                    linkAvatar = data.linkAvatar
                 };
                 unitOfWork_ClassroomService._classroomService.UpdateClassroom(updateClassroomModel);
             }
