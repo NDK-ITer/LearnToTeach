@@ -1,4 +1,5 @@
-﻿using Application.Requests;
+﻿using Application.Models;
+using Application.Requests;
 using Application.Services;
 using Events.UserServiceEvents;
 using FileStoreServer.FileMethods;
@@ -338,7 +339,13 @@ namespace Server.Controllers
         {
             try
             {
-                var check = _unitOfWork_UserService.UserService.UpdateUser(editInforRequest);
+                var updateUserModel = new UpdateUserModel()
+                {
+                    IdUser = editInforRequest.IdUser,
+                    FirstName = editInforRequest.FirstName,
+                    LastName = editInforRequest.LastName,
+                };
+                var check = _unitOfWork_UserService.UserService.UpdateUser(updateUserModel);
                 if (!check)
                 {
                     return BadRequest("Edit information is fail");
@@ -350,8 +357,9 @@ namespace Server.Controllers
                     {
                         id = Guid.Parse(editInforRequest.IdUser),
                         fullName = editInforRequest.FirstName + " " + editInforRequest.LastName,
-                        avatar = editInforRequest.Avatar,
-                        eventMessage = _userEventMessage.Update
+                        avatar = _imageMethod.GenerateToString(editInforRequest.Avatar),
+                        eventMessage = _userEventMessage.Update,
+                        serverName = _serverInfor.Value.Name
                     });
                 }
                 return Ok("Edit information is successful");

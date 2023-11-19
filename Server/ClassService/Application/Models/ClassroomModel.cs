@@ -16,10 +16,11 @@ namespace Application.Models
         {
             if (classroom != null)
             {
-                this.idClassroom = classroom.Id;
-                this.avatarClassroom = $"{classroom.LinkAvatar}/{classroom.Avatar}";
-                this.name = classroom.Name;
-                this.description = classroom.Description;
+                idClassroom = classroom.Id;
+                avatarClassroom = $"{classroom.LinkAvatar}/{classroom.Avatar}";
+                name = classroom.Name;
+                description = classroom.Description;
+                Members = new List<MemberModel>();
                 foreach (var item in classroom.ListMember)
                 {
                     Members.Add(new MemberModel(item, classroom.Id));

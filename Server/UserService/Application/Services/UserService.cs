@@ -28,7 +28,7 @@ namespace Application.Services
         ///  <returns></returns>
         bool EmailIsExist(string email);
         bool UsernameIsExist(string username);
-        bool UpdateUser(EditInforRequest editInforRequest);
+        bool UpdateUser(UpdateUserModel editInforRequest);
         bool LockUser(User user);
         bool CheckUserIsExist(System.Linq.Expressions.Expression<Func<User, bool>> property);
         /// <summary>
@@ -122,7 +122,7 @@ namespace Application.Services
             return false;
         }
 
-        public bool UpdateUser(EditInforRequest editInforRequest)
+        public bool UpdateUser(UpdateUserModel editInforRequest)
         {
             try
             {

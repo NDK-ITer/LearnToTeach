@@ -1,11 +1,12 @@
-﻿namespace Application.Requests
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Application.Requests
 {
     public class EditInforRequest
     {
         public string IdUser { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Avatar { get; set; }
-        public string LinkAvatar { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public IFormFile? Avatar { get; set; }
     }
 }

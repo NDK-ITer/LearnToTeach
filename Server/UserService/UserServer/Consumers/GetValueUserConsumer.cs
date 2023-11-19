@@ -52,7 +52,7 @@ namespace UserServer.Consumers
                         FullName = data.fullName,
                         Avatar = data.avatar,
                     });
-                    if (data.avatar.IsNullOrEmpty())
+                    if (!data.avatar.IsNullOrEmpty())
                     {
                         await context.Publish<IUploadFileEvent>(new
                         {
