@@ -4,7 +4,7 @@
     //login
     {
       "UpstreamPathTemplate": "/account/login",
-      "UpstreamHttpMethod": [ "Post" ,"Options"],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       //"CorsPolicyName": "myCorsPolicy",
       "DownstreamHostAndPorts": [
         {
@@ -266,6 +266,19 @@
       "RouteClaimsRequirement": {
         "Role": "USER"
       }
+    },
+    //FileStoreService
+    //URL Image
+    {
+      "UpstreamPathTemplate": "/{everything}",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9005
+        }
+      ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https"
     }
   ],
   "GlobalConfiguration": {

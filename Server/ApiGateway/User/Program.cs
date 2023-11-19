@@ -16,5 +16,4 @@ await app.UseOcelot();
 
 app.UseAuthentication();
 app.UseAuthorization();
-//app.UseCors("CORSPolicy");
 app.Run();
