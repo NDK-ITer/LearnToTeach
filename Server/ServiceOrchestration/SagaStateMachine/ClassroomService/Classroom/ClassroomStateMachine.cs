@@ -27,6 +27,8 @@ namespace SagaStateMachine.ClassroomService.Classroom
                 {
                     context.Saga.IdClassroom = context.Message.idClassroom;
                     context.Saga.Name = context.Message.name;
+                    context.Saga.Avatar = context.Message.avatar;
+                    context.Saga.LinkAvatar = context.Message.linkAvatar;
                     context.Saga.Description = context.Message.description;
                     context.Saga.IsPrivate = context.Message.isPrivate;
                     context.Saga.IdUserHost = context.Message.idUserHost;
@@ -38,6 +40,8 @@ namespace SagaStateMachine.ClassroomService.Classroom
                 {
                     context.Saga.IdClassroom = context.Message.idClassroom;
                     context.Saga.Name = context.Message.name;
+                    context.Saga.Avatar = context.Message.avatar;
+                    context.Saga.LinkAvatar = context.Message.linkAvatar;
                     context.Saga.Description = context.Message.description;
                     context.Saga.IsPrivate = context.Message.isPrivate;
                     context.Saga.IdUserHost = context.Message.idUserHost;

@@ -4,7 +4,6 @@ using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
-using System.Dynamic;
 using XAct;
 
 namespace Infrastructure.Repositories

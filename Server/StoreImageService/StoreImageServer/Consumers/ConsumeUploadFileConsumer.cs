@@ -28,7 +28,7 @@ namespace FIleStoreServer.Consumers
                 {
                     if (data.Event == eventMessage.Create || data.Event == eventMessage.Update)
                     {
-                        var imageInfor = imageMethod.SaveImage("Files",data.FileByteString,data.Id.ToString());
+                        var imageInfor = imageMethod.SaveImage("Files/Images", data.FileByteString,data.Id.ToString());
                         if (imageInfor != null)
                         {
                             await context.Publish<IUserServiceUploadIsValid>(new
@@ -48,13 +48,16 @@ namespace FIleStoreServer.Consumers
                 {
                     if (data.Event == eventMessage.Create || data.Event == eventMessage.Update)
                     {
-                        var imageInfor = imageMethod.SaveImage("Files", data.FileByteString, data.Id.ToString());
-                        await context.Publish<IClassroomServiceUploadIsValid>(new
+                        var imageInfor = imageMethod.SaveImage("Files/Images", data.FileByteString, data.Id.ToString());
+                        if (imageInfor != null)
                         {
-                            Id = data.Id,
-                            Link = imageInfor.Item1,
-                            NameImage = imageInfor.Item2,
-                        });
+                            await context.Publish<IClassroomServiceUploadIsValid>(new
+                            {
+                                Id = data.Id,
+                                LinkImage = imageInfor.Item1.ToString(),
+                                NameImage = imageInfor.Item2,
+                            });
+                        }
                     }
                     else if (data.Event == eventMessage.Delete)
                     {

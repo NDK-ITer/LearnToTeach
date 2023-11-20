@@ -18,6 +18,7 @@ namespace ClassServer.Consumers.AddClassroom
             if (data != null)
             {
                 unitOfWork_ClassroomService._classroomService.DeleteClassroom(data.idClassroom.ToString());
+                unitOfWork_ClassroomService._memberService.DeleteMember(data.idUserHost);
             }
         }
     }

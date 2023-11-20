@@ -28,6 +28,9 @@ namespace SagaOrchestration.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CurrentState")
                         .HasColumnType("nvarchar(max)");
 
@@ -46,6 +49,9 @@ namespace SagaOrchestration.Migrations
 
                     b.Property<bool>("IsPrivate")
                         .HasColumnType("bit");
+
+                    b.Property<string>("LinkAvatar")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");

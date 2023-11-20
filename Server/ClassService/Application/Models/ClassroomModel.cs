@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using System.Data;
+using XAct;
 
 namespace Application.Models
 {
@@ -11,29 +12,22 @@ namespace Application.Models
         public string? key { get; set; }
         public string? name { get; set; }
         public bool isPrivate { get; set; }
-        public List<MemberModel>? Members { get; set; }
+        public List<MemberModel>? ListMembers { get; set; } = new List<MemberModel>();
+        public List<ExerciseModel>? ListExercises { get; set; } = new List<ExerciseModel>();
         public ClassroomModel(Classroom classroom)
         {
             if (classroom != null)
             {
-                this.idClassroom = classroom.Id;
-                this.avatarClassroom = $"{classroom.LinkAvatar}/{classroom.AvatarClassroom}";
-                this.name = classroom.Name;
-                this.description = classroom.Description;
-                Members = new List<MemberModel>()
+                idClassroom = classroom.Id;
+                avatarClassroom = $"{classroom.LinkAvatar}/{classroom.Avatar}";
+                name = classroom.Name;
+                description = classroom.Description;
+                foreach (var item in classroom.ListMember)
                 {
-                    new MemberModel()
-                    {
-                        idMember = classroom.IdUserHost,
-                        nameMember = classroom.NameUserHost,
-                        avatar = $"{classroom.LinkAvatar}/{classroom.AvatarUserHost}",
-                        role = "Host",
-                        description = "All in this classroom",
-                    }
-                };
-                foreach (var item in classroom.ListUserId)
+                    ListMembers.Add(new MemberModel(item, classroom.Id));
+                }foreach (var item in classroom.ListExercise)
                 {
-                    Members.Add(new MemberModel(item));
+                    ListExercises.Add(new ExerciseModel(item));
                 }
             }
         }

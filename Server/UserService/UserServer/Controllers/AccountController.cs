@@ -1,4 +1,5 @@
-﻿using Application.Requests;
+﻿using Application.Models;
+using Application.Requests;
 using Application.Services;
 using Events.UserServiceEvents;
 using FileStoreServer.FileMethods;
@@ -51,7 +52,7 @@ namespace Server.Controllers
         {
             try
             {
-                var resultstatus = new resultStatus()
+                var resultstatus = new ResultStatus()
                 {
                     status = -3,
                     message = ""
@@ -89,7 +90,7 @@ namespace Server.Controllers
         {
             try
             {
-                var resultstatus = new resultStatus()
+                var resultstatus = new ResultStatus()
                 {
                     status = -5,
                     message = ""
@@ -157,8 +158,17 @@ namespace Server.Controllers
         {
             try
             {
+                var resultstatus = new ResultStatus()
+                {
+                    status = -1,
+                    message = string.Empty
+                };
                 var user = _unitOfWork_UserService.UserService.GetUserByEmail(email);
-                if (user == null) return BadRequest($"Not found user with {email}");
+                if (user == null)
+                {
+                    resultstatus.message = $"Not found user with {email}";
+                    return BadRequest(resultstatus);
+                }
                 if (user.IsVerified) return StatusCode(201, "Email had been confirmed");
                 //Get user token
                 var userToken = user.TokenAccess;
@@ -177,8 +187,10 @@ namespace Server.Controllers
                         subject = "Confirm your account",
                         eventMessage = _userEventMessage.ConfirmEmail
                     });
+                    resultstatus.status = 1;
+                    resultstatus.message = $"Please check your email.";
                 }
-                return Ok($"Please check your email.");
+                return Ok(resultstatus);
             }
             catch (Exception)
             {
@@ -327,7 +339,13 @@ namespace Server.Controllers
         {
             try
             {
-                var check = _unitOfWork_UserService.UserService.UpdateUser(editInforRequest);
+                var updateUserModel = new UpdateUserModel()
+                {
+                    IdUser = editInforRequest.IdUser,
+                    FirstName = editInforRequest.FirstName,
+                    LastName = editInforRequest.LastName,
+                };
+                var check = _unitOfWork_UserService.UserService.UpdateUser(updateUserModel);
                 if (!check)
                 {
                     return BadRequest("Edit information is fail");
@@ -339,8 +357,9 @@ namespace Server.Controllers
                     {
                         id = Guid.Parse(editInforRequest.IdUser),
                         fullName = editInforRequest.FirstName + " " + editInforRequest.LastName,
-                        avatar = editInforRequest.Avatar,
-                        eventMessage = _userEventMessage.Update
+                        avatar = _imageMethod.GenerateToString(editInforRequest.Avatar),
+                        eventMessage = _userEventMessage.Update,
+                        serverName = _serverInfor.Value.Name
                     });
                 }
                 return Ok("Edit information is successful");

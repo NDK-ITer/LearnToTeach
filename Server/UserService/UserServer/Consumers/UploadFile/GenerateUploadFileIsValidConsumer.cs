@@ -1,4 +1,5 @@
-﻿using Application.Requests;
+﻿using Application.Models;
+using Application.Requests;
 using Application.Services;
 using Events.UserServiceEvents.User;
 using MassTransit;
@@ -18,7 +19,7 @@ namespace UserServer.Consumers.UploadFile
             var data = context.Message;
             if (data != null)
             {
-                var userUpdate = new EditInforRequest()
+                var userUpdate = new UpdateUserModel()
                 {
                     IdUser = data.Id.ToString(),
                     LinkAvatar = data.LinkImage,

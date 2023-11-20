@@ -19,16 +19,14 @@ namespace ClassServer.Consumers.AddMember
             var data = context.Message;
             if (data != null)
             {
-                var memberModel = new MemberModel()
+                var memberModel = new UpdateMemberModel()
                 {
                     idMember = data.IdMember,
                     avatar = data.Avatar,
                     nameMember = data.NameMember,
-                    role = null,
-                    description = null,
+                    linkAvatar = data.LinkAvatar,
                 };
-                unitOfWork_ClassroomService._memberService.UpdateInforMember(memberModel);
-
+                unitOfWork_ClassroomService._memberService.AddMember(memberModel, data.IdClassroom.ToString());
             }
         }
     }

@@ -1,8 +1,8 @@
 ﻿namespace Application.Requests
 {
-    public class MemberRequest
+    public class JoinClassroomRequest
     {
         public string idClassroom { get; set; }
-        public List<string>? listIdMember { get; set; }
+        public string idMember { get; set;}
     }
 }

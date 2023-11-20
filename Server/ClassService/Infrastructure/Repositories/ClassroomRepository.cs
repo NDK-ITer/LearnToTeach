@@ -10,7 +10,9 @@ namespace Infrastructure.Repositories
     {
         public ClassroomRepository(ClassroomDbContext context, IMemoryCache memoryCache) : base(context, memoryCache)
         {
-            _dbSet.Include(c => c.ListUserId).Load();
+            _dbSet.Include(c => c.ListMemberClassroom).Load();
+            _dbSet.Include(c => c.ListMember).Load();
+            _dbSet.Include(c => c.ListExercise).Load();
             _keyValueCache = "ClassroomPublicMemoryCachingKey";
         }
         public void UpdateClassroom(Classroom classroom) => Update(classroom);

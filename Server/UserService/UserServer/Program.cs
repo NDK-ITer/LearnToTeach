@@ -33,7 +33,7 @@ builder.Services.AddMassTransit(cfg =>
         // Add endpiont to receive message in "RabbitMQ"
         cfg.ReceiveEndpoint(nameQueue, ep =>
         {
-            ep.PrefetchCount = 10;
+            ep.PrefetchCount = 100;
             ep.ConfigureConsumer<ConsumeValueClassroomConsumer>(provider);
             ep.ConfigureConsumer<ConsumeValueMemberConsumer>(provider);
             ep.ConfigureConsumer<GetValueUserConsumer>(provider);

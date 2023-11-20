@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using UserServer.Models;
-
-namespace FileStoreServer.FileMethods
+﻿namespace FileStoreServer.FileMethods
 {
     public class ImageMethod : GenericFileMethod
     {

@@ -22,31 +22,51 @@ namespace Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Domain.Entities.Answer", b =>
+                {
+                    b.Property<string>("IdExercise")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("IdMember")
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateAnswer")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 11, 20, 11, 59, 15, 692, DateTimeKind.Local).AddTicks(985));
+
+                    b.Property<string>("LinkFile")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("IdExercise", "IdMember");
+
+                    b.HasIndex("IdMember");
+
+                    b.ToTable("Answer", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Classroom", b =>
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AvatarClassroom")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AvatarUserHost")
+                    b.Property<string>("Avatar")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 11, 16, 10, 41, 27, 759, DateTimeKind.Local).AddTicks(2635));
+                        .HasDefaultValue(new DateTime(2023, 11, 20, 11, 59, 15, 689, DateTimeKind.Local).AddTicks(772));
 
                     b.Property<string>("Description")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("IdUserHost")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsPrivate")
                         .HasColumnType("bit");
@@ -62,38 +82,64 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NameUserHost")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Classrooms", (string)null);
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = "d0186509-69d2-4a76-a0d1-69c5916c0b02",
-                            AvatarClassroom = "",
-                            AvatarUserHost = "",
-                            CreateDate = new DateTime(2023, 11, 16, 10, 41, 27, 759, DateTimeKind.Local).AddTicks(9881),
-                            IdUserHost = "193ba283-bf34-40ad-a3be-10b1780cba0e",
-                            IsPrivate = true,
-                            KeyHash = "cA4FigUKj7deRjen/4NWmw==",
-                            LinkAvatar = "",
-                            Name = "Class_1"
-                        },
-                        new
-                        {
-                            Id = "02c47002-cc29-4b66-82bd-a86b7e3c6d5e",
-                            AvatarClassroom = "",
-                            AvatarUserHost = "",
-                            CreateDate = new DateTime(2023, 11, 16, 10, 41, 27, 760, DateTimeKind.Local).AddTicks(63),
-                            IdUserHost = "2c75293b-f8e5-4862-9b13-5894a64895cd",
-                            IsPrivate = false,
-                            LinkAvatar = "",
-                            Name = "Class_2"
-                        });
+            modelBuilder.Entity("Domain.Entities.Exercise", b =>
+                {
+                    b.Property<string>("IdExercise")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 11, 20, 11, 59, 15, 691, DateTimeKind.Local).AddTicks(9643));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("IdClassroom")
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("LinkFile")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("IdExercise");
+
+                    b.HasIndex("IdClassroom");
+
+                    b.ToTable("Exercise", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Member", b =>
+                {
+                    b.Property<string>("IdMember")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Avatar")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("LinkAvatar")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("IdMember");
+
+                    b.ToTable("Member", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.MemberClassroom", b =>
@@ -106,21 +152,9 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("Avatar")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("Description")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("LinkAvatar")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Role")
                         .HasMaxLength(20)
@@ -131,44 +165,72 @@ namespace Infrastructure.Migrations
                     b.HasIndex("IdClass");
 
                     b.ToTable("MemberClassroom", (string)null);
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            IdUser = "2c75293b-f8e5-4862-9b13-5894a64895cd",
-                            IdClass = "d0186509-69d2-4a76-a0d1-69c5916c0b02",
-                            Avatar = "",
-                            Description = "",
-                            LinkAvatar = "",
-                            Name = "Admin account",
-                            Role = "MEMBER"
-                        },
-                        new
-                        {
-                            IdUser = "193ba283-bf34-40ad-a3be-10b1780cba0e",
-                            IdClass = "02c47002-cc29-4b66-82bd-a86b7e3c6d5e",
-                            Avatar = "",
-                            Description = "",
-                            LinkAvatar = "",
-                            Name = "test account",
-                            Role = "MEMBER"
-                        });
+            modelBuilder.Entity("Domain.Entities.Answer", b =>
+                {
+                    b.HasOne("Domain.Entities.Exercise", "Exercise")
+                        .WithMany("ListAnswer")
+                        .HasForeignKey("IdExercise")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Member", "Member")
+                        .WithMany("ListAnswer")
+                        .HasForeignKey("IdMember")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Exercise");
+
+                    b.Navigation("Member");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Exercise", b =>
+                {
+                    b.HasOne("Domain.Entities.Classroom", "Classroom")
+                        .WithMany("ListExercise")
+                        .HasForeignKey("IdClassroom");
+
+                    b.Navigation("Classroom");
                 });
 
             modelBuilder.Entity("Domain.Entities.MemberClassroom", b =>
                 {
-                    b.HasOne("Domain.Entities.Classroom", "classroom")
-                        .WithMany("ListUserId")
+                    b.HasOne("Domain.Entities.Classroom", "Classroom")
+                        .WithMany("ListMemberClassroom")
                         .HasForeignKey("IdClass")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("classroom");
+                    b.HasOne("Domain.Entities.Member", "Member")
+                        .WithMany("ListMemberClassroom")
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Classroom");
+
+                    b.Navigation("Member");
                 });
 
             modelBuilder.Entity("Domain.Entities.Classroom", b =>
                 {
-                    b.Navigation("ListUserId");
+                    b.Navigation("ListExercise");
+
+                    b.Navigation("ListMemberClassroom");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Exercise", b =>
+                {
+                    b.Navigation("ListAnswer");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Member", b =>
+                {
+                    b.Navigation("ListAnswer");
+
+                    b.Navigation("ListMemberClassroom");
                 });
 #pragma warning restore 612, 618
         }

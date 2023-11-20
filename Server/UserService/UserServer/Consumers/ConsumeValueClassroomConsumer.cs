@@ -51,7 +51,8 @@ namespace UserServer.Consumers
                             idClassroom = data.idClassroom,
                             idUserHost = data.idUserHost,
                             nameUserHost = $"{user.FirstName} {user.LastName}",
-                            avatar = user.Avatar
+                            avatarMember = user.Avatar,
+                            linkAvatar = user.LinkAvatar,
                         });
                     }
                 }
@@ -61,8 +62,8 @@ namespace UserServer.Consumers
                     {
                         IdClassroom = data.idClassroom.ToString() ,
                         Description = data.description,
-                        LinkAvatar = string.Empty,
-                        Avatar = string.Empty,
+                        LinkAvatar = data.linkAvatar,
+                        Avatar = data.avatar,
                         Name = data.name
                     };
                     unitOfWork_UserService.ClassroomInforService.UpdateClassroomInfor(updateClassroomInforModel);

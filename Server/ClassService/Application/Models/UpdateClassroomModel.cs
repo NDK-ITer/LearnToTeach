@@ -1,10 +1,8 @@
 ﻿namespace Application.Models
 {
-    public class ClassroomUpdateModel
+    public class UpdateClassroomModel
     {
         public string idClassroom { get; set; }
-        public string nameUserHost { get; set; }
-        public string avatarUserHost { get; set; }
         public string avatarClassroom { get; set; }
         public string linkAvatar { get; set; }
     }

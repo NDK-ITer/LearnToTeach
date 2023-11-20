@@ -5,6 +5,7 @@ using ClassServer.Consumers.AddMember;
 using ClassServer.Consumers.RemoveClassroom;
 using ClassServer.Consumers.UpdateUserInfor;
 using ClassServer.Consumers.UploadFile;
+using ClassServer.FileMethods;
 using ClassServer.Models;
 using Infrastructure.Context;
 using MassTransit;
@@ -23,7 +24,7 @@ builder.Services.AddMassTransit(cfg =>
     {
         cfg.ReceiveEndpoint(nameQueue, ep =>
         {
-            ep.PrefetchCount = 20;
+            ep.PrefetchCount = 100;
             ep.ConfigureConsumer<GenerateCancelAddClassroomConsumer>(provider);
             ep.ConfigureConsumer<GenerateAddMemberIsValidConsumer>(provider);
             ep.ConfigureConsumer<GenerateAddClassroomIsValidConsumer>(provider);
@@ -53,6 +54,8 @@ builder.Services.AddHealthChecks();
 builder.Services.AddTransient<ClassroomEventMessage>();
 builder.Services.AddDbContext<ClassroomDbContext>(option => option.UseSqlServer(connectionString));
 builder.Services.AddTransient<IUnitOfWork_ClassroomService, UnitOfWork_ClassroomService>();
+builder.Services.AddTransient<ImageMethod>();
+builder.Services.AddTransient<DocumentFileMethod>();
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("myCorsPolicy", builder =>

@@ -7,12 +7,12 @@
         public string? Description { get; set; }
         public DateTime CreateDate { get; set; }
         public string? KeyHash { get; set; }
-        public string? IdUserHost { get; set; }
-        public string? NameUserHost { get; set; }
-        public string? AvatarClassroom { get; set; }
-        public string? LinkAvatar{ get; set; }
-        public string? AvatarUserHost { get; set; }
+        public string? LinkAvatar { get; set; }
+        public string? Avatar { get; set; }
         public bool IsPrivate { get; set; }
-        public List<MemberClassroom>? ListUserId { get; set; }
+        public List<Member>? ListMember { get; set; }
+        public List<MemberClassroom>? ListMemberClassroom { get; set; }
+        public List<Exercise>? ListExercise { get; set; }
+        
     }
 }

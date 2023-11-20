@@ -28,7 +28,7 @@ namespace Application.Services
         ///  <returns></returns>
         bool EmailIsExist(string email);
         bool UsernameIsExist(string username);
-        bool UpdateUser(EditInforRequest editInforRequest);
+        bool UpdateUser(UpdateUserModel editInforRequest);
         bool LockUser(User user);
         bool CheckUserIsExist(System.Linq.Expressions.Expression<Func<User, bool>> property);
         /// <summary>
@@ -83,8 +83,8 @@ namespace Application.Services
                 {
                     id = Guid.NewGuid().ToString(),
                     UserName = registerRequest.UserName,
-                    FirstName = registerRequest.FirstName.IsNullOrEmpty() ? registerRequest.UserName : string.Empty,
-                    LastName = registerRequest.LastName.IsNullOrEmpty() ? registerRequest.UserName : string.Empty,
+                    FirstName = string.Empty,
+                    LastName = string.Empty,
                     FirstEmail = registerRequest.Email,
                     PhoneNumber = registerRequest.PhoneNumber,
                     Avatar = string.Empty,
@@ -100,6 +100,8 @@ namespace Application.Services
                     IsVerified = false,
                     Role = role
                 };
+                if (!registerRequest.FirstName.IsNullOrEmpty()) userRegister.FirstName = registerRequest.FirstName;
+                if (!registerRequest.LastName.IsNullOrEmpty()) userRegister.LastName = registerRequest.LastName;
                 _unitOfWork.userRepository.Register(userRegister);
                 _unitOfWork.SaveChange();
                 return userRegister;
@@ -112,7 +114,7 @@ namespace Application.Services
 
         public bool EmailIsExist(string email)
         {
-            if (_unitOfWork.userRepository.CheckEmailIsExist(email)) return true;
+            if (_unitOfWork.userRepository.Find(e => e.PresentEmail == email).FirstOrDefault() != null) return true;
             return false;
         }
 
@@ -122,7 +124,7 @@ namespace Application.Services
             return false;
         }
 
-        public bool UpdateUser(EditInforRequest editInforRequest)
+        public bool UpdateUser(UpdateUserModel editInforRequest)
         {
             try
             {
