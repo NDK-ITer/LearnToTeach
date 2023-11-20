@@ -9,5 +9,6 @@
         public List<Classroom>? ListClassroom { get; set; }
         public List<MemberClassroom>? ListMemberClassroom { get; set; }
         public List<Answer>? ListAnswer { get; set; }
+        public List<Exercise>? ListExercise { get; set; }
     }
 }

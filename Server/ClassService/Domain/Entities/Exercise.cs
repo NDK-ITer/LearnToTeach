@@ -10,5 +10,6 @@
         public string? IdClassroom { get; set; }
         public Classroom? Classroom { get; set; }
         public List<Answer>? ListAnswer { get; set; }
+        public List<Member>? ListMember { get; set; }
     }
 }

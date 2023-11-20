@@ -2,7 +2,6 @@
 {
     public class Answer
     {
-        public string IdAnswer { get; set; }
         public string? IdMember { get; set; }
         public string? IdExercise { get; set; }
         public DateTime DateAnswer { get; set; }
