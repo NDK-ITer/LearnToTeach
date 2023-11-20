@@ -26,8 +26,7 @@ namespace ClassServer.Consumers.AddMember
                     nameMember = data.NameMember,
                     linkAvatar = data.LinkAvatar,
                 };
-                unitOfWork_ClassroomService._memberService.UpdateInforMember(memberModel);
-
+                unitOfWork_ClassroomService._memberService.AddMember(memberModel, data.IdClassroom.ToString());
             }
         }
     }

@@ -140,7 +140,7 @@ namespace Application.Services
         {
             try
             {
-                var classroom = _unitOfWork.classroomRepository.GetClassroomById(idClassroom);
+                var classroom = _unitOfWork.classroomRepository.GetById(idClassroom);
                 if (classroom != null)
                     return classroom;
                 return null;

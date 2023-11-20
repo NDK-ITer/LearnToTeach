@@ -55,6 +55,7 @@ builder.Services.AddTransient<ClassroomEventMessage>();
 builder.Services.AddDbContext<ClassroomDbContext>(option => option.UseSqlServer(connectionString));
 builder.Services.AddTransient<IUnitOfWork_ClassroomService, UnitOfWork_ClassroomService>();
 builder.Services.AddTransient<ImageMethod>();
+builder.Services.AddTransient<DocumentFileMethod>();
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("myCorsPolicy", builder =>

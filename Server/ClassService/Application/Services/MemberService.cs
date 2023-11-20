@@ -9,6 +9,7 @@ namespace Application.Services
 {
     public interface IMemberService
     {
+        Member GetMemberById(string id);
         int AddMember(UpdateMemberModel memberModel, string idClassroom);
         int UpdateInforMember(UpdateMemberModel memberModel);
         int DeleteMember(string idMember);
@@ -42,7 +43,7 @@ namespace Application.Services
                 {
                     IdClass = classroom.Id,
                     IdUser = member.IdMember,
-                    Role = "Member".ToUpper(),
+                    Role = "Member",
                     Description = "",
                 };
                 classroom.ListMember.Add(member);
@@ -101,5 +102,22 @@ namespace Application.Services
             }
         }
         
+        public Member? GetMemberById(string id)
+        {
+            try
+            {
+                var member = _unitOfWork.memberRepository.GetById(id);
+                if (member != null)
+                {
+                    return member;
+                }
+                return null;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
     }
 }

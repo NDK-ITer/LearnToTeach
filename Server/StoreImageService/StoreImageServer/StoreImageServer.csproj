@@ -13,12 +13,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Files\" />
+    <ProjectReference Include="..\Events\Events.csproj" />
+    <ProjectReference Include="..\RabbitMQ_Lib\RabbitMQ_Lib.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Events\Events.csproj" />
-    <ProjectReference Include="..\RabbitMQ_Lib\RabbitMQ_Lib.csproj" />
+    <Folder Include="Files\Documents\Exercises\" />
+    <Folder Include="Files\Documents\Answers\" />
   </ItemGroup>
 
 </Project>

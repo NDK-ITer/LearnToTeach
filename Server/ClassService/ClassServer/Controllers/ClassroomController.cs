@@ -234,56 +234,47 @@ namespace ClassServer.Controllers
             }
         }
 
+
         [HttpPost]
         [HttpOptions]
-        [Route("add-member")]
-        public async Task<ActionResult> AddMemberToClassroom([FromForm] MemberRequest memberRequest)
+        [Route("join-classroom")]
+        public async Task<ActionResult> JoinClassroom([FromBody] JoinClassroomRequest joinClassroom)
         {
+            var result = new ResultStatus()
+            {
+                Status = -1,
+                Message = string.Empty
+            };
             try
             {
-                if (memberRequest == null) return BadRequest("Request was null!");
-                if (memberRequest.listIdMember.IsNullOrEmpty()) return BadRequest("listMember was empty or null");
-                var classroom = _unitOfWork_ClassroomService._classroomService.GetClassroomById(memberRequest.idClassroom);
-                if (classroom == null) return BadRequest("Classroom is not exist!");
-                var listCheckFalse = new Dictionary<string,bool>();
-                foreach (var item in memberRequest.listIdMember)
+                var classroom = _unitOfWork_ClassroomService._classroomService.GetClassroomById(joinClassroom.idClassroom);
+                if (classroom != null)
                 {
-                    var check = _unitOfWork_ClassroomService._memberService.AddMember(new UpdateMemberModel
+                    var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
+                    if (endPoint != null)
                     {
-                        idMember = item,
-                        avatar = "",
-                        nameMember = "",
-                    }, memberRequest.idClassroom);
-                    if (check == 1)
-                    {
-                        var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
-                        if (endPoint != null)
+                        endPoint.Send<IGetValueMemberEvent>(new
                         {
-                            endPoint.Send<IGetValueMemberEvent>(new
-                            {
-                                IdClassroom = Guid.Parse(memberRequest.idClassroom),
-                                IdMember = item,
-                                eventMessage = _classroomStateMessage.Create,
-                                NameMember = string.Empty,
-                                Avatar = string.Empty,
-                                NameClassroom = classroom.Name
-                            });
-                        }
+                            IdClassroom = Guid.Parse(joinClassroom.idClassroom),
+                            IdMember = joinClassroom.idMember,
+                            eventMessage = _classroomStateMessage.Create,
+                            NameMember = string.Empty,
+                            Avatar = string.Empty,
+                            NameClassroom = classroom.Name
+                        });
                     }
-                    else
-                    {
-                        listCheckFalse.Add(item,false);
-                    }
+                    result.Status = 1;
+                    result.Message = $"join classroom \"{classroom.Name}\" is successful";
+                    return Ok(result);
                 }
-                if (!listCheckFalse.IsNullOrEmpty())
-                {
-                    return BadRequest($"have {listCheckFalse.Count} false");
-                }
-                return Ok("Add member successful, please wait a minute");
+                result.Status = 0;
+                result.Message = $"classroom with id \"{joinClassroom.idClassroom}\" is not exist";
+                return BadRequest(result);
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                result.Message = e.Message;
+                return BadRequest(result);
             }
         }
     }

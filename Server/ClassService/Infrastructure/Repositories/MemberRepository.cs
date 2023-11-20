@@ -13,6 +13,7 @@ namespace Infrastructure.Repositories
             _dbSet.Include(c => c.ListMemberClassroom).Load();
             _dbSet.Include(c => c.ListClassroom).Load();
             _dbSet.Include(c => c.ListAnswer).Load();
+            _dbSet.Include(c => c.ListExercise).Load();
             _keyValueCache = "MemberPublicMemoryCachingKey";
         }
 

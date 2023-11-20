@@ -30,5 +30,20 @@
             file.CopyTo(stream);
             stream.Close();
         }
+        protected string GenerateToString(IFormFile formFile)
+        {
+            try
+            {
+                var ext = Path.GetExtension(formFile.FileName);
+                var fileToByte = ConvertIFormFileToByteArray(formFile);
+                string fileString = Convert.ToBase64String(fileToByte);
+                return fileString;
+            }
+            catch (Exception)
+            {
+
+                return string.Empty;
+            }
+        }
     }
 }
