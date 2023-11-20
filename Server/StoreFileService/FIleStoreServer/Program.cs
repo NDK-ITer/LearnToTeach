@@ -28,7 +28,7 @@ builder.Services.AddMassTransit(cfg =>
         // Add endpiont to receive message in "RabbitMQ"
         cfg.ReceiveEndpoint(nameQueue, ep =>
         {
-            ep.PrefetchCount = 10;
+            ep.PrefetchCount = 100;
             ep.ConfigureConsumer<ConsumeUploadFileConsumer>(provider);
         });
 

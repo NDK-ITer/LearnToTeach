@@ -24,7 +24,7 @@ builder.Services.AddMassTransit(cfg =>
     {
         cfg.ReceiveEndpoint(nameQueue, ep =>
         {
-            ep.PrefetchCount = 20;
+            ep.PrefetchCount = 100;
             ep.ConfigureConsumer<GenerateCancelAddClassroomConsumer>(provider);
             ep.ConfigureConsumer<GenerateAddMemberIsValidConsumer>(provider);
             ep.ConfigureConsumer<GenerateAddClassroomIsValidConsumer>(provider);

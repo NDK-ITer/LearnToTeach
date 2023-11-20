@@ -73,14 +73,16 @@ namespace UserServer.Consumers
                         subject = data.subject,
                         content = data.content,
                     });
-
-                    await context.Publish<IUploadFileEvent>(new
+                    if (!data.avatar.IsNullOrEmpty())
                     {
-                        Id = data.id,
-                        Event = _userEventMessage.Create,
-                        FileByteString = data.avatar,
-                        ServerName = data.serverName
-                    });
+                        await context.Publish<IUploadFileEvent>(new
+                        {
+                            Id = data.id,
+                            Event = _userEventMessage.Update,
+                            FileByteString = data.avatar,
+                            ServerName = data.serverName
+                        });
+                    }
                 }
             }
             
