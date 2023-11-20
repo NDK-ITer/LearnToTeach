@@ -14,6 +14,9 @@ namespace Infrastructure.Configurations
             builder.Property(x => x.Name).HasMaxLength(50);
             builder.Property(x => x.Avatar).HasMaxLength(100);
             builder.Property(x => x.LinkAvatar).HasMaxLength(100);
+            builder.HasMany(p => p.ListAnswer)
+                .WithOne(p => p.Member)
+                .HasForeignKey(p => p.IdMember);
         }
     }
 }

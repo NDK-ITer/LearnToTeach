@@ -8,5 +8,6 @@
         public string? Avatar { get; set; }
         public List<Classroom>? ListClassroom { get; set; }
         public List<MemberClassroom>? ListMemberClassroom { get; set; }
+        public List<Answer>? ListAnswer { get; set; }
     }
 }

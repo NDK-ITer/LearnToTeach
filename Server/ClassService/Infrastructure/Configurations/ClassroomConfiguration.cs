@@ -20,9 +20,12 @@ namespace Infrastructure.Configurations
             builder.HasMany(p => p.ListMember)
                 .WithMany(p => p.ListClassroom)
                 .UsingEntity<MemberClassroom>(
-                    l => l.HasOne/*<Member>*/(e => e.Member).WithMany(e => e.ListMemberClassroom).HasForeignKey(e => e.IdUser),
-                    r => r.HasOne/*<Classroom>*/(e => e.Classroom).WithMany(e => e.ListMemberClassroom).HasForeignKey(e => e.IdClass)
+                    l => l.HasOne(e => e.Member).WithMany(e => e.ListMemberClassroom).HasForeignKey(e => e.IdUser),
+                    r => r.HasOne(e => e.Classroom).WithMany(e => e.ListMemberClassroom).HasForeignKey(e => e.IdClass)
                 );
+            builder.HasMany(p => p.ListExercise)
+                .WithOne(p => p.Classroom)
+                .HasForeignKey(fk => fk.IdClassroom);
         }
     }
 }

@@ -12,6 +12,7 @@
         public bool IsPrivate { get; set; }
         public List<Member>? ListMember { get; set; }
         public List<MemberClassroom>? ListMemberClassroom { get; set; }
+        public List<Exercise>? ListExercise { get; set; }
         
     }
 }
