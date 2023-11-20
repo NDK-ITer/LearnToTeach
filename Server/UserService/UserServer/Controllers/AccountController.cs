@@ -6,6 +6,7 @@ using FileStoreServer.FileMethods;
 using Infrastructure;
 using JwtAuthenticationManager.Models;
 using MassTransit;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
@@ -256,13 +257,23 @@ namespace Server.Controllers
         [HttpPost]
         [HttpOptions]
         [Route("forget-password")]
-        public async Task<IActionResult> ForgetPassword(string email)
+        public async Task<IActionResult> ForgetPassword([FromForm] string Email)
         {
             try
             {
-                // Get user with idUser
-                var user = _unitOfWork_UserService.UserService.GetUserById(email);
-                if (user == null) return BadRequest();
+                var resultstatus = new ResultStatus()
+                {
+                    status = -3,
+                    message = ""
+                };
+                // Get user
+                var user = _unitOfWork_UserService.UserService.GetUserByEmail(Email);
+                if (user == null)
+                {
+                    resultstatus.status = -1;
+                    resultstatus.message = "email not found";
+                    return Ok(resultstatus);
+                };
                 // Generate a OTP and store to Session with key value is "email"
                 var otp = SecurityMethods.CreateRandomOTP();
                 if (string.IsNullOrEmpty(HttpContext.Session.GetString(user.PresentEmail)))
@@ -283,7 +294,9 @@ namespace Server.Controllers
                         eventMessage = _userEventMessage.ResetPassword
                     });
                 }
-                return Ok($"Have sent OTP to {user.PresentEmail}");
+                resultstatus.status = 1;
+                resultstatus.message = $"Have sent OTP to {user.PresentEmail}";
+                return Ok(resultstatus);
             }
             catch (Exception)
             {
@@ -299,12 +312,21 @@ namespace Server.Controllers
         {
             try
             {
+                var resultstatus = new ResultStatus()
+                {
+                    status = -3,
+                    message = ""
+                };
                 var otp = HttpContext.Session.GetString(verifyOTPModel.email);
                 if (otp != verifyOTPModel.OTP)
                 {
-                    return BadRequest("Incorrect OTP");
+                    resultstatus.status = -1;
+                    resultstatus.message = "Incorrect OTP";
+                    return Ok(resultstatus);
                 }
-                return Ok("correct OTP");
+                resultstatus.status = 1;
+                resultstatus.message = "Correct OTP";
+                return Ok(resultstatus);
             }
             catch (Exception)
             {
@@ -320,11 +342,34 @@ namespace Server.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                var resultstatus = new ResultStatus()
                 {
-                    if (model.NewPassword != model.ConfirmPassword) return BadRequest("Password isn't confirmed");
+                    status = -4,
+                    message = ""
+                };
+                if (model.NewPassword != model.ConfirmPassword)
+                {
+                    resultstatus.status = -3;
+                    resultstatus.message = "Password is not confirmed!";
+                    return Ok(resultstatus);
                 }
-                return Ok();
+                var user = _unitOfWork_UserService.UserService.GetUserByEmail(model.Email);
+                if (user == null)
+                {
+                    resultstatus.status = -2;
+                    resultstatus.message = "User not found!";
+                    return Ok(resultstatus);
+                }
+                var reset = _unitOfWork_UserService.UserService.ResetPasswordUser(model.Email, model.NewPassword);
+                if (reset == null)
+                {
+                    resultstatus.status = -1;
+                    resultstatus.message = "not reset password";
+                    return Ok(resultstatus);
+                }
+                resultstatus.status = 1;
+                resultstatus.message = "password was updated";               
+                return Ok(resultstatus);
             }
             catch (Exception)
             {

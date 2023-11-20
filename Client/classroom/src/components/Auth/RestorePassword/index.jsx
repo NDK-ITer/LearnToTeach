@@ -11,6 +11,8 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import RestorePasswordForm from './RestorePasswordForm';
+import VerifyOTPForm from '.././VerifyOTP/VerifyOTPForm'
+import ResetPasswordForm from '.././ResetPassword/ResetPasswordForm';
 import st from './styles.module.css'
 
 
@@ -76,7 +78,7 @@ function RestorePassword(props) {
                         className={st.box}
                     >
                         <div>
-                            <RestorePasswordForm onSubmit={handleSubmit} />
+                            <ResetPasswordForm onSubmit={handleSubmit} />
                         </div>
                         <Grid container>
                             <Grid item>
