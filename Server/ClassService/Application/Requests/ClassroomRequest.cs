@@ -15,21 +15,5 @@ namespace Application.Requests
         public string? name { get; set; }
         public bool isPrivate { get; set; }
         public IFormFile? Avatar { get; set; }
-
-        //update data from "ClassroomRequest" to "Classroom"
-        public void UpdateToClassroom(Classroom classroom)
-        {
-            if (classroom == null)
-            {
-                classroom = new Classroom();
-            }
-            if (this.isPrivate == true && this.key.IsNullOrEmpty())
-            {
-                classroom.KeyHash = KeyHash.Hash(this.key);
-                classroom.IsPrivate = this.isPrivate;
-            }
-            classroom.Description = this.description;
-            classroom.Name = this.name;
-        }
     }
 }

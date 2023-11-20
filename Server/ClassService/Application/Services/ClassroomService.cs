@@ -196,14 +196,16 @@ namespace Application.Services
             try
             {
                 if (classroomRequest.idClassroom == string.Empty) return 0;
-                var classNeedUpdate = _unitOfWork.classroomRepository.Find(p => p.Id == classroomRequest.idClassroom).FirstOrDefault();
+                var classroomUpdate = _unitOfWork.classroomRepository.Find(p => p.Id == classroomRequest.idClassroom).FirstOrDefault();
+                if (classroomUpdate == null) return 0;
                 if (classroomRequest.isPrivate == true && !classroomRequest.key.IsNullOrEmpty())
                 {
-                    classNeedUpdate.KeyHash = KeyHash.Hash(classroomRequest.key);
-                    classNeedUpdate.IsPrivate = true;
+                    classroomUpdate.KeyHash = KeyHash.Hash(classroomRequest.key);
+                    classroomUpdate.IsPrivate = true;
                 }
-                classroomRequest.UpdateToClassroom(classNeedUpdate);
-                _unitOfWork.classroomRepository.UpdateClassroom(classNeedUpdate);
+                if (!classroomRequest.name.IsNullOrEmpty()) classroomUpdate.Name = classroomRequest.name;
+                if (!classroomRequest.description.IsNullOrEmpty()) classroomUpdate.Description = classroomRequest.description;
+                _unitOfWork.classroomRepository.UpdateClassroom(classroomUpdate);
                 _unitOfWork.SaveChange();
                 return 1;
             }
@@ -221,16 +223,13 @@ namespace Application.Services
                 if (classroomUpdateModel.IsNull()) return null;
                 if (classroomUpdateModel.idClassroom.IsNullOrEmpty()) return null;
                 var classroom = _unitOfWork.classroomRepository.Find(p => p.Id == classroomUpdateModel.idClassroom).FirstOrDefault();
-                if (!classroom.IsNull())
-                {
-                    if (!classroomUpdateModel.linkAvatar.IsNullOrEmpty()) classroom.LinkAvatar = classroomUpdateModel.linkAvatar;
-                    if (!classroomUpdateModel.avatarClassroom.IsNullOrEmpty()) classroom.Avatar = classroomUpdateModel.avatarClassroom;
-                    _unitOfWork.classroomRepository.Update(classroom);
-                    _unitOfWork.SaveChange();
-                    _unitOfWork.Dispose();
-                    return classroom;
-                }
-                return null;
+                if (classroom == null) return null;
+                if (!classroomUpdateModel.linkAvatar.IsNullOrEmpty()) classroom.LinkAvatar = classroomUpdateModel.linkAvatar;
+                if (!classroomUpdateModel.avatarClassroom.IsNullOrEmpty()) classroom.Avatar = classroomUpdateModel.avatarClassroom;
+                _unitOfWork.classroomRepository.Update(classroom);
+                _unitOfWork.SaveChange();
+                _unitOfWork.Dispose();
+                return classroom;
             }
             catch (Exception)
             {
