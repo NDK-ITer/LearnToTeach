@@ -102,7 +102,7 @@ namespace Infrastructure.Repositories
             if (_memoryCache.TryGetValue(_keyValueCache, out List<User> listUserInCache))
             {
                 var user = listUserInCache.FirstOrDefault(u => u.PresentEmail == email);
-                if (user != null)
+                if (user == null)
                 {
                     user = _dbSet.FirstOrDefault(u => u.PresentEmail == email);
                     if (user != null)
@@ -110,8 +110,13 @@ namespace Infrastructure.Repositories
                         listUserInCache.Add(user);
                         return user;
                     }
+                    else
+                    {
+                        return null;
+                    }
+
                 }
-                return null;
+                return user;
             }
             else
             {

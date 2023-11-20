@@ -1,19 +1,24 @@
 import { unwrapResult } from '@reduxjs/toolkit';
-import { login } from 'components/Auth/userSlice';
-import { useSnackbar } from 'notistack';
+import { register } from 'components/Auth/userSlice';
 import { createTheme, ThemeProvider, Typography, Link } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
+import { useSnackbar } from 'notistack';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import LoginForm from './LoginForm';
+import RestorePasswordForm from './RestorePasswordForm';
 import st from './styles.module.css'
+
 
 const defaultTheme = createTheme();
 
+RestorePassword.propTypes = {
+    closeDialog: PropTypes.func,
+};
 function Copyright(props) {
     return (
         <Typography variant="body2" align="center" {...props}>
@@ -26,33 +31,36 @@ function Copyright(props) {
         </Typography>
     );
 }
-
-function Login(props) {
+function RestorePassword(props) {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const history = useHistory();
     const handleSubmit = async (values) => {
+
         try {
-            const action = login(values);
+            const action = register(values);
             const resultAction = await dispatch(action);
             unwrapResult(resultAction);
             const check = resultAction.payload
             console.log(resultAction.payload)
-            if (typeof check.id !== 'undefined') {
-                enqueueSnackbar('Login successfully!!! 🎉', { variant: 'success' });
-                history.push('/');
-            } else if (typeof check.status != 'undefined') {
-                enqueueSnackbar(check.message, { variant: 'error' });
+            if (typeof check.status != 'undefined') {
+                if (check.status === 1) {
+                    enqueueSnackbar(check.message, { variant: 'success' });
+                    history.push('/SignIn');
+                } else {
+                    enqueueSnackbar(check.message, { variant: 'error' });
+                }
+
             }
 
         } catch (error) {
             console.log('Failed to login:', error);
             enqueueSnackbar(error.message, { variant: 'error' });
         }
+
     };
 
     return (
-
         <ThemeProvider theme={defaultTheme}>
             <Grid container component="main" className={st.main}>
                 <CssBaseline />
@@ -68,17 +76,12 @@ function Login(props) {
                         className={st.box}
                     >
                         <div>
-                            <LoginForm onSubmit={handleSubmit} />
+                            <RestorePasswordForm onSubmit={handleSubmit} />
                         </div>
                         <Grid container>
-                            <Grid item xs>
-                                <Link href="/RestorePassword" variant="body2">
-                                    Quên mật khẩu?
-                                </Link>
-                            </Grid>
                             <Grid item>
-                                <Link href="/SignUp" variant="body2">
-                                    {"Chưa có tài khoản? Đăng ký ngay"}
+                                <Link href="/SignIn" variant="body2">
+                                    {"Đăng nhập ngay"}
                                 </Link>
                             </Grid>
                         </Grid>
@@ -90,4 +93,4 @@ function Login(props) {
     );
 }
 
-export default Login;
+export default RestorePassword;

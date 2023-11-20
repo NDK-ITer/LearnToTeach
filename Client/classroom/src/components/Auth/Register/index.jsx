@@ -9,7 +9,7 @@ import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import RegisterForm from '../RegisterForm';
+import RegisterForm from './RegisterForm';
 import { useHistory } from 'react-router-dom';
 import st from './styles.module.css'
 

@@ -58,14 +58,14 @@ namespace Server.Controllers
                 };
 
                 var user = _unitOfWork_UserService.UserService.GetUserByEmail(loginRequest.Email);
-
-                var jwt = _unitOfWork_UserService.UserService.LoginUser(loginRequest.Email, loginRequest.Password);
                 if (user == null)
                 {
                     resultstatus.status = -2;
                     resultstatus.message = "account not found";
+                    return Ok(resultstatus);
                 }
-                else if (jwt == null)
+                var jwt = _unitOfWork_UserService.UserService.LoginUser(loginRequest.Email, loginRequest.Password);               
+                 if (jwt == null)
                 {
                     resultstatus.status = -1;
                     resultstatus.message = "password incorrect";
