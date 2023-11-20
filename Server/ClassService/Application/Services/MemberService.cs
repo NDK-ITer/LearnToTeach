@@ -11,6 +11,7 @@ namespace Application.Services
     {
         int AddMember(UpdateMemberModel memberModel, string idClassroom);
         int UpdateInforMember(UpdateMemberModel memberModel);
+        int DeleteMember(string idMember);
     }
     public class MemberService : IMemberService
     {
@@ -57,6 +58,25 @@ namespace Application.Services
                 return -1;
             }
         }
+
+        public int DeleteMember(string idMember)
+        {
+            try
+            {
+                if (idMember.IsNullOrEmpty()) return 0;
+                var member = _unitOfWork.memberRepository.Find(p => p.IdMember == idMember).FirstOrDefault();
+                if (member == null) return 0;
+                _unitOfWork.memberRepository.Remove(member);
+                _unitOfWork.SaveChange();
+                _unitOfWork.Dispose();
+                return 1;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+        }
+
         public int UpdateInforMember(UpdateMemberModel memberModel)
         {
             if (memberModel.IsNull() || memberModel.idMember.IsNullOrEmpty()) return 0;
@@ -80,5 +100,6 @@ namespace Application.Services
                 return -1;
             }
         }
+        
     }
 }
