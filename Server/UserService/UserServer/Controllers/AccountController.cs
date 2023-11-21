@@ -275,12 +275,8 @@ namespace Server.Controllers
                     return Ok(resultstatus);
                 };
 
-                // Generate a OTP and store to Session with key value is "email"
-                var otp = SecurityMethods.CreateRandomOTP();
-                if (string.IsNullOrEmpty(HttpContext.Session.GetString(user.PresentEmail)))
-                {
-                    HttpContext.Session.SetString(user.PresentEmail, otp);
-                }
+                // get a OTP and store to me MemoryCache with key value is "email"
+                var otp = _unitOfWork_UserService.UserService.GetOtp(Email);              
                 // Send the OTP to Email
                 var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
                 if (endPoint != null)
@@ -318,7 +314,8 @@ namespace Server.Controllers
                     status = -3,
                     message = ""
                 };
-                var otp = HttpContext.Session.GetString(verifyOTPModel.Email);
+                // get a OTP and store to me MemoryCache with key value is "email"
+                var otp = _unitOfWork_UserService.UserService.GetOtp(verifyOTPModel.Email);
                 if (otp != verifyOTPModel.OTP)
                 {
                     resultstatus.status = -1;

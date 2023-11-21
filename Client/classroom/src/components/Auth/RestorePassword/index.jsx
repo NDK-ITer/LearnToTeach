@@ -107,6 +107,7 @@ function RestorePassword(props) {
             if (typeof check.status != 'undefined') {
                 if (check.status === 1) {
                     enqueueSnackbar(check.message, { variant: 'success' });
+                    history.push('/SignIn')
                 } else {
                     enqueueSnackbar(check.message, { variant: 'error' });
                 }

@@ -41,7 +41,7 @@ namespace Application.Services
         User GetUserUsername(string username);
         User GetUserByEmail(string email);
         string GetUserToken(string id);
-
+        string GetOtp(string email);
     }
     public class UserService : IUserService
     {
@@ -308,6 +308,10 @@ namespace Application.Services
 
                 throw;
             }
+        }
+        public string? GetOtp(string email)
+        {
+            return _unitOfWork.userRepository.GetOTP(email);
         }
     }
 }

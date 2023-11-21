@@ -48,7 +48,7 @@ function ResetPasswordForm(props) {
         ConfirmPassword: yup
             .string()
             .required('Please retype your password.')
-            .oneOf([yup.ref('Password')], 'Password does not match'),
+            .oneOf([yup.ref('ConfirmPassword')], 'Password does not match'),
     });
     const form = useForm({
         defaultValues: {
