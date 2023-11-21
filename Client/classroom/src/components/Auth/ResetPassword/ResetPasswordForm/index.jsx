@@ -52,6 +52,7 @@ function ResetPasswordForm(props) {
     });
     const form = useForm({
         defaultValues: {
+            Email: '',
             NewPassword: '',
             ConfirmPassword: ''
         },

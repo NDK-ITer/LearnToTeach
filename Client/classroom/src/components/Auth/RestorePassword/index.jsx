@@ -1,5 +1,5 @@
 import { unwrapResult } from '@reduxjs/toolkit';
-import { register } from 'components/Auth/userSlice';
+import { forgetpassword, verifyotp, resetpassword } from 'components/Auth/userSlice';
 import { createTheme, ThemeProvider, Typography, Link } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import RestorePasswordForm from './RestorePasswordForm';
@@ -36,11 +36,16 @@ function Copyright(props) {
 function RestorePassword(props) {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
+    const [Email, setEmail] = useState({});
+    const [OTP, setOTP] = useState({});
+    const [isShownforgetpassword, setIsShownverforgetpassword] = useState(true);
+    const [isShownverifyotp, setIsShownverifyotp] = useState(false);
+    const [isShownresetpassword, setIsShownresetpassword] = useState(false);
     const history = useHistory();
-    const handleSubmit = async (values) => {
+    const handleSubmitforgetpassword = async (values) => {
 
         try {
-            const action = register(values);
+            const action = forgetpassword(values);
             const resultAction = await dispatch(action);
             unwrapResult(resultAction);
             const check = resultAction.payload
@@ -48,7 +53,9 @@ function RestorePassword(props) {
             if (typeof check.status != 'undefined') {
                 if (check.status === 1) {
                     enqueueSnackbar(check.message, { variant: 'success' });
-                    history.push('/SignIn');
+                    setEmail(values.Email);
+                    setIsShownverifyotp(true);
+                    setIsShownverforgetpassword(false);
                 } else {
                     enqueueSnackbar(check.message, { variant: 'error' });
                 }
@@ -56,7 +63,58 @@ function RestorePassword(props) {
             }
 
         } catch (error) {
-            console.log('Failed to login:', error);
+            console.log('Failed', error);
+            enqueueSnackbar(error.message, { variant: 'error' });
+        }
+
+    };
+    const handleSubmitverifyotp = async (values) => {
+
+        try {
+            values.Email = Email;
+            const action = verifyotp(values);
+            const resultAction = await dispatch(action);
+            unwrapResult(resultAction);
+            const check = resultAction.payload
+            console.log(resultAction.payload)
+            if (typeof check.status != 'undefined') {
+                if (check.status === 1) {
+                    enqueueSnackbar(check.message, { variant: 'success' });
+                    setOTP(values.OTP);
+                    setIsShownresetpassword(true);
+                    setIsShownverifyotp(false);
+                } else {
+                    enqueueSnackbar(check.message, { variant: 'error' });
+                }
+
+            }
+
+        } catch (error) {
+            console.log('Failed', error);
+            enqueueSnackbar(error.message, { variant: 'error' });
+        }
+
+    };
+    const handleSubmitresetpassword = async (values) => {
+
+        try {
+            values.Email = Email;
+            const action = resetpassword(values);
+            const resultAction = await dispatch(action);
+            unwrapResult(resultAction);
+            const check = resultAction.payload
+            console.log(resultAction.payload)
+            if (typeof check.status != 'undefined') {
+                if (check.status === 1) {
+                    enqueueSnackbar(check.message, { variant: 'success' });
+                } else {
+                    enqueueSnackbar(check.message, { variant: 'error' });
+                }
+
+            }
+
+        } catch (error) {
+            console.log('Failed', error);
             enqueueSnackbar(error.message, { variant: 'error' });
         }
 
@@ -78,7 +136,9 @@ function RestorePassword(props) {
                         className={st.box}
                     >
                         <div>
-                            <ResetPasswordForm onSubmit={handleSubmit} />
+                            {isShownforgetpassword && <RestorePasswordForm onSubmit={handleSubmitforgetpassword} />}
+                            {isShownverifyotp && <VerifyOTPForm onSubmit={handleSubmitverifyotp} />}
+                            {isShownresetpassword && <ResetPasswordForm onSubmit={handleSubmitresetpassword} />}
                         </div>
                         <Grid container>
                             <Grid item>

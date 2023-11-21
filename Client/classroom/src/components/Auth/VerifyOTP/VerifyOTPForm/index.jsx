@@ -48,7 +48,8 @@ function VerifyOTPForm(props) {
     });
     const form = useForm({
         defaultValues: {
-            OTP: '',
+            Email: '',
+            OTP: ''
 
         },
         resolver: yupResolver(schema),
@@ -72,7 +73,7 @@ function VerifyOTPForm(props) {
             </Avatar>
 
             <Typography className={classes.title} component="h3" variant="h5">
-               OTP
+                OTP
             </Typography>
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>

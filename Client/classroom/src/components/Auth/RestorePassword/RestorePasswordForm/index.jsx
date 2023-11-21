@@ -75,7 +75,7 @@ function RestorePasswordFrom(props) {
             </Typography>
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <InputField name="UserName" label="User Name" form={form} />
+                <InputField name="Email" label="Email" form={form} />
                 <Button
                     disabled={isSubmitting}
                     type="submit"

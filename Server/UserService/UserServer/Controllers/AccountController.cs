@@ -274,6 +274,7 @@ namespace Server.Controllers
                     resultstatus.message = "email not found";
                     return Ok(resultstatus);
                 };
+
                 // Generate a OTP and store to Session with key value is "email"
                 var otp = SecurityMethods.CreateRandomOTP();
                 if (string.IsNullOrEmpty(HttpContext.Session.GetString(user.PresentEmail)))
@@ -317,7 +318,7 @@ namespace Server.Controllers
                     status = -3,
                     message = ""
                 };
-                var otp = HttpContext.Session.GetString(verifyOTPModel.email);
+                var otp = HttpContext.Session.GetString(verifyOTPModel.Email);
                 if (otp != verifyOTPModel.OTP)
                 {
                     resultstatus.status = -1;

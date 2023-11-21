@@ -2,6 +2,6 @@
 {
     public static class SessionInforConfig
     {
-        public const int SessionTimeOut = 10;
+        public const int SessionTimeOut = 300;
     }
 }
