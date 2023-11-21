@@ -5,6 +5,8 @@ import "./style.css";
 import firebase from "firebase";
 import { useLocalContext } from "../../context/context";
 import { Announcment } from "..";
+import { NavigationBar} from "..";
+
 
 const Main = ({ classData }) => {
   const { loggedInMail } = useLocalContext();
@@ -41,8 +43,8 @@ const Main = ({ classData }) => {
     });
   };
   return (
-    
     <div className="main"> 
+      <NavigationBar />
       <div className="main__wrapper">  
         <div className="main__content">    
           <div className="main__wrapper1">
@@ -57,7 +59,7 @@ const Main = ({ classData }) => {
                 {classData.section}
               </div>
               <div className="main__wrapper2">
-                <em className="main__code">Class Code :</em>
+                <em className="main__code">Mã lớp học :</em>
                 <div className="main__id">{classData.id}</div>
               </div>
             </div>
@@ -65,8 +67,8 @@ const Main = ({ classData }) => {
         </div>
         <div className="main__announce">
           <div className="main__status">
-            <p>Upcoming</p>
-            <p className="main__subText">No work due</p>
+            <p>Sắp đến hạn</p>
+            <p className="main__subText">Không có công việc</p>
           </div>
           <div className="main__announcements">
             <div className="main__announcementsWrapper">
@@ -76,7 +78,7 @@ const Main = ({ classData }) => {
                     <TextField
                       id="filled-multiline-flexible"
                       multiline
-                      label="Announce Something to class"
+                      label="Thông báo với lớp học"
                       variant="filled"
                       value={inputValue}
                       onChange={(e) => setInput(e.target.value)}
@@ -91,7 +93,7 @@ const Main = ({ classData }) => {
 
                       <div>
                         <Button onClick={() => setShowInput(false)}>
-                          Cancel
+                          Hủy
                         </Button>
 
                         <Button
@@ -99,7 +101,7 @@ const Main = ({ classData }) => {
                           color="primary"
                           variant="contained"
                         >
-                          Post
+                          Đăng
                         </Button>
                       </div>
                     </div>
@@ -110,7 +112,7 @@ const Main = ({ classData }) => {
                     onClick={() => setShowInput(true)}
                   >
                     <Avatar />
-                    <div>Announce Something to class</div>
+                    <div>Thông báo với lớp học</div>
                   </div>
                 )}
               </div>

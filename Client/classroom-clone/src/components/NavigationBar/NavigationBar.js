@@ -7,10 +7,10 @@ const NavigationBar = () => {
         <div className="navigation">
             <ul className="navigationBar">
                 <li className="nav_item">
-                    <a className="nav_link" href="#">Bảng tin</a>
+                    <a className="nav_link" href="#">Tài liệu</a>
                 </li>
                 <li className="nav_item">
-                    <a className="nav_link" href="#">Bài tập trên lớp</a>
+                    <a className="nav_link" href="#">Bài tập</a>
                 </li>
                 <li className="nav_item">
                     <a className="nav_link" href="#">Mọi người</a>

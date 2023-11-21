@@ -1,0 +1,49 @@
+.header {
+    margin: 1.5rem;
+    display: flex;
+}
+.header_text{
+    color: #605a5a;
+    font-size: 20px;
+    text-align: center;
+    margin: 10px;
+}
+.group_btn{
+    box-sizing: border-box;
+    margin-left: 1000px;
+}
+.main_content{
+    align-items: center;
+    margin: 20px 200px;
+    border: 2px solid rgb(191, 180, 180);
+    border-radius: 20px;
+}
+.title{
+    margin: 25px;
+}
+.content{
+    margin: 25px;
+}
+.attachment {
+    margin: 30px 30px -20px;
+    display: flex;
+}
+.time {
+    margin: 30px;
+    display: flex;
+}
+.max_grade {
+    margin: 30px;
+    display: flex;
+}
+.text {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 10px 20px 10px;
+}
+.picktime{
+    margin: 0 32px -20px;
+}
+.cbb_grade{
+    margin: 15px 10px;
+}
