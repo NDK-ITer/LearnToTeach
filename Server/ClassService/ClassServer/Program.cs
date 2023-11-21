@@ -10,6 +10,7 @@ using ClassServer.Models;
 using Infrastructure.Context;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ClassroomConnectString");
@@ -76,6 +77,13 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+           Path.Combine(builder.Environment.ContentRootPath, "Documents")),
+    RequestPath = "/doc"
+});
 
 app.UseCors("myCorsPolicy");
 
