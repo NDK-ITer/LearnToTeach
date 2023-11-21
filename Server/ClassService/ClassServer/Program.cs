@@ -16,6 +16,7 @@ var connectionString = builder.Configuration.GetConnectionString("ClassroomConne
 var nameQueue = builder.Configuration.GetConnectionString("SagaBusQueue");
 
 // Add services to the container.
+builder.Services.Configure<Address>(builder.Configuration.GetSection("Address"));
 builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("EndpointConfig"));
 builder.Services.Configure<ServerInfor>(builder.Configuration.GetSection("ServerInfor"));
 builder.Services.AddMassTransit(cfg =>

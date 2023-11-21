@@ -13,6 +13,7 @@ namespace Infrastructure.Configurations
             builder.Property(p => p.Name).HasMaxLength(100);
             builder.Property(p => p.Description).HasMaxLength(100);
             builder.Property(p => p.LinkFile).HasMaxLength(200);
+            builder.Property(p => p.FileName).HasMaxLength(100);
             builder.Property(p => p.CreateDate).HasDefaultValue(DateTime.Now);
             builder.HasMany(p => p.ListAnswer)
                 .WithOne(p => p.Exercise)
