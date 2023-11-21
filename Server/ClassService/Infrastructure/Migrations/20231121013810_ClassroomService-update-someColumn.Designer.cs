@@ -4,6 +4,7 @@ using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ClassroomDbContext))]
-    partial class ClassroomDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231121013810_ClassroomService-update-someColumn")]
+    partial class ClassroomServiceupdatesomeColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +39,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("DateAnswer")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 11, 21, 20, 1, 11, 536, DateTimeKind.Local).AddTicks(5803));
+                        .HasDefaultValue(new DateTime(2023, 11, 21, 8, 38, 10, 271, DateTimeKind.Local).AddTicks(8368));
 
                     b.Property<string>("LinkFile")
                         .HasMaxLength(200)
@@ -62,7 +65,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 11, 21, 20, 1, 11, 533, DateTimeKind.Local).AddTicks(2818));
+                        .HasDefaultValue(new DateTime(2023, 11, 21, 8, 38, 10, 268, DateTimeKind.Local).AddTicks(3918));
 
                     b.Property<string>("Description")
                         .HasMaxLength(100)
@@ -95,16 +98,12 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 11, 21, 20, 1, 11, 536, DateTimeKind.Local).AddTicks(4364));
+                        .HasDefaultValue(new DateTime(2023, 11, 21, 8, 38, 10, 271, DateTimeKind.Local).AddTicks(6907));
 
                     b.Property<DateTime?>("DeadLine")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("FileName")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 

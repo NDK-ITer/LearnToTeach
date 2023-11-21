@@ -235,10 +235,10 @@ namespace ClassServer.Controllers
         }
 
 
-        [HttpPost]
+        [HttpGet]
         [HttpOptions]
         [Route("join-classroom")]
-        public async Task<ActionResult> JoinClassroom([FromBody] JoinClassroomRequest joinClassroom)
+        public async Task<ActionResult> JoinClassroom(string idClassroom, string idMember)
         {
             var result = new ResultStatus()
             {
@@ -247,7 +247,7 @@ namespace ClassServer.Controllers
             };
             try
             {
-                var classroom = _unitOfWork_ClassroomService._classroomService.GetClassroomById(joinClassroom.idClassroom);
+                var classroom = _unitOfWork_ClassroomService._classroomService.GetClassroomById(idClassroom);
                 if (classroom != null)
                 {
                     var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
@@ -255,8 +255,8 @@ namespace ClassServer.Controllers
                     {
                         endPoint.Send<IGetValueMemberEvent>(new
                         {
-                            IdClassroom = Guid.Parse(joinClassroom.idClassroom),
-                            IdMember = joinClassroom.idMember,
+                            IdClassroom = Guid.Parse(idClassroom),
+                            IdMember = idMember,
                             eventMessage = _classroomStateMessage.Create,
                             NameMember = string.Empty,
                             Avatar = string.Empty,
@@ -268,7 +268,7 @@ namespace ClassServer.Controllers
                     return Ok(result);
                 }
                 result.Status = 0;
-                result.Message = $"classroom with id \"{joinClassroom.idClassroom}\" is not exist";
+                result.Message = $"classroom with id \"{idClassroom}\" is not exist";
                 return BadRequest(result);
             }
             catch (Exception e)

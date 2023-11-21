@@ -10,12 +10,14 @@ using ClassServer.Models;
 using Infrastructure.Context;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ClassroomConnectString");
 var nameQueue = builder.Configuration.GetConnectionString("SagaBusQueue");
 
 // Add services to the container.
+builder.Services.Configure<Address>(builder.Configuration.GetSection("Address"));
 builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("EndpointConfig"));
 builder.Services.Configure<ServerInfor>(builder.Configuration.GetSection("ServerInfor"));
 builder.Services.AddMassTransit(cfg =>
@@ -75,6 +77,13 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+           Path.Combine(builder.Environment.ContentRootPath, "Documents")),
+    RequestPath = "/doc"
+});
 
 app.UseCors("myCorsPolicy");
 

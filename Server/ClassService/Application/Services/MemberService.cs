@@ -9,6 +9,7 @@ namespace Application.Services
 {
     public interface IMemberService
     {
+        Tuple<string, Exercise?> CreateExercise(CreateExerciseModel exercise);
         Member GetMemberById(string id);
         int AddMember(UpdateMemberModel memberModel, string idClassroom);
         int UpdateInforMember(UpdateMemberModel memberModel);
@@ -17,6 +18,18 @@ namespace Application.Services
     public class MemberService : IMemberService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private bool IsHost(string idMember, string idClassroom)
+        {
+            if (idMember.IsNullOrEmpty() || idClassroom.IsNullOrEmpty()) return false;
+            var classroom = _unitOfWork.classroomRepository.GetClassroomById(idClassroom);
+            var memberClass = classroom.ListMemberClassroom.FirstOrDefault(p => p.IdUser == idMember);
+            if (memberClass == null) return false;
+            if (memberClass.Role == "Host")
+            {
+                return true;
+            }
+            return false;
+        }
         public MemberService(ClassroomDbContext context, IMemoryCache memoryCache)
         {
             _unitOfWork = new UnitOfWork(context, memoryCache);
@@ -117,6 +130,34 @@ namespace Application.Services
             {
 
                 return null;
+            }
+        }
+
+        public Tuple<string,Exercise?> CreateExercise(CreateExerciseModel exerciseInput)
+        {
+            try
+            {
+                if (exerciseInput == null || exerciseInput.IdClassroom.IsNullOrEmpty() || exerciseInput.IdMember.IsNullOrEmpty()) { return new Tuple<string, Exercise?>("input is not is valid", null);}
+                var classroom = _unitOfWork.classroomRepository.GetById(exerciseInput.IdClassroom);
+                if (classroom == null) return new Tuple<string, Exercise?>("classroom is not exist", null);
+                var checkHost = IsHost(exerciseInput.IdMember, exerciseInput.IdClassroom);
+                if (!checkHost) return new Tuple<string, Exercise?>("Member isn't \"Host\"", null);
+                var exercise = new Exercise()
+                {
+                    IdExercise = Guid.NewGuid().ToString(),
+                    DeadLine = exerciseInput.Deadline,
+                    Name = exerciseInput.Name,
+                    Description = exerciseInput.Description,
+                    Classroom = classroom,
+                };
+                _unitOfWork.exerciseRepository.Add(exercise);
+                _unitOfWork.SaveChange();
+                _unitOfWork.Dispose();
+                return new Tuple<string, Exercise?>("Successful", exercise);
+            }
+            catch (Exception)
+            {
+                return new Tuple<string, Exercise?>("Error!", null);
             }
         }
     }
