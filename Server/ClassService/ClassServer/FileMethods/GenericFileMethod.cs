@@ -1,4 +1,7 @@
-﻿namespace ClassServer.FileMethods
+﻿using Microsoft.IdentityModel.Tokens;
+using XAct;
+
+namespace ClassServer.FileMethods
 {
     public class GenericFileMethod
     {
@@ -15,20 +18,19 @@
                 return memoryStream.ToArray();
             }
         }
-        protected void SaveFile(string folder, IFormFile file)
+        public string? SaveFile(string folder, IFormFile file, string? newName)
         {
+            if (folder .IsNullOrEmpty() || file == null) { return null; }
             var contentPath = this.environment.ContentRootPath;
             var path = Path.Combine(contentPath, folder);
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-            //var ext = Path.GetExtension(file.FileName);
-            var newFileName = file.FileName /*+ ext*/;
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            var newFileName = file.FileName;
+            if (newName != null) newFileName = newName;
             var fileWithPath = Path.Combine(path, newFileName);
             var stream = new FileStream(fileWithPath, FileMode.Create);
             file.CopyTo(stream);
             stream.Close();
+            return newFileName;
         }
         protected string GenerateToString(IFormFile formFile)
         {
