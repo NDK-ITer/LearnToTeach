@@ -14,22 +14,12 @@ namespace Application.Services
         int AddMember(UpdateMemberModel memberModel, string idClassroom);
         int UpdateInforMember(UpdateMemberModel memberModel);
         int DeleteMember(string idMember);
+        bool IsHost(string idMember, string idClassroom);
     }
     public class MemberService : IMemberService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private bool IsHost(string idMember, string idClassroom)
-        {
-            if (idMember.IsNullOrEmpty() || idClassroom.IsNullOrEmpty()) return false;
-            var classroom = _unitOfWork.classroomRepository.GetClassroomById(idClassroom);
-            var memberClass = classroom.ListMemberClassroom.FirstOrDefault(p => p.IdUser == idMember);
-            if (memberClass == null) return false;
-            if (memberClass.Role == "Host")
-            {
-                return true;
-            }
-            return false;
-        }
+        
         public MemberService(ClassroomDbContext context, IMemoryCache memoryCache)
         {
             _unitOfWork = new UnitOfWork(context, memoryCache);
@@ -133,6 +123,19 @@ namespace Application.Services
             }
         }
 
+        public bool IsHost(string idMember, string idClassroom)
+        {
+            if (idMember.IsNullOrEmpty() || idClassroom.IsNullOrEmpty()) return false;
+            var classroom = _unitOfWork.classroomRepository.GetClassroomById(idClassroom);
+            var memberClass = classroom.ListMemberClassroom.FirstOrDefault(p => p.IdUser == idMember);
+            if (memberClass == null) return false;
+            if (memberClass.Role == "Host")
+            {
+                return true;
+            }
+            return false;
+        }
+
         public Tuple<string,Exercise?> CreateExercise(CreateExerciseModel exerciseInput)
         {
             try
@@ -140,16 +143,20 @@ namespace Application.Services
                 if (exerciseInput == null || exerciseInput.IdClassroom.IsNullOrEmpty() || exerciseInput.IdMember.IsNullOrEmpty()) { return new Tuple<string, Exercise?>("input is not is valid", null);}
                 var classroom = _unitOfWork.classroomRepository.GetById(exerciseInput.IdClassroom);
                 if (classroom == null) return new Tuple<string, Exercise?>("classroom is not exist", null);
-                var checkHost = IsHost(exerciseInput.IdMember, exerciseInput.IdClassroom);
-                if (!checkHost) return new Tuple<string, Exercise?>("Member isn't \"Host\"", null);
+                //var checkHost = IsHost(exerciseInput.IdMember, exerciseInput.IdClassroom);
+                //if (!checkHost) return new Tuple<string, Exercise?>("Member isn't \"Host\"", null);
                 var exercise = new Exercise()
                 {
-                    IdExercise = Guid.NewGuid().ToString(),
+                    //IdExercise = Guid.NewGuid().ToString(),
                     DeadLine = exerciseInput.Deadline,
                     Name = exerciseInput.Name,
+                    LinkFile = exerciseInput.LinkFile,
+                    FileName = exerciseInput.FileName,
                     Description = exerciseInput.Description,
                     Classroom = classroom,
                 };
+                if (exerciseInput.IdExercise.IsNullOrEmpty()) exercise.IdExercise = exerciseInput.IdExercise;
+                exercise.IdExercise = Guid.NewGuid().ToString();
                 _unitOfWork.exerciseRepository.Add(exercise);
                 _unitOfWork.SaveChange();
                 _unitOfWork.Dispose();

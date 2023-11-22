@@ -5,6 +5,7 @@ using ClassServer.Models;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ClassServer.Controllers
 {
@@ -37,24 +38,44 @@ namespace ClassServer.Controllers
             };
             try
             {
-                var createExerciseModel = new CreateExerciseModel()
-                {
-                    IdClassroom = uploadExercise.IdClassroom,
-                    IdMember = uploadExercise.IdMember,
-                    Name = uploadExercise.Name,
-                    Description = uploadExercise.Description,
-                    Deadline = uploadExercise.Deadline,
-                };
-                var exerciseResult = _unitOfWork_ClassroomService._memberService.CreateExercise(createExerciseModel);
-                if (exerciseResult.Item2 == null)
+                if (!_unitOfWork_ClassroomService._memberService.IsHost(uploadExercise.IdMember, uploadExercise.IdClassroom))
                 {
                     result.Status = 0;
-                    result.Message = exerciseResult.Item1;
+                    result.Message = "Member isn't \"Host\"";
+                    return Ok(result);
+                }
+                var id = Guid.NewGuid().ToString();
+                var fileName = string.Empty;
+                if (uploadExercise.FileUpload != null)
+                {
+                    var ext = Path.GetExtension(uploadExercise.FileUpload.FileName);
+                    fileName = _documentFile.SaveFile("Documents/Exercises", uploadExercise.FileUpload, $"{id}{ext}");
+                }
+                if (fileName != null)
+                {
+                    var createExerciseModel = new CreateExerciseModel()
+                    {
+                        IdExercise = id,
+                        IdClassroom = uploadExercise.IdClassroom,
+                        IdMember = uploadExercise.IdMember,
+                        Name = uploadExercise.Name,
+                        Description = uploadExercise.Description,
+                        LinkFile = _address.Value.ThisServiceAddress,
+                        FileName = fileName,
+                        Deadline = uploadExercise.Deadline,
+                    };
+                    var exerciseResult = _unitOfWork_ClassroomService._memberService.CreateExercise(createExerciseModel);
+                    if (exerciseResult.Item2 != null)
+                    {
+                        result.Status = 0;
+                        result.Message = exerciseResult.Item1;
+                    }
                 }
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                result.Message = e.Message;
                 return BadRequest(result);
             }
         }
