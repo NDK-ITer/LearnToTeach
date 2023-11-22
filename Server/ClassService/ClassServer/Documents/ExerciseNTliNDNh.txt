@@ -1,0 +1,47 @@
+ABCDEI => key: AB...
+
+=>CDEI
+-DEI
+-EI
+-I
+-0
+=>L.Key = AB
+
+=>IEDC
+-EDC
+-DC
+-C
+-0
+=>R.Key = L.Key = AB
+
+--------------------------------------
+
+ABCDEGH => key: B...(no H)
+
+=>ACDEG
+-CDEG
+-DEG
+-EG
+-G
+=>L.Key = BG
+
+=>GEDCA
+-EDCA
+-DCA
+-CA
+-A
+=>R.Key = BA
+
+--------------------------------------
+
+ABCD => key:B...
+
+-ACD
+-CD
+-D
+=>L.Key = BD
+
+-DCA
+-CA
+-A
+=>R.Key = BA

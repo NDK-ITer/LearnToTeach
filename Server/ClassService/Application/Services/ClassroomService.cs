@@ -6,7 +6,6 @@ using Infrastructure.Context;
 using Infrastructure.Repositories;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using XAct;
 
 namespace Application.Services
@@ -22,6 +21,7 @@ namespace Application.Services
         Classroom UpdateClassroom(UpdateClassroomModel classroomUpdateModel);
         int DeleteClassroom(string idClass);
         int RemoveMember(string idClassroom, string idMember);
+        bool MemberIsInClassroom(string idClassroom, string idMember);
     }
     public class ClassroomService : IClassroomService
     {
@@ -167,6 +167,20 @@ namespace Application.Services
             catch (Exception)
             {
                 return null;
+            }
+        }
+
+        public bool MemberIsInClassroom(string idClassroom, string idMember)
+        {
+            try
+            {
+                var classroom = _unitOfWork.classroomRepository.GetClassroomById(idClassroom);
+                var check = classroom.ListMember.Contains(_unitOfWork.memberRepository.GetById(idMember));
+                return check;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
 

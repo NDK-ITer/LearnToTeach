@@ -24,8 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Documents\Exercises\" />
-    <Folder Include="Documents\Answers\" />
+    <Folder Include="Documents\" />
   </ItemGroup>
 
 </Project>
