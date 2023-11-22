@@ -7,13 +7,15 @@ import {
     Typography,
 } from "@material-ui/core";
 import React from "react";
-import { CreateClass, JoinClass } from "..";
-import { useLocalContext } from "../../context";
+import CreateClass from 'components/CreateClass';
+import JoinClass from 'components/JoinClass';
+import { useLocalContext } from "context";
 import { useStyles } from "./style";
 import { Link } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import "./style.css";
-import Info from "../Information";
+import Info from "components/Information";
+import accountImg from 'images/account.png'
 
 const Header = ({ children }) => {
     const classes = useStyles();
@@ -26,8 +28,6 @@ const Header = ({ children }) => {
     const {
         setCreateClassDialog,
         setJoinClassDialog,
-        loggedInUser,
-        logout,
     } = useLocalContext();
 
     const handleCreate = () => {
@@ -64,19 +64,19 @@ const Header = ({ children }) => {
                             Tham gia lớp học
                         </Button>
                         <Button
-                            onclick={handleCreate}
+                            onClick={handleCreate}
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ margin: 1, backgroundColor: "rgb(108, 144, 46)" }}
-                        //className='button'
+                            sx={{ margin: 1, whiteSpace: "nowrap", backgroundColor: "rgb(108, 144, 46)", pr: 5, pl: 5 }}
+
                         >
                             Tạo lớp học
                         </Button>
                         <div>
                             <Avatar
                                 onClick={handleClick}
-                                src={loggedInUser?.photoURL}
+                                src={accountImg}
                                 className={classes.icon}
                             />
                             <Menu
@@ -87,8 +87,8 @@ const Header = ({ children }) => {
                                 onClose={handleClose}
                             >
                                 <MenuItem onClick={() => Info()}>Thông tin tài khoản</MenuItem>
-                                <MenuItem onClick={""}>Phản hồi</MenuItem>
-                                <MenuItem onClick={() => logout()}>Đăng xuất</MenuItem>
+                                <MenuItem >Phản hồi</MenuItem>
+                                <MenuItem>Đăng xuất</MenuItem>
                             </Menu>
                         </div>
                     </div>

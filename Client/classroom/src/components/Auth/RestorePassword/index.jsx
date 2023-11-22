@@ -37,7 +37,6 @@ function RestorePassword(props) {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const [Email, setEmail] = useState({});
-    const [OTP, setOTP] = useState({});
     const [isShownforgetpassword, setIsShownverforgetpassword] = useState(true);
     const [isShownverifyotp, setIsShownverifyotp] = useState(false);
     const [isShownresetpassword, setIsShownresetpassword] = useState(false);
@@ -80,7 +79,6 @@ function RestorePassword(props) {
             if (typeof check.status != 'undefined') {
                 if (check.status === 1) {
                     enqueueSnackbar(check.message, { variant: 'success' });
-                    setOTP(values.OTP);
                     setIsShownresetpassword(true);
                     setIsShownverifyotp(false);
                 } else {

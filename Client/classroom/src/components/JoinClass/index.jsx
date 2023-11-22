@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import { Avatar, Button, Dialog, Slide, TextField } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import "./style.css";
+import { useLocalContext } from 'context';
+import accountImg from 'images/account.png'
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const JoinClass = () => {
-
+  const {
+    joinClassDialog,
+    setJoinClassDialog,
+  } = useLocalContext();
   const [classCode, setClassCode] = useState("");
   const [email, setemail] = useState("");
   const [error, setError] = useState(false);
@@ -15,7 +20,7 @@ const JoinClass = () => {
   const [classExists, setClassExists] = useState(false);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+
   };
   return (
     <div>
@@ -45,17 +50,17 @@ const JoinClass = () => {
           </div>
           <div className="joinClass__form">
             <p className="joinClass__formText">
-              You're currently signed in as {loggedInUser?.email}
+              You're currently signed in as test
             </p>
             <div className="joinClass__loginInfo">
               <div className="joinClass__classLeft">
-                <Avatar src={loggedInUser?.photoURL} />
+                <Avatar src={accountImg} />
                 <div className="joinClass__loginText">
                   <div className="joinClass__loginName">
-                    {loggedInUser?.displayName}
+                    test
                   </div>
                   <div className="joinClass__loginEmail">
-                    {loggedInUser?.email}
+                    test
                   </div>
                 </div>
               </div>

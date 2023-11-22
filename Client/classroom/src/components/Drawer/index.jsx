@@ -7,10 +7,11 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
+import TextField from '@mui/material/TextField';
 
-import { Header } from "components/Header";
+import  Header from "components/Header";
 import { Menu } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
 const useStyles = makeStyles({
@@ -46,25 +47,32 @@ export default function SwipeableTemporaryDrawer() {
         [classes.fullList]: anchor === "top" || anchor === "bottom",
       })}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
+      //onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
+        {[""].map((text, index) => (
+          <ListItem >
+            <SearchOutlinedIcon/>
+            <TextField
+                // fullWidth
+                id="search"
+                label="Tìm kiếm"
+                name="search"
+                size="small"
+                autoComplete="off"
+              />
             <ListItemText primary={text} />
           </ListItem>
         ))}
       </List>
       <Divider />
       <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
+        {["Đã tạo", "Đã tham gia"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              {index % 2 === 0 ? <SearchOutlinedIcon /> : <ClassOutlinedIcon />}
+              {/* <ClassOutlinedIcon/> */}
             </ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
@@ -77,7 +85,17 @@ export default function SwipeableTemporaryDrawer() {
     <div>
       {["left"].map((anchor) => (
         <React.Fragment key={anchor}>
-
+          <Header>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleDrawer(anchor, true)}
+            >
+              <Menu />
+            </IconButton>
+          </Header>
           <SwipeableDrawer
             anchor={anchor}
             open={state[anchor]}

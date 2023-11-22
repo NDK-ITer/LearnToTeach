@@ -1,36 +1,10 @@
 import { Button, DialogActions, TextField } from "@material-ui/core";
 import React, { useState } from "react";
-import { useLocalContext } from "../../context";
-import { v4 as uuidV4 } from "uuid";
-import db from "../../lib/firebase";
-
 const Form = () => {
   const [className, setClassName] = useState("");
   const [Section, setSection] = useState("");
   const [Room, setRoom] = useState("");
   const [Subject, setSubject] = useState("");
-
-  const { loggedInMail, setCreateClassDialog } = useLocalContext();
-
-  const addClass = (e) => {
-    e.preventDefault();
-    const id = uuidV4();
-
-    db.collection("CreatedClasses")
-      .doc(loggedInMail)
-      .collection("classes")
-      .doc(id)
-      .set({
-        owner: loggedInMail,
-        className: className,
-        section: Section,
-        room: Room,
-        id: id,
-      })
-      .then(() => {
-        setCreateClassDialog(false);
-      });
-  };
   return (
     <div className="form">
       <p className="class__title">Create Class</p>
@@ -70,7 +44,7 @@ const Form = () => {
         />
       </div>
       <DialogActions>
-        <Button onClick={addClass} color="primary">
+        <Button  color="primary">
           Create
         </Button>
       </DialogActions>

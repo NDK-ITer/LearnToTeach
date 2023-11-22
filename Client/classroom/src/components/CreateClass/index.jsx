@@ -6,7 +6,7 @@ import {
   DialogContent,
 } from "@material-ui/core";
 import React, { useState } from "react";
-import { useLocalContext } from "../../context";
+import { useLocalContext } from "context";
 import Form from "./Form";
 import "./style.css";
 const CreateClass = () => {
@@ -30,7 +30,7 @@ const CreateClass = () => {
               Using Classroom at a school with students?
             </div>
             <DialogContent className="class__content">
-              <p className="class__text">
+              <div className="class__text">
                 <p>If so, your school must sign up for a free</p>
                 <a href="/help" className="class__link">
                   G Suite for Education
@@ -39,7 +39,7 @@ const CreateClass = () => {
                 <a href="/learn" className="class__link2">
                   Learn More.
                 </a>
-              </p>
+              </div>
               <p>
                 G Suite for Education lets schools decide which Google services
                 their students can use, and provides additional
