@@ -31,13 +31,13 @@ namespace Application.Services
             _unitOfWork = new UnitOfWork(context, memoryCache);
         }
 
-        public Classroom? CreateClassroom(AddClassroomModel classroomRequest) //To create classroom with "classroomRequest"
+        public Classroom? CreateClassroom(AddClassroomModel classroomRequest)
         {
             try
             {
                 //Create a classroom
                 var idClassroom = Guid.NewGuid().ToString();
-                idClassroom = Convert.ToBase64String(idClassroom.ToByteArray()).Substring(0, 10);
+                idClassroom = Convert.ToBase64String(idClassroom.ToByteArray()).Substring(0, 8);
                 var member = _unitOfWork.memberRepository.GetById(classroomRequest.idUserHost);
                 if (member == null)
                 {
@@ -92,7 +92,7 @@ namespace Application.Services
 
         }
 
-        public int DeleteClassroom(string idClassroom)//To delete classroom with "idClassroom"
+        public int DeleteClassroom(string idClassroom)
         {
             try
             {
