@@ -12,6 +12,7 @@ namespace Infrastructure.Configurations
             builder.HasKey(pk => new {pk.IdExercise, pk.IdMember});
             builder.Property(p => p.DateAnswer).HasDefaultValue(DateTime.Now);
             builder.Property(p => p.LinkFile).HasMaxLength(200);
+            builder.Property(p => p.FileName).HasMaxLength(300);
         }
     }
 }

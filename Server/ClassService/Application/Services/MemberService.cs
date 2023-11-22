@@ -14,7 +14,7 @@ namespace Application.Services
         int AddMember(UpdateMemberModel memberModel, string idClassroom);
         int UpdateInforMember(UpdateMemberModel memberModel);
         int DeleteMember(string idMember);
-        bool IsHost(string idMember, string idClassroom);
+        Tuple<bool,string> IsHost(string idMember, string idClassroom);
     }
     public class MemberService : IMemberService
     {
@@ -123,17 +123,18 @@ namespace Application.Services
             }
         }
 
-        public bool IsHost(string idMember, string idClassroom)
+        public Tuple<bool, string> IsHost(string idMember, string idClassroom)
         {
-            if (idMember.IsNullOrEmpty() || idClassroom.IsNullOrEmpty()) return false;
+            if (idMember.IsNullOrEmpty() || idClassroom.IsNullOrEmpty()) return new Tuple<bool, string>(false,"Input is nor valid");
             var classroom = _unitOfWork.classroomRepository.GetClassroomById(idClassroom);
+            if (classroom == null) return new Tuple<bool,string>(false,"This classroom is not exist");
             var memberClass = classroom.ListMemberClassroom.FirstOrDefault(p => p.IdUser == idMember);
-            if (memberClass == null) return false;
+            if (memberClass == null) return new Tuple<bool, string>(false, "This member is not exist");
             if (memberClass.Role == "Host")
             {
-                return true;
+                return new Tuple<bool, string>(true, "");
             }
-            return false;
+            return new Tuple<bool, string>(false, "This member is not \"Host\"");
         }
 
         public Tuple<string,Exercise?> CreateExercise(CreateExerciseModel exerciseInput)
