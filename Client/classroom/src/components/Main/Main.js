@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import db, { storage } from "../../lib/firebase";
 import "./style.css";
 import firebase from "firebase";
-import { useLocalContext } from "../../context/context";
+import { useLocalContext } from "../../context";
 import { Announcment } from "..";
 const Main = ({ classData }) => {
   const { loggedInMail } = useLocalContext();
