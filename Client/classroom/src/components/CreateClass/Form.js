@@ -1,6 +1,6 @@
 import { Button, DialogActions, TextField } from "@material-ui/core";
 import React, { useState } from "react";
-import { useLocalContext } from "../../context/context";
+import { useLocalContext } from "../../context";
 import { v4 as uuidV4 } from "uuid";
 import db from "../../lib/firebase";
 

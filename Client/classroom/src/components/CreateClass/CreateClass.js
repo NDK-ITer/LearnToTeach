@@ -6,7 +6,7 @@ import {
   DialogContent,
 } from "@material-ui/core";
 import React, { useState } from "react";
-import { useLocalContext } from "../../context/context";
+import { useLocalContext } from "../../context";
 import Form from "./Form";
 import "./style.css";
 const CreateClass = () => {

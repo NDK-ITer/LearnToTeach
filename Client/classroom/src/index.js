@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import store from './app/store';
 import './index.css';
+import ContextProvider from './context/index'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
@@ -13,7 +14,10 @@ ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
         <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-          <App />
+          <ContextProvider>
+            <App />
+          </ContextProvider>
+
         </SnackbarProvider>
       </BrowserRouter>
     </Provider>
