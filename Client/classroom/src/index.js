@@ -12,14 +12,13 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-          <ContextProvider>
+      <ContextProvider>
+        <BrowserRouter>
+          <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
             <App />
-          </ContextProvider>
-
-        </SnackbarProvider>
-      </BrowserRouter>
+          </SnackbarProvider>
+        </BrowserRouter>
+      </ContextProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

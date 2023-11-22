@@ -7,11 +7,11 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
-import TextField from '@mui/material/TextField';
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+import ClassOutlinedIcon from '@material-ui/icons/ClassOutlined';
+import TextField from '@material-ui/core/TextField';
 
-import  Header from "components/Header";
+import Header from "components/Header";
 import { Menu } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
 const useStyles = makeStyles({
@@ -53,15 +53,15 @@ export default function SwipeableTemporaryDrawer() {
       <List>
         {[""].map((text, index) => (
           <ListItem >
-            <SearchOutlinedIcon/>
+            <SearchOutlinedIcon />
             <TextField
-                // fullWidth
-                id="search"
-                label="Tìm kiếm"
-                name="search"
-                size="small"
-                autoComplete="off"
-              />
+              // fullWidth
+              id="search"
+              label="Tìm kiếm"
+              name="search"
+              size="small"
+              autoComplete="off"
+            />
             <ListItemText primary={text} />
           </ListItem>
         ))}

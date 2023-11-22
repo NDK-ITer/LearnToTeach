@@ -16,10 +16,14 @@ import Button from '@material-ui/core/Button';
 import "./style.css";
 import Info from "components/Information";
 import accountImg from 'images/account.png'
+import { logout } from 'components/Auth/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const Header = ({ children }) => {
     const classes = useStyles();
-
+    const dispatch = useDispatch();
+    const history = useHistory();
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handleClick = (event) => setAnchorEl(event.currentTarget);
@@ -35,6 +39,11 @@ const Header = ({ children }) => {
         setCreateClassDialog(true);
     };
 
+    const handleLogoutClick = () => {
+        const action = logout();
+        dispatch(action);
+        window.location.reload(false);
+    };
     const handleJoin = () => {
         handleClose();
         setJoinClassDialog(true);
@@ -88,7 +97,7 @@ const Header = ({ children }) => {
                             >
                                 <MenuItem onClick={() => Info()}>Thông tin tài khoản</MenuItem>
                                 <MenuItem >Phản hồi</MenuItem>
-                                <MenuItem>Đăng xuất</MenuItem>
+                                <MenuItem onClick={handleLogoutClick}>Đăng xuất</MenuItem>
                             </Menu>
                         </div>
                     </div>

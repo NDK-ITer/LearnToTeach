@@ -40,7 +40,7 @@ function Login(props) {
             console.log(resultAction.payload)
             if (typeof check.id !== 'undefined') {
                 enqueueSnackbar('Login successfully!!! 🎉', { variant: 'success' });
-                history.push('/');
+                window.location.reload(false);
             } else if (typeof check.status != 'undefined') {
                 enqueueSnackbar(check.message, { variant: 'error' });
             }
