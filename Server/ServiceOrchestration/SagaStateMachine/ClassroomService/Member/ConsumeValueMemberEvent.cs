@@ -9,7 +9,8 @@ namespace SagaStateMachine.ClassroomService.Member
         {
             this.memberStateData = memberStateData;
         }
-        public Guid idClassroom => memberStateData.IdClassroom;
+        public Guid IdMessage => memberStateData.IdMessage;
+        public string IdClassroom => memberStateData.IdClassroom;
         public string IdMember => memberStateData.IdMember;
         public string NameClassroom => memberStateData.NameClassroom;
         public string NameMember => memberStateData.NameMember;

@@ -6,6 +6,7 @@ using Infrastructure.Context;
 using Infrastructure.Repositories;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using XAct;
 
 namespace Application.Services
@@ -36,6 +37,7 @@ namespace Application.Services
             {
                 //Create a classroom
                 var idClassroom = Guid.NewGuid().ToString();
+                idClassroom = Convert.ToBase64String(idClassroom.ToByteArray()).Substring(0, 10);
                 var member = _unitOfWork.memberRepository.GetById(classroomRequest.idUserHost);
                 if (member == null)
                 {

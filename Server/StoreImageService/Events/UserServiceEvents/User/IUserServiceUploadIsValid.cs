@@ -2,7 +2,8 @@
 {
     public interface IUserServiceUploadIsValid
     {
-        public Guid Id { get; }
+        public Guid IdMessage { get; }
+        public string IdUser { get; }
         public string LinkImage { get; }
         public string NameImage { get; }
     }

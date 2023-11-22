@@ -1,30 +1,21 @@
 ﻿using Events.ClassroomServiceEvents.Classroom;
-using Events.ClassroomServiceEvents.Classroom.AddClassroom;
 using MassTransit;
 
 namespace SagaStateMachine.ClassroomService.Classroom
 {
     public class ClassroomStateMachine : MassTransitStateMachine<ClassroomStateData>
     {
-        // 2 states are going to happen
         public State AddClassroom { get; private set; }
-        public State CancelAddClassroom { get; private set; }
-
-        // 2 events are going to happen
-
         public Event<IClassroomEvent> AddClassroomEvent { get; private set; }
-        public Event<ICancelAddClassroomEvent> CancelAddClassroomEvent { get; private set; }
-
         public ClassroomStateMachine()
         {
             InstanceState(s => s.CurrentState);
-            Event(() => AddClassroomEvent, a => a.CorrelateById(m => m.Message.idClassroom));
-            Event(() => CancelAddClassroomEvent, a => a.CorrelateById(m => m.Message.idClassroom));
-
+            Event(() => AddClassroomEvent, a => a.CorrelateById(m => m.Message.idMessage));
             // A message coming from classroom service
             Initially(
                 When(AddClassroomEvent).Then(context =>
                 {
+                    context.Saga.IdMessage = context.Message.idMessage;
                     context.Saga.IdClassroom = context.Message.idClassroom;
                     context.Saga.Name = context.Message.name;
                     context.Saga.Avatar = context.Message.avatar;

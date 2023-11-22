@@ -2,6 +2,6 @@
 {
     public interface IRemoveClassroomIsValidEvent
     {
-        public Guid IdClassroom { get; }
+        public string IdClassroom { get; }
     }
 }

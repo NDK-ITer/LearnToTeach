@@ -4,6 +4,7 @@ using Events.ClassroomServiceEvents.Classroom;
 using Events.ClassroomServiceEvents.Classroom.AddClassroom;
 using MassTransit;
 using UserServer.Models;
+using XAct.Messages;
 
 namespace UserServer.Consumers
 {
@@ -29,6 +30,7 @@ namespace UserServer.Consumers
                     {
                         await context.Publish<ICancelAddClassroomEvent>(new
                         {
+                            idMessage = data.idMessage,
                             idClassroom = data.idClassroom,
                             description = data.description,
                             idUserHost = data.idUserHost,
@@ -40,7 +42,7 @@ namespace UserServer.Consumers
                     {
                         var classroomInfor = new AddClassroomInforModel()
                         {
-                            IdClassroom = data.idClassroom.ToString(),
+                            IdClassroom = data.idClassroom,
                             IdUser = data.idUserHost,
                             Description = data.description,
                             NameClassroom = data.name
@@ -48,6 +50,7 @@ namespace UserServer.Consumers
                         unitOfWork_UserService.ClassroomInforService.AddClassroomInfor(classroomInfor);
                         await context.Publish<IAddClassroomIsValidEvent>(new
                         {
+                            idMessage = data.idMessage,
                             idClassroom = data.idClassroom,
                             idUserHost = data.idUserHost,
                             nameUserHost = $"{user.FirstName} {user.LastName}",
@@ -60,7 +63,7 @@ namespace UserServer.Consumers
                 {
                     var updateClassroomInforModel = new UpdateClassroomInforModel()
                     {
-                        IdClassroom = data.idClassroom.ToString() ,
+                        IdClassroom = data.idClassroom,
                         Description = data.description,
                         LinkAvatar = data.linkAvatar,
                         Avatar = data.avatar,

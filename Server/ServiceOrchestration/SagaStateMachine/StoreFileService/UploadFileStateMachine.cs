@@ -10,12 +10,13 @@ namespace SagaStateMachine.StoreFileService
         public UploadFileStateMachine()
         {
             InstanceState(s => s.CurrentState);
-            Event(() => UploadFileEvent, a => a.CorrelateById(m => m.Message.Id));
+            Event(() => UploadFileEvent, a => a.CorrelateById(m => m.Message.IdMessage));
 
             Initially(
                 When(UploadFileEvent).Then(context =>
                 {
-                    context.Saga.Id = context.Message.Id;
+                    context.Saga.IdMessage = context.Message.IdMessage;
+                    context.Saga.IdObject = context.Message.IdObject;
                     context.Saga.FileByteString = context.Message.FileByteString;
                     context.Saga.ServerName = context.Message.ServerName;
                     context.Saga.Event = context.Message.Event;
@@ -24,7 +25,8 @@ namespace SagaStateMachine.StoreFileService
             During(UploadFile,
                 When(UploadFileEvent).Then(context =>
                 {
-                    context.Saga.Id = context.Message.Id;
+                    context.Saga.IdMessage = context.Message.IdMessage;
+                    context.Saga.IdObject = context.Message.IdObject;
                     context.Saga.FileByteString = context.Message.FileByteString;
                     context.Saga.ServerName = context.Message.ServerName;
                     context.Saga.Event = context.Message.Event;

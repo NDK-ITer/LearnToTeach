@@ -37,6 +37,7 @@ namespace UserServer.Consumers
                         });
                         await context.Publish<IAddMemberIsValidEvent>(new
                         {
+
                             IdClassroom = data.IdClassroom,
                             IdMember = user.id,
                             NameMember = $"{user.FirstName} {user.LastName}",

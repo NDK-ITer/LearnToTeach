@@ -2,7 +2,8 @@
 {
     public interface IGetValueClassroomEvent
     {
-        public Guid idClassroom { get; }
+        public Guid idMessage { get; }
+        public string idClassroom { get; }
         public string avatar { get; }
         public string? description { get; }
         public string? idUserHost { get; }

@@ -6,7 +6,8 @@ namespace SagaStateMachine.ClassroomService.Classroom
     {
         public Guid CorrelationId { get; set; }
         public string? CurrentState { get; set; }
-        public Guid IdClassroom { get; set; }
+        public Guid IdMessage { get; set; }
+        public string IdClassroom { get; set; }
         public string? IdUserHost { get; set; }
         public string? Avatar { get; set; }
         public string? LinkAvatar { get; set; }

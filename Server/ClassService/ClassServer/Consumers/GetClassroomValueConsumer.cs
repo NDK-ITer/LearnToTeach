@@ -22,6 +22,7 @@ namespace ClassServer.Consumers
             {
                 await context.Publish<IClassroomEvent>(new
                 {
+                    idMessage = data.idMessage,
                     idClassroom = data.idClassroom,
                     description = data.description,
                     idUserHost = data.idUserHost,
@@ -32,7 +33,8 @@ namespace ClassServer.Consumers
 
                 await context.Publish<IUploadFileEvent>(new
                 {
-                    Id = data.idClassroom,
+                    IdMessage = Guid.NewGuid(),
+                    IdObject = data.idClassroom,
                     FileByteString = data.avatar,
                     Event = data.eventMessage,
                     ServerName = _serverInfor.Value.Name

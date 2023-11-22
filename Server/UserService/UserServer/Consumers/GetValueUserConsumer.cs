@@ -56,7 +56,8 @@ namespace UserServer.Consumers
                     {
                         await context.Publish<IUploadFileEvent>(new
                         {
-                            Id = data.id,
+                            IdMessage = Guid.NewGuid(),
+                            IdObject = data.id.ToString(),
                             Event = _userEventMessage.Update,
                             FileByteString = data.avatar,
                             ServerName = data.serverName
@@ -77,7 +78,8 @@ namespace UserServer.Consumers
                     {
                         await context.Publish<IUploadFileEvent>(new
                         {
-                            Id = data.id,
+                            IdMessage = Guid.NewGuid(),
+                            IdObject = data.id.ToString(),
                             Event = _userEventMessage.Update,
                             FileByteString = data.avatar,
                             ServerName = data.serverName

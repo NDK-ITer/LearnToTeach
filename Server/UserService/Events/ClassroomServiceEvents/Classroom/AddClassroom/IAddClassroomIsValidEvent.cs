@@ -2,7 +2,8 @@
 {
     public interface IAddClassroomIsValidEvent
     {
-        public Guid idClassroom { get; }
+        public Guid idMessage { get; }
+        public string idClassroom { get; }
         public string? idUserHost { get; }
         public string? nameUserHost { get; }
         public string? avatarClassroom { get; }

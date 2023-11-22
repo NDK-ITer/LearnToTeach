@@ -1,5 +1,4 @@
 ﻿using Application.Models;
-using Application.Requests;
 using Application.Services;
 using Events.UserServiceEvents.User;
 using MassTransit;
@@ -21,7 +20,7 @@ namespace UserServer.Consumers.UploadFile
             {
                 var userUpdate = new UpdateUserModel()
                 {
-                    IdUser = data.Id.ToString(),
+                    IdUser = data.IdUser,
                     LinkAvatar = data.LinkImage,
                     Avatar = data.NameImage
                 };

@@ -28,32 +28,30 @@ namespace FIleStoreServer.Consumers
                 {
                     if (data.Event == eventMessage.Create || data.Event == eventMessage.Update)
                     {
-                        var imageInfor = imageMethod.SaveImage("Files", data.FileByteString,data.Id.ToString());
+                        var imageInfor = imageMethod.SaveImage("Files", data.FileByteString,data.IdObject);
                         if (imageInfor != null)
                         {
                             await context.Publish<IUserServiceUploadIsValid>(new
                             {
-                                Id = data.Id,
+                                IdMessage = data.IdMessage,
+                                IdUser = data.IdObject,
                                 LinkImage = imageInfor.Item1.ToString(),
                                 NameImage = imageInfor.Item2,
                             });
                         }
-                    }
-                    else if (data.Event == eventMessage.Delete)
-                    {
-
                     }
                 }
                 else if (data.ServerName == serverName.ClassroomServer)
                 {
                     if (data.Event == eventMessage.Create || data.Event == eventMessage.Update)
                     {
-                        var imageInfor = imageMethod.SaveImage("Files/Images", data.FileByteString, data.Id.ToString());
+                        var imageInfor = imageMethod.SaveImage("Files", data.FileByteString, Guid.NewGuid().ToString());
                         if (imageInfor != null)
                         {
                             await context.Publish<IClassroomServiceUploadIsValid>(new
                             {
-                                Id = data.Id,
+                                Id = data.IdMessage,
+                                IdClassroom = data.IdObject,
                                 LinkImage = imageInfor.Item1.ToString(),
                                 NameImage = imageInfor.Item2,
                             });

@@ -24,14 +24,15 @@ namespace ClassServer.Consumers.UploadFile
             {
                 var classroomUpdate = new UpdateClassroomModel()
                 {
-                    idClassroom = data.Id.ToString(),
+                    idClassroom = data.IdClassroom,
                     linkAvatar = data.LinkImage,
                     avatarClassroom = data.NameImage
                 };
                 var classroom = unitOfWork_ClassroomService._classroomService.UpdateClassroom(classroomUpdate);
                 await context.Publish<IClassroomEvent>(new
                 {
-                    idClassroom = Guid.Parse(classroom.Id),
+                    idMessage = Guid.NewGuid(),
+                    idClassroom = classroom.Id,
                     description = classroom.Description,
                     name = classroom.Name,
                     linkAvatar = classroom.LinkAvatar,

@@ -11,7 +11,9 @@ namespace SagaStateMachine.StoreFileService
             this.uploadFileStateData = uploadFileStateData;
         }
 
-        public Guid Id => uploadFileStateData.Id;
+        public Guid IdMessage => uploadFileStateData.IdMessage;
+
+        public string IdObject => uploadFileStateData.IdObject;
 
         public string FileByteString => uploadFileStateData.FileByteString;
 

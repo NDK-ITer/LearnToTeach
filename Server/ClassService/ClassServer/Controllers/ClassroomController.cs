@@ -9,6 +9,7 @@ using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using XAct.Messages;
 
 namespace ClassServer.Controllers
 {
@@ -113,7 +114,7 @@ namespace ClassServer.Controllers
                 if (classroomRequest.idUserHost.IsNullOrEmpty())
                 {
                     resultMessage.Message = "\"idUserHost\" is null or empty";
-                    return BadRequest(resultMessage);
+                    return Ok(resultMessage);
                 }
                 
                 var addClassroomModel = new AddClassroomModel()
@@ -131,7 +132,8 @@ namespace ClassServer.Controllers
                 {
                     endPoint.Send<IGetValueClassroomEvent>(new
                     {
-                        idClassroom = Guid.Parse(check.Id),
+                        idMessage = Guid.NewGuid(),
+                        idClassroom = check.Id,
                         description = check.Description,
                         idUserHost = classroomRequest.idUserHost,
                         name = check.Name,
@@ -235,10 +237,10 @@ namespace ClassServer.Controllers
         }
 
 
-        [HttpGet]
+        [HttpPost]
         [HttpOptions]
-        [Route("join-classroom")]
-        public async Task<ActionResult> JoinClassroom(string idClassroom, string idMember)
+        [Route("join-classroom/{idClassroom}/{idMember}")]
+        public async Task<ActionResult> JoinClassroom([FromRoute] string idClassroom, [FromRoute] string idMember)
         {
             var result = new ResultStatus()
             {
@@ -255,7 +257,8 @@ namespace ClassServer.Controllers
                     {
                         endPoint.Send<IGetValueMemberEvent>(new
                         {
-                            IdClassroom = Guid.Parse(idClassroom),
+                            IdMessage = Guid.NewGuid(),
+                            IdClassroom = idClassroom,
                             IdMember = idMember,
                             eventMessage = _classroomStateMessage.Create,
                             NameMember = string.Empty,
@@ -269,7 +272,7 @@ namespace ClassServer.Controllers
                 }
                 result.Status = 0;
                 result.Message = $"classroom with id \"{idClassroom}\" is not exist";
-                return BadRequest(result);
+                return Ok(result);
             }
             catch (Exception e)
             {

@@ -17,4 +17,8 @@
     <ProjectReference Include="..\RabbitMQ_Lib\RabbitMQ_Lib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Files\ClassroomService\" />
+  </ItemGroup>
+
 </Project>

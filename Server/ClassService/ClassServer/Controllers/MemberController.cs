@@ -2,10 +2,8 @@
 using Application.Services;
 using ClassServer.FileMethods;
 using ClassServer.Models;
-using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ClassServer.Controllers
 {
@@ -92,6 +90,7 @@ namespace ClassServer.Controllers
             };
             try
             {
+                //var exercise = _unitOfWork_ClassroomService
                 return Ok(result);
             }
             catch (Exception)
