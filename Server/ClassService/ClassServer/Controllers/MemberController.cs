@@ -84,7 +84,7 @@ namespace ClassServer.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [HttpOptions]
         [Route("update-exercise")]
         public ActionResult UpdateExercise([FromForm] UpdateExerciseRequest updateExerciseRequest)
@@ -152,6 +152,12 @@ namespace ClassServer.Controllers
                     result.Message = "Not found this exercise in classroom";
                     return Ok(result);
                 }
+                if (exercise.ListAnswer.FirstOrDefault(p => p.IdMember == uploadAnswer.IdMember) != null)
+                {
+                    result.Status = 0;
+                    result.Message = "this answer have been available";
+                    return Ok(result);
+                }
                 if (!checkMemberInClassroom)
                 {
                     result.Status = 0;
@@ -197,10 +203,10 @@ namespace ClassServer.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [HttpOptions]
         [Route("update-answer")]
-        public async Task<ActionResult> UpdateAnswerAsync([FromForm] UpdateAnswerRequest updateAnswer)
+        public async Task<ActionResult> UpdateAnswer([FromForm] UpdateAnswerRequest updateAnswer)
         {
             var result = new ResultStatus()
             {
@@ -242,32 +248,14 @@ namespace ClassServer.Controllers
                     var ext = Path.GetExtension(updateAnswer.FileUpload.FileName);
                     fileName = _documentFile.SaveFile("Documents", updateAnswer.FileUpload, $"Answer{Convert.ToBase64String($"{updateAnswer.IdExercise}{updateAnswer.IdMember}".ToByteArray()).Substring(0, 20)}{ext}");
                 }
-                else
-                {
-                    foreach (var file in Request.Form.Files)
-                    {
-                        if (file.Length > 0)
-                        {
-                            var filePath = answer.Item2.LinkFile;
-
-                            using (var stream = new FileStream(filePath, FileMode.Create))
-                            {
-                                await file.CopyToAsync(stream);
-                            }
-                        }
-                    }
-                }
                 var updateAnswerModel = new UpdateAnswerModel()
                 {
                     IdExercise = updateAnswer.IdExercise,
                     IdMember = updateAnswer.IdMember,
                     Content = updateAnswer.Content,
+                    LinkFile = _address.Value.ThisServiceAddress,
+                    FileName = fileName
                 };
-                if (fileName.IsNullOrEmpty())
-                {
-                    updateAnswerModel.LinkFile = string.Empty;
-                    updateAnswerModel.FileName = string.Empty;
-                }
                 var check = _unitOfWork_ClassroomService._answerService.UpdateAnswer(updateAnswerModel);
                 if (check.Item2 != null)
                 {

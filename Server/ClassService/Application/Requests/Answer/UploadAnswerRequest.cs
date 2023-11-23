@@ -8,6 +8,6 @@ namespace Application.Requests.Answer
         public string IdMember { get; set; }
         public string IdExercise { get; set; }
         public string Content { get; set; }
-        public IFormFile FileUpload { get; set; }
+        public IFormFile? FileUpload { get; set; }
     }
 }
