@@ -24,7 +24,7 @@ namespace Application.Services
         {
             try
             {
-                var exercise =_unitOfWork.exerciseRepository.GetExerciseInClassroom(idExercise).FirstOrDefault();
+                var exercise =_unitOfWork.exerciseRepository.GetById(idExercise);
                 return exercise;
             }
             catch (Exception)

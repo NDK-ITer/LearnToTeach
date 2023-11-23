@@ -112,8 +112,8 @@ namespace Application.Services
             {
                 var answerUpdate = _unitOfWork.answerRepository.Find(p => p.IdExercise == updateAnswer.IdExercise && p.IdMember == updateAnswer.IdMember).FirstOrDefault();
                 if (!updateAnswer.Content.IsNullOrEmpty()) answerUpdate.Content = updateAnswer.Content;
-                answerUpdate.LinkFile = updateAnswer.LinkFile;
-                answerUpdate.FileName = updateAnswer.FileName;
+                if (!updateAnswer.LinkFile.IsNullOrEmpty()) answerUpdate.LinkFile = updateAnswer.LinkFile;
+                if (!updateAnswer.FileName.IsNullOrEmpty()) answerUpdate.FileName = updateAnswer.FileName;
                 _unitOfWork.answerRepository.Update(answerUpdate);
                 _unitOfWork.SaveChange();
                 return new Tuple<string, Answer?>("Successful", answerUpdate);
