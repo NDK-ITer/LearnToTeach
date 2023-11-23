@@ -1,5 +1,4 @@
-﻿using Application.Models.Answer;
-using Application.Models.Exercise;
+﻿using Application.Models.ModelsOfExercise;
 using Domain.Entities;
 using Infrastructure.Context;
 using Infrastructure.Repositories;

@@ -1,4 +1,4 @@
-﻿using Application.Models.Classroom;
+﻿using Application.Models.ModelsOfClassroom;
 using Application.Requests.Classroom;
 using Domain.Entities;
 using Infrastructure;

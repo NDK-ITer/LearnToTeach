@@ -1,4 +1,4 @@
-﻿namespace Application.Models.Exercise
+﻿namespace Application.Models.ModelsOfExercise
 {
     public class CreateExerciseModel
     {

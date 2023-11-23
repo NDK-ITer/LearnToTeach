@@ -1,5 +1,5 @@
-﻿using Application.Models.Answer;
-using Application.Models.Exercise;
+﻿using Application.Models.ModelsOfAnswer;
+using Application.Models.ModelsOfExercise;
 using Application.Requests.Answer;
 using Application.Requests.Exercise;
 using Application.Services;
