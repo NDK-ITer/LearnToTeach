@@ -41,18 +41,18 @@ const ExerciseDetail = () => {
                 <h2 className='submit_quantity'>(số lượng) Đã nộp/(tổng số) Sinh viên</h2>
                 <ul className='list_submited'>
                     <li className='student'>
-                    <Avatar style={{m:1, backgroundColor: 'rgb(34, 186, 34)'}}>
-                        <FactCheckOutlinedIcon />
-                    </Avatar>
-                    <div className='student_name'> Tên sinh viên 1 </div>
-                    <div className='submit_time'> Thời gian nộp </div>
+                        <Avatar style={{m:1, backgroundColor: 'rgb(34, 186, 34)'}}>
+                            <FactCheckOutlinedIcon />
+                        </Avatar>
+                        <div className='student_name'> Tên sinh viên 1 </div>
+                        <div className='submit_time'> Thời gian nộp </div>
                     </li>
                     <li className='student'>
-                    <Avatar style={{m:1, backgroundColor: 'rgb(34, 186, 34)'}}>
-                        <FactCheckOutlinedIcon />
-                    </Avatar>
-                    <div className='student_name'> Tên sinh viên 2 </div>
-                    <div className='submit_time'> Thời gian nộp </div>
+                        <Avatar style={{m:1, backgroundColor: 'rgb(34, 186, 34)'}}>
+                            <FactCheckOutlinedIcon />
+                        </Avatar>
+                        <div className='student_name'> Tên sinh viên 2 </div>
+                        <div className='submit_time'> Thời gian nộp </div>
                     </li>
                 </ul>  
             </div>     

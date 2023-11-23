@@ -1,9 +1,11 @@
 .logo {
     text-decoration: none;
 }
-/* .button {
-    margin: 0 1px 0;
+.button1 {
+    margin: 0 5px 0;
     padding: 2px;
     white-space: nowrap;
     background-color: rgb(108, 144, 46);
-  } */
+    border: 1px solid rgb(108, 144, 46);
+    border-radius: 5px;
+}

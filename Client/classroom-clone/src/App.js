@@ -44,14 +44,14 @@ function App() {
           <ProtectedRoute key={index} user={loggedInMail} exact path={`/${item.id}`}>
             <Drawer />
             
-            <SubmitExercise classData={item} />
+            <CreateExercise classData={item} />
           </ProtectedRoute>
         ))}
         {joinedClasses.map((item, index) => (
           <Route key={index} exact path={`/${item.id}`}>
             <Drawer />
             
-            <SubmitExercise classData={item} />
+            <CreateExercise classData={item} />
           </Route>
         ))}
         <IsUserRedirect

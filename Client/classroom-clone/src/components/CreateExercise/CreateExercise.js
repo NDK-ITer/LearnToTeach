@@ -19,7 +19,7 @@ const CreateExercise = () => {
   return (
     <div>
         <div className='header'>
-            <Avatar style={{m: 1, backgroundColor: 'black',}}>
+            <Avatar style={{m: 1, backgroundColor: 'black'}}>
                 <EditNoteOutlinedIcon/>
             </Avatar>
             <h1 className='header_text'> Tạo bài tập </h1>
@@ -28,7 +28,7 @@ const CreateExercise = () => {
                 onclick={'#'}
                 type="submit"
                 variant="outlined"
-                sx={{ margin: 1}}
+                style={{ margin: 1}}
               >
                 Hủy
               </Button>
@@ -36,7 +36,7 @@ const CreateExercise = () => {
                 onclick={'#'}
                 type="submit"
                 variant="outlined"
-                sx={{ margin: 1}}
+                style={{ margin: 1}}
               >
                 Lưu nháp
               </Button>
@@ -44,7 +44,7 @@ const CreateExercise = () => {
                 onclick={'#'}
                 type="submit"
                 variant="contained"
-                sx={{ margin: 1}}
+                style={{ margin: 1}}
               >
                 Giao bài
               </Button>
@@ -80,7 +80,7 @@ const CreateExercise = () => {
           <div>
             <Button 
               size='medium'
-              sx={{borderRadius: 10}}
+              style={{borderRadius: 10}}
               variant="contained"
               component="label"
             >
@@ -106,7 +106,7 @@ const CreateExercise = () => {
         <div className='max_grade'>
           <p className='text'>Điểm tối đa:</p>
           <div className='cbb_grade'>
-          <FormControl sx={{ minWidth: 150 }} size="small">
+          <FormControl style={{ minWidth: 150 }} size="small">
             <InputLabel id="demo-select-small-label">Điểm</InputLabel>
             <Select
               labelId="demo-select-small-label"

@@ -58,8 +58,7 @@ const Header = ({ children }) => {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ margin: 1, whiteSpace: "nowrap", backgroundColor: "rgb(108, 144, 46)", pr: 5, pl: 5}}
-                
+                className={classes.button}             
               >
                 Tham gia lớp học
               </Button>
@@ -68,8 +67,7 @@ const Header = ({ children }) => {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ margin: 1, backgroundColor: "rgb(108, 144, 46)"}}
-                //className='button'
+                className={classes.button}
               >
                 Tạo lớp học
               </Button>

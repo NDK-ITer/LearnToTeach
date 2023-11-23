@@ -39,11 +39,11 @@ const SubmitExercise = () => {
           <div className='group_button'>
             <Button
               fullWidth
-              sx={{mb: 2,borderRadius: 10}}
+              style={{mb: 2,borderRadius: 10}}
               variant="outlined"
               component="label"
             >
-              +Thêm hoặc tạo
+              + Thêm hoặc tạo
               <input
                 type="file"
                 hidden
@@ -54,7 +54,7 @@ const SubmitExercise = () => {
               type="submit"
               variant="contained"
               fullWidth
-              sx={{mb: 2,borderRadius: 10}}
+              style={{mb: 2,borderRadius: 10}}
             >
               Nộp bài
             </Button>
