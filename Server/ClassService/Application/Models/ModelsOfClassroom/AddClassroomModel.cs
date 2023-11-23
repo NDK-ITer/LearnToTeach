@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Application.Models.Classroom
+namespace Application.Models.ModelsOfClassroom
 {
     public class AddClassroomModel
     {

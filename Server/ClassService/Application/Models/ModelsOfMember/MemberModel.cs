@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
 
-namespace Application.Models.Member
+namespace Application.Models.ModelsOfMember
 {
     public class MemberModel
     {
@@ -9,7 +9,6 @@ namespace Application.Models.Member
         public string? avatar { get; set; }
         public string? role { get; set; }
         public string? description { get; set; }
-
         public MemberModel() { }
         public MemberModel(Member memberClassroom, string idClassroom)
         {

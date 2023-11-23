@@ -1,4 +1,4 @@
-﻿using Application.Models;
+﻿using Application.Models.ModelsOfMember;
 using Application.Services;
 using Events.UserServiceEvents.DataSynchronization;
 using MassTransit;

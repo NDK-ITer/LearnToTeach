@@ -1,7 +1,6 @@
-﻿using Application.Models;
+﻿using Application.Models.ModelsOfClassroom;
 using Application.Services;
 using ClassServer.Models;
-using Domain.Entities;
 using Events.ClassroomServiceEvents.Classroom;
 using MassTransit;
 

@@ -1,4 +1,4 @@
-﻿namespace Application.Models.Answer
+﻿namespace Application.Models.ModelsOfAnswer
 {
     public class UpdateAnswerModel
     {

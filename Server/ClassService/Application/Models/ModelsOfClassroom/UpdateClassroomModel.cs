@@ -1,4 +1,4 @@
-﻿namespace Application.Models.Classroom
+﻿namespace Application.Models.ModelsOfClassroom
 {
     public class UpdateClassroomModel
     {
