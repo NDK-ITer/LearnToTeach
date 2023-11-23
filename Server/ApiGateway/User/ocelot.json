@@ -201,6 +201,28 @@
         "Role": "USER"
       }
     },
+    //create classroom
+    {
+      "UpstreamPathTemplate": "/classroom/join-classroom",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Classroom/join-classroom",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
     //upadte classroom
     {
       "UpstreamPathTemplate": "/classroom/update",
