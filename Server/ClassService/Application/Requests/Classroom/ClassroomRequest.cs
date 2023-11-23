@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Application.Models
+namespace Application.Requests.Classroom
 {
-    public class AddClassroomModel
+    public class ClassroomRequest
     {
         public string? idClassroom { get; set; }
         public string? description { get; set; }

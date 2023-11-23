@@ -1,4 +1,4 @@
-﻿using Application.Models;
+﻿using Application.Models.ModelsOfExercise;
 using Domain.Entities;
 using Infrastructure.Context;
 using Infrastructure.Repositories;
@@ -10,7 +10,6 @@ namespace Application.Services
     public interface IExerciseService
     {
         Exercise GetExerciseById(string idExercise);
-        Answer AddAnswer(AddAnswerModel addAnswerModel);
         Tuple<string,Exercise?> UpdateExercise(UpdateExerciseModel updateAnswerModel);
     }
     public class ExerciseService : IExerciseService
@@ -21,34 +20,11 @@ namespace Application.Services
             _unitOfWork = new UnitOfWork(context, memoryCache);
         }
 
-        public Answer? AddAnswer(AddAnswerModel addAnswerModel)
-        {
-            try
-            {
-                var answerNew = new Answer()
-                {
-                    IdExercise = addAnswerModel.IdExercise,
-                    IdMember = addAnswerModel.IdMember,
-                    Content = addAnswerModel.Content,
-                    LinkFile = addAnswerModel.LinkFile,
-                    FileName = addAnswerModel.FileName,
-                };
-                _unitOfWork.answerRepository.Add(answerNew);
-                _unitOfWork.SaveChange();
-                _unitOfWork.Dispose();
-                return answerNew;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-
         public Exercise? GetExerciseById(string idExercise)
         {
             try
             {
-                var exercise =_unitOfWork.exerciseRepository.GetExerciseInClassroom(idExercise).FirstOrDefault();
+                var exercise =_unitOfWork.exerciseRepository.GetById(idExercise);
                 return exercise;
             }
             catch (Exception)

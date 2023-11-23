@@ -32,6 +32,19 @@ namespace ClassServer.FileMethods
             stream.Close();
             return newFileName;
         }
+        public string? DeleteFile(string folder, IFormFile file)
+        {
+            if (folder.IsNullOrEmpty() || file == null) { return null; }
+            var contentPath = this.environment.ContentRootPath;
+            var path = Path.Combine(contentPath, folder);
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            var newFileName = file.FileName;
+            var fileWithPath = Path.Combine(path, newFileName);
+            var stream = new FileStream(fileWithPath, FileMode.Create);
+            file.CopyTo(stream);
+            stream.Close();
+            return newFileName;
+        }
         protected string GenerateToString(IFormFile formFile)
         {
             try

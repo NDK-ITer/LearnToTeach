@@ -1,5 +1,5 @@
-﻿using Application.Models;
-using Application.Requests;
+﻿using Application.Models.ModelsOfClassroom;
+using Application.Requests.Classroom;
 using Application.Services;
 using ClassServer.FileMethods;
 using ClassServer.Models;
@@ -9,7 +9,6 @@ using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using XAct.Messages;
 
 namespace ClassServer.Controllers
 {

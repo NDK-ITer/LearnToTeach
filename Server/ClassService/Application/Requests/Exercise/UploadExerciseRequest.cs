@@ -1,14 +1,14 @@
-﻿namespace Application.Models
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Application.Requests.Exercise
 {
-    public class CreateExerciseModel
+    public class UploadExerciseRequest
     {
-        public string IdExercise { get; set; }
         public string IdClassroom { get; set; }
         public string IdMember { get; set; }
         public string? Name { get; set; }
-        public string? LinkFile { get; set; }
-        public string? FileName { get; set; }
         public string? Description { get; set; }
         public DateTime? Deadline { get; set; }
+        public IFormFile? FileUpload { get; set; }
     }
 }

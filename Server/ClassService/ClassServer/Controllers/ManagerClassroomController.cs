@@ -1,9 +1,6 @@
-﻿using Application.Models;
+﻿using Application.Models.ModelsOfClassroom;
 using Application.Services;
-using ClassServer.Models;
-using MassTransit;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace ClassServer.Controllers

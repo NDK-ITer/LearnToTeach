@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace Application.Models
+﻿namespace Application.Models.ModelsOfExercise
 {
-    public class UpdateExerciseRequest
+    public class UpdateExerciseModel
     {
         public string IdExercise { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public IFormFile? FileUpload { get; set; }
         public DateTime? Deadline { get; set; }
     }
 }
