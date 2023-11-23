@@ -49,7 +49,6 @@ builder.Services.AddMassTransit(cfg =>
     cfg.AddConsumer<ConsumeUpdateUserInforConsumer>();
 
 });
-
 builder.Services.AddControllers();
 builder.Services.AddMemoryCache();
 builder.Services.AddHealthChecks();

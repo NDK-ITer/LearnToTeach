@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Application.Models
+namespace Application.Requests.Exercise
 {
     public class UpdateExerciseRequest
     {

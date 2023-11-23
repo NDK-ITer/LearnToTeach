@@ -1,4 +1,4 @@
-﻿using Application.Models;
+﻿using Application.Models.Classroom;
 using Application.Services;
 using ClassServer.Models;
 using MassTransit;

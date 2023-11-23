@@ -1,8 +1,10 @@
-﻿using Domain.Entities;
+﻿using Application.Models.Exercise;
+using Application.Models.Member;
+using Domain.Entities;
 using System.Data;
 using XAct;
 
-namespace Application.Models
+namespace Application.Models.Classroom
 {
     public class ClassroomModel
     {
@@ -25,7 +27,8 @@ namespace Application.Models
                 foreach (var item in classroom.ListMember)
                 {
                     ListMembers.Add(new MemberModel(item, classroom.Id));
-                }foreach (var item in classroom.ListExercise)
+                }
+                foreach (var item in classroom.ListExercise)
                 {
                     ListExercises.Add(new ExerciseModel(item));
                 }

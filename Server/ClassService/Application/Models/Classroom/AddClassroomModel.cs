@@ -1,12 +1,8 @@
-﻿using Domain.Entities;
-using Infrastructure;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Http;
-using XAct;
+﻿using Microsoft.AspNetCore.Http;
 
-namespace Application.Requests
+namespace Application.Models.Classroom
 {
-    public class ClassroomRequest
+    public class AddClassroomModel
     {
         public string? idClassroom { get; set; }
         public string? description { get; set; }

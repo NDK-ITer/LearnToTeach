@@ -1,6 +1,8 @@
-﻿namespace ClassServer.Models
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Application.Requests.Exercise
 {
-    public class UploadExerciseModel
+    public class UploadExerciseRequest
     {
         public string IdClassroom { get; set; }
         public string IdMember { get; set; }

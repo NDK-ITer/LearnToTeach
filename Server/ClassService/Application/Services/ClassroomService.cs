@@ -1,5 +1,5 @@
-﻿using Application.Models;
-using Application.Requests;
+﻿using Application.Models.Classroom;
+using Application.Requests.Classroom;
 using Domain.Entities;
 using Infrastructure;
 using Infrastructure.Context;
