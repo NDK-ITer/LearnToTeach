@@ -201,7 +201,8 @@ namespace ClassServer.Controllers
                 {
                     endPoint.Send<IGetValueClassroomEvent>(new
                     {
-                        idClassroom = Guid.Parse(idClassroom),
+                        idMessage = Guid.Parse(idClassroom),
+                        idClassroom = idClassroom,
                         description = string.Empty,
                         idUserHost = string.Empty,
                         name = string.Empty,

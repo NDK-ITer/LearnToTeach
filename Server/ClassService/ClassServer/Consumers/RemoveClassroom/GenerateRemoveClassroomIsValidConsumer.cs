@@ -16,7 +16,7 @@ namespace ClassServer.Consumers.RemoveClassroom
             var data = context.Message;
             if (data != null)
             {
-                unitOfWork_ClassroomService._classroomService.DeleteClassroom(data.IdClassroom.ToString());
+                unitOfWork_ClassroomService._classroomService.DeleteClassroom(data.IdClassroom);
             }
         }
     }
