@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
 using XAct;
 
-namespace Application.Models
+namespace Application.Models.Exercise
 {
     public class ExerciseModel
     {

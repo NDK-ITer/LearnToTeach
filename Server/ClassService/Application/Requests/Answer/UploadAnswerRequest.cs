@@ -1,6 +1,8 @@
-﻿namespace ClassServer.Models
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Application.Requests.Answer
 {
-    public class UploadAnswerModel
+    public class UploadAnswerRequest
     {
         public string IdClassroom { get; set; }
         public string IdMember { get; set; }
