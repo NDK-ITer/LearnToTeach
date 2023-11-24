@@ -3,6 +3,7 @@ using Application.Requests.Classroom;
 using Application.Services;
 using ClassServer.FileMethods;
 using ClassServer.Models;
+using Domain.Entities;
 using Events.ClassroomServiceEvents.Classroom;
 using Events.ClassroomServiceEvents.Member;
 using MassTransit;
@@ -245,7 +246,7 @@ namespace ClassServer.Controllers
             var result = new ResultStatus()
             {
                 Status = -1,
-                Message = string.Empty
+                Message = "Error!"
             };
             try
             {
@@ -268,6 +269,51 @@ namespace ClassServer.Controllers
                     }
                     result.Status = 1;
                     result.Message = $"join classroom \"{classroom.Name}\" is successful";
+                    return Ok(result);
+                }
+                result.Status = 0;
+                result.Message = $"classroom with id \"{idClassroom}\" is not exist";
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                result.Message = e.Message;
+                return BadRequest(result);
+            }
+        }
+
+
+        [HttpPost]
+        [HttpOptions]
+        [Route("leave-classroom")]
+        public async Task<ActionResult> LeaveClassroom([FromForm] string? idClassroom, [FromForm] string? idMember)
+        {
+            var result = new ResultStatus()
+            {
+                Status = -1,
+                Message = "Error!"
+            };
+            try
+            {
+                var classroom = _unitOfWork_ClassroomService._classroomService.GetClassroomById(idClassroom);
+                if (classroom != null)
+                {
+                    var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
+                    if (endPoint != null)
+                    {
+                        endPoint.Send<IGetValueMemberEvent>(new
+                        {
+                            IdMessage = Guid.NewGuid(),
+                            IdClassroom = idClassroom,
+                            IdMember = idMember,
+                            eventMessage = _classroomStateMessage.Delete,
+                            NameMember = string.Empty,
+                            Avatar = string.Empty,
+                            NameClassroom = classroom.Name
+                        });
+                    }
+                    result.Status = 1;
+                    result.Message = $"Leave classroom \"{classroom.Name}\" is successful";
                     return Ok(result);
                 }
                 result.Status = 0;
