@@ -1,9 +1,9 @@
 using Application.Services;
 using ClassServer.Consumers;
-using ClassServer.Consumers.AddClassroom;
-using ClassServer.Consumers.AddMember;
-using ClassServer.Consumers.RemoveClassroom;
-using ClassServer.Consumers.UpdateUserInfor;
+using ClassServer.Consumers.ClassroomConsumers.AddClassroom;
+using ClassServer.Consumers.ClassroomConsumers.RemoveClassroom;
+using ClassServer.Consumers.MemberConsumers.AddMember;
+using ClassServer.Consumers.MemberConsumers.UpdateUserInfor;
 using ClassServer.Consumers.UploadFile;
 using ClassServer.FileMethods;
 using ClassServer.Models;

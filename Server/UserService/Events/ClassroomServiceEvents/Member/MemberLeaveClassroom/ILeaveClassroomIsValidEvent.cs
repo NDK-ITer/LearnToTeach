@@ -2,7 +2,7 @@
 {
     public interface ILeaveClassroomIsValidEvent
     {
-        public Guid IdClassroom { get; }
+        public string IdClassroom { get; }
         public string IdUser { get; }
     }
 }
