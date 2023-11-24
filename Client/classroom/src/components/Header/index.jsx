@@ -5,11 +5,9 @@ import {
     MenuItem,
     Toolbar,
     Typography,
+    IconButton
 } from "@material-ui/core";
-import React from "react";
-import CreateClass from 'components/CreateClass';
-import JoinClass from 'components/JoinClass';
-import { useLocalContext } from "context";
+import React, { useState } from "react";
 import { useStyles } from "./style";
 import { Link } from "react-router-dom";
 import Button from '@material-ui/core/Button';
@@ -18,35 +16,46 @@ import Info from "components/Information";
 import accountImg from 'images/account.png'
 import { logout } from 'components/Auth/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import { Close } from '@material-ui/icons';
+import CreateClass from "components/classroom/create";
+
+
+const MODE = {
+    CREATE: 'CREATE',
+    JOIN: 'JOIN',
+};
 
 const Header = ({ children }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const history = useHistory();
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [open, setOpen] = useState(false);
+    const [mode, setMode] = useState('');
+    const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleClick = (event) => setAnchorEl(event.currentTarget);
-    const handleClose = () => setAnchorEl(null);
-
-    const {
-        setCreateClassDialog,
-        setJoinClassDialog,
-    } = useLocalContext();
-
-    const handleCreate = () => {
-        handleClose();
-        setCreateClassDialog(true);
+    const handleClickCreateOpen = () => {
+        setOpen(true);
+        setMode(MODE.CREATE);
+    };
+    const handleClickJionOpen = () => {
+        setOpen(true);
+        setMode(MODE.JOIN);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const handleCloseMenu = () => {
+        setAnchorEl(null);
+    };
+    const handleUserClick = (e) => {
+        setAnchorEl(e.currentTarget);
     };
 
     const handleLogoutClick = () => {
         const action = logout();
         dispatch(action);
         window.location.reload(false);
-    };
-    const handleJoin = () => {
-        handleClose();
-        setJoinClassDialog(true);
     };
     return (
         <div className={classes.root}>
@@ -63,28 +72,28 @@ const Header = ({ children }) => {
                     </div>
                     <div className={classes.header__wrapper__right}>
                         <Button
-                            onClick={handleJoin}
+                            onClick={handleClickJionOpen}
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ margin: 1, whiteSpace: "nowrap", backgroundColor: "rgb(108, 144, 46)", pr: 5, pl: 5 }}
+                            style={{ margin: 1, whiteSpace: "nowrap", backgroundColor: "rgb(108, 144, 46)", pr: 5, pl: 5 }}
 
                         >
                             Tham gia lớp học
                         </Button>
                         <Button
-                            onClick={handleCreate}
+                            onClick={handleClickCreateOpen}
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ margin: 1, whiteSpace: "nowrap", backgroundColor: "rgb(108, 144, 46)", pr: 5, pl: 5 }}
+                            style={{ margin: 1, whiteSpace: "nowrap", backgroundColor: "rgb(108, 144, 46)", pr: 5, pl: 5 }}
 
                         >
                             Tạo lớp học
                         </Button>
                         <div>
                             <Avatar
-                                onClick={handleClick}
+                                onClick={handleUserClick}
                                 src={accountImg}
                                 className={classes.icon}
                             />
@@ -93,7 +102,8 @@ const Header = ({ children }) => {
                                 anchorEl={anchorEl}
                                 keepMounted
                                 open={Boolean(anchorEl)}
-                                onClose={handleClose}
+                                onClose={handleCloseMenu}
+                                getContentAnchorEl={null}
                             >
                                 <MenuItem onClick={() => Info()}>Thông tin tài khoản</MenuItem>
                                 <MenuItem >Phản hồi</MenuItem>
@@ -103,8 +113,34 @@ const Header = ({ children }) => {
                     </div>
                 </Toolbar>
             </AppBar>
-            <CreateClass />
-            <JoinClass />
+            <Dialog
+                disableBackdropClick
+                disableEscapeKeyDown
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="form-dialog-title"
+            >
+                <IconButton className={classes.closeButton} onClick={handleClose}>
+                    <Close />
+                </IconButton>
+
+                <DialogContent>
+                    {mode === MODE.CREATE && (
+                        <>
+                            <CreateClass closeDialog={handleClose} />
+                        </>
+                    )}
+
+                    {mode === MODE.JOIN && (
+                        <>
+
+                            <div>JOIN</div>
+
+
+                        </>
+                    )}
+                </DialogContent>
+            </Dialog>
         </div>
     );
 };

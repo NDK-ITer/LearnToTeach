@@ -315,7 +315,7 @@ namespace Server.Controllers
                     message = ""
                 };
                 // get a OTP and store to me MemoryCache with key value is "email"
-                var otp = _unitOfWork_UserService.UserService.GetOtp(verifyOTPModel.Email);
+                var otp = _unitOfWork_UserService.UserService.verifyOTP(verifyOTPModel.Email);
                 if (otp != verifyOTPModel.OTP)
                 {
                     resultstatus.status = -1;

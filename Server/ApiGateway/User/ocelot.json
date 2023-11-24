@@ -201,7 +201,7 @@
         "Role": "USER"
       }
     },
-    //create classroom
+    //join classroom
     {
       "UpstreamPathTemplate": "/classroom/join-classroom",
       "UpstreamHttpMethod": [ "Post", "Options" ],

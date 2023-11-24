@@ -15,5 +15,6 @@ namespace Domain.Interfaces
         List<User> GetAllUsers();
         List<User> GetAllUsersWith(System.Linq.Expressions.Expression<Func<User, bool>> predicate);
         string GetOTP(string email);
+        string verifyOTP(string email);
     }
 }
