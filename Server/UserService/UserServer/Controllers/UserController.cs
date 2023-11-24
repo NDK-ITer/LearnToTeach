@@ -43,7 +43,7 @@ namespace UserServer.Controllers
         [HttpGet]
         [HttpOptions]
         [Route("")]
-        public ActionResult<UserModel> GetUserById([FromRoute] string? idUser)
+        public ActionResult<UserModel> GetUserById(string? idUser)
         {
             try
             {
