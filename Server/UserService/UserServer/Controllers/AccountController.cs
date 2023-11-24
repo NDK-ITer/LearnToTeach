@@ -6,12 +6,8 @@ using FileStoreServer.FileMethods;
 using Infrastructure;
 using JwtAuthenticationManager.Models;
 using MassTransit;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json.Linq;
-using System.Net;
-using System.Text;
 using UserServer.Extensions;
 using UserServer.Models;
 
@@ -48,7 +44,6 @@ namespace Server.Controllers
         [HttpPost]
         [HttpOptions]
         [Route("login")]
-
         public ActionResult<LoginResponses>? Login([FromForm] LoginRequest loginRequest)
         {
             try
@@ -81,6 +76,35 @@ namespace Server.Controllers
             catch (Exception e)
             {
                 return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet]
+        [HttpOptions]
+        [Route("user-data")]
+        public ActionResult<UserModel> GetUserById(string? idUser)
+        {
+            var resultStatus = new ResultStatus()
+            {
+                status = -1,
+                message = "Error!"
+            };
+            try
+            {
+                if (idUser == null)
+                {
+                    resultStatus.status = 0;
+                    resultStatus.message = "idUser is null";
+                    return Ok(resultStatus);
+                }
+                var result = _unitOfWork_UserService.UserService.GetUserById(idUser);
+                if (result == null) return NotFound();
+                return new UserModel(result);
+            }
+            catch (Exception e)
+            {
+                resultStatus.message = e.Message;
+                return BadRequest(resultStatus);
             }
         }
 
