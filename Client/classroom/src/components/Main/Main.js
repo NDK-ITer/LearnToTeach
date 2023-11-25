@@ -1,12 +1,10 @@
 import { Avatar, Button, TextField } from "@material-ui/core";
 import React, { useState } from "react";
-import db, { storage } from "../../lib/firebase";
 import "./style.css";
-import firebase from "firebase";
-import { useLocalContext } from "../../context";
-import { Announcment } from "..";
+import { useLocalContext } from "context";
+import NavigationBar from "components/NavigationBar/NavigationBar";
 const Main = ({ classData }) => {
-  const { loggedInMail } = useLocalContext();
+  const { logged } = useLocalContext();
 
   const [showInput, setShowInput] = useState(false);
   const [inputValue, setInput] = useState("");
@@ -19,52 +17,35 @@ const Main = ({ classData }) => {
   };
 
   const handleUpload = () => {
-    const uploadImage = storage.ref(`images/${image.name}`).put(image);
 
-    uploadImage.on("state_changed", () => {
-      storage
-        .ref("images")
-        .child(image.name)
-        .getDownloadURL()
-        .then((url) => {
-          db.collection("announcments")
-            .doc("classes")
-            .collection(classData.id)
-            .add({
-              timstamp: firebase.firestore.FieldValue.serverTimestamp(),
-              imageUrl: url,
-              text: inputValue,
-              sender: loggedInMail,
-            });
-        });
-    });
   };
   return (
-    <div className="main">
-      <div className="main__wrapper">
-        <div className="main__content">
+    <div className="main"> 
+      <NavigationBar />
+      <div className="main__wrapper">  
+        <div className="main__content">    
           <div className="main__wrapper1">
             <div className="main__bgImage">
               <div className="main__emptyStyles" />
             </div>
             <div className="main__text">
               <h1 className="main__heading main__overflow">
-                {classData.className}
+                {classData.name}
               </h1>
               <div className="main__section main__overflow">
-                {classData.section}
+                {classData.description}
               </div>
               <div className="main__wrapper2">
-                <em className="main__code">Class Code :</em>
-                <div className="main__id">{classData.id}</div>
+                <em className="main__code">Mã lớp học :</em>
+                <div className="main__id">{classData.idClassroom}</div>
               </div>
             </div>
           </div>
         </div>
         <div className="main__announce">
           <div className="main__status">
-            <p>Upcoming</p>
-            <p className="main__subText">No work due</p>
+            <p>Sắp đến hạn</p>
+            <p className="main__subText">Không có công việc</p>
           </div>
           <div className="main__announcements">
             <div className="main__announcementsWrapper">
@@ -74,7 +55,7 @@ const Main = ({ classData }) => {
                     <TextField
                       id="filled-multiline-flexible"
                       multiline
-                      label="Announce Something to class"
+                      label="Thông báo với lớp học"
                       variant="filled"
                       value={inputValue}
                       onChange={(e) => setInput(e.target.value)}
@@ -89,7 +70,7 @@ const Main = ({ classData }) => {
 
                       <div>
                         <Button onClick={() => setShowInput(false)}>
-                          Cancel
+                          Hủy
                         </Button>
 
                         <Button
@@ -97,7 +78,7 @@ const Main = ({ classData }) => {
                           color="primary"
                           variant="contained"
                         >
-                          Post
+                          Đăng
                         </Button>
                       </div>
                     </div>
@@ -108,12 +89,11 @@ const Main = ({ classData }) => {
                     onClick={() => setShowInput(true)}
                   >
                     <Avatar />
-                    <div>Announce Something to class</div>
+                    <div>Thông báo với lớp học</div>
                   </div>
                 )}
               </div>
             </div>
-            <Announcment classData={classData} />
           </div>
         </div>
       </div>
@@ -122,3 +102,4 @@ const Main = ({ classData }) => {
 };
 
 export default Main;
+

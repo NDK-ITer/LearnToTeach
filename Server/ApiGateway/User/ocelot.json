@@ -111,7 +111,19 @@
       "DownstreamPathTemplate": "/api/Account/reset-password",
       "DownstreamScheme": "https"
     },
-
+    //user-data
+    {
+      "UpstreamPathTemplate": "/account/user-data",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9001
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Account/user-data",
+      "DownstreamScheme": "https"
+    },
     //ClassroomService Web Api
     //get classroom public
     {

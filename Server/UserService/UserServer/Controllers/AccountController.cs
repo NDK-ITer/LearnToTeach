@@ -82,7 +82,7 @@ namespace Server.Controllers
         [HttpGet]
         [HttpOptions]
         [Route("user-data")]
-        public ActionResult<UserModel> GetUserById(string? idUser)
+        public ActionResult<UserModel> GetUserById([FromForm] string? idUser)
         {
             var resultStatus = new ResultStatus()
             {

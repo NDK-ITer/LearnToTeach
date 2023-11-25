@@ -20,6 +20,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import { Close } from '@material-ui/icons';
 import CreateClass from "components/classroom/create";
+import JoinClass from "components/classroom/join";
 
 
 const MODE = {
@@ -134,7 +135,7 @@ const Header = ({ children }) => {
                     {mode === MODE.JOIN && (
                         <>
 
-                            <div>JOIN</div>
+                            <JoinClass closeDialog={handleClose} />
 
 
                         </>

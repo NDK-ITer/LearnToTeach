@@ -241,7 +241,7 @@ namespace ClassServer.Controllers
         [HttpPost]
         [HttpOptions]
         [Route("join-classroom")]
-        public async Task<ActionResult> JoinClassroom([FromForm] string? idClassroom, [FromForm] string? idMember)
+        public async Task<ActionResult> JoinClassroom([FromForm] string? idClassroom, [FromForm] string? idMember, [FromForm] string? key)
         {
             var result = new ResultStatus()
             {
