@@ -5,6 +5,7 @@ using ClassServer.FileMethods;
 using ClassServer.Models;
 using Events.ClassroomServiceEvents.Classroom;
 using Events.ClassroomServiceEvents.Member;
+using Infrastructure;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -62,6 +63,10 @@ namespace ClassServer.Controllers
         [Route("")]
         public ActionResult<ClassroomModel> GetClassById(string idClassroom)
         {
+            var result = new ResultStatus() {
+                Status = 0,
+                Message = string.Empty
+            };
             try
             {
                 var classroomResponse = _unitOfWork_ClassroomService._classroomService.GetClassroomById(idClassroom);
@@ -69,7 +74,8 @@ namespace ClassServer.Controllers
                 {
                     return new ClassroomModel(classroomResponse);
                 }
-                return NotFound();
+                result.Message = $"classroom \"{idClassroom}\" is not exist";
+                return Ok(result);
             }
             catch (Exception e)
             {
@@ -115,7 +121,7 @@ namespace ClassServer.Controllers
                     resultMessage.Message = "\"idUserHost\" is null or empty";
                     return Ok(resultMessage);
                 }
-                
+
                 var addClassroomModel = new AddClassroomModel()
                 {
                     idClassroom = classroomRequest.idClassroom,
@@ -123,9 +129,14 @@ namespace ClassServer.Controllers
                     description = classroomRequest.description,
                     name = classroomRequest.name,
                     isPrivate = classroomRequest.isPrivate,
+                    key = classroomRequest.key,
                 };
                 var check = _unitOfWork_ClassroomService._classroomService.CreateClassroom(addClassroomModel);
-                if (check == null) return BadRequest();
+                if (check == null)
+                {
+                    resultMessage.Message = "add classroom is false";
+                    return Ok(resultMessage);
+                }
                 var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
                 if (endPoint != null)
                 {
@@ -142,7 +153,7 @@ namespace ClassServer.Controllers
                     });
                 }
                 resultMessage.Status = 1;
-                resultMessage.Message = "Created Classroom is successful!";
+                resultMessage.Message = $"Created Classroom\"{check.Id}\" is successful!";
                 return Ok(resultMessage);
             }
             catch (Exception e)
@@ -160,7 +171,7 @@ namespace ClassServer.Controllers
         {
             try
             {
-                
+
                 var check = _unitOfWork_ClassroomService._classroomService.UpdateClassroom(classroomRequest);
                 if (check == 1)
                 {
@@ -250,28 +261,44 @@ namespace ClassServer.Controllers
             try
             {
                 var classroom = _unitOfWork_ClassroomService._classroomService.GetClassroomById(idClassroom);
-                if (classroom != null)
+                if (classroom == null)
                 {
-                    var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
-                    if (endPoint != null)
-                    {
-                        endPoint.Send<IGetValueMemberEvent>(new
-                        {
-                            IdMessage = Guid.NewGuid(),
-                            IdClassroom = idClassroom,
-                            IdMember = idMember,
-                            eventMessage = _classroomStateMessage.Create,
-                            NameMember = string.Empty,
-                            Avatar = string.Empty,
-                            NameClassroom = classroom.Name
-                        });
-                    }
-                    result.Status = 1;
-                    result.Message = $"join classroom \"{classroom.Name}\" is successful";
+                    result.Status = 0;
+                    result.Message = $"classroom with id \"{idClassroom}\" is not exist";
                     return Ok(result);
+
                 }
-                result.Status = 0;
-                result.Message = $"classroom with id \"{idClassroom}\" is not exist";
+                if (classroom.IsPrivate == true)
+                {
+                    if (key.IsNullOrEmpty())
+                    {
+                        result.Status = 0;
+                        result.Message = $"classroom is private";
+                        return Ok(result);
+                    }
+                    else if (!KeyHash.CheckKey(key, classroom.KeyHash))
+                    {
+                        result.Status = 0;
+                        result.Message = $"key is invalid";
+                        return Ok(result);
+                    }
+                }
+                var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
+                if (endPoint != null)
+                {
+                    endPoint.Send<IGetValueMemberEvent>(new
+                    {
+                        IdMessage = Guid.NewGuid(),
+                        IdClassroom = idClassroom,
+                        IdMember = idMember,
+                        eventMessage = _classroomStateMessage.Create,
+                        NameMember = string.Empty,
+                        Avatar = string.Empty,
+                        NameClassroom = classroom.Name
+                    });
+                }
+                result.Status = 1;
+                result.Message = $"join classroom \"{classroom.Name}\" is successful";
                 return Ok(result);
             }
             catch (Exception e)
