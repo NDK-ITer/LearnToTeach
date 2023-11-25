@@ -157,7 +157,7 @@
           "Port": 9002
         }
       ],
-      "DownstreamPathTemplate": "/api/Classroom/id",
+      "DownstreamPathTemplate": "/api/Classroom",
       "DownstreamScheme": "https",
       //Authentication
       "AuthenticationOptions": {

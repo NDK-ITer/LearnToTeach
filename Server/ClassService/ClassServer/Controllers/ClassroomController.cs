@@ -61,7 +61,7 @@ namespace ClassServer.Controllers
         [HttpGet]
         [HttpOptions]
         [Route("")]
-        public ActionResult<ClassroomModel> GetClassById(string idClassroom)
+        public ActionResult<ClassroomModel> GetClassById( string idClassroom)
         {
             var result = new ResultStatus() {
                 Status = 0,

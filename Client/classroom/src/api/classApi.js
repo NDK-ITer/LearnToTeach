@@ -26,6 +26,10 @@ const classApi = {
     const url = '/classroom/public';
     return axiosClient.get(url);
   },
+  getClassById(params) {
+    const url = '/classroom/id';
+    return axiosClient.get(url, { params});
+  },
 
 };
 

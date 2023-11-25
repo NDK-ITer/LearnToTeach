@@ -1,11 +1,22 @@
 import { Avatar } from "@material-ui/core";
 import { FolderOpen, PermContactCalendar } from "@material-ui/icons";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
+import classApi from "api/classApi";
+import Role from "constants/role";
 const JoinedClasses = ({ classData }) => {
+  const [userHost, settuserHost] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const params = new URLSearchParams([['idClassroom', classData.idClassroom]]);
+      const result = await classApi.getClassById(params);
+      settuserHost(result.listMembers.find(x => x.role == Role.HOST));
+      console.log(result.listMembers)
+    };
+    fetchData();
+  }, []);
 
-  const isHost = 'cuong';
 
   return (
     <li className="joined__list">
@@ -17,7 +28,7 @@ const JoinedClasses = ({ classData }) => {
             <Link className="joined__title" to={`/${classData.idClassroom}`}>
               <h2>{classData.name}</h2>
             </Link>
-            <p className="joined__owner">{isHost}</p>
+            <p className="joined__owner">{userHost.nameMember}</p>
           </div>
         </div>
         <Avatar
