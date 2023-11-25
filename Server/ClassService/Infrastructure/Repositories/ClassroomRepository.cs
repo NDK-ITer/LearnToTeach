@@ -51,80 +51,105 @@ namespace Infrastructure.Repositories
         public Classroom? GetClassroomById(string id)
         {
             if (id == null) return null;
-            if (_memoryCache.TryGetValue(_keyValueCache, out List<Classroom> listClassroom))
+            //if (_memoryCache.TryGetValue(_keyValueCache, out List<Classroom> listClassroom))
+            //{
+            //    var classroom = listClassroom.FirstOrDefault(c => c.Id == id);
+            //    if (classroom == null) 
+            //    {
+            //        classroom = _dbSet.Find(id);
+            //        if (classroom != null)
+            //        {
+            //            listClassroom.Add(classroom);
+            //        }
+            //        return null;
+            //    } 
+            //    return classroom;
+            //}
+            //else
+            //{
+            //    var classroom = _dbSet.Find(id);
+            //    var classrooms = new List<Classroom>();
+            //    if (classroom != null)
+            //    {
+            //        classrooms.Add(classroom);
+            //        _memoryCache.Set(_keyValueCache,classrooms,_options);
+            //        return classroom;
+            //    }
+            //    return null;
+            //}
+            var classroom = _dbSet.Find(id);
+            var classrooms = new List<Classroom>();
+            if (classroom != null)
             {
-                var classroom = listClassroom.FirstOrDefault(c => c.Id == id);
-                if (classroom == null) 
-                {
-                    classroom = _dbSet.Find(id);
-                    if (classroom != null)
-                    {
-                        listClassroom.Add(classroom);
-                    }
-                    return null;
-                } 
+                classrooms.Add(classroom);
+                _memoryCache.Set(_keyValueCache, classrooms, _options);
                 return classroom;
             }
-            else
-            {
-                var classroom = _dbSet.Find(id);
-                var classrooms = new List<Classroom>();
-                if (classroom != null)
-                {
-                    classrooms.Add(classroom);
-                    _memoryCache.Set(_keyValueCache,classrooms,_options);
-                    return classroom;
-                }
-                return null;
-            }
+            return null;
         }
         public Classroom? GetClassroomByName(string name)
         {
             if (name == null) return null;
-            if (_memoryCache.TryGetValue(_keyValueCache, out List<Classroom> listClassroom))
+            //if (_memoryCache.TryGetValue(_keyValueCache, out List<Classroom> listClassroom))
+            //{
+            //    var classroom = listClassroom.FirstOrDefault(c => c.Name == name);
+            //    if (classroom == null)
+            //    {
+            //        classroom = _dbSet.FirstOrDefault(c => c.Name == name);
+            //        if (classroom != null)
+            //        {
+            //            listClassroom.Add(classroom);
+            //        }
+            //        return null;
+            //    }
+            //    return classroom;
+            //}
+            //else
+            //{
+            //    var classroom = _dbSet.FirstOrDefault(c => c.Name == name);
+            //    var classrooms = new List<Classroom>();
+            //    if (classroom != null)
+            //    {
+            //        classrooms.Add(classroom);
+            //        _memoryCache.Set(_keyValueCache, classrooms, _options);
+            //        return classroom;
+            //    }
+            //    return null;
+            //}
+            var classroom = _dbSet.FirstOrDefault(c => c.Name == name);
+            var classrooms = new List<Classroom>();
+            if (classroom != null)
             {
-                var classroom = listClassroom.FirstOrDefault(c => c.Name == name);
-                if (classroom == null)
-                {
-                    classroom = _dbSet.FirstOrDefault(c => c.Name == name);
-                    if (classroom != null)
-                    {
-                        listClassroom.Add(classroom);
-                    }
-                    return null;
-                }
+                classrooms.Add(classroom);
+                _memoryCache.Set(_keyValueCache, classrooms, _options);
                 return classroom;
             }
-            else
-            {
-                var classroom = _dbSet.FirstOrDefault(c => c.Name == name);
-                var classrooms = new List<Classroom>();
-                if (classroom != null)
-                {
-                    classrooms.Add(classroom);
-                    _memoryCache.Set(_keyValueCache, classrooms, _options);
-                    return classroom;
-                }
-                return null;
-            }
+            return null;
         }
         public List<Classroom> GetAllClassrooms() => GetAll().ToList();
         public List<Classroom>? GetClassroomsArePublic()
         {
-            if (_memoryCache.TryGetValue(_keyValueCache, out List<Classroom> listClassroom))
+            //if (_memoryCache.TryGetValue(_keyValueCache, out List<Classroom> listClassroom))
+            //{
+            //    return listClassroom;
+            //}
+            //else
+            //{
+            //    var classrooms = Find(c => c.IsPrivate == false).ToList();
+            //    if (classrooms != null)
+            //    {
+            //        _memoryCache.Set(_keyValueCache, classrooms, _options);
+            //        return classrooms;
+            //    }
+            //    return null;
+            //}
+            var classrooms = Find(c => c.IsPrivate == false).ToList();
+            if (classrooms != null)
             {
-                return listClassroom;
+                _memoryCache.Set(_keyValueCache, classrooms, _options);
+                return classrooms;
             }
-            else
-            {
-                var classrooms = Find(c => c.IsPrivate == false).ToList();
-                if (classrooms != null)
-                {
-                    _memoryCache.Set(_keyValueCache, classrooms, _options);
-                    return classrooms;
-                }
-                return null;
-            }
+            return null;
         }
         public List<Classroom>? GetClassroomsArePrivate()
         {

@@ -96,6 +96,7 @@ namespace ClassServer.Controllers
             };
             try
             {
+
                 var fileName = string.Empty;
                 if (updateExerciseRequest.FileUpload != null)
                 {
@@ -194,6 +195,42 @@ namespace ClassServer.Controllers
                         result.Message = check.Item1;
                     }
                 }
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                result.Message = e.Message;
+                return BadRequest(result);
+            }
+        }
+
+        [HttpPost]
+        [HttpOptions]
+        [Route("upload-answer")]
+        public ActionResult UploadAnswer([FromForm] SetPointModel setPoint)
+        {
+            var result = new ResultStatus()
+            {
+                Status = 0,
+                Message = "Error!"
+            };
+            try
+            {
+                var check = _unitOfWork_ClassroomService._memberService.IsHost(setPoint.IdMember, setPoint.IdClassroom);
+                if (!check.Item1)
+                {
+                    result.Message = check.Item2;
+                    return Ok(result);
+                }
+                var id = Guid.NewGuid().ToString();
+                var fileName = string.Empty;
+
+                var checkUpdate = _unitOfWork_ClassroomService._answerService.UpdateAnswer(setPoint.IdExercise, setPoint.IdMember,setPoint.Point);
+                if (checkUpdate.Item2 != null)
+                {
+                    result.Status = 1;
+                }
+                result.Message = checkUpdate.Item1;
                 return Ok(result);
             }
             catch (Exception e)

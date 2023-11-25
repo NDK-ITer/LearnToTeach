@@ -13,6 +13,7 @@ namespace Application.Services
         Tuple<string, List<AnswerModel>?> GetListAnswer(string idExercise);
         Tuple<string, AnswerModel?> GetAnswerById(string idExercise, string idMember);
         Tuple<string, Answer?> UpdateAnswer(UpdateAnswerModel updateAnswer);
+        Tuple<string, Answer?> UpdateAnswer(string idExercise, string idMember, float? point);
         Tuple<bool, string> DeleteAnswer(string idExercise, string idMember);
     }
     public class AnswerService : IAnswerService
@@ -114,6 +115,23 @@ namespace Application.Services
                 if (!updateAnswer.Content.IsNullOrEmpty()) answerUpdate.Content = updateAnswer.Content;
                 if (!updateAnswer.LinkFile.IsNullOrEmpty()) answerUpdate.LinkFile = updateAnswer.LinkFile;
                 if (!updateAnswer.FileName.IsNullOrEmpty()) answerUpdate.FileName = updateAnswer.FileName;
+                _unitOfWork.answerRepository.Update(answerUpdate);
+                _unitOfWork.SaveChange();
+                return new Tuple<string, Answer?>("Successful", answerUpdate);
+            }
+            catch (Exception)
+            {
+                return new Tuple<string, Answer?>("Error!", null);
+            }
+        }
+        
+        public Tuple<string, Answer?> UpdateAnswer(string idExercise, string idMember, float? point)
+        {
+            try
+            {
+                var answerUpdate = _unitOfWork.answerRepository.Find(p => p.IdExercise == idExercise && p.IdMember == idMember).FirstOrDefault();
+                if (answerUpdate == null) return new Tuple<string, Answer?>("answer is not exist",null);
+                answerUpdate.Point = point;
                 _unitOfWork.answerRepository.Update(answerUpdate);
                 _unitOfWork.SaveChange();
                 return new Tuple<string, Answer?>("Successful", answerUpdate);
