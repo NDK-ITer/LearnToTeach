@@ -3,7 +3,6 @@ using Application.Requests.Classroom;
 using Application.Services;
 using ClassServer.FileMethods;
 using ClassServer.Models;
-using Domain.Entities;
 using Events.ClassroomServiceEvents.Classroom;
 using Events.ClassroomServiceEvents.Member;
 using MassTransit;
