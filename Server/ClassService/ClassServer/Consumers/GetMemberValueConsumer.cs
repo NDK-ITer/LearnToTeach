@@ -1,6 +1,5 @@
 ﻿using ClassServer.Models;
 using Events.ClassroomServiceEvents.Member;
-using Events.ClassroomServiceEvents.Member.AddMember;
 using MassTransit;
 
 namespace ClassServer.Consumers
