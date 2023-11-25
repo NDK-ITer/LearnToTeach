@@ -9,7 +9,7 @@ import NotFound from 'components/NotFound';
 import RestorePassword from 'components/Auth/RestorePassword';
 import Drawer from 'components/Drawer'
 import { useLocalContext } from "context";
-import classApi from 'api/classApi';
+import userApi from 'api/userApi';
 import JoinedClasses from 'components/JoinedClasses/JoinedClasses';
 import Main from 'components/Main/Main';
 function App() {
@@ -19,17 +19,18 @@ function App() {
   const [joinedClasses, setJoinedClasses] = useState([]);
   useEffect(() => {
     if (logged) {
-      (async () => {
-        try {
-          const result = await classApi.public();
-          setJoinedClasses(result);
-          console.log(result)
-        } catch (error) {
-          console.log('Failed to fetch product', error);
-        }
-      })();
-    }
 
+      const fetchData = async () => {
+        const userid = JSON.parse(user);
+        const formData = new FormData()
+        formData.append('idUser', userid.id);
+        const result = await userApi.getclassroom(formData);
+        setJoinedClasses(result.listClassroom);
+        console.log(result)
+      };
+
+      fetchData();
+    }
   }, [logged]);
 
 

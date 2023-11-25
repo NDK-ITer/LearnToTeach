@@ -114,7 +114,7 @@
     //user-data
     {
       "UpstreamPathTemplate": "/account/user-data",
-      "UpstreamHttpMethod": [ "Get", "Options" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",

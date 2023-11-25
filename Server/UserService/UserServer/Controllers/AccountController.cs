@@ -79,7 +79,7 @@ namespace Server.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         [HttpOptions]
         [Route("user-data")]
         public ActionResult<UserModel> GetUserById([FromForm] string? idUser)

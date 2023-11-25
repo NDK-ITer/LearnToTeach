@@ -21,7 +21,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { Close } from '@material-ui/icons';
 import CreateClass from "components/classroom/create";
 import JoinClass from "components/classroom/join";
-
+import { useHistory } from 'react-router-dom';
 
 const MODE = {
     CREATE: 'CREATE',
@@ -31,6 +31,7 @@ const MODE = {
 const Header = ({ children }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
     const [open, setOpen] = useState(false);
     const [mode, setMode] = useState('');
     const [anchorEl, setAnchorEl] = useState(null);
@@ -57,6 +58,7 @@ const Header = ({ children }) => {
         const action = logout();
         dispatch(action);
         window.location.reload(false);
+        history.push('/signin')
     };
     return (
         <div className={classes.root}>

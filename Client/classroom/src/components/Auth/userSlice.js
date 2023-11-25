@@ -21,7 +21,7 @@ export const login = createAsyncThunk('account/login', async (payload) => {
     formData.append('Email', payload.Email);
     formData.append('Password', payload.Password);
     const data = await userApi.login(formData);
-    console.log(data);
+    console.log("form"+formData);
     // save data to local storage
     localStorage.setItem(StorageKeys.TOKEN, data.jwtToken);
     localStorage.setItem(StorageKeys.USER, JSON.stringify(data));

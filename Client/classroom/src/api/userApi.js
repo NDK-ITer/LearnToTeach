@@ -22,6 +22,10 @@ const userApi = {
     const url = '/account/reset-password';
     return axiosClient.post(url, data);
   },
+  getclassroom(data) {
+    const url = '/account/user-data';
+    return axiosClient.post(url, data);
+  },
 };
 
 export default userApi;
