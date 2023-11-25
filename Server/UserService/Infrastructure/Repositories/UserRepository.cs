@@ -230,22 +230,21 @@ namespace Infrastructure.Repositories
         public List<User> GetAllUsersWith(System.Linq.Expressions.Expression<Func<User, bool>> predicate) => Find(predicate);
         
         public string GetOTP(string email)
-        {
-             //var otp = SecurityMethods.CreateRandomOTP();
-            if(_memoryCache.TryGetValue(email, out var otpCache))
-            {
-                string otp = (string)otpCache;
-                _memoryCache.Remove(email);
-                return otp;
-            }
-            else
-            {
+        {             
                 _memoryCache.Remove(email);
                 var otp = SecurityMethods.CreateRandomOTP();
                 _memoryCache.Set(email, otp, _options);
                 return otp;
+           
+        }
+        public string verifyOTP(string email)
+        {
+            if (_memoryCache.TryGetValue(email, out var otpCache))
+            {
+                string otp = (string)otpCache;
+                return otp;
             }
-            
+            return "";
         }
 
     }

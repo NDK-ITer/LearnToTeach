@@ -82,7 +82,7 @@ namespace Server.Controllers
         [HttpGet]
         [HttpOptions]
         [Route("user-data")]
-        public ActionResult<UserModel> GetUserById(string? idUser)
+        public ActionResult<UserModel> GetUserById([FromForm] string? idUser)
         {
             var resultStatus = new ResultStatus()
             {
@@ -339,7 +339,7 @@ namespace Server.Controllers
                     message = ""
                 };
                 // get a OTP and store to me MemoryCache with key value is "email"
-                var otp = _unitOfWork_UserService.UserService.GetOtp(verifyOTPModel.Email);
+                var otp = _unitOfWork_UserService.UserService.verifyOTP(verifyOTPModel.Email);
                 if (otp != verifyOTPModel.OTP)
                 {
                     resultstatus.status = -1;

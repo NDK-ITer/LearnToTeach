@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import StorageKeys from 'constants/storage-keys';
 const axiosClient = axios.create({
   baseURL: 'https://localhost:9000/',
   headers: {
@@ -13,6 +13,8 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
   function (config) {
     // Do something before request is sent
+    let token = localStorage.getItem(StorageKeys.TOKEN);
+    config.headers["Authorization"] = "Bearer " + token;
     return config;
   },
   function (error) {
