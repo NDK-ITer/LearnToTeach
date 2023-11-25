@@ -72,6 +72,7 @@ ol {
   color: white;
   font-weight: 400 !important;
   font-size: 15px !important;
+  margin-top: -5px;
 }
 .joined__avatar {
   float: right;

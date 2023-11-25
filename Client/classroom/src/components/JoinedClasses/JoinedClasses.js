@@ -4,6 +4,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 const JoinedClasses = ({ classData }) => {
+
+  const isHost = 'cuong';
+
   return (
     <li className="joined__list">
       <div className="joined__wrapper">
@@ -14,7 +17,7 @@ const JoinedClasses = ({ classData }) => {
             <Link className="joined__title" to={`/${classData.idClassroom}`}>
               <h2>{classData.name}</h2>
             </Link>
-            <p className="joined__owner">{classData.owner}</p>
+            <p className="joined__owner">{isHost}</p>
           </div>
         </div>
         <Avatar
