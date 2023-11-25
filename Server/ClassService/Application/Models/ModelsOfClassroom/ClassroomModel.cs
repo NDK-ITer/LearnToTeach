@@ -1,6 +1,7 @@
 ﻿using Application.Models.ModelsOfExercise;
 using Application.Models.ModelsOfMember;
 using Domain.Entities;
+using Infrastructure;
 
 namespace Application.Models.ModelsOfClassroom
 {
@@ -22,6 +23,7 @@ namespace Application.Models.ModelsOfClassroom
                 avatarClassroom = $"{classroom.LinkAvatar}/{classroom.Avatar}";
                 name = classroom.Name;
                 description = classroom.Description;
+                key = KeyHash.Decode(classroom.KeyHash);
                 foreach (var item in classroom.ListMember)
                 {
                     ListMembers.Add(new MemberModel(item, classroom.Id));

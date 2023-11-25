@@ -175,8 +175,10 @@ namespace Application.Services
             try
             {
                 var classroom = _unitOfWork.classroomRepository.GetClassroomById(idClassroom);
-                var check = classroom.ListMember.Contains(_unitOfWork.memberRepository.GetById(idMember));
-                return check;
+                var check = classroom.ListMember.FirstOrDefault(p => p.IdMember == idMember);
+                if (check != null)
+                    return true;
+                return false;
             }
             catch (Exception)
             {

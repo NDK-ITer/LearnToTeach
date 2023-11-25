@@ -1,0 +1,11 @@
+tạo phòng họp onl
+tạo apigateway quản lý
+chức năng share màn hình
+bật tắt mic - camera
+tạo sự kiện lớp học 
+(bắt app client sử dụng )
+xác thực khuôn mặt khi đăng ký account
+quét file .pdf chuyển thành trắc nghiệm
+ghi hình meeting
+
+login bị sai
