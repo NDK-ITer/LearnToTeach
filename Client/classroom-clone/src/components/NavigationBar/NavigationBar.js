@@ -7,6 +7,9 @@ const NavigationBar = () => {
         <div className="navigation">
             <ul className="navigationBar">
                 <li className="nav_item">
+                    <a className="nav_link" href="#">Trang chủ</a>
+                </li>
+                <li className="nav_item">
                     <a className="nav_link" href="#">Tài liệu</a>
                 </li>
                 <li className="nav_item">

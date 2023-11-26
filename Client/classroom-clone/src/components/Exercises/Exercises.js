@@ -22,7 +22,7 @@ const Exercises = () => {
         <h1>Đã giao</h1>
       </div>     
       <ul className='list_tasks'>
-        <li className='task'>
+        <li className='task' >
           <Avatar style={{m:1 ,backgroundColor: 'rgb(0, 159, 212)'}}>
                 <LibraryBooksOutlinedIcon />
           </Avatar>

@@ -4,6 +4,7 @@
     padding: 1.25rem 1.5rem 1.5rem 1.5rem;
 }
 .main_area{
+    display: flex;
     flex: 1 1 auto;
     flex-direction: column;
     max-width: 50rem;
