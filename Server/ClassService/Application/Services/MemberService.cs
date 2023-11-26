@@ -54,7 +54,7 @@ namespace Application.Services
                 classroom.ListMemberClassroom.Add(memberClass);
                 _unitOfWork.classroomRepository.Update(classroom);
                 _unitOfWork.SaveChange();
-                _unitOfWork.Dispose();
+                
                 return 1;
             }
             catch (Exception)
@@ -73,7 +73,7 @@ namespace Application.Services
                 if (member == null) return 0;
                 _unitOfWork.memberRepository.Remove(member);
                 _unitOfWork.SaveChange();
-                _unitOfWork.Dispose();
+                
                 return 1;
             }
             catch (Exception)
@@ -95,7 +95,7 @@ namespace Application.Services
                     if (!memberModel.linkAvatar.IsNullOrEmpty()) { member.LinkAvatar = memberModel.linkAvatar; }
                     _unitOfWork.memberRepository.UpdateMember(member);
                     _unitOfWork.SaveChange();
-                    _unitOfWork.Dispose();
+                    
                     return 1;
                 }
                 return 0;
@@ -161,7 +161,7 @@ namespace Application.Services
                 exercise.IdExercise = Guid.NewGuid().ToString();
                 _unitOfWork.exerciseRepository.Add(exercise);
                 _unitOfWork.SaveChange();
-                _unitOfWork.Dispose();
+                
                 return new Tuple<string, Exercise?>("Successful", exercise);
             }
             catch (Exception)

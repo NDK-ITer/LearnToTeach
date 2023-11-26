@@ -107,7 +107,7 @@ namespace ClassServer.Controllers
         [HttpPost]
         [HttpOptions]
         [Route("create")]
-        public async Task<IActionResult> CreateClassroom([FromForm] ClassroomRequest classroomRequest)
+        public async Task<ActionResult> CreateClassroom([FromForm] ClassroomRequest classroomRequest)
         {
             var resultMessage = new ResultStatus()
             {

@@ -18,6 +18,7 @@ namespace Infrastructure.Context
             modelBuilder.ApplyConfiguration(new MemberConfiguration());
             modelBuilder.ApplyConfiguration(new ExerciseConfiguration());
             modelBuilder.ApplyConfiguration(new AnswerConfiguration());
+            modelBuilder.ApplyConfiguration(new LearningDocumentConfiguration());
             //modelBuilder.SeedData();
             //base.OnModelCreating(modelBuilder);
         }
@@ -26,5 +27,6 @@ namespace Infrastructure.Context
         public DbSet<Member> Members { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<LearningDocument> LearningDocuments { get; set; }
     }
 }
