@@ -21,7 +21,7 @@ namespace Application.Models.ModelsOfAnswer
             DateAnswer = answer.DateAnswer;
             Content = answer.Content;
             Point = answer.Point;
-            LinkFile = $"{answer.LinkFile}/{answer.FileName}";
+            LinkFile = $"{answer.LinkFile}/doc/{answer.FileName}";
         }
     }
 }
