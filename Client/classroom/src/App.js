@@ -14,6 +14,7 @@ import Main from 'components/Main/Main';
 import Community from 'components/Community/Community';
 import NavigationBar from 'components/NavigationBar/NavigationBar';
 import Exercises from 'components/Exercises/Exercises';
+import CreateExercise from 'components/CreateExercise/CreateExercise';
 function App() {
   const { logged, user } = useLocalContext();
   console.log(logged);
@@ -61,7 +62,7 @@ function App() {
           <Route key={index} exact path={`/${item.idClassroom}/exercises`}>
             <Drawer />
             <NavigationBar classData={item.idClassroom}/>
-            <Exercises classData={item} />
+            <CreateExercise classData={item} />
           </Route>
         ))}
           {joinedClasses.map((item, index) => (
