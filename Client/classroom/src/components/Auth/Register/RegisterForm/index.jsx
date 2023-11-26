@@ -47,12 +47,12 @@ function RegisterForm(props) {
     const classes = useStyles();
 
     const schema = yup.object().shape({
-        UserName: yup
+        FirstName: yup
             .string()
-            .required('Please enter your full name.')
-            .test('should has at least two words', 'Please enter at least two words.', (value) => {
-                return value.split(' ').length >= 2;
-            }),
+            .required('Please enter your FirstName name.'),
+        LastName: yup
+            .string()
+            .required('Please enter your LastName name.'),
 
         Email: yup.string().required('Please enter your email.').email('Please enter a valid email address.'),
         PhoneNumber: yup.string()
@@ -66,7 +66,8 @@ function RegisterForm(props) {
     });
     const form = useForm({
         defaultValues: {
-            UserName: '',
+            FirstName: '',
+            LastName: '',
             Email: '',
             PhoneNumber: '',
             Password: '',
@@ -97,9 +98,10 @@ function RegisterForm(props) {
             </Typography>
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <InputField name="UserName" label="User Name" form={form} />
+                <InputField name="FirstName" label="First Name" form={form} />
+                <InputField name="LastName" label="Last Name" form={form} />
                 <InputField name="Email" label="Email" form={form} />
-                <InputField name="PhoneNumber" label="PhoneNumber" form={form}  />
+                <InputField name="PhoneNumber" label="PhoneNumber" form={form} />
                 <PasswordField name="Password" label="Password" form={form} />
                 <PasswordField name="PasswordIsConfirmed" label="Retype Password" form={form} />
 

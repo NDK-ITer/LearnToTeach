@@ -29,6 +29,7 @@ function CreateClass(props) {
             if (typeof check.status != 'undefined') {
                 if (check.status === 1) {
                     enqueueSnackbar(check.message, { variant: 'success' });
+                    window.location.reload(false);
                 } else {
                     enqueueSnackbar(check.message, { variant: 'error' });
                 }

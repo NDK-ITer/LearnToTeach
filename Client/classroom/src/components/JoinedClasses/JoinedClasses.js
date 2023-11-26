@@ -12,7 +12,7 @@ const JoinedClasses = ({ classData }) => {
       const params = new URLSearchParams([['idClassroom', classData.idClassroom]]);
       const result = await classApi.getClassById(params);
       settuserHost(result.listMembers.find(x => x.role == Role.HOST));
-      console.log(result.listMembers)
+      console.log(result.listMembers.find(x => x.role == Role.HOST))
     };
     fetchData();
   }, []);

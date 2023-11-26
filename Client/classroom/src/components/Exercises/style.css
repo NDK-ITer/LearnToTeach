@@ -1,0 +1,42 @@
+.status{
+    margin: 20px 350px;
+    padding-top: 20px ;
+    padding-left: 1rem;
+    border-bottom: 1px solid black;
+    height: 2rem;
+}
+.list_tasks{
+    margin: 20px 100px;
+}
+.task {
+    margin: 10px 200px;
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+.task:hover{
+    background-color:rgb(229, 229, 229);
+    border-radius: 20px;
+}
+.task_name {
+    margin-left: 20px;
+    font-size: 15px;
+    color:rgb(27, 27, 27);
+}
+.task_deadline {
+    box-sizing: border-box;
+    color: rgba(0,0,0,.549);
+    flex: 0 0;
+    flex-basis: calc(80% - 1rem + 0.25rem);
+    margin-left: 1rem;
+    min-width: 0;
+    padding-right: 0.25rem;
+    margin-right: -0.25rem;
+    text-align: right;
+}
+.btn_create {
+   
+    border-radius: 20px !important;
+}

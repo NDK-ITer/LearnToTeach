@@ -57,8 +57,9 @@ const Header = ({ children }) => {
     const handleLogoutClick = () => {
         const action = logout();
         dispatch(action);
-        window.location.reload(false);
         history.push('/signin')
+        window.location.reload(false);
+        
     };
     return (
         <div className={classes.root}>

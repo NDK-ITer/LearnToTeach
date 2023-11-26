@@ -83,9 +83,9 @@ namespace Application.Services
                 var userRegister = new User()
                 {
                     id = Guid.NewGuid().ToString(),
-                    UserName = registerRequest.UserName,
-                    FirstName = string.Empty,
-                    LastName = string.Empty,
+                    UserName = string.Empty,
+                    FirstName = registerRequest.FirstName,
+                    LastName = registerRequest.LastName,
                     FirstEmail = registerRequest.Email,
                     PhoneNumber = registerRequest.PhoneNumber,
                     Avatar = string.Empty,

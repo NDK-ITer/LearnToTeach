@@ -21,7 +21,6 @@ const Main = ({ classData }) => {
   };
   return (
     <div className="main"> 
-      <NavigationBar />
       <div className="main__wrapper">  
         <div className="main__content">    
           <div className="main__wrapper1">

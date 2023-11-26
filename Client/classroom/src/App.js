@@ -5,13 +5,15 @@ import './App.css';
 import { IsUserRedirect, ProtectedRoute } from "./routes/Routes";
 import Login from 'components/Auth/Login';
 import Register from 'components/Auth/Register';
-import NotFound from 'components/NotFound';
 import RestorePassword from 'components/Auth/RestorePassword';
 import Drawer from 'components/Drawer'
 import { useLocalContext } from "context";
 import userApi from 'api/userApi';
 import JoinedClasses from 'components/JoinedClasses/JoinedClasses';
 import Main from 'components/Main/Main';
+import Community from 'components/Community/Community';
+import NavigationBar from 'components/NavigationBar/NavigationBar';
+import Exercises from 'components/Exercises/Exercises';
 function App() {
   const { logged, user } = useLocalContext();
   console.log(logged);
@@ -51,7 +53,22 @@ function App() {
         {joinedClasses.map((item, index) => (
           <Route key={index} exact path={`/${item.idClassroom}`}>
             <Drawer />
+            <NavigationBar classData={item.idClassroom}/>
             <Main classData={item} />
+          </Route>
+        ))}
+         {joinedClasses.map((item, index) => (
+          <Route key={index} exact path={`/${item.idClassroom}/exercises`}>
+            <Drawer />
+            <NavigationBar classData={item.idClassroom}/>
+            <Exercises classData={item} />
+          </Route>
+        ))}
+          {joinedClasses.map((item, index) => (
+          <Route key={index} exact path={`/${item.idClassroom}/community`}>
+            <Drawer />
+            <NavigationBar classData={item.idClassroom}/>
+            <Community classData={item} />
           </Route>
         ))}
         <ProtectedRoute user={logged} path="/" exact>
@@ -66,7 +83,7 @@ function App() {
         <Route path="/SignIn" component={Login} exact />
         <Route path="/SignUp" component={Register} exact />
         <Route path="/RestorePassword" component={RestorePassword} exact />
-        <Route component={NotFound} />
+       
       </Switch>
     </div>
   );
