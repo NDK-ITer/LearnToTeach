@@ -13,6 +13,7 @@
         public List<Member>? ListMember { get; set; }
         public List<MemberClassroom>? ListMemberClassroom { get; set; }
         public List<Exercise>? ListExercise { get; set; }
+        public List<LearningDocument>? ListDocument { get; set; }
         
     }
 }

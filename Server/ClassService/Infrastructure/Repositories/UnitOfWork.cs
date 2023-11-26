@@ -11,8 +11,8 @@ namespace Infrastructure.Repositories
         IMemberRepository memberRepository { get; }
         IExerciseRepository exerciseRepository { get; }
         IAnswerRepository answerRepository { get; }
+        ILearningDocumentRepository learningDocumentRepository { get; }
         void SaveChange();
-        void Dispose();
     }
     public class UnitOfWork : IUnitOfWork
     {
@@ -26,21 +26,19 @@ namespace Infrastructure.Repositories
             memberRepository = new MemberRepository(context, memoryCache);
             exerciseRepository = new ExerciseRepository(context, memoryCache);
             answerRepository = new AnswerRepository(context, memoryCache);
+            learningDocumentRepository = new LearningDocumentRepository(context, memoryCache);
         }
         public IClassroomRepository classroomRepository { get; private set; }
         public IMemberClassroomRepository memberClassroomRepository { get; private set; }
         public IMemberRepository memberRepository { get; private set; }
         public IExerciseRepository exerciseRepository { get; private set; }
         public IAnswerRepository answerRepository { get; private set; }
-
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        public ILearningDocumentRepository learningDocumentRepository { get; private set; }
 
         public void SaveChange()
         {
             _context.SaveChanges();
+            _context.Dispose();
         }
     }
 }

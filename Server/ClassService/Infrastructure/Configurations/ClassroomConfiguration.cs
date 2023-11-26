@@ -17,13 +17,18 @@ namespace Infrastructure.Configurations
             builder.Property(x => x.KeyHash).HasMaxLength(200);
             builder.Property(x => x.Avatar).HasMaxLength(200);
             builder.Property(x => x.LinkAvatar).HasMaxLength(100);
+
             builder.HasMany(p => p.ListMember)
                 .WithMany(p => p.ListClassroom)
                 .UsingEntity<MemberClassroom>(
                     l => l.HasOne(e => e.Member).WithMany(e => e.ListMemberClassroom).HasForeignKey(e => e.IdUser),
-                    r => r.HasOne(e => e.Classroom).WithMany(e => e.ListMemberClassroom).HasForeignKey(e => e.IdClass)
-                );
+                    r => r.HasOne(e => e.Classroom).WithMany(e => e.ListMemberClassroom).HasForeignKey(e => e.IdClass));
+
             builder.HasMany(p => p.ListExercise)
+                .WithOne(p => p.Classroom)
+                .HasForeignKey(fk => fk.IdClassroom);
+
+            builder.HasMany(p => p.ListDocument)
                 .WithOne(p => p.Classroom)
                 .HasForeignKey(fk => fk.IdClassroom);
         }

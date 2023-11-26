@@ -246,7 +246,6 @@ namespace Application.Services
                 if (!classroomUpdateModel.avatarClassroom.IsNullOrEmpty()) classroom.Avatar = classroomUpdateModel.avatarClassroom;
                 _unitOfWork.classroomRepository.Update(classroom);
                 _unitOfWork.SaveChange();
-                _unitOfWork.Dispose();
                 return classroom;
             }
             catch (Exception)

@@ -1,10 +1,13 @@
-﻿using Application.Models.ModelsOfAnswer;
+﻿using Application.Models.ModelOfLearningDocument;
+using Application.Models.ModelsOfAnswer;
 using Application.Models.ModelsOfExercise;
 using Application.Requests.Answer;
+using Application.Requests.Documents;
 using Application.Requests.Exercise;
 using Application.Services;
 using ClassServer.FileMethods;
 using ClassServer.Models;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using XAct;
@@ -96,7 +99,13 @@ namespace ClassServer.Controllers
             };
             try
             {
-
+                var checkHost = _unitOfWork_ClassroomService._memberService.IsHost(updateExerciseRequest.IdMember, updateExerciseRequest.IdClassroom);
+                if (!checkHost.Item1)
+                {
+                    result.Status = 0;
+                    result.Message = checkHost.Item2;
+                    return Ok(result);
+                }
                 var fileName = string.Empty;
                 if (updateExerciseRequest.FileUpload != null)
                 {
@@ -305,6 +314,99 @@ namespace ClassServer.Controllers
             {
                 result.Message = e.Message;
                 return BadRequest(result);
+            }
+        }
+
+        [HttpPost]
+        [HttpOptions]
+        [Route("upload-doc")]
+        public ActionResult UploadDocument([FromForm] UploadDocumentModel upload)
+        {
+            var result = new ResultStatus()
+            {
+                Status = 0,
+                Message = ""
+            };
+            try
+            {
+                if (upload != null)
+                {
+                    var check = _unitOfWork_ClassroomService._memberService.IsHost(upload.IdMember, upload.IdClassroom);
+                    if (!check.Item1)
+                    {
+                        result.Message = check.Item2;
+                        return Ok(result);
+                    }
+                    var id = Guid.NewGuid().ToString();
+                    var fileName = string.Empty;
+                    if (upload.FileUpload != null)
+                    {
+                        var ext = Path.GetExtension(upload.FileUpload.FileName);
+                        fileName = _documentFile.SaveFile("Documents", upload.FileUpload, $"Doc{Convert.ToBase64String(id.ToByteArray()).Substring(0, 10)}{ext}");
+                    }
+                    var addDoc = new AddLearningDocumentModel()
+                    {
+                        IdClassroom = upload.IdClassroom,
+                        Description = upload.Decription,
+                        NameFile = fileName,
+                        LinkFile = _address.Value.ThisServiceAddress
+                    };
+                    _unitOfWork_ClassroomService._learningDocumentService.AddLearningDocument(addDoc);
+                }
+                result.Status = 0;
+                result.Message = "parameter is null";
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                result.Status = -1;
+                result.Message = e.Message;
+                return Ok(result);
+            }
+        }
+
+        [HttpPost]
+        [HttpOptions]
+        [Route("update-doc")]
+        public ActionResult UpdateDocument([FromForm] UpdateDocumentModel upload)
+        {
+            var result = new ResultStatus()
+            {
+                Status = 0,
+                Message = ""
+            };
+            try
+            {
+                if (upload != null)
+                {
+                    var check = _unitOfWork_ClassroomService._memberService.IsHost(upload.IdMember, upload.IdClassroom);
+                    if (!check.Item1)
+                    {
+                        result.Message = check.Item2;
+                        return Ok(result);
+                    }
+                    var fileName = string.Empty;
+                    if (upload.FileUpload != null)
+                    {
+                        var ext = Path.GetExtension(upload.FileUpload.FileName);
+                        fileName = _documentFile.SaveFile("Documents", upload.FileUpload, $"{upload.NameFile}{ext}");
+                    }
+                    var udateDoc = new UpdateLearningDocumentModel()
+                    {
+                        Description = upload.Decription,
+                        NameFile = upload.NameFile,
+                    };
+                    _unitOfWork_ClassroomService._learningDocumentService.UpdateLearningDocument(udateDoc);
+                }
+                result.Status = 0;
+                result.Message = "parameter is null";
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                result.Status = -1;
+                result.Message = e.Message;
+                return Ok(result);
             }
         }
     }
