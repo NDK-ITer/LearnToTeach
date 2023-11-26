@@ -206,7 +206,7 @@ namespace ClassServer.Controllers
 
         [HttpPost]
         [HttpOptions]
-        [Route("upload-answer")]
+        [Route("set-point-answer")]
         public ActionResult UploadAnswer([FromForm] SetPointModel setPoint)
         {
             var result = new ResultStatus()

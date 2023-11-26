@@ -77,12 +77,12 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//app.UseStaticFiles(new StaticFileOptions
-//{
-//    FileProvider = new PhysicalFileProvider(
-//           Path.Combine(builder.Environment.ContentRootPath, "Documents")),
-//    RequestPath = "/doc"
-//});
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+           Path.Combine(builder.Environment.ContentRootPath, "Documents")),
+    RequestPath = "/doc"
+});
 
 app.UseCors("myCorsPolicy");
 
