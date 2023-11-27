@@ -1,28 +1,63 @@
-import { Avatar, Button, TextField } from "@material-ui/core";
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import "./style.css";
 import { useLocalContext } from "context";
-import NavigationBar from "components/NavigationBar/NavigationBar";
+import { unwrapResult } from '@reduxjs/toolkit';
+import { useSnackbar } from 'notistack';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import FormNotify from "./FormNotify";
+import { uploadnotify } from "components/classroom/classSilce";
+import { Avatar } from "@material-ui/core";
+import Role from "constants/role";
+import classApi from "api/classApi";
 const Main = ({ classData }) => {
-  const { logged } = useLocalContext();
+  const { user } = useLocalContext();
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+  const [isUserHost, setisUserHost] = useState(false);
+  const [userHost, setuserHost] = useState([]);
+  const [isUserMember, setisUserMember] = useState(false);
+  const [notify, setnotify] = useState([]);
+  const userid = JSON.parse(user);
 
-  const [showInput, setShowInput] = useState(false);
-  const [inputValue, setInput] = useState("");
-  const [image, setImage] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const params = new URLSearchParams([['idClassroom', classData.idClassroom]]);
+      const result = await classApi.getClassById(params);
+      setisUserHost(result.listMembers.filter(x => x.role == Role.HOST && userid.id == x.idMember).length > 0 ? true : false);
+      setuserHost(result.listMembers.filter(x => x.role == Role.HOST));
+      setisUserMember(result.listMembers.filter(x => x.role == Role.MEMBER && userid.id == x.idMember).length > 0 ? true : false);
+      setnotify(result.listNotify.sort((a, b) => new Date(b.createDate) - new Date(a.createDate)));
+    };
+    fetchData();
+  }, []);
+  console.log(userHost)
+  const handleSubmit = async (values) => {
+    try {
+      values.IdClassroom = classData.idClassroom;
+      values.IdMember = userid.id;
+      const action = uploadnotify(values);
+      const resultAction = await dispatch(action);
+      unwrapResult(resultAction);
+      const check = resultAction.payload
+      console.log(resultAction.payload)
+      if (check.id == 1) {
+        enqueueSnackbar(check.message, { variant: 'success' });
+        window.location.reload(true);
+      } else {
+        enqueueSnackbar(check.message, { variant: 'error' });
+      }
 
-  const handleChange = (e) => {
-    if (e.target.files[0]) {
-      setImage(e.target.files[0]);
+    } catch (error) {
+      console.log('Failed to login:', error);
+      enqueueSnackbar(error.message, { variant: 'error' });
     }
   };
-
-  const handleUpload = () => {
-
-  };
   return (
-    <div className="main"> 
-      <div className="main__wrapper">  
-        <div className="main__content">    
+    <div className="main">
+      <div className="main__wrapper">
+        <div className="main__content">
           <div className="main__wrapper1">
             <div className="main__bgImage">
               <div className="main__emptyStyles" />
@@ -46,54 +81,22 @@ const Main = ({ classData }) => {
             <p>Sắp đến hạn</p>
             <p className="main__subText">Không có công việc</p>
           </div>
-          <div className="main__announcements">
-            <div className="main__announcementsWrapper">
-              <div className="main__ancContent">
-                {showInput ? (
-                  <div className="main__form">
-                    <TextField
-                      id="filled-multiline-flexible"
-                      multiline
-                      label="Thông báo với lớp học"
-                      variant="filled"
-                      value={inputValue}
-                      onChange={(e) => setInput(e.target.value)}
-                    />
-                    <div className="main__buttons">
-                      <input
-                        onChange={handleChange}
-                        variant="outlined"
-                        color="primary"
-                        type="file"
-                      />
+          {isUserHost && <FormNotify onSubmit={handleSubmit} />}
+        </div>
+        <div>
+          <ul>
+            {notify.map((item, index) => (
+              <li key={index}>
+                <Avatar></Avatar>
+                {userHost.map((item, index) => (
+                  <p key={index}>{item.nameMember}</p>
+                ))}
+                <p>{item.nameNotify}</p>
+                <p>{item.description}</p>
+              </li>
+            ))}
 
-                      <div>
-                        <Button onClick={() => setShowInput(false)}>
-                          Hủy
-                        </Button>
-
-                        <Button
-                          onClick={handleUpload}
-                          color="primary"
-                          variant="contained"
-                        >
-                          Đăng
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div
-                    className="main__wrapper100"
-                    onClick={() => setShowInput(true)}
-                  >
-                    <Avatar />
-                    <div>Thông báo với lớp học</div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+          </ul>
         </div>
       </div>
     </div>
