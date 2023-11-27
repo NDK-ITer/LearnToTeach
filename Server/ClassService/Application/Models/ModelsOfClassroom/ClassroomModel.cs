@@ -1,4 +1,5 @@
 ﻿using Application.Models.ModelOfLearningDocument;
+using Application.Models.ModelOfNotifyClassroom;
 using Application.Models.ModelsOfExercise;
 using Application.Models.ModelsOfMember;
 using Domain.Entities;
@@ -18,6 +19,7 @@ namespace Application.Models.ModelsOfClassroom
         public List<MemberModel>? ListMembers { get; set; } = new List<MemberModel>();
         public List<ExerciseModel>? ListExercises { get; set; } = new List<ExerciseModel>();
         public List<LearningDocumentModel>? ListDocument { get; set; } = new List<LearningDocumentModel>();
+        public List<NotifyClassroomModel>? ListNotify { get; set; } = new List<NotifyClassroomModel>();
         public ClassroomModel(Classroom classroom)
         {
             if (classroom != null)
@@ -38,6 +40,10 @@ namespace Application.Models.ModelsOfClassroom
                 foreach (var item in classroom.ListDocument)
                 {
                     ListDocument.Add(new LearningDocumentModel(item));
+                }
+                foreach (var item in classroom.ListNotifies)
+                {
+                    ListNotify.Add(new NotifyClassroomModel(item));
                 }
             }
         }

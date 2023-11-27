@@ -1,9 +1,11 @@
 ﻿using Application.Models.ModelOfLearningDocument;
+using Application.Models.ModelOfNotifyClassroom;
 using Application.Models.ModelsOfAnswer;
 using Application.Models.ModelsOfExercise;
 using Application.Requests.Answer;
 using Application.Requests.Documents;
 using Application.Requests.Exercise;
+using Application.Requests.Notify;
 using Application.Services;
 using ClassServer.FileMethods;
 using ClassServer.Models;
@@ -252,7 +254,7 @@ namespace ClassServer.Controllers
         [HttpPut]
         [HttpOptions]
         [Route("update-answer")]
-        public async Task<ActionResult> UpdateAnswer([FromForm] UpdateAnswerRequest updateAnswer)
+        public ActionResult UpdateAnswer([FromForm] UpdateAnswerRequest updateAnswer)
         {
             var result = new ResultStatus()
             {
@@ -397,6 +399,140 @@ namespace ClassServer.Controllers
                         NameFile = upload.NameFile,
                     };
                     _unitOfWork_ClassroomService._learningDocumentService.UpdateLearningDocument(udateDoc);
+                }
+                result.Status = 0;
+                result.Message = "parameter is null";
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                result.Status = -1;
+                result.Message = e.Message;
+                return Ok(result);
+            }
+        }
+
+        [HttpPost]
+        [HttpOptions]
+        [Route("upload-notify")]
+        public ActionResult UploadNotify([FromForm] UploadNotifyRequest upload)
+        {
+            var result = new ResultStatus()
+            {
+                Status = 0,
+                Message = ""
+            };
+            try
+            {
+                if (upload != null)
+                {
+                    var check = _unitOfWork_ClassroomService._memberService.IsHost(upload.IdMember, upload.IdClassroom);
+                    if (!check.Item1)
+                    {
+                        result.Message = check.Item2;
+                        return Ok(result);
+                    }
+                    var addNotify = new AddNotifyClassroomModel()
+                    {
+                        IdClassroom = upload.IdClassroom,
+                        NameNotify = upload.NameNotify,
+                        Description = upload.Decription
+                    };
+                    var checkAdd = _unitOfWork_ClassroomService._notifyClassroomService.Add(addNotify);
+                    if (checkAdd.Item2 != null)
+                    {
+                        result.Status = 1;
+                    }
+                    result.Message = checkAdd.Item1;
+                    return Ok(result);
+                }
+                
+                result.Status = 0;
+                result.Message = "parameter is null";
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                result.Status = -1;
+                result.Message = e.Message;
+                return Ok(result);
+            }
+        }
+
+        [HttpPost]
+        [HttpOptions]
+        [Route("update-notify")]
+        public ActionResult UpdateNotify([FromForm] UpdateNotifyRequest upload)
+        {
+            var result = new ResultStatus()
+            {
+                Status = 0,
+                Message = ""
+            };
+            try
+            {
+                if (upload != null)
+                {
+                    var check = _unitOfWork_ClassroomService._memberService.IsHost(upload.IdMember, upload.IdClassroom);
+                    if (!check.Item1)
+                    {
+                        result.Message = check.Item2;
+                        return Ok(result);
+                    }
+                    var updateNotify = new UpdateNotifyClassroomModel()
+                    {
+                        //IdClassroom = upload.IdClassroom,
+                        IdNotify = upload.IdNotify,
+                        NameNotify = upload.NameNotify,
+                        Description = upload.Description,
+                    };
+                    var checkAdd = _unitOfWork_ClassroomService._notifyClassroomService.Update(updateNotify);
+                    if (checkAdd.Item2 != null)
+                    {
+                        result.Status = 1;
+                    }
+                    result.Message = checkAdd.Item1;
+                    return Ok(result);
+                }
+                result.Status = 0;
+                result.Message = "parameter is null";
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                result.Status = -1;
+                result.Message = e.Message;
+                return Ok(result);
+            }
+        }
+
+        [HttpPost]
+        [HttpOptions]
+        [Route("delete-notify")]
+        public ActionResult DeleteNotify([FromForm] UpdateNotifyRequest upload)
+        {
+            var result = new ResultStatus()
+            {
+                Status = 0,
+                Message = ""
+            };
+            try
+            {
+                if (upload != null)
+                {
+                    var check = _unitOfWork_ClassroomService._memberService.IsHost(upload.IdMember, upload.IdClassroom);
+                    if (!check.Item1)
+                    {
+                        result.Message = check.Item2;
+                        return Ok(result);
+                    }
+                    var checkAdd = _unitOfWork_ClassroomService._notifyClassroomService.Delete(upload.IdNotify);
+                    if (checkAdd.Item1 == false)
+                    {
+                        result.Status = 1;
+                    }
+                    result.Message = checkAdd.Item2;
+                    return Ok(result);
                 }
                 result.Status = 0;
                 result.Message = "parameter is null";

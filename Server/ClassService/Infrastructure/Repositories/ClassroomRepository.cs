@@ -14,6 +14,7 @@ namespace Infrastructure.Repositories
             _dbSet.Include(c => c.ListMember).Load();
             _dbSet.Include(c => c.ListExercise).Load();
             _dbSet.Include(c => c.ListDocument).Load();
+            _dbSet.Include(c => c.ListNotifies).Load();
             _keyValueCache = "ClassroomPublicMemoryCachingKey";
         }
         public void UpdateClassroom(Classroom classroom) => Update(classroom);

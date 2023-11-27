@@ -31,6 +31,10 @@ namespace Infrastructure.Configurations
             builder.HasMany(p => p.ListDocument)
                 .WithOne(p => p.Classroom)
                 .HasForeignKey(fk => fk.IdClassroom);
+
+            builder.HasMany(p => p.ListNotifies)
+                .WithOne(p => p.Classroom)
+                .HasForeignKey(fk => fk.IdClassroom);
         }
     }
 }

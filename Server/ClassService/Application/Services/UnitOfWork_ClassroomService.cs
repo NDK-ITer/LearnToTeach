@@ -10,6 +10,7 @@ namespace Application.Services
         IExerciseService _exerciseService { get; }
         IAnswerService _answerService { get; }
         ILearningDocumentService _learningDocumentService { get; }
+        INotifyClassroomService _notifyClassroomService { get; }
     }
     public class UnitOfWork_ClassroomService : IUnitOfWork_ClassroomService
     {
@@ -20,6 +21,7 @@ namespace Application.Services
             _exerciseService = new ExerciseService(context, memoryCache);
             _answerService = new AnswerService(context, memoryCache);
             _learningDocumentService = new LearningDocumentService(context, memoryCache);
+            _notifyClassroomService = new NotifyClassroomService(context, memoryCache);
         }
 
         public IClassroomService _classroomService { get; private set; }
@@ -27,5 +29,6 @@ namespace Application.Services
         public IExerciseService _exerciseService { get; private set; }
         public IAnswerService _answerService { get; private set; }
         public ILearningDocumentService _learningDocumentService { get; private set; }
+        public INotifyClassroomService _notifyClassroomService { get; private set; }
     }
 }
