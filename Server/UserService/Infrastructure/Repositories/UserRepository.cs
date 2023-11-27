@@ -11,201 +11,294 @@ namespace Infrastructure.Repositories
     {
         private IMemoryCache _memoryCache;
         private string _keyValueCache;
-        public UserRepository(AuthenticationDbContext context, IMemoryCache cache) : base(context)
+        public UserRepository(UserServiceDbContext context, IMemoryCache cache) : base(context)
         {
             _dbSet.Include(u => u.Role).Load();
+            _dbSet.Include(u => u.ListClassroomInfor).Load();
             _memoryCache = cache;
             _keyValueCache = "userWhichHaveBeenGet";
         }
 
         public void Register(User user) => Add(user);
         public void UpdateUser(User user) => Update(user);
-        public bool CheckAccountValid(string username, string password)
+        public bool CheckAccountValid(string email, string password)
         {
-            if (_memoryCache.TryGetValue(_keyValueCache, out List<User> listUserInCache)) 
+            var passwordDecode = SecurityMethods.HashPassword(password);
+            //if (_memoryCache.TryGetValue(_keyValueCache, out List<User> listUserInCache)) 
+            //{
+            //    var user = listUserInCache.FirstOrDefault(u => u.PresentEmail == email);
+            //    if (user == null) 
+            //    {
+            //        user = _dbSet.FirstOrDefault(u => u.PresentEmail == email);
+            //        if (user != null)
+            //        {
+            //            listUserInCache.Add(user);
+            //            if (user.PasswordHash == passwordDecode)
+            //            {
+            //                return true;
+            //            }
+            //            return false;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (user.PasswordHash == passwordDecode)
+            //        {
+            //            return true;
+            //        }
+            //    }
+            //    return false;
+            //}
+            //else
+            //{
+            //    var listUser = new List<User>();
+            //    var user = _dbSet.FirstOrDefault(u => u.PresentEmail == email && SecurityMethods.HashPassword(password) == u.PasswordHash);
+            //    if (user != null)
+            //    {
+            //        listUser.Add(user);
+            //        _memoryCache.Set(_keyValueCache, listUser, _options);
+            //        return true;
+            //    }
+            //    return false;
+            //}
+            var listUser = new List<User>();
+            var user = _dbSet.FirstOrDefault(u => u.PresentEmail == email && SecurityMethods.HashPassword(password) == u.PasswordHash);
+            if (user != null)
             {
-                var user = listUserInCache.FirstOrDefault(u => u.UserName == username && SecurityMethods.HashPassword(password) == u.PasswordHash);
-                if (user == null) 
-                {
-                    user = _dbSet.FirstOrDefault(u => u.UserName == username && SecurityMethods.HashPassword(password) == u.PasswordHash);
-                    listUserInCache.Add(user);
-                }
+                listUser.Add(user);
+                _memoryCache.Set(_keyValueCache, listUser, _options);
                 return true;
             }
-            else
-            {
-                var listUser = new List<User>();
-                var user = _dbSet.FirstOrDefault(u => u.UserName == username && SecurityMethods.HashPassword(password) == u.PasswordHash);
-                if (user != null)
-                {
-                    listUser.Add(user);
-                    _memoryCache.Set(_keyValueCache, listUser, _options);
-                    return true;
-                }
-                return false;
-            }
-            
+            return false;
+
         }
         
         public User? GetUserByUsername(string username)
         {
             if (username.IsNullOrEmpty()) return null;
-            
-            if (_memoryCache.TryGetValue(_keyValueCache, out List<User> listUserInCache))
+
+            //if (_memoryCache.TryGetValue(_keyValueCache, out List<User> listUserInCache))
+            //{
+            //    var user = listUserInCache.FirstOrDefault(u => u.UserName == username);
+            //    if (user == null) 
+            //    {
+            //        user = _dbSet.FirstOrDefault(u => u.UserName == username);
+            //        if (user != null)
+            //        {
+            //            listUserInCache.Add(user);
+            //            return user;
+            //        }
+            //    }
+            //    return user;
+            //}
+            //else
+            //{
+            //    var user = _dbSet.FirstOrDefault(u => u.UserName == username);
+            //    var listUser = new List<User>();
+            //    if (user != null)
+            //    {
+            //        listUser.Add(user);
+            //        _memoryCache.Set(_keyValueCache,listUser,_options);
+            //        return user;
+            //    }
+            //    return null;
+            //}
+            var user = _dbSet.FirstOrDefault(u => u.UserName == username);
+            var listUser = new List<User>();
+            if (user != null)
             {
-                var user = listUserInCache.FirstOrDefault(u => u.UserName == username);
-                if (user == null) 
-                {
-                    user = _dbSet.FirstOrDefault(u => u.UserName == username);
-                    if (user != null)
-                    {
-                        listUserInCache.Add(user);
-                        return user;
-                    }
-                }
+                listUser.Add(user);
+                _memoryCache.Set(_keyValueCache, listUser, _options);
                 return user;
             }
-            else
-            {
-                var user = _dbSet.FirstOrDefault(u => u.UserName == username);
-                var listUser = new List<User>();
-                if (user != null)
-                {
-                    listUser.Add(user);
-                    _memoryCache.Set(_keyValueCache,listUser,_options);
-                    return user;
-                }
-                return null;
-            }
-            
+            return null;
+
         }
         public User? GetUserByEmail(string email)
         {
-            if (email.IsNullOrEmpty()) return null;
-            if (_memoryCache.TryGetValue(_keyValueCache, out List<User> listUserInCache))
-            {
-                var user = listUserInCache.FirstOrDefault(u => u.PresentEmail == email);
-                if (user == null)
-                {
-                    user = _dbSet.FirstOrDefault(u => u.PresentEmail == email);
-                    if (user != null)
-                    {
-                        listUserInCache.Add(user);
-                        return user;
-                    }
-                }
-                return null;
-            }
-            else
-            {
-                var user = _dbSet.FirstOrDefault(u => u.PresentEmail == email);
-                var listUser = new List<User>();
-                if (user != null)
-                {
-                    listUser.Add(user);
-                    _memoryCache.Set(_keyValueCache, listUser, _options);
-                    return user;
-                }
-                return null;
-            }
+            //if (email.IsNullOrEmpty()) return null;
+            //if (_memoryCache.TryGetValue(_keyValueCache, out List<User> listUserInCache))
+            //{
+            //    var user = listUserInCache.FirstOrDefault(u => u.PresentEmail == email);
+            //    if (user == null)
+            //    {
+            //        user = _dbSet.FirstOrDefault(u => u.PresentEmail == email);
+            //        if (user != null)
+            //        {
+            //            listUserInCache.Add(user);
+            //            return user;
+            //        }
+            //        else
+            //        {
+            //            return null;
+            //        }
 
+            //    }
+            //    return user;
+            //}
+            //else
+            //{
+            //    var user = _dbSet.FirstOrDefault(u => u.PresentEmail == email);
+            //    var listUser = new List<User>();
+            //    if (user != null)
+            //    {
+            //        listUser.Add(user);
+            //        _memoryCache.Set(_keyValueCache, listUser, _options);
+            //        return user;
+            //    }
+            //    return null;
+            //}
+            var user = _dbSet.FirstOrDefault(u => u.PresentEmail == email);
+            var listUser = new List<User>();
+            if (user != null)
+            {
+                listUser.Add(user);
+                _memoryCache.Set(_keyValueCache, listUser, _options);
+                return user;
+            }
+            return null;
         }
         public User? GetUserById(string id) 
         {
-            if (id.IsNullOrEmpty()) return null;
-            if (_memoryCache.TryGetValue(_keyValueCache, out List<User> listUserInCache))
+            //if (id.IsNullOrEmpty()) return null;
+            //if (_memoryCache.TryGetValue(_keyValueCache, out List<User> listUserInCache))
+            //{
+            //    var user = listUserInCache.FirstOrDefault(u => u.id == id);
+            //    if (user == null)
+            //    {
+            //        user = _dbSet.Find(id);
+            //        if (user != null)
+            //        {
+            //            listUserInCache.Add(user);
+            //            return user;
+            //        }
+            //    }
+            //    return user;
+            //}
+            //else
+            //{
+            //    var user = _dbSet.Find(id);
+            //    var listUser = new List<User>();
+            //    if (user != null)
+            //    {
+            //        listUser.Add(user);
+            //        _memoryCache.Set(_keyValueCache, listUser, _options);
+            //        return user;
+            //    }
+            //    return null;
+            //}
+            var user = _dbSet.Find(id);
+            var listUser = new List<User>();
+            if (user != null)
             {
-                var user = listUserInCache.FirstOrDefault(u => u.id == id);
-                if (user == null)
-                {
-                    user = _dbSet.Find(id);
-                    if (user != null)
-                    {
-                        listUserInCache.Add(user);
-                        return user;
-                    }
-                }
+                listUser.Add(user);
+                _memoryCache.Set(_keyValueCache, listUser, _options);
                 return user;
             }
-            else
-            {
-                var user = _dbSet.Find(id);
-                var listUser = new List<User>();
-                if (user != null)
-                {
-                    listUser.Add(user);
-                    _memoryCache.Set(_keyValueCache, listUser, _options);
-                    return user;
-                }
-                return null;
-            }
+            return null;
         }
         public bool CheckEmailIsExist(string email)
         {
-            if (email.IsNullOrEmpty()) return false;
-            if (_memoryCache.TryGetValue(_keyValueCache, out List<User> listUserInCache))
+            //if (email.IsNullOrEmpty()) return false;
+            //if (_memoryCache.TryGetValue(_keyValueCache, out List<User> listUserInCache))
+            //{
+            //    var user = listUserInCache.FirstOrDefault(u => u.PresentEmail == email);
+            //    if (user == null)
+            //    {
+            //        user = _dbSet.FirstOrDefault(u => u.PresentEmail == email);
+            //        if (user != null)
+            //        {
+            //            listUserInCache.Add(user);
+            //            return true;
+            //        }
+            //    }
+            //    return false;
+            //}
+            //else
+            //{
+            //    var user = _dbSet.FirstOrDefault(u => u.PresentEmail == email);
+            //    var listUser = new List<User>();
+            //    if (user != null)
+            //    {
+            //        listUser.Add(user);
+            //        _memoryCache.Set(_keyValueCache, listUser, _options);
+            //        return true;
+            //    }
+            //    return false;
+            //}
+            var user = _dbSet.FirstOrDefault(u => u.PresentEmail == email);
+            var listUser = new List<User>();
+            if (user != null)
             {
-                var user = listUserInCache.FirstOrDefault(u => u.PresentEmail == email);
-                if (user == null)
-                {
-                    user = _dbSet.FirstOrDefault(u => u.PresentEmail == email);
-                    if (user != null)
-                    {
-                        listUserInCache.Add(user);
-                        return true;
-                    }
-                }
-                return false;
+                listUser.Add(user);
+                _memoryCache.Set(_keyValueCache, listUser, _options);
+                return true;
             }
-            else
-            {
-                var user = _dbSet.FirstOrDefault(u => u.PresentEmail == email);
-                var listUser = new List<User>();
-                if (user != null)
-                {
-                    listUser.Add(user);
-                    _memoryCache.Set(_keyValueCache, listUser, _options);
-                    return true;
-                }
-                return false;
-            }
+            return false;
         }
 
         public bool CheckUsernameIsExist(string username)
         {
-            if (username.IsNullOrEmpty()) return false;
+            //if (username.IsNullOrEmpty()) return false;
 
-            if (_memoryCache.TryGetValue(_keyValueCache, out List<User> listUserInCache))
+            //if (_memoryCache.TryGetValue(_keyValueCache, out List<User> listUserInCache))
+            //{
+            //    var user = listUserInCache.FirstOrDefault(u => u.UserName == username);
+            //    if (user == null)
+            //    {
+            //        user = _dbSet.FirstOrDefault(u => u.UserName == username);
+            //        if (user != null)
+            //        {
+            //            listUserInCache.Add(user);
+            //            return true;
+            //        }
+            //    }
+            //    return false;
+            //}
+            //else
+            //{
+            //    var user = _dbSet.FirstOrDefault(u => u.UserName == username);
+            //    var listUser = new List<User>();
+            //    if (user != null)
+            //    {
+            //        listUser.Add(user);
+            //        _memoryCache.Set(_keyValueCache, listUser, _options);
+            //        return true;
+            //    }
+            //    return false;
+            //}
+            var user = _dbSet.FirstOrDefault(u => u.UserName == username);
+            var listUser = new List<User>();
+            if (user != null)
             {
-                var user = listUserInCache.FirstOrDefault(u => u.UserName == username);
-                if (user == null)
-                {
-                    user = _dbSet.FirstOrDefault(u => u.UserName == username);
-                    if (user != null)
-                    {
-                        listUserInCache.Add(user);
-                        return true;
-                    }
-                }
-                return false;
+                listUser.Add(user);
+                _memoryCache.Set(_keyValueCache, listUser, _options);
+                return true;
             }
-            else
-            {
-                var user = _dbSet.FirstOrDefault(u => u.UserName == username);
-                var listUser = new List<User>();
-                if (user != null)
-                {
-                    listUser.Add(user);
-                    _memoryCache.Set(_keyValueCache, listUser, _options);
-                    return true;
-                }
-                return false;
-            }
+            return false;
         }
 
         public List<User> GetAllUsers() => GetAll();
 
         public List<User> GetAllUsersWith(System.Linq.Expressions.Expression<Func<User, bool>> predicate) => Find(predicate);
         
+        public string GetOTP(string email)
+        {             
+                _memoryCache.Remove(email);
+                var otp = SecurityMethods.CreateRandomOTP();
+                _memoryCache.Set(email, otp, _options);
+                return otp;
+           
+        }
+        public string verifyOTP(string email)
+        {
+            if (_memoryCache.TryGetValue(email, out var otpCache))
+            {
+                string otp = (string)otpCache;
+                return otp;
+            }
+            return "";
+        }
+
     }
 }

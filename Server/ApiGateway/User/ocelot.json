@@ -4,7 +4,8 @@
     //login
     {
       "UpstreamPathTemplate": "/account/login",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      //"CorsPolicyName": "myCorsPolicy",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -17,7 +18,7 @@
     //register
     {
       "UpstreamPathTemplate": "/account/register",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -30,7 +31,7 @@
     //confirm-email
     {
       "UpstreamPathTemplate": "/account/confirm-email",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -43,7 +44,7 @@
     //verify-account
     {
       "UpstreamPathTemplate": "/account/verify-account",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -56,7 +57,7 @@
     //change-password
     {
       "UpstreamPathTemplate": "/account/change-password",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -74,7 +75,7 @@
     //forget-password
     {
       "UpstreamPathTemplate": "/account/forget-password",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -87,7 +88,7 @@
     //verify-otp
     {
       "UpstreamPathTemplate": "/account/verify-otp",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -100,7 +101,7 @@
     //reset-password
     {
       "UpstreamPathTemplate": "/account/reset-password",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -110,12 +111,24 @@
       "DownstreamPathTemplate": "/api/Account/reset-password",
       "DownstreamScheme": "https"
     },
-    
+    //user-data
+    {
+      "UpstreamPathTemplate": "/account/user-data",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9001
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Account/user-data",
+      "DownstreamScheme": "https"
+    },
     //ClassroomService Web Api
     //get classroom public
     {
       "UpstreamPathTemplate": "/classroom/public",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": [ "Get", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -137,14 +150,14 @@
     //get classroom by 'id'
     {
       "UpstreamPathTemplate": "/classroom/id",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": [ "Get", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
           "Port": 9002
         }
       ],
-      "DownstreamPathTemplate": "/api/Classroom/id",
+      "DownstreamPathTemplate": "/api/Classroom",
       "DownstreamScheme": "https",
       //Authentication
       "AuthenticationOptions": {
@@ -159,7 +172,7 @@
     //get classroom by 'name'
     {
       "UpstreamPathTemplate": "/classroom/name",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": [ "Get", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -181,7 +194,7 @@
     //create classroom
     {
       "UpstreamPathTemplate": "/classroom/create",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -200,10 +213,32 @@
         "Role": "USER"
       }
     },
+    //join classroom
+    {
+      "UpstreamPathTemplate": "/classroom/join-classroom",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Classroom/join-classroom",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
     //upadte classroom
     {
       "UpstreamPathTemplate": "/classroom/update",
-      "UpstreamHttpMethod": [ "Put" ],
+      "UpstreamHttpMethod": [ "Put", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -225,7 +260,7 @@
     //delete classroom
     {
       "UpstreamPathTemplate": "/classroom/delete",
-      "UpstreamHttpMethod": [ "Delete" ],
+      "UpstreamHttpMethod": [ "Delete", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -247,7 +282,7 @@
     //remove member
     {
       "UpstreamPathTemplate": "/classroom/remove-member",
-      "UpstreamHttpMethod": [ "Delete" ],
+      "UpstreamHttpMethod": [ "Delete", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -265,9 +300,177 @@
       "RouteClaimsRequirement": {
         "Role": "USER"
       }
+    },
+    //FileStoreService
+    //URL Image
+    {
+      "UpstreamPathTemplate": "/{everything}",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9005
+        }
+      ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https"
+    },
+    //upload-exercise
+    {
+      "UpstreamPathTemplate": "/Member/upload-exercise",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/upload-exercise",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //update-exercise
+    {
+      "UpstreamPathTemplate": "/Member/update-exercise",
+      "UpstreamHttpMethod": [ "Put", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/update-exercise",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //upload-answer
+    {
+      "UpstreamPathTemplate": "/Member/upload-answer",
+      "UpstreamHttpMethod": [ "Put", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/upload-answer",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //set-point-answer
+    {
+      "UpstreamPathTemplate": "/Member/set-point-answer",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/set-point-answer",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //update-answer
+    {
+      "UpstreamPathTemplate": "/Member/update-answer",
+      "UpstreamHttpMethod": [ "Put", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/update-answer",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //upload-doc
+    {
+      "UpstreamPathTemplate": "/Member/upload-doc",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/upload-doc",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //update-doc
+    {
+      "UpstreamPathTemplate": "/Member/update-doc",
+      "UpstreamHttpMethod": [ "Put", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/update-doc",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
     }
   ],
   "GlobalConfiguration": {
     "BaseUrl": "https://localhost:9000"
-  }
+  },
+  "Aggregates": []
 }

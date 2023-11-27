@@ -1,36 +1,44 @@
 ﻿using ClassServer.Models;
 using Events.ClassroomServiceEvents.Classroom;
+using Events.MultiServiceUseEvent;
 using MassTransit;
+using Microsoft.Extensions.Options;
 
 namespace ClassServer.Consumers
 {
     public class GetClassroomValueConsumer : IConsumer<IGetValueClassroomEvent>
     {
-        private readonly ClassroomEventMessage classroomEventMessage;
+        private readonly IOptions<ServerInfor> _serverInfor;
 
-        public GetClassroomValueConsumer(ClassroomEventMessage classroomEventMessage)
+        public GetClassroomValueConsumer(IOptions<ServerInfor> serverInfor)
         {
-            this.classroomEventMessage = classroomEventMessage;
+            _serverInfor = serverInfor;
         }
+
         public async Task Consume(ConsumeContext<IGetValueClassroomEvent> context)
         {
             var data = context.Message;
             if (data is not null)
             {
-                if (data.eventMessage == classroomEventMessage.Create)
+                await context.Publish<IClassroomEvent>(new
                 {
-                    // This section will publish message to the IAddTicketEvent although the GenerateTicket service has a consumer
-                    // that it will be listened on the IAddTicketEvent
-                    await context.Publish<IAddClassroomEvent>(new
-                    {
-                        idClassroom = data.idClassroom,
-                        description = data.description,
-                        idUserHost = data.idUserHost,
-                        name = data.name,
-                        isPrivate = data.isPrivate
-                    });
-                }
-               
+                    idMessage = data.idMessage,
+                    idClassroom = data.idClassroom,
+                    description = data.description,
+                    idUserHost = data.idUserHost,
+                    name = data.name,
+                    isPrivate = data.isPrivate,
+                    eventMessage = data.eventMessage,
+                });
+
+                await context.Publish<IUploadFileEvent>(new
+                {
+                    IdMessage = Guid.NewGuid(),
+                    IdObject = data.idClassroom,
+                    FileByteString = data.avatar,
+                    Event = data.eventMessage,
+                    ServerName = _serverInfor.Value.Name
+                });
             }
         }
     }

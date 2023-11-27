@@ -6,7 +6,7 @@ namespace Domain.Interfaces
     {
         void Register(User user);
         void UpdateUser(User user);
-        bool CheckAccountValid(string username, string password);
+        bool CheckAccountValid(string email, string password);
         bool CheckEmailIsExist(string email);
         bool CheckUsernameIsExist(string username);
         User GetUserByUsername(string username);
@@ -14,5 +14,7 @@ namespace Domain.Interfaces
         User GetUserById(string id);
         List<User> GetAllUsers();
         List<User> GetAllUsersWith(System.Linq.Expressions.Expression<Func<User, bool>> predicate);
+        string GetOTP(string email);
+        string verifyOTP(string email);
     }
 }

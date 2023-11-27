@@ -4,6 +4,8 @@
     {
         public Guid id { get; set; }
         public string? fullName { get; set; }
+        public string? avatar { get; set; }
+        public string? serverName { get; set; }
         public string? email { get; set; }
         public string? content { get; set; }
         public string? subject { get; set; }

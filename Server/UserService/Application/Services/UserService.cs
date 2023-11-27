@@ -28,7 +28,7 @@ namespace Application.Services
         ///  <returns></returns>
         bool EmailIsExist(string email);
         bool UsernameIsExist(string username);
-        bool UpdateUser(User user);
+        bool UpdateUser(UpdateUserModel editInforRequest);
         bool LockUser(User user);
         bool CheckUserIsExist(System.Linq.Expressions.Expression<Func<User, bool>> property);
         /// <summary>
@@ -41,23 +41,24 @@ namespace Application.Services
         User GetUserUsername(string username);
         User GetUserByEmail(string email);
         string GetUserToken(string id);
-
+        string GetOtp(string email);
+        string verifyOTP(string email);
     }
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public UserService(AuthenticationDbContext context, IMemoryCache cache)
+        public UserService(UserServiceDbContext context, IMemoryCache cache)
         {
             _unitOfWork = new UnitOfWork(context, cache);
         }
 
 
-        public LoginResponses? LoginUser(string username, string password)//Login
+        public LoginResponses? LoginUser(string email, string password)//Login
         {
-            var checkLogin = _unitOfWork.userRepository.CheckAccountValid(username, password);
+            var checkLogin = _unitOfWork.userRepository.CheckAccountValid(email, password);
             if (!checkLogin) { return null; }
-            var user = _unitOfWork.userRepository.GetUserByUsername(username);
+            var user = _unitOfWork.userRepository.GetUserByEmail(email);
             if (user.IsLock == true)
             {
                 return null;
@@ -66,6 +67,8 @@ namespace Application.Services
             var jwtUserInfor = new JwtUserInfor()
             {
                 Id = user.id,
+                Email = user.PresentEmail,
+                Avatar = $"{user.LinkAvatar}/{user.Avatar}",
                 Fullname = user.FirstName + " " + user.LastName,
                 Role = user.Role.Name
             };
@@ -80,13 +83,15 @@ namespace Application.Services
                 var userRegister = new User()
                 {
                     id = Guid.NewGuid().ToString(),
-                    UserName = registerRequest.UserName,
+                    UserName = string.Empty,
                     FirstName = registerRequest.FirstName,
                     LastName = registerRequest.LastName,
                     FirstEmail = registerRequest.Email,
                     PhoneNumber = registerRequest.PhoneNumber,
+                    Avatar = string.Empty,
+                    LinkAvatar = string.Empty,
                     PresentEmail = registerRequest.Email,
-                    Birthday = registerRequest.Brithday,
+                    Birthday = registerRequest.Birthday,
                     PasswordHash = SecurityMethods.HashPassword(registerRequest.PasswordIsConfirmed),
                     CreatedDate = DateTime.Now,
                     IsLock = false,
@@ -96,6 +101,8 @@ namespace Application.Services
                     IsVerified = false,
                     Role = role
                 };
+                if (!registerRequest.FirstName.IsNullOrEmpty()) userRegister.FirstName = registerRequest.FirstName;
+                if (!registerRequest.LastName.IsNullOrEmpty()) userRegister.LastName = registerRequest.LastName;
                 _unitOfWork.userRepository.Register(userRegister);
                 _unitOfWork.SaveChange();
                 return userRegister;
@@ -108,7 +115,7 @@ namespace Application.Services
 
         public bool EmailIsExist(string email)
         {
-            if (_unitOfWork.userRepository.CheckEmailIsExist(email)) return true;
+            if (_unitOfWork.userRepository.Find(e => e.PresentEmail == email).FirstOrDefault() != null) return true;
             return false;
         }
 
@@ -118,12 +125,23 @@ namespace Application.Services
             return false;
         }
 
-        public bool UpdateUser(User user)
+        public bool UpdateUser(UpdateUserModel editInforRequest)
         {
             try
             {
-                _unitOfWork.userRepository.Update(user);
-                return true;
+                var user = _unitOfWork.userRepository.Find(p => p.id == editInforRequest.IdUser).FirstOrDefault();
+                if (user != null)
+                {
+                    if (!editInforRequest.FirstName.IsNullOrEmpty()) { user.FirstName = editInforRequest.FirstName; }
+                    if (!editInforRequest.LastName.IsNullOrEmpty()) { user.LastName = editInforRequest.LastName; }
+                    if (!editInforRequest.Avatar.IsNullOrEmpty()) { user.Avatar = editInforRequest.Avatar; }
+                    if (!editInforRequest.LinkAvatar.IsNullOrEmpty()) { user.LinkAvatar = editInforRequest.LinkAvatar; }
+                    _unitOfWork.userRepository.Update(user);
+                    _unitOfWork.SaveChange();
+                    _unitOfWork.Dispose();
+                    return true;
+                }
+                return false;
             }
             catch (Exception)
             {
@@ -291,6 +309,14 @@ namespace Application.Services
 
                 throw;
             }
+        }
+        public string? GetOtp(string email)
+        {
+            return _unitOfWork.userRepository.GetOTP(email);
+        }
+        public string? verifyOTP(string email)
+        {
+            return _unitOfWork.userRepository.verifyOTP(email);
         }
     }
 }

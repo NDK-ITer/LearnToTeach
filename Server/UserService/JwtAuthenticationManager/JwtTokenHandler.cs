@@ -14,7 +14,7 @@ namespace JwtAuthenticationManager
         public static LoginResponses? GenerateJwtToken(JwtUserInfor userAccount)
         {
             //can be use data on database
-            var tokenExprityTimeStamp = DateTime.Now.AddMinutes(JWT_TOKEN_VALIDITY);
+            var tokenExprityTimeStamp = DateTime.Now.AddHours(JWT_TOKEN_VALIDITY);
             var tokenKey = Encoding.ASCII.GetBytes(JWT_SECURITY_KEY);
             var claimsIdentity = new ClaimsIdentity(new List<Claim>
             {
@@ -40,6 +40,8 @@ namespace JwtAuthenticationManager
             {
                 Id = userAccount.Id,
                 UserName = userAccount.Fullname,
+                Email = userAccount.Email,
+                Avatar = userAccount.Avatar,
                 ExpiresIn = (int)tokenExprityTimeStamp.Subtract(DateTime.Now).TotalSeconds,
                 JwtToken = token,
             };

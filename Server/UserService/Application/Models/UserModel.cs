@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using XAct;
 
 namespace Application.Models
 {
@@ -9,7 +10,9 @@ namespace Application.Models
         public string? email { get; set; }
         public string? phoneNumber { get; set; }
         public string? role { get; set; }
+        public string? avatar { get; set; }
         public DateTime birthday { get; set; }
+        public List<ClassroomInforModel> listClassroom { get; set; }
 
         public UserModel()
         {
@@ -17,12 +20,18 @@ namespace Application.Models
         }
         public UserModel(User user)
         {
+            listClassroom = new List<ClassroomInforModel>();
             this.id = user.id;
             this.birthday = user.Birthday;
             this.email = user.PresentEmail;
             this.fullName = user.FirstName + " " + user.LastName;
             this.role = user.Role.Name;
             this.phoneNumber = user.PhoneNumber; 
+            this.avatar = $"{user.LinkAvatar}/{user.Avatar}";
+            foreach (var item in user.ListClassroomInfor)
+            {
+                listClassroom.Add(new ClassroomInforModel(item));
+            }
         }
     }
 }

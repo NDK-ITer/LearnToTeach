@@ -3,9 +3,18 @@ using MeetingServer.SignalR;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddSingleton<PresenceTracker>();
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder =>
+    {
+        builder.AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowAnyOrigin()
+               .AllowCredentials();
+    });
+});
 
 var app = builder.Build();
 
@@ -15,14 +24,15 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.MapControllers();
+
+app.UseRouting();
+
+app.UseCors("CorsPolicy");
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllers();
-    endpoints.MapHub<ChatHub>("hubs/chathub");
+    endpoints.MapHub<TrackingHub>("/tracking");
 });
 
 app.Run();

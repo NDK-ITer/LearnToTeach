@@ -7,6 +7,12 @@ namespace Infrastructure.Repositories
     public interface IUnitOfWork
     {
         IClassroomRepository classroomRepository { get; }
+        IMemberClassroomRepository memberClassroomRepository { get; }
+        IMemberRepository memberRepository { get; }
+        IExerciseRepository exerciseRepository { get; }
+        IAnswerRepository answerRepository { get; }
+        ILearningDocumentRepository learningDocumentRepository { get; }
+        INotifyClassroomRepository notifyClassroomRepository { get; }
         void SaveChange();
     }
     public class UnitOfWork : IUnitOfWork
@@ -17,17 +23,25 @@ namespace Infrastructure.Repositories
         {
             _context = context;
             classroomRepository = new ClassroomRepository(context, memoryCache);
+            memberClassroomRepository = new MemberClassroomRepository(context, memoryCache);
+            memberRepository = new MemberRepository(context, memoryCache);
+            exerciseRepository = new ExerciseRepository(context, memoryCache);
+            answerRepository = new AnswerRepository(context, memoryCache);
+            learningDocumentRepository = new LearningDocumentRepository(context, memoryCache);
+            notifyClassroomRepository = new NotifyClassroomRepository(context, memoryCache);
         }
         public IClassroomRepository classroomRepository { get; private set; }
-
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        public IMemberClassroomRepository memberClassroomRepository { get; private set; }
+        public IMemberRepository memberRepository { get; private set; }
+        public IExerciseRepository exerciseRepository { get; private set; }
+        public IAnswerRepository answerRepository { get; private set; }
+        public ILearningDocumentRepository learningDocumentRepository { get; private set; }
+        public INotifyClassroomRepository notifyClassroomRepository { get; private set; }
 
         public void SaveChange()
         {
             _context.SaveChanges();
+            _context.Dispose();
         }
     }
 }

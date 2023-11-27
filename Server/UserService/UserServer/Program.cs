@@ -1,4 +1,5 @@
 using Application.Services;
+using FileStoreServer.FileMethods;
 using Infrastructure.Context;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using RabbitMQ_Lib;
 using SendMail.ClassDefine;
 using SendMail.Interfaces;
 using UserServer.Consumers;
+using UserServer.Consumers.UploadFile;
 using UserServer.Extensions;
 using UserServer.Models;
 
@@ -16,7 +18,8 @@ var nameQueue = builder.Configuration.GetConnectionString("SagaBusQueue");
 // Add from "appsettings.json"
 builder.Services.Configure<EndpointConfig>(builder.Configuration.GetSection("EndpointConfig"));
 builder.Services.Configure<Address>(builder.Configuration.GetSection("Address"));
-// Configuration "MassTransit" to use "RabbitMQ"
+builder.Services.Configure<ServerInfor>(builder.Configuration.GetSection("ServerInfor"));
+
 builder.Services.AddMassTransit(cfg =>
 {
     cfg.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
@@ -30,31 +33,45 @@ builder.Services.AddMassTransit(cfg =>
         // Add endpiont to receive message in "RabbitMQ"
         cfg.ReceiveEndpoint(nameQueue, ep =>
         {
-            ep.PrefetchCount = 10;
+            ep.PrefetchCount = 100;
             ep.ConfigureConsumer<ConsumeValueClassroomConsumer>(provider);
+            ep.ConfigureConsumer<ConsumeValueMemberConsumer>(provider);
             ep.ConfigureConsumer<GetValueUserConsumer>(provider);
+            ep.ConfigureConsumer<GenerateUploadFileIsValidConsumer>(provider);
         });
         
     }));
     // Configuration "Consumer"
     cfg.AddConsumer<ConsumeValueClassroomConsumer>();
+    cfg.AddConsumer<ConsumeValueMemberConsumer>();
     cfg.AddConsumer<GetValueUserConsumer>();
+    cfg.AddConsumer<GenerateUploadFileIsValidConsumer>();
 });
 // Configuration "Session" to store some value
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(SessionInforConfig.SessionTimeOut);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
+    //options.Cookie.HttpOnly = true;
+  //  options.Cookie.IsEssential = true;
 });
 builder.Services.AddControllers();
 builder.Services.AddMemoryCache();
 //
-builder.Services.AddDbContext<AuthenticationDbContext>(option => option.UseSqlServer(connectionString));
+builder.Services.AddDbContext<UserServiceDbContext>(option => option.UseSqlServer(connectionString));
 builder.Services.AddTransient<IUnitOfWork_UserService, UnitOfWork_UserService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddTransient<UserEventMessage>();
+builder.Services.AddTransient<ImageMethod>();
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("myCorsPolicy", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -64,6 +81,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("myCorsPolicy");
 
 app.UseSession();
 

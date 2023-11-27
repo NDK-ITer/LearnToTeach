@@ -1,6 +1,5 @@
-﻿using Events.UserServiceEvents.User;
+﻿using Events.UserServiceEvents.User.ConfirmUser;
 using MassTransit;
-using SagaStateMachine.UserService.ResetPassword;
 
 namespace SagaStateMachine.UserService.ConfirmUserEmail
 {
@@ -30,7 +29,7 @@ namespace SagaStateMachine.UserService.ConfirmUserEmail
                     context.Saga.Email = context.Message.email;
                     context.Saga.Content = context.Message.content;
                     context.Saga.Subject = context.Message.subject;
-                }).TransitionTo(ConfirmUser).Publish(context => new ConsumeConfirmEmailEvent(context.Saga)));
+                }).Publish(context => new ConsumeConfirmEmailEvent(context.Saga)));
         }
     }
 }

@@ -1,9 +1,6 @@
-﻿using Application.Models;
+﻿using Application.Models.ModelsOfClassroom;
 using Application.Services;
-using ClassServer.Models;
-using MassTransit;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace ClassServer.Controllers
@@ -19,13 +16,20 @@ namespace ClassServer.Controllers
         }
 
         [HttpGet]
+        [HttpOptions]
         [Route("GetAll")]
         public ActionResult<List<ClassroomModel>> GetAllClassroom()
         {
             try
             {
-                var classroomResponse = _unitOfWork_ClassroomService._classroomService.GetAllClassroom();
-                if (classroomResponse.IsNullOrEmpty()) return NotFound();
+                var classroom = _unitOfWork_ClassroomService._classroomService.GetAllClassroom();
+                if (classroom.IsNullOrEmpty()) return NotFound();
+                var classroomResponse = new List<ClassroomModel>();
+                foreach (var item in classroom)
+                {
+                    var classroomModel = new ClassroomModel(item);
+                    classroomResponse.Add(classroomModel);
+                }
                 return classroomResponse;
             }
             catch (Exception e)

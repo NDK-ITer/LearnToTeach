@@ -6,5 +6,6 @@ namespace UserServer.Models
     {
         public readonly string ConfirmEmail = "ConfirmEmail";
         public readonly string ResetPassword = "ResetPassword";
+        public readonly string UploadFile = "UploadFile";
     }
 }
