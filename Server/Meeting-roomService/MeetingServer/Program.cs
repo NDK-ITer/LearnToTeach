@@ -11,7 +11,7 @@ builder.Services.AddCors(options =>
     {
         builder.AllowAnyMethod()
                .AllowAnyHeader()
-               .WithOrigins("*")
+               .AllowAnyOrigin()
                .AllowCredentials();
     });
 });
@@ -24,15 +24,15 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.MapControllers();
 
 app.UseRouting();
+
 app.UseCors("CorsPolicy");
+
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapHub<YourHub>("/yourhub");
+    endpoints.MapHub<TrackingHub>("/tracking");
 });
 
 app.Run();
