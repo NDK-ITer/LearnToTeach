@@ -3,22 +3,22 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 
-InputField.propTypes = {
+TextAreaField.propTypes = {
     form: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
 
-    style: PropTypes.string,
     label: PropTypes.string,
-    type: PropTypes.string,
     disabled: PropTypes.bool,
+    style: PropTypes.string,
 };
 
-function InputField(props) {
-    const { form, name, label, type, disabled, style } = props;
+function TextAreaField(props) {
+    const { form, name, label, disabled, style } = props;
     const { errors } = form;
     const hasError = errors[name];
 
     return (
+
         <Controller
             name={name}
             control={form.control}
@@ -35,12 +35,14 @@ function InputField(props) {
                     value={value}
                     onChange={onChange}
                     onBlur={onBlur}
-                    type={type}
+                    multiline
+                    minRows={3}
                     style={style}
                 />
             )}
         />
+
     );
 }
 
-export default InputField;
+export default TextAreaField;

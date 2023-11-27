@@ -14,7 +14,7 @@ import Main from 'components/Main/Main';
 import Community from 'components/Community/Community';
 import NavigationBar from 'components/NavigationBar/NavigationBar';
 import Exercises from 'components/Exercises/Exercises';
-import CreateExercise from 'components/CreateExercise/CreateExercise';
+import CreateExercise from 'components/CreateExercise';
 function App() {
   const { logged, user } = useLocalContext();
   console.log(logged);
@@ -54,21 +54,28 @@ function App() {
         {joinedClasses.map((item, index) => (
           <Route key={index} exact path={`/${item.idClassroom}`}>
             <Drawer />
-            <NavigationBar classData={item.idClassroom}/>
+            <NavigationBar classData={item.idClassroom} />
             <Main classData={item} />
           </Route>
         ))}
-         {joinedClasses.map((item, index) => (
+        {joinedClasses.map((item, index) => (
           <Route key={index} exact path={`/${item.idClassroom}/exercises`}>
             <Drawer />
-            <NavigationBar classData={item.idClassroom}/>
+            <NavigationBar classData={item.idClassroom} />
+            <Exercises classData={item} />
+          </Route>
+        ))}
+        {joinedClasses.map((item, index) => (
+          <Route key={index} exact path={`/${item.idClassroom}/exercises/create`}>
+            <Drawer />
+            <NavigationBar classData={item.idClassroom} />
             <CreateExercise classData={item} />
           </Route>
         ))}
-          {joinedClasses.map((item, index) => (
+        {joinedClasses.map((item, index) => (
           <Route key={index} exact path={`/${item.idClassroom}/community`}>
             <Drawer />
-            <NavigationBar classData={item.idClassroom}/>
+            <NavigationBar classData={item.idClassroom} />
             <Community classData={item} />
           </Route>
         ))}
@@ -84,7 +91,7 @@ function App() {
         <Route path="/SignIn" component={Login} exact />
         <Route path="/SignUp" component={Register} exact />
         <Route path="/RestorePassword" component={RestorePassword} exact />
-       
+
       </Switch>
     </div>
   );

@@ -2,20 +2,20 @@ import { TextField } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import dayjs from 'dayjs';
-import { DatePicker, DatePickerProps } from 'antd';
 
-DatePicker.propTypes = {
+DateField.propTypes = {
     form: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
 
     label: PropTypes.string,
-    placeholder: PropTypes.string,
+    type: PropTypes.string,
     disabled: PropTypes.bool,
+    style: PropTypes.string,
+
 };
 
-function DatePicker(props) {
-    const { form, name, label, placeholder, disabled } = props;
+function DateField(props) {
+    const { form, name, label, type, disabled, style } = props;
     const { errors } = form;
     const hasError = errors[name];
 
@@ -24,22 +24,20 @@ function DatePicker(props) {
             name={name}
             control={form.control}
             render={({ onChange, onBlur, value, name }) => (
-                <DatePicker
-                    placeholder={placeholder}
-                    status={fieldState.error ? "error" : undefined}
-                    name={name}
+                <TextField
                     disabled={disabled}
                     error={!!hasError}
-                    onBlur={onBlur}
                     helperText={errors[name]?.message}
-                    value={value ? dayjs(value) : null}
-                    onChange={(date) => {
-                        onChange(date ? date.valueOf() : null);
-                    }}
+                    name={name}
+                    value={value || ' '}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    type='date'
+                    style={style}
                 />
             )}
         />
     );
 }
 
-export default DatePicker;
+export default DateField;

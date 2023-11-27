@@ -25,3 +25,17 @@ export const joinClassroom = createAsyncThunk('classroom/join', async (payload) 
     const data = await classApi.joinclassroom(formData);
     return data;
 });
+
+export const uploadexercise = createAsyncThunk('classroom/uploadexercise', async (payload) => {
+
+    const formData = new FormData()
+    console.log(payload);
+    formData.append('IdClassroom', payload.IdClassroom);
+    formData.append('IdMember', payload.IdMember);
+    formData.append('Name', payload.Name);
+    formData.append('Description', payload.Description);
+    formData.append('Deadline', payload.Deadline);
+    formData.append('FileUpload', payload.FileUpload[0]);
+    const data = await classApi.uploadexercise(formData);
+    return data;
+});

@@ -313,6 +313,160 @@
       ],
       "DownstreamPathTemplate": "/{everything}",
       "DownstreamScheme": "https"
+    },
+    //upload-exercise
+    {
+      "UpstreamPathTemplate": "/Member/upload-exercise",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/upload-exercise",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //update-exercise
+    {
+      "UpstreamPathTemplate": "/Member/update-exercise",
+      "UpstreamHttpMethod": [ "Put", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/update-exercise",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //upload-answer
+    {
+      "UpstreamPathTemplate": "/Member/upload-answer",
+      "UpstreamHttpMethod": [ "Put", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/upload-answer",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //set-point-answer
+    {
+      "UpstreamPathTemplate": "/Member/set-point-answer",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/set-point-answer",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //update-answer
+    {
+      "UpstreamPathTemplate": "/Member/update-answer",
+      "UpstreamHttpMethod": [ "Put", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/update-answer",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //upload-doc
+    {
+      "UpstreamPathTemplate": "/Member/upload-doc",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/upload-doc",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //update-doc
+    {
+      "UpstreamPathTemplate": "/Member/update-doc",
+      "UpstreamHttpMethod": [ "Put", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/update-doc",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
     }
   ],
   "GlobalConfiguration": {

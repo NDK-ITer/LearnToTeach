@@ -1,46 +1,45 @@
-import { TextField } from '@material-ui/core';
+import { FilledInput, TextField } from "@material-ui/core";
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 
-InputField.propTypes = {
+UploadField.propTypes = {
     form: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
 
-    style: PropTypes.string,
     label: PropTypes.string,
-    type: PropTypes.string,
     disabled: PropTypes.bool,
+    style: PropTypes.string,
 };
 
-function InputField(props) {
-    const { form, name, label, type, disabled, style } = props;
+function UploadField(props) {
+    const { form, name, label, disabled, style } = props;
     const { errors } = form;
     const hasError = errors[name];
 
     return (
+
         <Controller
             name={name}
             control={form.control}
-            render={({ onChange, onBlur, value, name }) => (
+            render={({ onChange, onBlur, name }) => (
                 <TextField
-                    margin="normal"
-                    variant="outlined"
-                    fullWidth
                     label={label}
+                    placeholder=" "
                     disabled={disabled}
+                    accept="*"
                     error={!!hasError}
                     helperText={errors[name]?.message}
                     name={name}
-                    value={value}
-                    onChange={onChange}
+                    onChange={(e) => onChange(e.target.files)}
                     onBlur={onBlur}
-                    type={type}
+                    type="file"
                     style={style}
                 />
             )}
         />
+
     );
 }
 
-export default InputField;
+export default UploadField;
