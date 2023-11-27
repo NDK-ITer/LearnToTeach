@@ -12,6 +12,7 @@ namespace Infrastructure.Repositories
         IExerciseRepository exerciseRepository { get; }
         IAnswerRepository answerRepository { get; }
         ILearningDocumentRepository learningDocumentRepository { get; }
+        INotifyClassroomRepository notifyClassroomRepository { get; }
         void SaveChange();
     }
     public class UnitOfWork : IUnitOfWork
@@ -27,6 +28,7 @@ namespace Infrastructure.Repositories
             exerciseRepository = new ExerciseRepository(context, memoryCache);
             answerRepository = new AnswerRepository(context, memoryCache);
             learningDocumentRepository = new LearningDocumentRepository(context, memoryCache);
+            notifyClassroomRepository = new NotifyClassroomRepository(context, memoryCache);
         }
         public IClassroomRepository classroomRepository { get; private set; }
         public IMemberClassroomRepository memberClassroomRepository { get; private set; }
@@ -34,6 +36,7 @@ namespace Infrastructure.Repositories
         public IExerciseRepository exerciseRepository { get; private set; }
         public IAnswerRepository answerRepository { get; private set; }
         public ILearningDocumentRepository learningDocumentRepository { get; private set; }
+        public INotifyClassroomRepository notifyClassroomRepository { get; private set; }
 
         public void SaveChange()
         {

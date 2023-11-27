@@ -14,6 +14,7 @@
         public List<MemberClassroom>? ListMemberClassroom { get; set; }
         public List<Exercise>? ListExercise { get; set; }
         public List<LearningDocument>? ListDocument { get; set; }
-        
+        public List<NotifyClassroom>? ListNotifies { get; set; }
+
     }
 }
