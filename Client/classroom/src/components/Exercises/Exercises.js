@@ -34,6 +34,7 @@ const Exercises = ({ classData }) => {
     };
     fetchData();
   }, []);
+  
   return (
     <div>
       {isUserHost && <div>
@@ -53,10 +54,12 @@ const Exercises = ({ classData }) => {
         <ul className='list_tasks'>
           {exercisesActive.map((item, index) => (
             <li key={index} className='task'>
+              <a href={`/${classData.idClassroom}/exercises/${item.idExercise}`}>
               <Avatar style={{ m: 1, backgroundColor: 'rgb(4, 214, 46)' }}>
                 <LibraryBooksOutlinedIcon />
               </Avatar>
-              <div className='task_name'> {item.name} </div>
+              </a>
+              <div className='task_name'>{item.name}</div>
               <div className='task_deadline'>{formatDateToDDMMYYYY(new Date(item.deadline))} </div>
             </li>
           ))}
@@ -67,9 +70,11 @@ const Exercises = ({ classData }) => {
         <ul className='list_tasks'>
           {exercisesExpired.map((item, index) => (
             <li key={index} className='task'>
-              <Avatar style={{ m: 1, backgroundColor: 'rgb(233, 0, 0)' }}>
+               <a href={`/${classData.idClassroom}/exercises/${item.idExercise}`}>
+               <Avatar style={{ m: 1, backgroundColor: 'rgb(233, 0, 0)' }}>
                 <LibraryBooksOutlinedIcon />
               </Avatar>
+              </a>            
               <div className='task_name'> {item.name} </div>
               <div className='task_deadline'>{formatDateToDDMMYYYY(new Date(item.deadline))} </div>
             </li>
@@ -77,6 +82,7 @@ const Exercises = ({ classData }) => {
         </ul>
       </div>}
       {isUserMember && <div>
+       
         <div className='status'>
           <h1 style={{ paddingTop: 12 }}>Đã giao</h1>
         </div>

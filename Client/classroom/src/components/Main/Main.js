@@ -42,7 +42,7 @@ const Main = ({ classData }) => {
       unwrapResult(resultAction);
       const check = resultAction.payload
       console.log(resultAction.payload)
-      if (check.id == 1) {
+      if (check.status == 1) {
         enqueueSnackbar(check.message, { variant: 'success' });
         window.location.reload(true);
       } else {
