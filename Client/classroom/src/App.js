@@ -16,6 +16,8 @@ import NavigationBar from 'components/NavigationBar/NavigationBar';
 import Exercises from 'components/Exercises/Exercises';
 import CreateExercise from 'components/CreateExercise';
 import ExerciseRoute from 'components/ExerciseRoute';
+import NotFound from 'components/NotFound';
+import { Router } from 'react-router-dom/cjs/react-router-dom';
 function App() {
   const { logged, user } = useLocalContext();
   console.log(logged);
@@ -25,9 +27,8 @@ function App() {
     if (logged) {
 
       const fetchData = async () => {
-        const userid = JSON.parse(user);
         const formData = new FormData()
-        formData.append('idUser', userid.id);
+        formData.append('idUser', user.id);
         const result = await userApi.getclassroom(formData);
         setJoinedClasses(result.listClassroom);
         console.log(result)
@@ -41,53 +42,52 @@ function App() {
 
   return (
     <div className="app">
+        <Switch>
 
-      <Switch>
+          <IsUserRedirect
+            user={logged}
+            loggedInPath="/"
+            path="/SignIn"
+            exact
+          >
+            <Login />
+          </IsUserRedirect>
+          {joinedClasses.map((item, index) => (
+            <Route key={index} exact path={`/${item.idClassroom}`}>
+              <Drawer />
+              <NavigationBar classData={item.idClassroom} />
+              <Main classData={item} />
+            </Route>
+          ))}
+          {joinedClasses.map((item, index) => (
+            <Route key={index} path={`/${item.idClassroom}/exercises`}>
+              <Drawer />
+              <NavigationBar classData={item.idClassroom} />
+              <ExerciseRoute classData={item} />
+            </Route>
+          ))}
+          {joinedClasses.map((item, index) => (
+            <Route key={index} exact path={`/${item.idClassroom}/community`}>
+              <Drawer />
+              <NavigationBar classData={item.idClassroom} />
+              <Community classData={item} />
+            </Route>
+          ))}
+          <ProtectedRoute user={logged} path="/" exact>
+            <Drawer />
+            <ol className="joined">
+              {joinedClasses.map((item) => (
+                <JoinedClasses classData={item} key={item.idClassroom} />
 
-        <IsUserRedirect
-          user={logged}
-          loggedInPath="/"
-          path="/SignIn"
-          exact
-        >
-          <Login />
-        </IsUserRedirect>
-        {joinedClasses.map((item, index) => (
-          <Route key={index} exact path={`/${item.idClassroom}`}>
-            <Drawer />
-            <NavigationBar classData={item.idClassroom} />
-            <Main classData={item} />
-          </Route>
-        ))}
-        {joinedClasses.map((item, index) => (
-          <Route key={index}  path={`/${item.idClassroom}/exercises`}>
-            <Drawer />
-            <NavigationBar classData={item.idClassroom} />
-            <ExerciseRoute classData={item}/>
-          </Route>
-        ))}
-        {joinedClasses.map((item, index) => (
-          <Route key={index} exact path={`/${item.idClassroom}/community`}>
-            <Drawer />
-            <NavigationBar classData={item.idClassroom} />
-            <Community classData={item} />
-          </Route>
-        ))}
-        <ProtectedRoute user={logged} path="/" exact>
-          <Drawer />
-          <ol className="joined">
-            {joinedClasses.map((item) => (
-              <JoinedClasses classData={item} key={item.idClassroom} />
-              
-            ))}
-          </ol>
-        </ProtectedRoute>
-        <Redirect from="/home" to="/" exact />
-        <Route path="/SignIn" component={Login} exact />
-        <Route path="/SignUp" component={Register} exact />
-        <Route path="/RestorePassword" component={RestorePassword} exact />
-
-      </Switch>
+              ))}
+            </ol>
+          </ProtectedRoute>
+          <Redirect from="/home" to="/" exact />
+          <Route path="/SignIn" component={Login} exact />
+          <Route path="/SignUp" component={Register} exact />
+          <Route path="/RestorePassword" component={RestorePassword} exact />
+          <Route path="/NotFound" component={NotFound} exact />
+        </Switch>
     </div>
   );
 }

@@ -8,14 +8,13 @@ import { uploadexercise } from 'components/classroom/classSilce';
 import { useLocalContext } from 'context';
 function CreateExercise({ classData }) {
     const { user } = useLocalContext();
-    const userhost = JSON.parse(user);
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const history = useHistory();
     const handleSubmit = async (values) => {
         try {
             values.IdClassroom = classData.idClassroom;
-            values.IdMember = userhost.id;
+            values.IdMember = user.id;
             const action = uploadexercise(values);
             const resultAction = await dispatch(action);
             unwrapResult(resultAction);

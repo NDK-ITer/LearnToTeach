@@ -361,7 +361,7 @@
     //upload-answer
     {
       "UpstreamPathTemplate": "/Member/upload-answer",
-      "UpstreamHttpMethod": [ "Put", "Options" ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",

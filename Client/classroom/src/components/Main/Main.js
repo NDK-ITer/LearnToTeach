@@ -19,15 +19,13 @@ const Main = ({ classData }) => {
   const [userHost, setuserHost] = useState([]);
   const [isUserMember, setisUserMember] = useState(false);
   const [notify, setnotify] = useState([]);
-  const userid = JSON.parse(user);
-
   useEffect(() => {
     const fetchData = async () => {
       const params = new URLSearchParams([['idClassroom', classData.idClassroom]]);
       const result = await classApi.getClassById(params);
-      setisUserHost(result.listMembers.filter(x => x.role == Role.HOST && userid.id == x.idMember).length > 0 ? true : false);
+      setisUserHost(result.listMembers.filter(x => x.role == Role.HOST && user.id == x.idMember).length > 0 ? true : false);
       setuserHost(result.listMembers.filter(x => x.role == Role.HOST));
-      setisUserMember(result.listMembers.filter(x => x.role == Role.MEMBER && userid.id == x.idMember).length > 0 ? true : false);
+      setisUserMember(result.listMembers.filter(x => x.role == Role.MEMBER && user.id == x.idMember).length > 0 ? true : false);
       setnotify(result.listNotify.sort((a, b) => new Date(b.createDate) - new Date(a.createDate)));
     };
     fetchData();
@@ -36,7 +34,7 @@ const Main = ({ classData }) => {
   const handleSubmit = async (values) => {
     try {
       values.IdClassroom = classData.idClassroom;
-      values.IdMember = userid.id;
+      values.IdMember = user.id;
       const action = uploadnotify(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
