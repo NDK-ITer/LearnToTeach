@@ -39,3 +39,14 @@ export const uploadexercise = createAsyncThunk('classroom/uploadexercise', async
     const data = await classApi.uploadexercise(formData);
     return data;
 });
+export const uploadnotify = createAsyncThunk('classroom/uploadnotify', async (payload) => {
+
+    const formData = new FormData()
+    console.log(payload);
+    formData.append('IdClassroom', payload.IdClassroom);
+    formData.append('IdMember', payload.IdMember);
+    formData.append('NameNotify', payload.NameNotify);
+    formData.append('Decription', payload.Description);
+    const data = await classApi.uploadnotify(formData);
+    return data;
+});

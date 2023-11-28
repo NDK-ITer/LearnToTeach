@@ -467,6 +467,72 @@
       "RouteClaimsRequirement": {
         "Role": "USER"
       }
+    },
+    //upload-notify
+    {
+      "UpstreamPathTemplate": "/Member/upload-notify",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/upload-notify",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //update-notify
+    {
+      "UpstreamPathTemplate": "/Member/update-notify",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/update-notify",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //delete-notify
+    {
+      "UpstreamPathTemplate": "/Member/delete-notify",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/delete-notify",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
     }
   ],
   "GlobalConfiguration": {
