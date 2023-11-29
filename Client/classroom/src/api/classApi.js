@@ -57,6 +57,18 @@ const classApi = {
   updatedoc(data) {
     const url = '/Member/update-doc'
     return axiosClient.post(url, data);
+  },
+  uploadnotify(data) {
+    const url = '/Member/upload-notify'
+    return axiosClient.post(url, data);
+  },
+  updatenotify(data) {
+    const url = '/Member/update-notify'
+    return axiosClient.post(url, data);
+  },
+  deletenotify(data) {
+    const url = '/Member/delete-notify'
+    return axiosClient.post(url, data);
   }
 };
 
