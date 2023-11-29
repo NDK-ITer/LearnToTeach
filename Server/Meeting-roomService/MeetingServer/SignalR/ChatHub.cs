@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.SignalR;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using ChatService;
-using System.Linq;
-using System;
+﻿using MeetingServer.DTOs;
+using Microsoft.AspNetCore.SignalR;
 
-namespace SignalRChat.Hubs
+namespace MeetingServer.SignalR
 {
     public class ChatHub : Hub
     {
@@ -14,7 +10,7 @@ namespace SignalRChat.Hubs
 
         public ChatHub(IDictionary<string, UserConnection> connections)
         {
-            _botUser = "MyChat Bot";            
+            _botUser = "MyChat Bot";
             _connections = connections;
         }
 
@@ -23,8 +19,8 @@ namespace SignalRChat.Hubs
             if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
             {
                 _connections.Remove(Context.ConnectionId);
-                Clients.Group(userConnection.Room).SendAsync("ReceiveMessage", _botUser, $"{userConnection.User} has left");
-                SendUsersConnected(userConnection.Room);
+                Clients.Group(userConnection.IdClassroom).SendAsync("ReceiveMessage", _botUser, $"{userConnection.UserName} has left");
+                SendUsersConnected(userConnection.IdClassroom);
             }
 
             return base.OnDisconnectedAsync(exception);
@@ -32,28 +28,28 @@ namespace SignalRChat.Hubs
 
         public async Task JoinRoom(UserConnection userConnection)
         {
-            await Groups.AddToGroupAsync(Context.ConnectionId, userConnection.Room);
+            await Groups.AddToGroupAsync(Context.ConnectionId, userConnection.IdClassroom);
 
             _connections[Context.ConnectionId] = userConnection;
 
-            await Clients.Group(userConnection.Room).SendAsync("ReceiveMessage", _botUser, $"{userConnection.User} has joined {userConnection.Room}");
+            await Clients.Group(userConnection.IdClassroom).SendAsync("ReceiveMessage", _botUser, $"{userConnection.UserName} has joined {userConnection.IdClassroom}");
 
-            await SendUsersConnected(userConnection.Room);
+            await SendUsersConnected(userConnection.IdClassroom);
         }
 
         public async Task SendMessage(string message)
         {
             if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
             {
-                await Clients.Group(userConnection.Room).SendAsync("ReceiveMessage", userConnection.User, message);
+                await Clients.Group(userConnection.IdClassroom).SendAsync("ReceiveMessage", userConnection.UserName, message);
             }
         }
 
         public Task SendUsersConnected(string room)
         {
             var users = _connections.Values
-                .Where(c => c.Room == room)
-                .Select(c => c.User);
+                .Where(c => c.IdClassroom == room)
+                .Select(c => c.UserName);
             //var result = Clients.Group(room).SendAsync("UsersInRoom", users);
             return Clients.Group(room).SendAsync("UsersInRoom", users);
         }

@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import SimplePeer from 'simple-peer';
 import Lobby from './components/Lobby';
 import Chat from './components/Chat';
 import './App.css';
@@ -8,31 +9,42 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const App = () => {
   const [connection, setConnection] = useState();
   const [messages, setMessages] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [UserName, setUserName] = useState([]);
+  const videoRef = useRef();
 
-  const joinRoom = async (user, room) => {
+  const joinRoom = async (UserName, IdClassroom, videoRef) => {
     try {
       const connection = new HubConnectionBuilder()
-        .withUrl("https://localhost:44382/chat")
+        .withUrl("https://localhost:9011/chat")
         .configureLogging(LogLevel.Information)
         .build();
+        
+      const peer = new SimplePeer({ initiator: true });
+      navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+      .then(stream => {
+        videoRef.current.srcObject = stream;
+        peer.addStream(stream);
+      })
+      .catch(error => {
+        console.error('Error accessing media devices:', error);
+      });
 
-      connection.on("ReceiveMessage", (user, message) => {
-        setMessages(messages => [...messages, { user, message }]);
+      connection.on("ReceiveMessage", (UserName, message) => {
+        setMessages(messages => [...messages, { UserName, message }]);
       });
 
       connection.on("UsersInRoom", (users) => {
-        setUsers(users);
+        setUserName(users);
       });
 
       connection.onclose(e => {
         setConnection();
         setMessages([]);
-        setUsers([]);
+        setUserName([]);
       });
 
       await connection.start();
-      await connection.invoke("JoinRoom", { user, room });
+      await connection.invoke("JoinRoom", { UserName, IdClassroom });
       setConnection(connection);
     } catch (e) {
       console.log(e);
@@ -56,11 +68,11 @@ const App = () => {
   }
 
   return <div className='app'>
-    <h2>MyChat</h2>
+    <h2>My Chat</h2>
     <hr className='line' />
     {!connection
-      ? <Lobby joinRoom={joinRoom} />
-      : <Chat sendMessage={sendMessage} messages={messages} users={users} closeConnection={closeConnection} />}
+      ? <Lobby joinRoom={joinRoom} videoRef = {videoRef}/>
+      : <Chat sendMessage={sendMessage} messages={messages} users={UserName} closeConnection={closeConnection} />}
   </div>
 }
 
