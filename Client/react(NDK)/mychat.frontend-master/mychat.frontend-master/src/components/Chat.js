@@ -3,7 +3,8 @@ import MessageContainer from './MessageContainer';
 import ConnectedUsers from './ConnectedUsers';
 import { Button } from 'react-bootstrap';
 
-const Chat = ({ sendMessage, messages, users, closeConnection }) => <div>
+const Chat = ({ sendMessage, messages, users, closeConnection }) => 
+<div>
     <div className='leave-room'>
         <Button variant='danger' onClick={() => closeConnection()}>Leave Room</Button>
     </div>
