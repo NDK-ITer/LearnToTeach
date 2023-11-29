@@ -34,7 +34,7 @@ const Document = () => {
             }
         }
         else{
-            console.log('Hãy chọn file muốn tải lên');
+            console.log('Chọn file PDF muốn tải lên');
         }
     }
 
