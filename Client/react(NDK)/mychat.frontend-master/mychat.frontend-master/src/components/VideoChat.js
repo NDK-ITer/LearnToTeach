@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import SimplePeer from 'simple-peer';
 
-const VideoChat = () => {
-  const videoRef = useRef();
-
+const VideoChat = (videoRef) => {
+  videoRef = useRef();
+  
   useEffect(() => {
     const peer = new SimplePeer({ initiator: true });
 
