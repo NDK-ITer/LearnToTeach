@@ -77,12 +77,12 @@ function FormNotify(props) {
                         <div className="main__form">
                             {isSubmitting && <LinearProgress className={classes.progress} />}
                             <form onSubmit={form.handleSubmit(handleSubmit)}>
-                                <InputField name='NameNotify' label='Name Notify' form={form} />
-                                <TextAreaField name='Description' label='Description' form={form} />
+                                <InputField name='NameNotify' label='Tiêu đề' form={form} />
+                                <TextAreaField name='Description' label='Nội dung' form={form} />
                                 <div className="main__buttons">
                                     <div>
                                         <Button onClick={() => setShowInput(false)}>
-                                            Close
+                                            Hủy
                                         </Button>
                                         <Button
                                             disabled={isSubmitting}
@@ -90,7 +90,7 @@ function FormNotify(props) {
                                             color="primary"
                                             variant="contained"
                                         >
-                                            Sbumit
+                                            Đăng
                                         </Button>
                                     </div>
                                 </div>

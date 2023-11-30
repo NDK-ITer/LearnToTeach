@@ -1,5 +1,5 @@
 .header {
-    margin: 1.5rem;
+    margin: 1.5rem 100px;
     display: flex;
 }
 .header_text{
@@ -10,7 +10,8 @@
 }
 .group_btn{
     box-sizing: border-box;
-    margin-left: 1000px;
+    display: flex;
+    margin-left: 900px;
 }
 .main_content{
     align-items: center;

@@ -9,6 +9,7 @@ import "./style.css";
 import UploadField from 'components/form-controls/UploadField';
 import TextAreaField from 'components/form-controls/TextAreaField';
 import DateField from 'components/form-controls/DateField';
+import BorderColorOutlinedIcon from '@material-ui/icons/BorderColorOutlined';
 
 ExerciseForm.propTypes = {
     onSubmit: PropTypes.func,
@@ -77,10 +78,11 @@ function ExerciseForm(props) {
             <form onSubmit={form.handleSubmit(handleSubmit)}>
                 <div>
                     <div className='header'>
-                        <Avatar style={{ m: 1, backgroundColor: 'black' }}>
-
+                        <Avatar style={{ m: 1, backgroundColor: 'grey' }}>
+                            <BorderColorOutlinedIcon/>
                         </Avatar>
                         <h1 className='header_text'> Tạo bài tập </h1>
+                        
                         <div className='group_btn'>
                             <Button
                                 variant="outlined"
@@ -92,24 +94,22 @@ function ExerciseForm(props) {
                             <Button
                                 disabled={isSubmitting}
                                 type="submit"
-
                                 variant="contained"
                                 color="primary"
                                 fullWidth
-                                size="large"
+                                size="medium"
                             >
-                                giao bài
+                                Giao bài
                             </Button>
                         </div>
 
                     </div>
                     <div className='main_content'>
                         <div className='title'>
-                            <InputField name="Name" label="Exercise name" form={form} />
+                            <InputField name="Name" label="Tiêu đề" form={form} />
                         </div>
                         <div className='content'>
-                            <TextAreaField name="Description" label="Exercise Content" form={form} />
-
+                            <TextAreaField name="Description" label="Nội dung" form={form}/>
                         </div>
                         <div className='attachment'>
                             <p className='text'>Đính kèm tệp: </p>

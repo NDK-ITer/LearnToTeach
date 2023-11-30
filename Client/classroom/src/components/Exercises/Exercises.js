@@ -46,14 +46,14 @@ const Exercises = ({ classData }) => {
           type="submit"
           variant="contained"
           className='btn_create'
-          style={{ marginLeft: 250, borderRadius: 20, backgroundColor: "rgb(25, 118, 210)", color: "#fff" }}
+          style={{ marginLeft: 400, marginTop: 20, borderRadius: 20, backgroundColor: "rgb(25, 118, 210)", color: "#fff" }}
         >
           <a href={`/${classData.idClassroom}/exercises/create`} style={{ color: "#fff", textDecoration: 'none' }}>
             + Tạo bài tập
           </a>
         </Button>
         <div className='status'>
-          <h1 style={{ paddingTop: 12 }}>còn hạn</h1>
+          <h1>Còn hạn</h1>
         </div>
         <ul className='list_tasks'>
           {exercisesActive.map((item, index) => (
@@ -69,7 +69,7 @@ const Exercises = ({ classData }) => {
           ))}
         </ul>
         <div className='status'>
-          <h1 style={{ paddingTop: 12 }}>hết hạn</h1>
+          <h1>Hết hạn</h1>
         </div>
         <ul className='list_tasks'>
           {exercisesExpired.map((item, index) => (
