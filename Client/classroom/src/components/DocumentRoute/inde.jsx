@@ -9,57 +9,46 @@ import SubmitExercise from 'components/SubmitExercise/SubmitExercise';
 import Role from 'constants/role';
 import { useLocalContext } from 'context';
 import { ProtectedRouteUserHost, ProtectedRouteUserMember } from 'routes/Routes';
-function ExerciseRoute({ classData }) {
+import Document from 'components/Document/Document';
+import DocumentDetail from 'components/DocumentDetail/DocumentDetail';
+function DocumentRoute({ classData }) {
     const { user } = useLocalContext();
     const match = useRouteMatch();
-    const [exercises, setexercises] = useState([])
     const [isUserHost, setisUserHost] = useState(false);
     const [userHost, setuserHost] = useState([]);
-    const [classdata, setclassdata] = useState([]);
-    const [isUserMember, setisUserMember] = useState(false);
+    const [userMember, setisUserMember] = useState([]);
+    const [document, setdocument] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
             const params = new URLSearchParams([['idClassroom', classData.idClassroom]]);
             const result = await classApi.getClassById(params);
-            setclassdata(result)
-            setexercises(result.listExercises);
+            setdocument(result.listDocument);
             setuserHost(result.listMembers.find(x => x.role == Role.HOST));
             setisUserHost(result.listMembers.filter(x => x.role == Role.HOST && user.id == x.idMember).length > 0 ? true : false);
             setisUserMember(result.listMembers.filter(x => x.role == Role.MEMBER && user.id == x.idMember).length > 0 ? true : false);
         };
         fetchData();
     }, []);
-
+    console.log(document)
     return (
         <>
             <Switch>
                 <Route exact path={match.url}>
-                    <Exercises classData={classData} />
+                    <Document classData={classData} />
                 </Route>
+                {document.map((item, index) => (
+                    <Route key={index}  exact path={`${match.url}/${item.nameFile}`}>
+                        <DocumentDetail document={item} />
+                    </Route>
+
+                ))}
+
 
             </Switch>
-            {isUserHost && <Switch>
-                <Route exact path={`${match.url}/create`}>
-                    <CreateExercise classData={classData} />
-                </Route>
-                {exercises.map((item, index) => (
-                    <Route key={index} user={isUserHost} exact path={`${match.url}/${item.idExercise}`}>
-                        <ExerciseDetail classData={classdata} exercise={item} userHost={userHost} />
-                    </Route>
 
-                ))}
-            </Switch>}
-            {isUserMember && <Switch>
-                {exercises.map((item, index) => (
-                    <Route key={index} user={isUserMember} exact path={`${match.url}/${item.idExercise}/answer`}>
-                        <SubmitExercise classData={classdata} exercise={item} userHost={userHost} user={user} />
-                    </Route>
-
-                ))}
-            </Switch>}
         </>
 
     );
 }
 
-export default ExerciseRoute;
+export default DocumentRoute;

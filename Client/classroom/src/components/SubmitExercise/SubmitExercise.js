@@ -5,11 +5,20 @@ import EditNoteOutlinedIcon from '@material-ui/icons/EditAttributesOutlined';
 import Button from '@material-ui/core/Button';
 import formatdate from 'constants/formatdate';
 
-const SubmitExercise = ({ exercises, classData, userHost }) => {
+const SubmitExercise = ({ exercise, classData, userHost, user }) => {
 
   console.log(classData)
-  console.log(exercises)
+  console.log(exercise)
   console.log(userHost)
+
+  const getPointForIdMember = (idMember) => {
+      const answer = exercise.listAnswer.find(answer => answer.idMember === idMember);
+      if (answer) {
+        return answer.point;
+      }
+    return null;
+  };
+  console.log(exercise.listAnswer.find(answer => answer.idMember === user.id))
   return (
     <div className='submit_exercise'>
       <div className='main_area'>
@@ -17,17 +26,17 @@ const SubmitExercise = ({ exercises, classData, userHost }) => {
           <EditNoteOutlinedIcon />
         </Avatar>
         <div className='upload_detail'>
-          <h1 className='title_text1'>{exercises.name}</h1>
-          <p>--- {userHost.nameMember} --- Thời gian giao {formatdate(exercises.createDate)}</p>
+          <h1 className='title_text1'>{exercise.name}</h1>
+          <p>--- {userHost.nameMember} --- Thời gian giao {formatdate(exercise.createDate)}</p>
           <div className='content1'>
             <div className='content_text1'>
-              <div className='deadline1'> Thời hạn {formatdate(exercises.deadline)} </div>
+              <div className='deadline1'> Thời hạn {formatdate(exercise.deadline)} </div>
+              <div>{getPointForIdMember(user.id)==null?"0":getPointForIdMember(user.id)}/10 Điểm</div>
             </div>
             <div className='content_detail1'>
               <p>
-                {exercises.description}
+                {exercise.description}
               </p>
-              
             </div>
           </div>
         </div>

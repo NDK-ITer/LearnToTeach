@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState } from 'react';
-import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import Exercises from 'components/Exercises/Exercises';
 import CreateExercise from 'components/CreateExercise';
 import ExerciseDetail from 'components/ExerciseDetail/ExerciseDetail';
@@ -8,8 +7,10 @@ import classApi from 'api/classApi';
 import SubmitExercise from 'components/SubmitExercise/SubmitExercise';
 import Role from 'constants/role';
 import { useLocalContext } from 'context';
-import { ProtectedRouteUserHost, ProtectedRouteUserMember } from 'routes/Routes';
-function ExerciseRoute({ classData }) {
+import Grade from 'components/Grade/Grade';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import GradeDetail from 'components/GradeDetail/GradeDetail';
+function GradeRoute({ classData }) {
     const { user } = useLocalContext();
     const match = useRouteMatch();
     const [exercises, setexercises] = useState([])
@@ -29,37 +30,44 @@ function ExerciseRoute({ classData }) {
         };
         fetchData();
     }, []);
-
     return (
         <>
             <Switch>
-                <Route exact path={match.url}>
-                    <Exercises classData={classData} />
+                <Route exact path={`${match.url}`}>
+                    <Grade classData={classData} />
                 </Route>
+                {exercises.map((item, index) => (
+                    <Route key={index} user={isUserHost} exact path={`${match.url}/${item.idExercise}`}>
+                        <GradeDetail classData={classdata} exercise={item} userHost={userHost} />
+                    </Route>
+
+                ))}
+
+
 
             </Switch>
-            {isUserHost && <Switch>
-                <Route exact path={`${match.url}/create`}>
+            {/* {isUserHost && <Switch>
+                 <Route exact path={`${match.url}/create`}>
                     <CreateExercise classData={classData} />
                 </Route>
                 {exercises.map((item, index) => (
                     <Route key={index} user={isUserHost} exact path={`${match.url}/${item.idExercise}`}>
-                        <ExerciseDetail classData={classdata} exercise={item} userHost={userHost} />
+                        <ExerciseDetail classData={classdata} exercises={item} userHost={userHost} />
                     </Route>
 
-                ))}
+                ))} 
             </Switch>}
             {isUserMember && <Switch>
-                {exercises.map((item, index) => (
+                 {exercises.map((item, index) => (
                     <Route key={index} user={isUserMember} exact path={`${match.url}/${item.idExercise}/answer`}>
                         <SubmitExercise classData={classdata} exercise={item} userHost={userHost} user={user} />
                     </Route>
 
-                ))}
-            </Switch>}
+                ))} 
+            </Switch>}  */}
         </>
 
     );
 }
 
-export default ExerciseRoute;
+export default GradeRoute;

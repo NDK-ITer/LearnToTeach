@@ -67,10 +67,17 @@ const Main = ({ classData }) => {
               <div className="main__section main__overflow">
                 {classData.description}
               </div>
-              <div className="main__wrapper2">
-                <em className="main__code">Mã lớp học :</em>
-                <div className="main__id">{classData.idClassroom}</div>
-              </div>
+              {isUserHost && <>
+                <div className="main__wrapper2">
+                  <em className="main__code">Mã lớp học :</em>
+                  <div className="main__id">{classData.idClassroom}</div>
+                </div>
+                {classData.isPrivate && <div className="main__wrapper2">
+                  <em className="main__code">Mã lớp học :</em>
+                  <div className="main__id">{classData.key}</div>
+                </div>}
+              </>
+              }
             </div>
           </div>
         </div>
@@ -78,9 +85,9 @@ const Main = ({ classData }) => {
           <div className="main__status">
             <p>Sắp đến hạn</p>
             <p className="main__subText">Không có công việc</p>
-          </div>         
+          </div>
           <div className="main_announcements_and_notifies">
-          {isUserHost && <FormNotify onSubmit={handleSubmit} />}
+            {isUserHost && <FormNotify onSubmit={handleSubmit} />}
             <ul className='list_notifies'>
               {notify.map((item, index) => (
                 <li className="notify" key={index}>
@@ -92,8 +99,8 @@ const Main = ({ classData }) => {
                       ))}
                       <div className="post_time">Thời gian đăng</div>
                     </div>
-                    
-                  </div>                 
+
+                  </div>
                   <p>{item.nameNotify}</p>
                   <p>{item.description}</p>
                 </li>
@@ -101,7 +108,7 @@ const Main = ({ classData }) => {
 
             </ul>
           </div>
-        </div>       
+        </div>
       </div>
     </div>
   );

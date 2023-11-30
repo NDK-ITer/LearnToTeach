@@ -8,11 +8,11 @@ import FactCheckOutlinedIcon from '@material-ui/icons/FaceOutlined';
 import formatDate from 'constants/formatdate';
 import Role from 'constants/role';
 
-const ExerciseDetail = ({ exercises, classData, userHost }) => {
+const ExerciseDetail = ({ exercise, classData, userHost }) => {
 
-    const countAnswer = exercises.listAnswer.length;
+    const countAnswer = exercise.listAnswer.length;
     const countUser = classData.listMembers.filter(x=>x.role==Role.MEMBER).length;
-    const listUserAnswer = exercises.listAnswer;
+    const listUserAnswer = exercise.listAnswer;
     return (
         <div>
             <div className='exercise_detail'>
@@ -21,17 +21,17 @@ const ExerciseDetail = ({ exercises, classData, userHost }) => {
                         <AssignmentOutlinedIcon />
                     </Avatar>
                     <div className='upload_detail'>
-                        <h1 className='title_text'>{exercises.name}</h1>
-                        <p>--- {userHost.nameMember} --- Thời gian giao {formatDate(exercises.createDate)} </p>
+                        <h1 className='title_text'>{exercise.name}</h1>
+                        <p>--- {userHost.nameMember} --- Thời gian giao {formatDate(exercise.createDate)} </p>
                     </div>
                 </div>
                 <div className='content'>
                     <div className='content_text'>
 
-                        <div className='deadline'> Thời hạn {formatDate(exercises.deadline)} </div>
+                        <div className='deadline'> Thời hạn {formatDate(exercise.deadline)} </div>
                     </div>
                     <div className='content_detail'>
-                        <p>{exercises.description}</p>
+                        <p>{exercise.description}</p>
 
                     </div>
                 </div>

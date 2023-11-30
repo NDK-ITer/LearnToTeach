@@ -355,8 +355,8 @@ namespace ClassServer.Controllers
                     };
                     _unitOfWork_ClassroomService._learningDocumentService.AddLearningDocument(addDoc);
                 }
-                result.Status = 0;
-                result.Message = "parameter is null";
+                result.Status = 1;
+                result.Message = "up load successfull";
                 return Ok(result);
             }
             catch (Exception e)
