@@ -6,8 +6,11 @@ import classApi from 'api/classApi';
 import Role from 'constants/role';
 import { useLocalContext } from 'context';
 import "./style.css";
-import formatDate from 'constants/formatdate';
-
+import UploadDocument from './UploadDocument';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import { Close } from '@material-ui/icons';
+import {  IconButton} from '@material-ui/core';
 
 
 const Document = ({ classData }) => {
@@ -15,7 +18,13 @@ const Document = ({ classData }) => {
     const [isUserHost, setisUserHost] = useState(false);
     const [isUserMember, setisUserMember] = useState(false);
     const [document, setdocument] = useState([]);
-
+    const [open, setOpen] = useState(false);
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
     const currentDate = new Date();
     useEffect(() => {
         const fetchData = async () => {
@@ -31,7 +40,7 @@ const Document = ({ classData }) => {
         <div>
             {isUserHost && <div>
                 <Button
-                    type="submit"
+                    onClick={handleClickOpen}
                     variant="contained"
                     className='btn_create'
                     style={{ marginLeft: 400, marginTop: 20, borderRadius: 20, backgroundColor: "rgb(25, 118, 210)", color: "#fff" }}
@@ -44,7 +53,7 @@ const Document = ({ classData }) => {
                 <ul className='list_tasks'>
                     {document.map((item, index) => (
                         <li key={index} className='task'>
-                            <a href={`/${classData.idClassroom}/document/${item.nameFile}`}>
+                            <a href={item.linkFile}>
                                 <Avatar style={{ m: 1, backgroundColor: 'rgb(4, 214, 46)' }}>
                                     <LibraryBooksOutlinedIcon />
                                 </Avatar>
@@ -71,6 +80,22 @@ const Document = ({ classData }) => {
                     ))}
                 </ul>
             </div>}
+
+            <Dialog
+                disableBackdropClick
+                disableEscapeKeyDown
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="form-dialog-title"
+            >
+                <IconButton  onClick={handleClose}>
+                    <Close />
+                </IconButton>
+
+                <DialogContent>
+                    <UploadDocument closeDialog={handleClose} classData={classData} />
+                </DialogContent>
+            </Dialog>
         </div>
 
     )

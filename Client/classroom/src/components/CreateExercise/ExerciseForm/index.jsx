@@ -79,10 +79,10 @@ function ExerciseForm(props) {
                 <div>
                     <div className='header'>
                         <Avatar style={{ m: 1, backgroundColor: 'grey' }}>
-                            <BorderColorOutlinedIcon/>
+                            <BorderColorOutlinedIcon />
                         </Avatar>
                         <h1 className='header_text'> Tạo bài tập </h1>
-                        
+
                         <div className='group_btn'>
                             <Button
                                 variant="outlined"
@@ -109,12 +109,12 @@ function ExerciseForm(props) {
                             <InputField name="Name" label="Tiêu đề" form={form} />
                         </div>
                         <div className='content'>
-                            <TextAreaField name="Description" label="Nội dung" form={form}/>
+                            <TextAreaField name="Description" label="Nội dung" form={form} />
                         </div>
                         <div className='attachment'>
                             <p className='text'>Đính kèm tệp: </p>
                             <div>
-                                <UploadField name='FileUpload' form={form} />
+                                <UploadField name='FileUpload' form={form} accept='*' />
                             </div>
                         </div>
                         <div className='time'>

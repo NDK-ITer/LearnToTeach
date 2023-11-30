@@ -15,13 +15,12 @@ import Community from 'components/Community/Community';
 import NavigationBar from 'components/NavigationBar/NavigationBar';
 import Exercises from 'components/Exercises/Exercises';
 import CreateExercise from 'components/CreateExercise';
-import ExerciseRoute from 'components/ExerciseRoute';
+import ExerciseRoute from 'components/Exercises/ExerciseRoute';
 import NotFound from 'components/NotFound';
 import { Router } from 'react-router-dom/cjs/react-router-dom';
 import Grade from 'components/Grade/Grade';
-import GradeRoute from 'components/GradeRoute';
-import DocumentRoute from 'components/DocumentRoute/inde';
-import WordViewer from 'components/WordViewer/WordViewer';
+import GradeRoute from 'components/Grade/GradeRoute';
+import DocumentRoute from 'components/Document/DocumentRoute/inde';
 function App() {
   const { logged, user } = useLocalContext();
   console.log(logged);

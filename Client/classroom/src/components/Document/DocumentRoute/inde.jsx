@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import Exercises from 'components/Exercises/Exercises';
 import CreateExercise from 'components/CreateExercise';
-import ExerciseDetail from 'components/ExerciseDetail/ExerciseDetail';
+import ExerciseDetail from 'components/Exercises/ExerciseDetail/ExerciseDetail';
 import classApi from 'api/classApi';
-import SubmitExercise from 'components/SubmitExercise/SubmitExercise';
+import SubmitExercise from 'components/Exercises/SubmitExercise/SubmitExercise';
 import Role from 'constants/role';
 import { useLocalContext } from 'context';
 import { ProtectedRouteUserHost, ProtectedRouteUserMember } from 'routes/Routes';
 import Document from 'components/Document/Document';
-import DocumentDetail from 'components/DocumentDetail/DocumentDetail';
+import DocumentDetail from 'components/Document/DocumentDetail/DocumentDetail';
 function DocumentRoute({ classData }) {
     const { user } = useLocalContext();
     const match = useRouteMatch();
@@ -37,7 +37,7 @@ function DocumentRoute({ classData }) {
                     <Document classData={classData} />
                 </Route>
                 {document.map((item, index) => (
-                    <Route key={index}  exact path={`${match.url}/${item.nameFile}`}>
+                    <Route key={index} exact path={`${match.url}/${item.nameFile}`}>
                         <DocumentDetail document={item} />
                     </Route>
 

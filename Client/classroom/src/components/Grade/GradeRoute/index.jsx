@@ -2,14 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import Exercises from 'components/Exercises/Exercises';
 import CreateExercise from 'components/CreateExercise';
-import ExerciseDetail from 'components/ExerciseDetail/ExerciseDetail';
+import ExerciseDetail from 'components/Exercises/ExerciseDetail/ExerciseDetail';
 import classApi from 'api/classApi';
-import SubmitExercise from 'components/SubmitExercise/SubmitExercise';
+import SubmitExercise from 'components/Exercises/SubmitExercise/SubmitExercise';
 import Role from 'constants/role';
 import { useLocalContext } from 'context';
 import Grade from 'components/Grade/Grade';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import GradeDetail from 'components/GradeDetail/GradeDetail';
+import GradeDetail from 'components/Grade/GradeDetail/GradeDetail';
 function GradeRoute({ classData }) {
     const { user } = useLocalContext();
     const match = useRouteMatch();
