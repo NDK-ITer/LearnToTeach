@@ -86,8 +86,8 @@ function CreateClassForm(props) {
             <form onSubmit={form.handleSubmit(handleSubmit)}>
                 <InputField name="name" label="Tên Lớp" form={form} />
                 <InputField name="description" label="Mô tả" form={form} />
-                <InputField name="key" label="Mã lớp" form={form} />
-                <CheckBoxField name='isPrivate' form={form} /><span>isPrivate</span>
+                <InputField name="key" label="Mã lớp (nếu là lớp 'Riêng tư')" form={form} />
+                <CheckBoxField name='isPrivate' form={form} /><span>Riêng tư</span>
                 <Button
                     disabled={isSubmitting}
                     type="submit"
@@ -97,7 +97,7 @@ function CreateClassForm(props) {
                     fullWidth
                     size="large"
                 >
-                    tạo
+                    Tạo ngay
                 </Button>
             </form>
         </div>

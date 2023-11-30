@@ -71,13 +71,13 @@ function JoinClassForm(props) {
         <div className={classes.root}>
             {isSubmitting && <LinearProgress className={classes.progress} />}
             <Typography className={classes.title} component="h3" variant="h5">
-                tham gia lớp
+                Tham gia lớp học
             </Typography>
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>
                 <InputField name="idClassroom" label="Lớp" form={form} />
-                <InputField name="key" label="key" form={form} />
-                <span>hãy nhập key nếu đó là lớp private</span>
+                <InputField name="key" label="Mã lớp" form={form} />
+                <span>Hãy nhập mã lớp nếu đó là lớp 'Riêng tư'</span>
                 <Button
                     disabled={isSubmitting}
                     type="submit"
@@ -87,7 +87,7 @@ function JoinClassForm(props) {
                     fullWidth
                     size="large"
                 >
-                    tham gia
+                    Tham gia gia
                 </Button>
             </form>
         </div>

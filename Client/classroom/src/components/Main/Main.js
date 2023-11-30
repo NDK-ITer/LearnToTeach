@@ -78,24 +78,30 @@ const Main = ({ classData }) => {
           <div className="main__status">
             <p>Sắp đến hạn</p>
             <p className="main__subText">Không có công việc</p>
-          </div>
+          </div>         
+          <div className="main_announcements_and_notifies">
           {isUserHost && <FormNotify onSubmit={handleSubmit} />}
-        </div>
-        <div>
-          <ul>
-            {notify.map((item, index) => (
-              <li key={index}>
-                <Avatar></Avatar>
-                {userHost.map((item, index) => (
-                  <p key={index}>{item.nameMember}</p>
-                ))}
-                <p>{item.nameNotify}</p>
-                <p>{item.description}</p>
-              </li>
-            ))}
+            <ul className='list_notifies'>
+              {notify.map((item, index) => (
+                <li className="notify" key={index}>
+                  <div className="post_information">
+                    <Avatar></Avatar>
+                    <div className="posted_by">
+                      {userHost.map((item, index) => (
+                        <div className="author" key={index}>{item.nameMember}</div>
+                      ))}
+                      <div className="post_time">Thời gian đăng</div>
+                    </div>
+                    
+                  </div>                 
+                  <p>{item.nameNotify}</p>
+                  <p>{item.description}</p>
+                </li>
+              ))}
 
-          </ul>
-        </div>
+            </ul>
+          </div>
+        </div>       
       </div>
     </div>
   );

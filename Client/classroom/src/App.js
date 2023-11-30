@@ -39,7 +39,6 @@ function App() {
   }, [logged]);
 
 
-
   return (
     <div className="app">
         <Switch>
