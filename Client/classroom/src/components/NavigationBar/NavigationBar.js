@@ -19,7 +19,7 @@ const NavigationBar = ({ classData }) => {
                         <a className="nav_link" href={`/${classData}/community`}>Mọi người</a>
                     </li>
                     <li className="nav_item">
-                        <a className="nav_link" href="#">Điểm</a>
+                        <a className="nav_link" href={`/${classData}/grade`}>Điểm</a>
                     </li>
                     <li className="nav_item">
                         <a className="nav_link" href="#">Học trực tuyến</a>

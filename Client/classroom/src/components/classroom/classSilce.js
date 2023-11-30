@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import classApi from 'api/classApi';
+import formatDate from 'constants/formatdate';
 
 
 export const createClassroom = createAsyncThunk('classroom/create', async (payload) => {
@@ -34,7 +35,7 @@ export const uploadexercise = createAsyncThunk('classroom/uploadexercise', async
     formData.append('IdMember', payload.IdMember);
     formData.append('Name', payload.Name);
     formData.append('Description', payload.Description);
-    formData.append('Deadline', payload.Deadline);
+    formData.append('Deadline', formatDate(payload.Deadline));
     formData.append('FileUpload', payload.FileUpload[0]);
     const data = await classApi.uploadexercise(formData);
     return data;

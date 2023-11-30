@@ -18,7 +18,7 @@ const Exercises = ({ classData }) => {
   const [exercisesActive, setexercisesActive] = useState([]);
   const [exercisesCompleted, setexercisesCompleted] = useState([]);
   const [exercisesNotCompleted, setexercisesNotCompleted] = useState([]);
-  const [exercisesAssigned, setexercisesAssigned] = useState([])
+  const [exercisesAssigned, setexercisesAssigned] = useState([]);
   const currentDate = new Date();
   useEffect(() => {
     const fetchData = async () => {
