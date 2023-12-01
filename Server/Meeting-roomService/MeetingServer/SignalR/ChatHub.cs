@@ -45,6 +45,11 @@ namespace MeetingServer.SignalR
             }
         }
 
+        public async Task SendVideoAndAudio(string videoRef, string mediaRecorderRef)
+        {
+
+        }
+
         public Task SendUsersConnected(string room)
         {
             var users = _connections.Values
