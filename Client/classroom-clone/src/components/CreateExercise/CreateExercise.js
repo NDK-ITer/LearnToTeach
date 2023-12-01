@@ -1,9 +1,9 @@
 import React from 'react';
 import "./style.css";
 import { Avatar } from '@material-ui/core';
-import EditNoteOutlinedIcon from '@material-ui/icons/EditOutlined';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';

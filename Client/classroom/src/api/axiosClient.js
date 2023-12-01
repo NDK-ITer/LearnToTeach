@@ -4,7 +4,7 @@ const axiosClient = axios.create({
   baseURL: 'https://localhost:9000/',
   headers: {
     'Content-Type': 'application/json',
-
+    'Content-Type': 'multipart/form-data',
   },
 });
 

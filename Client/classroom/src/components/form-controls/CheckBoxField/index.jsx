@@ -6,10 +6,11 @@ import { Controller } from 'react-hook-form';
 CheckBoxField.propTypes = {
     form: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
+    style: PropTypes.string,
 };
 
 function CheckBoxField(props) {
-    const { form, name } = props;
+    const { form, name, style } = props;
     const { errors } = form;
     const hasError = errors[name];
 
@@ -23,6 +24,7 @@ function CheckBoxField(props) {
                     checked={value}
                     onChange={(e) => onChange(e.target.checked)}
                     name={name}
+                    style={style}
                 />
             )}
         />

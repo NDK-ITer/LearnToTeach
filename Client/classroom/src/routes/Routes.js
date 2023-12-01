@@ -30,8 +30,53 @@ export function ProtectedRoute({ user, children, ...rest }) {
                     return (
                         <Redirect
                             to={{
-                                pathname: "signin",
+                                pathname: "/SignIn",
                                 state: { from: location },
+                            }}
+                        />
+                    );
+                }
+                return null;
+            }}
+        />
+    );
+}
+export function ProtectedRouteUserMember({ user, children, ...rest }) {
+    return (
+        <Route
+            {...rest}
+            render={({ location }) => {
+                if (user) {
+                    return children;
+                }
+                if (!user) {
+                    return (
+                        <Redirect
+                            to={{
+                                pathname: "/NotFound",                          
+                            }}
+                        />
+                    );
+                }
+                return null;
+            }}
+        />
+    );
+}
+export function ProtectedRouteUserHost({ user, children, ...rest }) {
+    return (
+        <Route
+            {...rest}
+            render={({ location }) => {
+                if (user) {
+                    return children;
+                }
+                if (user) {
+                    return (
+                        <Redirect
+                            to={{
+                                pathname: "/NotFound",
+                                
                             }}
                         />
                     );

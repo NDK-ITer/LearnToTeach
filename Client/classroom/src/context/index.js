@@ -13,13 +13,13 @@ export default function ContextProvider({ children }) {
     const [logged, setLogged] = useState(false);
     const [user, setuser] = useState(null);
     const token = localStorage.getItem(StorageKeys.TOKEN);
-    const userlogined = localStorage.getItem(StorageKeys.USER);
+    const userlogined =JSON.parse(localStorage.getItem(StorageKeys.USER)) ;
     useEffect(() => {
 
         setLogged(token);
         setuser(userlogined);
 
-    });
+    }, []);
     const value = {
         createClassDialog,
         setCreateClassDialog,

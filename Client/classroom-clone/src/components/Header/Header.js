@@ -6,13 +6,14 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import { Add, Apps } from "@material-ui/icons";
 import React from "react";
 import { CreateClass, JoinClass } from "..";
 import { useLocalContext } from "../../context/context";
 import { useStyles } from "./style";
 import { Link } from "react-router-dom";
+import Button from '@mui/material/Button';
 import "./style.css";
+import Info from "../Information/Info";
 
 const Header = ({ children }) => {
   const classes = useStyles();
@@ -52,24 +53,41 @@ const Header = ({ children }) => {
             </Typography>
           </div>
           <div className={classes.header__wrapper__right}>
-            <Add onClick={handleClick} className={classes.icon} />
-            <Apps className={classes.icon} />
-            <Menu
+              <Button 
+                onClick={handleJoin}
+                type="submit"
+                fullWidth
+                variant="contained"
+                className={classes.button}             
+              >
+                Tham gia lớp học
+              </Button>
+              <Button
+                onclick={handleCreate}
+                type="submit"
+                fullWidth
+                variant="contained"
+                className={classes.button}
+              >
+                Tạo lớp học
+              </Button>
+            <div>
+              <Avatar
+                onClick={handleClick}
+                src={loggedInUser?.photoURL}
+                className={classes.icon}                
+              />
+              <Menu
               id="simple-menu"
               anchorEl={anchorEl}
               keepMounted
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleJoin}>Join Class</MenuItem>
-              <MenuItem onClick={handleCreate}>Create Class</MenuItem>
+              <MenuItem onClick={() => Info()}>Thông tin tài khoản</MenuItem>
+              <MenuItem onClick={""}>Phản hồi</MenuItem>
+              <MenuItem onClick={() => logout()}>Đăng xuất</MenuItem>
             </Menu>
-            <div>
-              <Avatar
-                onClick={() => logout()}
-                src={loggedInUser?.photoURL}
-                className={classes.icon}                
-              />
             </div>
           </div>
         </Toolbar>

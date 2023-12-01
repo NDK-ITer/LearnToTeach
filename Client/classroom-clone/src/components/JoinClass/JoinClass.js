@@ -14,6 +14,7 @@ const JoinClass = () => {
     joinClassDialog,
     setJoinClassDialog,
     loggedInUser,
+    logout,
   } = useLocalContext();
 
   const [classCode, setClassCode] = useState("");
@@ -97,7 +98,7 @@ const JoinClass = () => {
                   </div>
                 </div>
               </div>
-              <Button variant="outlined" color="primary">
+              <Button onClick={logout} variant="outlined" color="primary">
                 Logout
               </Button>
             </div>

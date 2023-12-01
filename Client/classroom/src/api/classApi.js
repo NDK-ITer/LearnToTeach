@@ -28,9 +28,48 @@ const classApi = {
   },
   getClassById(params) {
     const url = '/classroom/id';
-    return axiosClient.get(url, { params});
+    return axiosClient.get(url, { params });
   },
-
+  uploadexercise(data) {
+    const url = '/Member/upload-exercise'
+    return axiosClient.post(url, data);
+  },
+  updateexercise(data) {
+    const url = '/Member/update-exercise'
+    return axiosClient.put(url, data);
+  },
+  uploadanswer(data) {
+    const url = '/Member/upload-answer'
+    return axiosClient.post(url, data);
+  },
+  setpointanswer(data) {
+    const url = '/Member/set-point-answer'
+    return axiosClient.post(url, data);
+  },
+  updateanswer(data) {
+    const url = '/Member/update-answer'
+    return axiosClient.put(url, data);
+  },
+  uploaddoc(data) {
+    const url = '/Member/upload-doc'
+    return axiosClient.post(url, data);
+  },
+  updatedoc(data) {
+    const url = '/Member/update-doc'
+    return axiosClient.post(url, data);
+  },
+  uploadnotify(data) {
+    const url = '/Member/upload-notify'
+    return axiosClient.post(url, data);
+  },
+  updatenotify(data) {
+    const url = '/Member/update-notify'
+    return axiosClient.post(url, data);
+  },
+  deletenotify(data) {
+    const url = '/Member/delete-notify'
+    return axiosClient.post(url, data);
+  }
 };
 
 export default classApi;

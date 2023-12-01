@@ -7,13 +7,14 @@ InputField.propTypes = {
     form: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
 
+    style: PropTypes.string,
     label: PropTypes.string,
     type: PropTypes.string,
     disabled: PropTypes.bool,
 };
 
 function InputField(props) {
-    const { form, name, label, type, disabled } = props;
+    const { form, name, label, type, disabled, style } = props;
     const { errors } = form;
     const hasError = errors[name];
 
@@ -35,6 +36,7 @@ function InputField(props) {
                     onChange={onChange}
                     onBlur={onBlur}
                     type={type}
+                    style={style}
                 />
             )}
         />

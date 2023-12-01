@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Avatar } from '@material-ui/core';
-import BadgeOutlinedIcon from '@material-ui/icons/BackspaceOutlined';
 import PermIdentityOutlinedIcon from '@material-ui/icons/PermIdentityOutlined';
+import PermContactCalendarOutlinedIcon from '@material-ui/icons/PermContactCalendarOutlined';
 import classApi from 'api/classApi';
 import Role from 'constants/role';
 import "./style.css";
@@ -30,8 +30,8 @@ const Community = ({ classData }) => {
       <ul className='list_informations'>
         {userHost.map((item, index) => (
           <li key={index} className='information'>
-            <Avatar style={{ m: 1, backgroundColor: 'rgb(204, 204, 55)' }}>
-              <BadgeOutlinedIcon />
+            <Avatar style={{ m: 1, backgroundColor: 'rgb(204, 204, 55)', color: 'black' }}>
+              <PermContactCalendarOutlinedIcon />
             </Avatar>
             <div className='name'>{item.nameMember}</div>
           </li>
@@ -45,7 +45,7 @@ const Community = ({ classData }) => {
       <ul className='list_informations'>
         {userMember.map((item, index) => (
           <li key={index} className='information'>
-            <Avatar style={{ m: 1, backgroundColor: 'rgb(219, 127, 52)' }}>
+            <Avatar style={{ m: 1, backgroundColor: 'rgb(219, 127, 52)',color: 'black' }}>
               <PermIdentityOutlinedIcon />
             </Avatar>
             <div className='name'>{item.nameMember}</div>

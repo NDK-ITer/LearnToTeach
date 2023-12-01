@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Drawer, JoinedClasses, Login, Main } from "./components";
+import { Drawer, Exercises, JoinedClasses, Login, Main, Community, Grade, CreateExercise, ExerciseDetail, SubmitExercise, Document } from "./components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { IsUserRedirect, ProtectedRoute } from "./routes/Routes";
 import { useLocalContext } from "./context/context";
 import db from "./lib/firebase";
+
 function App() {
   const { loggedInMail } = useLocalContext();
 
@@ -42,13 +43,15 @@ function App() {
         {createdClasses.map((item, index) => (
           <ProtectedRoute key={index} user={loggedInMail} exact path={`/${item.id}`}>
             <Drawer />
-            <Main classData={item} />
+            
+            <Document classData={item} />
           </ProtectedRoute>
         ))}
         {joinedClasses.map((item, index) => (
           <Route key={index} exact path={`/${item.id}`}>
             <Drawer />
-            <Main classData={item} />
+            
+            <Document classData={item} />
           </Route>
         ))}
         <IsUserRedirect

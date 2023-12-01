@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Avatar, Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import { LockOutlined } from '@material-ui/icons';
-import ImageUpload from 'components/form-controls/ImageUpload';
+import ImageUpload from 'components/form-controls/UploadField';
 import InputField from 'components/form-controls/InputField';
 import PasswordField from 'components/form-controls/PasswordField';
 import PropTypes from 'prop-types';

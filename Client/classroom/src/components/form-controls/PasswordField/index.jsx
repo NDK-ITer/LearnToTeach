@@ -13,13 +13,13 @@ import { Controller } from 'react-hook-form';
 PasswordField.propTypes = {
     form: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
-
     label: PropTypes.string,
     disabled: PropTypes.bool,
+    style: PropTypes.string,
 };
 
 function PasswordField(props) {
-    const { form, name, label, disabled } = props;
+    const { form, name, label, disabled, style } = props;
     const { errors } = form;
     const hasError = !!errors[name];
 
@@ -52,6 +52,7 @@ function PasswordField(props) {
                         value={value}
                         onChange={onChange}
                         onBlur={onBlur}
+                        style={style}
                     />
                 )}
             />

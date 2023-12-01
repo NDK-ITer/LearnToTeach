@@ -1,9 +1,9 @@
 .status{
-    margin: 20px 350px;
-    padding-top: 20px ;
+    margin: 0px 350px;
+    padding-top: 20px;
     padding-left: 1rem;
     border-bottom: 1px solid black;
-    height: 2rem;
+    /* height: 2rem; */
 }
 .list_tasks{
     margin: 20px 100px;
@@ -37,6 +37,8 @@
     text-align: right;
 }
 .btn_create {
-   
+    margin-left: 250px;
+    background-Color: rgb(25, 118, 210);
+    color: "#fff";
     border-radius: 20px !important;
 }
