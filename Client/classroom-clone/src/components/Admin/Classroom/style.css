@@ -1,0 +1,36 @@
+.admin_classroom {
+    margin: 0px 350px;
+    padding-top: 20px;
+    padding-left: 1rem;
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+.classroom_quantity {
+    margin-top: 50px;
+}
+.list_classroom {
+    margin: 20px 100px;
+}
+.classroom_info {
+    margin: 10px 200px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.classroom_info:hover {
+    background-color:rgb(229, 229, 229);
+    border-radius: 20px;
+}
+.infor {
+    display: flex;
+    align-items: center;
+}
+.classroom_name {
+    margin-left: 20px;
+    font-size: 15px;
+    color:rgb(27, 27, 27);
+}
