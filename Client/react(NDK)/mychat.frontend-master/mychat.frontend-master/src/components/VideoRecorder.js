@@ -7,11 +7,10 @@ const VideoRecorder = () => {
 
   const startRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-    videoRef.current.srcObject = stream;
-
     const options = { mimeType: 'video/webm' };
     const mediaRecorder = new MediaRecorder(stream, options);
     mediaRecorderRef.current = mediaRecorder;
+    videoRef.current.srcObject = stream;
 
     /*mediaRecorder.addEventListener('dataavailable', (event) => {
       chunksRef.current.push(event.data);

@@ -7,6 +7,7 @@ namespace MeetingServer.SignalR
     {
         private readonly string _botUser;
         private readonly IDictionary<string, UserConnection> _connections;
+        private object nope;
 
         public ChatHub(IDictionary<string, UserConnection> connections)
         {
@@ -28,6 +29,8 @@ namespace MeetingServer.SignalR
 
         public async Task JoinRoom(UserConnection userConnection)
         {
+            var temp = userConnection.mediaRecorderRef;
+            Console.WriteLine(temp);
             await Groups.AddToGroupAsync(Context.ConnectionId, userConnection.IdClassroom);
 
             _connections[Context.ConnectionId] = userConnection;
@@ -35,6 +38,11 @@ namespace MeetingServer.SignalR
             await Clients.Group(userConnection.IdClassroom).SendAsync("ReceiveMessage", _botUser, $"{userConnection.UserName} has joined {userConnection.IdClassroom}");
 
             await SendUsersConnected(userConnection.IdClassroom);
+        }
+
+        public async Task SendVideoData(object data)
+        {
+
         }
 
         public async Task SendMessage(string message)
@@ -45,10 +53,6 @@ namespace MeetingServer.SignalR
             }
         }
 
-        public async Task SendVideoAndAudio(string videoRef, string mediaRecorderRef)
-        {
-
-        }
 
         public Task SendUsersConnected(string room)
         {
