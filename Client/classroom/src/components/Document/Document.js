@@ -70,7 +70,7 @@ const Document = ({ classData }) => {
                 <ul className='list_tasks'>
                     {document.map((item, index) => (
                         <li key={index} className='task'>
-                            <a href={`/${classData.idClassroom}/document/${item.nameFile}`}>
+                            <a href={item.linkFile}>
                                 <Avatar style={{ m: 1, backgroundColor: 'rgb(4, 214, 46)' }}>
                                     <LibraryBooksOutlinedIcon />
                                 </Avatar>

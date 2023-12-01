@@ -62,3 +62,26 @@ export const uploaddoc = createAsyncThunk('classroom/uploaddoc', async (payload)
     const data = await classApi.uploaddoc(formData);
     return data;
 });
+export const uploadAnswer = createAsyncThunk('classroom/uploadAnswer', async (payload) => {
+
+    const formData = new FormData()
+    console.log(payload);
+    formData.append('IdClassroom', payload.IdClassroom);
+    formData.append('IdMember', payload.IdMember);
+    formData.append('IdExercise', payload.IdExercise);
+    formData.append('FileUpload', payload.FileUploadAnswer);
+    formData.append('Content', payload.Content);
+    const data = await classApi.uploadanswer(formData);
+    return data;
+});
+export const setpointanswer = createAsyncThunk('classroom/setpointanswer', async (payload) => {
+
+    const formData = new FormData()
+    console.log(payload);
+    formData.append('IdClassroom', payload.IdClassroom);
+    formData.append('IdMember', payload.IdMember);
+    formData.append('IdExercise', payload.IdExercise);
+    formData.append('point', payload.point);
+    const data = await classApi.setpointanswer(formData);
+    return data;
+});
