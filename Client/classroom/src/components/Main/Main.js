@@ -11,6 +11,9 @@ import { uploadnotify } from "components/classroom/classSilce";
 import { Avatar } from "@material-ui/core";
 import Role from "constants/role";
 import classApi from "api/classApi";
+import {Button} from '@material-ui/core';
+import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
+
 const Main = ({ classData }) => {
   const { user } = useLocalContext();
   const dispatch = useDispatch();
@@ -91,14 +94,18 @@ const Main = ({ classData }) => {
                         <div className="author" key={index}>{item.nameMember}</div>
                       ))}
                       <div className="post_time">Thời gian đăng</div>
-                    </div>
-                    
+                    </div>                    
+                  </div>
+                  <div>
+                    <p>{item.nameNotify}</p>
+                    <p>{item.description}</p>
                   </div>                 
-                  <p>{item.nameNotify}</p>
-                  <p>{item.description}</p>
+                  
                 </li>
               ))}
-
+              <Button variant="contained" color="secondary" startIcon={<ExitToAppOutlinedIcon/>} style={{marginBottom: '20px'}}>
+                  Rời khỏi lớp
+              </Button>
             </ul>
           </div>
         </div>       

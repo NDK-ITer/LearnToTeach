@@ -37,4 +37,10 @@ export const useStyles = makeStyles((theme) => ({
     color: "#5f6368",
     cursor: "pointer",
   },
+  button: {
+    margin: '0 2px 0',
+    padding: '2px',
+    whiteSpace: 'nowrap',
+    backgroundColor: 'rgb(108, 144, 46)',
+  },
 }));

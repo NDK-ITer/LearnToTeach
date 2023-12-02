@@ -15,6 +15,15 @@
     display: flex;
     flex-direction: row;
     padding: 10px;
+    justify-content: space-between;
+}
+.lecturer_information{
+    display: flex;
+    align-items: center;
+}
+.student_information{
+    display: flex;
+    align-items: center;
 }
 .name {
     margin-left: 20px;

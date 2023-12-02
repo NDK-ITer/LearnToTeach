@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Avatar } from '@material-ui/core';
+import { Avatar, Button } from '@material-ui/core';
 import PermIdentityOutlinedIcon from '@material-ui/icons/PermIdentityOutlined';
 import PermContactCalendarOutlinedIcon from '@material-ui/icons/PermContactCalendarOutlined';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
+import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import classApi from 'api/classApi';
 import Role from 'constants/role';
 import "./style.css";
+
 
 const Community = ({ classData }) => {
 
@@ -30,10 +34,12 @@ const Community = ({ classData }) => {
       <ul className='list_informations'>
         {userHost.map((item, index) => (
           <li key={index} className='information'>
-            <Avatar style={{ m: 1, backgroundColor: 'rgb(204, 204, 55)', color: 'black' }}>
-              <PermContactCalendarOutlinedIcon />
-            </Avatar>
-            <div className='name'>{item.nameMember}</div>
+            <div className='lecturer_information'>
+              <Avatar style={{ m: 1, backgroundColor: 'rgb(204, 204, 55)', color: 'black' }}>
+                <PermContactCalendarOutlinedIcon />
+              </Avatar>
+              <div className='name'>{item.nameMember}</div>
+            </div>           
           </li>
         ))}
 
@@ -45,10 +51,23 @@ const Community = ({ classData }) => {
       <ul className='list_informations'>
         {userMember.map((item, index) => (
           <li key={index} className='information'>
-            <Avatar style={{ m: 1, backgroundColor: 'rgb(219, 127, 52)',color: 'black' }}>
-              <PermIdentityOutlinedIcon />
-            </Avatar>
-            <div className='name'>{item.nameMember}</div>
+            <div className='student_information'>
+              <Avatar style={{ m: 1, backgroundColor: 'rgb(219, 127, 52)',color: 'black' }}>
+                <PermIdentityOutlinedIcon />
+              </Avatar>
+              <div className='name'>{item.nameMember}</div>
+            </div>           
+            <div>
+              <Button startIcon={<LockOpenOutlinedIcon/>} style={{marginRight: '10px'}}>
+                Mở khóa
+              </Button>
+              <Button startIcon={<LockOutlinedIcon/>} style={{marginRight: '10px'}}>
+                Khóa
+              </Button>
+              <Button startIcon={<CancelOutlinedIcon/>} style={{marginRight: '10px'}}>
+                Xóa
+              </Button>
+            </div>
           </li>
         ))}
 
