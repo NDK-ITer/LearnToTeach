@@ -81,6 +81,7 @@ export const setpointanswer = createAsyncThunk('classroom/setpointanswer', async
     formData.append('IdClassroom', payload.IdClassroom);
     formData.append('IdMember', payload.IdMember);
     formData.append('IdExercise', payload.IdExercise);
+    formData.append('IdUserHost', payload.IdUserHost);
     formData.append('point', payload.point);
     const data = await classApi.setpointanswer(formData);
     return data;

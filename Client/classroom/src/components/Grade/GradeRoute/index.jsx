@@ -5,7 +5,7 @@ import Role from 'constants/role';
 import { useLocalContext } from 'context';
 import Grade from 'components/Grade/Grade';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import GradeDetail from '../GradeDetail/GradeDetail';
+import GradeDetailRoute from '../GradeDetail/GradeDetailRoute/GradeDetailRoute';
 import GardeUserAnswer from '../GradeDetail/GardeUserAnswer/GardeUserAnswer';
 function GradeRoute({ classData }) {
     const { user } = useLocalContext();
@@ -29,7 +29,6 @@ function GradeRoute({ classData }) {
         };
         fetchData();
     }, []);
-    console.log(userlist)
     return (
         <>
             <Switch>
@@ -38,8 +37,18 @@ function GradeRoute({ classData }) {
                 </Route>
                 {exercises.map((item, index) => (
                     <Route key={index} exact path={`${match.url}/${item.idExercise}`}>
-                        <GradeDetail classData={classdata} exercise={item} userHost={userHost} />
+                        <GradeDetailRoute classData={classdata} exercise={item} userHost={userHost} />
                     </Route>
+                ))}
+                {exercises.map(exercise => (
+                    exercise.listAnswer.map(answerItem => (
+                        <Route
+                            key={answerItem.idMember} // Assuming idMember is unique for each item
+                            path={`${match.url}/${exercise.idExercise}/answer/${answerItem.idMember}`}
+                        >
+                            <GardeUserAnswer classData={classdata} userHost={userHost} answerItem={answerItem} exercise={exercise} />
+                        </Route>
+                    ))
                 ))}
             </Switch>
         </>

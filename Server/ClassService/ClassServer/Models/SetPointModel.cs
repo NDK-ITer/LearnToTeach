@@ -4,6 +4,7 @@
     {
         public string IdClassroom { get; set; }
         public string IdMember { get; set; }
+        public string IdUserHost { get; set; }
         public string IdExercise { get; set; }
         public float Point { get; set; }
     }

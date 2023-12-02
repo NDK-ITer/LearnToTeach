@@ -9,7 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { Close } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 import SetPointUser from '../SetPointUser';
-const GardeUserAnswer = ({ exercise, classData, isUserHost, userAnswer, userHost, }) => {
+const GardeUserAnswer = ({ classData, userHost, answerItem, exercise }) => {
     const [open, setOpen] = useState(false);
     const handleClickOpen = () => {
         setOpen(true);
@@ -25,11 +25,11 @@ const GardeUserAnswer = ({ exercise, classData, isUserHost, userAnswer, userHost
                 </Avatar>
                 <div className='upload_detail'>
                     <h1 className='title_text1'>{exercise.name}</h1>
-                    <p>--- {userHost.nameMember} --- Thời gian giao {formatdate(exercise.createDate)}</p>
+                    <p>--- {userHost.nameMember} --- Thời gian giao {formatdate(exercise.createDate)} <span style={{ marginLeft: "10px" }}>{answerItem.point > 0 ? "đã chấm" : "chưa chấm"}</span> </p>
                     <div className='content1'>
                         <div className='content_text1'>
                             <div className='deadline1'> Thời hạn {formatdate(exercise.deadline)} </div>
-                            <div>/10 Điểm</div>
+                            <div>{answerItem.point}/10 Điểm</div>
                         </div>
                         <div className='content_detail1'>
                             <p>
@@ -40,20 +40,19 @@ const GardeUserAnswer = ({ exercise, classData, isUserHost, userAnswer, userHost
                 </div>
                 <div>
                     <h1>câu trả lời:</h1>
-                    <p>ngày trả lời:{formatdate(userAnswer.dateAnswer)}</p>
+                    <p>ngày trả lời:{formatdate(answerItem.dateAnswer)}</p>
                     <div>
-                        <p>{userAnswer.content}</p>
-                        <a href={userAnswer.linkFile} target='_banlk'>file</a>
+                        <p>{answerItem.content}</p>
+                        <a href={answerItem.linkFile} target='_banlk'>file</a>
                     </div>
                 </div>
                 <Button
                     onClick={handleClickOpen}
                     variant="contained"
-                    fullWidth
-
-                    style={{ mb: 2, borderRadius: 10 }}
+                    disabled={answerItem.point > 0}
+                    style={{ mb: 2, borderRadius: 10, mt: 5 }}
                 >
-                    Nộp bài tập
+                    chấm điểm
                 </Button>
             </div>
             <Dialog
@@ -68,7 +67,7 @@ const GardeUserAnswer = ({ exercise, classData, isUserHost, userAnswer, userHost
                 </IconButton>
 
                 <DialogContent>
-                    <SetPointUser closeDialog={handleClose} classData={classData} exercise={exercise.idExercise} />
+                    <SetPointUser closeDialog={handleClose} classData={classData} exercise={exercise.idExercise} answerItem={answerItem.idMember} userHost={userHost} />
                 </DialogContent>
             </Dialog>
         </div>

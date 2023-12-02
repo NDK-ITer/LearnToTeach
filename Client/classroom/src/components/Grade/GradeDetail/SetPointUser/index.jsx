@@ -10,20 +10,23 @@ SetPointUser.propTypes = {
     closeDialog: PropTypes.func,
     classData: PropTypes.object,
     exercise: PropTypes.string,
-    userAnswer: PropTypes.string
+    answerItem: PropTypes.string,
+    userHost: PropTypes.object,
 };
 
 function SetPointUser(props) {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const { user } = useLocalContext();
-    const { classData, exercise, userAnswer } = props;
+    const { classData, exercise, answerItem, userHost } = props;
+    console.log(userHost)
     const handleSubmit = async (values) => {
         try {
             // auto set username = email
-            values.IdMember = userAnswer;
+            values.IdMember = answerItem;
             values.IdClassroom = classData.idClassroom;
             values.IdExercise = exercise;
+            values.IdUserHost = userHost.idMember;
             const action = setpointanswer(values);
             const resultAction = await dispatch(action);
             unwrapResult(resultAction);

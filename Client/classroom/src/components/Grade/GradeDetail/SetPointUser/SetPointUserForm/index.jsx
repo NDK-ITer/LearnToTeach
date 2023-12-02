@@ -48,17 +48,18 @@ function SetPointUserForm(props) {
     const classes = useStyles();
     const schema = yup.object().shape({
         point: yup.number()
-        .min(0, 'Number must be greater than or equal to 0')
-        .max(10, 'Number must be less than or equal to  10')
-        .required('Number is required'),
+            .min(0, 'Number must be greater than or equal to 0')
+            .max(10, 'Number must be less than or equal to  10')
+            .required('Number is required'),
     });
 
     const form = useForm({
         defaultValues: {
             IdClassroom: '',
             IdMember: '',
+            IdUserHost: '',
             IdExercise: '',
-            point:''
+            point: ''
         },
         resolver: yupResolver(schema),
     });
@@ -79,7 +80,7 @@ function SetPointUserForm(props) {
             </Typography>
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>
-              <InputField name='point' label='điểm' form={form}/>
+                <InputField name='point' label='điểm' form={form} />
                 <Button
                     disabled={isSubmitting}
                     type="submit"
@@ -89,7 +90,7 @@ function SetPointUserForm(props) {
                     fullWidth
                     size="large"
                 >
-                   xác nhận
+                    xác nhận
                 </Button>
             </form>
         </div>
