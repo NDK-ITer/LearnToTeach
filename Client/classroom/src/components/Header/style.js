@@ -39,8 +39,9 @@ export const useStyles = makeStyles((theme) => ({
   },
   button: {
     margin: '0 2px 0',
-    padding: '2px',
+    marginRight: '10px',
     whiteSpace: 'nowrap',
     backgroundColor: 'rgb(108, 144, 46)',
+    color: 'white',
   },
 }));

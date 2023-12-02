@@ -10,10 +10,11 @@ UploadField.propTypes = {
     label: PropTypes.string,
     disabled: PropTypes.bool,
     style: PropTypes.string,
+    accept: PropTypes.string
 };
 
 function UploadField(props) {
-    const { form, name, label, disabled, style } = props;
+    const { form, name, label, disabled, style, accept } = props;
     const { errors } = form;
     const hasError = errors[name];
 
@@ -27,11 +28,11 @@ function UploadField(props) {
                     label={label}
                     placeholder=" "
                     disabled={disabled}
-                    accept="*"
+                    accept={accept}
                     error={!!hasError}
                     helperText={errors[name]?.message}
                     name={name}
-                    onChange={(e) => onChange(e.target.files)}
+                    onChange={(e) => onChange(e.target.files[0])}
                     onBlur={onBlur}
                     type="file"
                     style={style}

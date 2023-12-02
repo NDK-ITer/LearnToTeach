@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import Exercises from 'components/Exercises/Exercises';
 import CreateExercise from 'components/CreateExercise';
-import ExerciseDetail from 'components/ExerciseDetail/ExerciseDetail';
+import ExerciseDetail from 'components/Exercises/ExerciseDetail/ExerciseDetail';
 import classApi from 'api/classApi';
-import SubmitExercise from 'components/SubmitExercise/SubmitExercise';
+import SubmitExercise from 'components/Exercises/SubmitExercise/SubmitExercise';
 import Role from 'constants/role';
 import { useLocalContext } from 'context';
 import { ProtectedRouteUserHost, ProtectedRouteUserMember } from 'routes/Routes';
@@ -44,7 +44,7 @@ function ExerciseRoute({ classData }) {
                 </Route>
                 {exercises.map((item, index) => (
                     <Route key={index} user={isUserHost} exact path={`${match.url}/${item.idExercise}`}>
-                        <ExerciseDetail classData={classdata} exercises={item} userHost={userHost} />
+                        <ExerciseDetail classData={classdata} exercise={item} userHost={userHost} />
                     </Route>
 
                 ))}
@@ -52,7 +52,7 @@ function ExerciseRoute({ classData }) {
             {isUserMember && <Switch>
                 {exercises.map((item, index) => (
                     <Route key={index} user={isUserMember} exact path={`${match.url}/${item.idExercise}/answer`}>
-                        <SubmitExercise classData={classdata} exercises={item} userHost={userHost} />
+                        <SubmitExercise classData={classdata} exercise={item} userHost={userHost} user={user} />
                     </Route>
 
                 ))}
