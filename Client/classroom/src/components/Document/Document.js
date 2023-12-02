@@ -45,37 +45,40 @@ const Document = ({ classData }) => {
                     className='btn_create'
                     style={{ marginLeft: 400, marginTop: 20, borderRadius: 20, backgroundColor: "rgb(25, 118, 210)", color: "#fff" }}
                 >
-                    tải tài liệu
+                    + Tải tài liệu
                 </Button>
-                <div className='status'>
-                    <h1>danh sách tài liệu</h1>
+                <div className='doc_title'>
+                    <h1>Danh sách tài liệu</h1>
                 </div>
-                <ul className='list_tasks'>
+                <ul className='list_docs'>
                     {document.map((item, index) => (
-                        <li key={index} className='task'>
+                        <li key={index} className='doc'>
                             <a href={item.linkFile}>
                                 <Avatar style={{ m: 1, backgroundColor: 'rgb(4, 214, 46)' }}>
                                     <LibraryBooksOutlinedIcon />
                                 </Avatar>
                             </a>
-                            <div className='task_name'>{item.description}</div>
+                            <div className='doc_infomation'>
+                                <div className='doc_name'>{item.description}</div>
+                                <div className='doc_upload'>Thời gian đăng</div>
+                            </div>
                         </li>
                     ))}
                 </ul>
             </div>}
             {isUserMember && <div>
-                <div className='status'>
-                    <h1>danh sách tài liệu</h1>
+                <div className='doc_title'>
+                    <h1>Danh sách tài liệu</h1>
                 </div>
-                <ul className='list_tasks'>
+                <ul className='list_docs'>
                     {document.map((item, index) => (
-                        <li key={index} className='task'>
+                        <li key={index} className='doc'>
                             <a href={item.linkFile}>
                                 <Avatar style={{ m: 1, backgroundColor: 'rgb(4, 214, 46)' }}>
                                     <LibraryBooksOutlinedIcon />
                                 </Avatar>
                             </a>
-                            <div className='task_name'>{item.description}</div>
+                            <div className='doc_name'>{item.description}</div>
                         </li>
                     ))}
                 </ul>

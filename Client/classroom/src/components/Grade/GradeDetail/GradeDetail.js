@@ -18,7 +18,7 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
     return (
         <div>
             <div className='role'>
-                <h1>sinh viên đã chấm</h1>
+                <h1>Sinh viên đã chấm</h1>
                 <div className='quantity'>({userGraded.length}) sinh viên</div>
             </div>
             <ul className='list_informations'>
@@ -40,13 +40,17 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
             </div>
             <ul className='list_informations'>
                 {userNotGraded.map((item, index) => (
-                    <li key={index} className='information'>
-                        <a href={`${match.url}/answer/${item.idMember}`}>
+                    <li key={index} className='submit_student_information'>
+                        <a href={`${match.url}/${item.idMember}`}>
                             <Avatar style={{ m: 1, backgroundColor: 'rgb(219, 127, 52)', color: 'black' }}>
                                 <PermIdentityOutlinedIcon />
                             </Avatar>
                         </a>
-                        <div className='name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
+                        <div className='submit_information'>
+                            <div className='name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
+                            <div>Thời gian nộp</div>
+                        </div>
+
                     </li>
                 ))}
 

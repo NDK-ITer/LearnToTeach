@@ -41,7 +41,8 @@
     display: inline-block;
 }
 .your_exercise{
-    margin: 20px 0px;
+    display: flex;
+    justify-content: space-between;
     font-size: 22px;
 }
 .group_button{

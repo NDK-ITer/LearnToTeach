@@ -29,16 +29,20 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user,userHost, }) => 
   return (
     <div className='submit_exercise'>
       <div className='main_area'>
-        <Avatar style={{ backgroundColor: 'grey' }}>
-          <EditNoteOutlinedIcon />
-        </Avatar>
-        <div className='upload_detail'>
-          <h1 className='title_text1'>{exercise.name}</h1>
-          <p>--- {userHost.nameMember} --- Thời gian giao {formatdate(exercise.createDate)}</p>
+        <div className='exercise_title'>
+          <Avatar style={{ backgroundColor: 'grey', marginTop: '10px' }}>
+            <EditNoteOutlinedIcon />
+          </Avatar>
+          <div className='upload_detail'>
+            <h1 className='title_text'>{exercise.name}</h1>
+            <p style={{fontSize: '14px'}}>--- {userHost.nameMember} --- Thời gian giao {formatdate(exercise.createDate)}</p>
+          </div>
+        </div>
+        <div className='upload_detail'>         
           <div className='content1'>
             <div className='content_text1'>
               <div className='deadline1'> Thời hạn {formatdate(exercise.deadline)} </div>
-              <div>{getPointForIdMember(user.id) == null ? "null" : getPointForIdMember(user.id) > 0 ? getPointForIdMember(user.id) : "null"}/10 Điểm</div>
+              <div>{getPointForIdMember(user.id) == null ? "0" : getPointForIdMember(user.id) > 0 ? getPointForIdMember(user.id) : "null"}/10 Điểm</div>
             </div>
             <div className='content_detail1'>
               <p>
@@ -61,7 +65,7 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user,userHost, }) => 
         <div className='upload_exercise'>
           <div className='your_exercise'>
             <p>Bài tập của bạn</p>
-            <p>{getPointForIdMember(user.id) == null ? "chưa nộp" : getPointForIdMember(user.id) > 0 ? "đã chấm" : "đã nộp"}</p>
+            <p className='upload_status'>{getPointForIdMember(user.id) == null ? "Chưa nộp" : getPointForIdMember(user.id) > 0 ? "Đã chấm" : "Đã nộp"}</p>
           </div>
           <div className='group_button'>
             <Button

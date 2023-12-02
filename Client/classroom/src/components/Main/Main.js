@@ -11,6 +11,9 @@ import { uploadnotify } from "components/classroom/classSilce";
 import { Avatar } from "@material-ui/core";
 import Role from "constants/role";
 import classApi from "api/classApi";
+import {Button} from '@material-ui/core';
+import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
+
 const Main = ({ classData }) => {
   const { user } = useLocalContext();
   const dispatch = useDispatch();
@@ -67,17 +70,10 @@ const Main = ({ classData }) => {
               <div className="main__section main__overflow">
                 {classData.description}
               </div>
-              {isUserHost && <>
-                <div className="main__wrapper2">
-                  <em className="main__code">Mã lớp học :</em>
-                  <div className="main__id">{classData.idClassroom}</div>
-                </div>
-                {classData.isPrivate && <div className="main__wrapper2">
-                  <em className="main__code">Mã lớp học :</em>
-                  <div className="main__id">{classData.key}</div>
-                </div>}
-              </>
-              }
+              <div className="main__wrapper2">
+                <em className="main__code">Mã lớp học :</em>
+                <div className="main__id">{classData.idClassroom}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -85,9 +81,9 @@ const Main = ({ classData }) => {
           <div className="main__status">
             <p>Sắp đến hạn</p>
             <p className="main__subText">Không có công việc</p>
-          </div>
+          </div>         
           <div className="main_announcements_and_notifies">
-            {isUserHost && <FormNotify onSubmit={handleSubmit} />}
+          {isUserHost && <FormNotify onSubmit={handleSubmit} />}
             <ul className='list_notifies'>
               {notify.map((item, index) => (
                 <li className="notify" key={index}>
@@ -98,17 +94,21 @@ const Main = ({ classData }) => {
                         <div className="author" key={index}>{item.nameMember}</div>
                       ))}
                       <div className="post_time">Thời gian đăng</div>
-                    </div>
-
+                    </div>                    
                   </div>
-                  <p>{item.nameNotify}</p>
-                  <p>{item.description}</p>
+                  <div>
+                    <p>{item.nameNotify}</p>
+                    <p>{item.description}</p>
+                  </div>                 
+                  
                 </li>
               ))}
-
+              <Button variant="contained" color="secondary" startIcon={<ExitToAppOutlinedIcon/>} style={{marginBottom: '20px'}}>
+                  Rời khỏi lớp
+              </Button>
             </ul>
           </div>
-        </div>
+        </div>       
       </div>
     </div>
   );

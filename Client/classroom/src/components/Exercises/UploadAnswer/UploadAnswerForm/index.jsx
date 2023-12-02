@@ -47,7 +47,7 @@ UploadAnswerForm.propTypes = {
 function UploadAnswerForm(props) {
     const classes = useStyles();
     const schema = yup.object().shape({
-        Content: yup.string().required('Please enter your Content.'),
+        Content: yup.string().required('Chưa có câu trả lời'),
     });
 
     const form = useForm({
@@ -73,12 +73,12 @@ function UploadAnswerForm(props) {
         <div className={classes.root}>
             {isSubmitting && <LinearProgress className={classes.progress} />}
             <Typography className={classes.title} component="h3" variant="h5">
-                bài tập
+                Bài tập
             </Typography>
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <TextAreaField name='Content' label='Content' form={form} />
-                <span>file:</span> <UploadField name='FileUploadAnswer' form={form} accept='*' />
+                <TextAreaField name='Content' label='Nội dung' form={form} />
+                <span>Đính kèm:</span> <UploadField name='FileUploadAnswer' form={form} accept='*' />
                 <Button
                     disabled={isSubmitting}
                     type="submit"
@@ -88,7 +88,7 @@ function UploadAnswerForm(props) {
                     fullWidth
                     size="large"
                 >
-                    nộp bài
+                    Nộp bài
                 </Button>
             </form>
         </div>

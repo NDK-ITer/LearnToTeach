@@ -15,6 +15,19 @@
     display: flex;
     flex-direction: row;
     padding: 10px;
+    justify-content: space-between;
+}
+.information:hover {
+    background-color:rgb(229, 229, 229);
+    border-radius: 20px;
+}
+.lecturer_information{
+    display: flex;
+    align-items: center;
+}
+.student_information{
+    display: flex;
+    align-items: center;
 }
 .name {
     margin-left: 20px;

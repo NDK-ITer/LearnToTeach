@@ -10,9 +10,10 @@
 }
 .title_text {
     color: #605a5a;
-    font-size: 20px;
+    font-size: 28px;
     text-align: left;
     margin: 10px;
+    align-items: center;
 }
 .content_text {
     border-bottom: 2px solid #5a605b;

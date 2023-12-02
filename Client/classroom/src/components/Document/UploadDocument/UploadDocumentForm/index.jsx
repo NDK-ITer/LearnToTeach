@@ -71,11 +71,11 @@ function UploadDocumentForm(props) {
         <div className={classes.root}>
             {isSubmitting && <LinearProgress className={classes.progress} />}
             <Typography className={classes.title} component="h3" variant="h5">
-                tải tài liệu
+                Tải tài liệu
             </Typography>
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <InputField name="Decription" label="tiêu đề tài liệu" form={form} />
+                <InputField name="Decription" label="Tiêu đề tài liệu" form={form} />
                 <UploadField name='FileUploads' form={form} accept='.pdf,docx' />
                 <Button
                     disabled={isSubmitting}
