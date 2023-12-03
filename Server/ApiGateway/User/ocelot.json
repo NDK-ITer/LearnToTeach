@@ -301,6 +301,28 @@
         "Role": "USER"
       }
     },
+    //remove member
+    {
+      "UpstreamPathTemplate": "/classroom/leave-classroom",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Classroom/leave-classroom",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
     //FileStoreService
     //URL Image
     {

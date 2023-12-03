@@ -14,12 +14,16 @@ const classApi = {
     const url = '/classroom/update';
     return axiosClient.post(url, data);
   },
-  deleteclassroom(data) {
-    const url = ' /classroom/delete';
-    return axiosClient.post(url, data);
+  deleteclassroom(params) {
+    const url = '/classroom/delete';
+    return axiosClient.delete(url, { params });
   },
   removemember(data) {
     const url = '/classroom/remove-member';
+    return axiosClient.post(url, data);
+  },
+  leaveclassroom(data) {
+    const url = '/classroom/leave-classroom';
     return axiosClient.post(url, data);
   },
   public() {

@@ -534,7 +534,7 @@ namespace ClassServer.Controllers
                         return Ok(result);
                     }
                     var checkAdd = _unitOfWork_ClassroomService._notifyClassroomService.Delete(upload.IdNotify);
-                    if (checkAdd.Item1 == false)
+                    if (checkAdd.Item1 != false)
                     {
                         result.Status = 1;
                     }

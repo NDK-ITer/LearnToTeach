@@ -26,7 +26,6 @@ export const joinClassroom = createAsyncThunk('classroom/join', async (payload) 
     const data = await classApi.joinclassroom(formData);
     return data;
 });
-
 export const uploadexercise = createAsyncThunk('classroom/uploadexercise', async (payload) => {
 
     const formData = new FormData()
