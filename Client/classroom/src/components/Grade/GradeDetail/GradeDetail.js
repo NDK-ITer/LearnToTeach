@@ -41,7 +41,7 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
             <ul className='list_informations'>
                 {userNotGraded.map((item, index) => (
                     <li key={index} className='submit_student_information'>
-                        <a href={`${match.url}/${item.idMember}`}>
+                        <a href={`${match.url}/answer/${item.idMember}`}>
                             <Avatar style={{ m: 1, backgroundColor: 'rgb(219, 127, 52)', color: 'black' }}>
                                 <PermIdentityOutlinedIcon />
                             </Avatar>
