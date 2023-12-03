@@ -1,6 +1,6 @@
 .status{
-    margin: 0px 350px;
-    padding-top: 20px;
+    margin: 20px 350px;
+    padding-top: 20px ;
     padding-left: 1rem;
     border-bottom: 1px solid black;
     display: flex;
@@ -36,4 +36,20 @@
     margin-right: -0.25rem;
     text-align: right;
 }
-
+.submit_information {
+    justify-content: space-between;
+    display: flex;
+    width: 90vw;
+}
+.submit_student_information {
+    margin: 10px 200px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    justify-content: space-between;
+}
+.submit_student_information:hover {
+    background-color:rgb(229, 229, 229);
+    border-radius: 20px;
+}

@@ -1,4 +1,4 @@
-.role{
+.admin_classroom {
     margin: 0px 350px;
     padding-top: 20px;
     padding-left: 1rem;
@@ -6,34 +6,31 @@
     display: flex;
     justify-content: space-between;
 }
-.list_informations{
+.classroom_quantity {
+    margin-top: 50px;
+}
+.list_classroom {
     margin: 20px 100px;
 }
-.information {
+.classroom_info {
     margin: 10px 200px;
     align-items: center;
     display: flex;
     flex-direction: row;
     padding: 10px;
     justify-content: space-between;
+    cursor: pointer;
 }
-.information:hover {
+.classroom_info:hover {
     background-color:rgb(229, 229, 229);
     border-radius: 20px;
 }
-.lecturer_information{
+.infor {
     display: flex;
     align-items: center;
 }
-.student_information{
-    display: flex;
-    align-items: center;
-}
-.name {
+.classroom_name {
     margin-left: 20px;
     font-size: 15px;
     color:rgb(27, 27, 27);
-}
-.quantity{
-    margin-top: 50px;
 }

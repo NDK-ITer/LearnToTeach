@@ -227,7 +227,7 @@ namespace ClassServer.Controllers
             };
             try
             {
-                var check = _unitOfWork_ClassroomService._memberService.IsHost(setPoint.IdMember, setPoint.IdClassroom);
+                var check = _unitOfWork_ClassroomService._memberService.IsHost(setPoint.IdUserHost, setPoint.IdClassroom);
                 if (!check.Item1)
                 {
                     result.Message = check.Item2;

@@ -52,7 +52,7 @@ const Exercises = ({ classData }) => {
             + Tạo bài tập
           </a>
         </Button>
-        <div className='status'>
+        <div className='exercise_status'>
           <h1>Còn hạn</h1>
         </div>
         <ul className='list_tasks'>
@@ -63,12 +63,14 @@ const Exercises = ({ classData }) => {
                   <LibraryBooksOutlinedIcon />
                 </Avatar>
               </a>
-              <div className='task_name'>{item.name}</div>
-              <div className='task_deadline'>{formatDate(item.deadline)} </div>
+              <div className='task_information'>
+                <div className='task_name'>{item.name}</div>
+                <div className='task_deadline'>{formatDate(item.deadline)} </div>
+              </div>
             </li>
           ))}
         </ul>
-        <div className='status'>
+        <div className='exercise_status'>
           <h1>Hết hạn</h1>
         </div>
         <ul className='list_tasks'>
@@ -79,15 +81,17 @@ const Exercises = ({ classData }) => {
                   <LibraryBooksOutlinedIcon />
                 </Avatar>
               </a>
-              <div className='task_name'> {item.name} </div>
-              <div className='task_deadline'>{formatDate(item.deadline)} </div>
+              <div className='task_information'>
+                <div className='task_name'>{item.name}</div>
+                <div className='task_deadline'>{formatDate(item.deadline)} </div>
+              </div>
             </li>
           ))}
         </ul>
       </div>}
       {isUserMember && <div>
 
-        <div className='status'>
+        <div className='exercise_status'>
           <h1 style={{ paddingTop: 12 }}>Đã giao</h1>
         </div>
         <ul className='list_tasks'>
@@ -98,12 +102,14 @@ const Exercises = ({ classData }) => {
                   <LibraryBooksOutlinedIcon />
                 </Avatar>
               </a>
-              <div className='task_name'> {item.name} </div>
-              <div className='task_deadline'>{formatDate(item.deadline)} </div>
+              <div className='task_information'>
+                <div className='task_name'>{item.name}</div>
+                <div className='task_deadline'>{formatDate(item.deadline)} </div>
+              </div>
             </li>
           ))}
         </ul>
-        <div className='status'>
+        <div className='exercise_status'>
           <h1 style={{ paddingTop: 12 }}>Đã hoàn thành</h1>
         </div>
         <ul className='list_tasks'>
@@ -114,12 +120,14 @@ const Exercises = ({ classData }) => {
                   <LibraryBooksOutlinedIcon />
                 </Avatar>
               </a>
-              <div className='task_name'> {item.name} </div>
-              <div className='task_deadline'>{formatDate(item.deadline)} </div>
+              <div className='task_information'>
+                <div className='task_name'>{item.name}</div>
+                <div className='task_deadline'>{formatDate(item.deadline)} </div>
+              </div>
             </li>
           ))}
         </ul>
-        <div className='status'>
+        <div className='exercise_status'>
           <h1 style={{ paddingTop: 12 }}>Chưa hoàn thành</h1>
         </div>
         <ul className='list_tasks'>
@@ -130,8 +138,10 @@ const Exercises = ({ classData }) => {
                   <LibraryBooksOutlinedIcon />
                 </Avatar>
               </a>
-              <div className='task_name'> {item.name} </div>
-              <div className='task_deadline'>{formatDate(item.deadline)} </div>
+              <div className='task_information'>
+                <div className='task_name'>{item.name}</div>
+                <div className='task_deadline'>{formatDate(item.deadline)} </div>
+              </div>
             </li>
           ))}
         </ul>

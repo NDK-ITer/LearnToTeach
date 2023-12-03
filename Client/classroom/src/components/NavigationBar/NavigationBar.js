@@ -10,7 +10,7 @@ const NavigationBar = ({ classData }) => {
                         <a className="nav_link" href={`/${classData}`}>Trang chủ</a>
                     </li>
                     <li className="nav_item">
-                        <a className="nav_link" href="#">Tài liệu</a>
+                        <a className="nav_link" href={`/${classData}/document`}>Tài liệu</a>
                     </li>
                     <li className="nav_item">
                         <a className="nav_link" href={`/${classData}/exercises`}>Bài tập</a>
@@ -19,10 +19,10 @@ const NavigationBar = ({ classData }) => {
                         <a className="nav_link" href={`/${classData}/community`}>Mọi người</a>
                     </li>
                     <li className="nav_item">
-                        <a className="nav_link" href={`/${classData}/grade`}>Điểm</a>
+                        <a className="nav_link" href={`/${classData}/grades`}>Điểm</a>
                     </li>
                     <li className="nav_item">
-                        <a className="nav_link" href="#">Học trực tuyến</a>
+                        <a className="nav_link" href='#'>Học trực tuyến</a>
                     </li>
                 </ul>
             </div>

@@ -15,10 +15,12 @@ import Community from 'components/Community/Community';
 import NavigationBar from 'components/NavigationBar/NavigationBar';
 import Exercises from 'components/Exercises/Exercises';
 import CreateExercise from 'components/CreateExercise';
-import ExerciseRoute from 'components/ExerciseRoute';
+import ExerciseRoute from 'components/Exercises/ExerciseRoute';
 import NotFound from 'components/NotFound';
 import { Router } from 'react-router-dom/cjs/react-router-dom';
 import Grade from 'components/Grade/Grade';
+import GradeRoute from 'components/Grade/GradeRoute';
+import DocumentRoute from 'components/Document/DocumentRoute/inde';
 function App() {
   const { logged, user } = useLocalContext();
   console.log(logged);
@@ -38,6 +40,7 @@ function App() {
       fetchData();
     }
   }, [logged]);
+  console.log(joinedClasses)
   return (
     <div className="app">
       <Switch>
@@ -72,10 +75,17 @@ function App() {
           </Route>
         ))}
         {joinedClasses.map((item, index) => (
-          <Route key={index} path={`/${item.idClassroom}/grade`}>
+          <Route key={index} path={`/${item.idClassroom}/grades`}>
             <Drawer />
             <NavigationBar classData={item.idClassroom} />
-            <Grade classData={item} />
+            <GradeRoute classData={item} />
+          </Route>
+        ))}
+        {joinedClasses.map((item, index) => (
+          <Route key={index} path={`/${item.idClassroom}/document`}>
+            <Drawer />
+            <NavigationBar classData={item.idClassroom} />
+            <DocumentRoute classData={item} />
           </Route>
         ))}
         <ProtectedRoute user={logged} path="/" exact>
@@ -92,6 +102,7 @@ function App() {
         <Route path="/SignUp" component={Register} exact />
         <Route path="/RestorePassword" component={RestorePassword} exact />
         <Route path="/NotFound" component={NotFound} exact />
+
       </Switch>
     </div>
   );

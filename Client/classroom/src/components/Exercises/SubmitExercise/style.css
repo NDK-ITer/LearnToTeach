@@ -10,12 +10,17 @@
     max-width: 50rem;
     min-width: 0;
 }
+.exercise_title {
+    margin: 30px;
+    display: flex;
+}
 .upload_exercise{
-    display: inline-block;
+    /* display: inline-block; */
     border: 2px solid rgb(200, 200, 210);
     border-radius: 10px;
     padding: 10px 20px 10px;
     margin: 50px;
+    width: 15vw;
 }
 .title_text1{
     color: #605a5a;
@@ -37,12 +42,17 @@
     margin: 20px;
     font-size: 16px;
 }
-.upload_area{
+/* .upload_area{
     display: inline-block;
-}
+} */
 .your_exercise{
-    margin: 20px 0px;
+    display: flex;
+    justify-content: space-between;
     font-size: 22px;
+}
+.upload_status {
+    margin-top: 30px;
+    font-size: 15px;
 }
 .group_button{
     margin-bottom: 20px;

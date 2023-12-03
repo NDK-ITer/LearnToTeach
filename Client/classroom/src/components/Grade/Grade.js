@@ -37,7 +37,7 @@ const Grade = ({ classData }) => {
         setexercisesGrade(result.listExercises.filter(x => x.listAnswer.filter(c => c.idMember == user.id && c.point != null).length > 0).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)));
         setexercisesNotGrade(result.listExercises.filter(x => x.listAnswer.filter(c => c.idMember == user.id && c.point == null).length > 0).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)));
         setexercisesGradeExpired(result.listExercises.filter(x => new Date(x.deadline) < currentDate && x.listAnswer.filter(c => c.idMember == user.id).length <= 0).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)));
-   
+
       }
     };
     fetchData();
@@ -51,13 +51,13 @@ const Grade = ({ classData }) => {
         <ul className='list_results'>
           {exercisesGrading.map((item, index) => (
             <li key={index} className='result'>
-              <a href={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>
+              <a href={`/${classData.idClassroom}/grades/${item.idExercise}`}>
                 <Avatar style={{ m: 1, backgroundColor: 'rgb(4, 214, 46)' }}>
                   <CheckCircleOutlinedIcon />
                 </Avatar>
               </a>
               <div className='name'>{item.name}</div>
-              <div className='grade'> đã chấm {item.listAnswer.filter(c=>c.point!==null).length}/đã nộp {item.listAnswer.length}/sinh viên {countuser}</div>
+              <div className='grade'> đã chấm {item.listAnswer.filter(c => c.point !== null).length}/đã nộp {item.listAnswer.length}/sinh viên {countuser}</div>
             </li>
           ))}
         </ul>
@@ -67,14 +67,14 @@ const Grade = ({ classData }) => {
         <ul className='list_results'>
           {exercisesGrade.map((item, index) => (
             <li key={index} className='result'>
-              <a href={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>
+              <a href={`/${classData.idClassroom}/grades/${item.idExercise}`}>
                 <Avatar style={{ m: 1, backgroundColor: 'rgb(4, 214, 46)' }}>
                   <CheckCircleOutlinedIcon />
                 </Avatar>
               </a>
               <div className='name'>{item.name}</div>
-              <div className='grade'> đã chấm {item.listAnswer.filter(c=>c.point!==null).length}/đã nộp {item.listAnswer.length}/sinh viên {countuser}</div>
-              
+              <div className='grade'> đã chấm {item.listAnswer.filter(c => c.point !== null).length}/đã nộp {item.listAnswer.length}/sinh viên {countuser}</div>
+
             </li>
           ))}
         </ul>
@@ -127,7 +127,7 @@ const Grade = ({ classData }) => {
                 </Avatar>
               </a>
               <div className='name'>{item.name}</div>
-              <div className='grade'>Điểm số: null </div>
+              <div className='grade'>Điểm số: 0 </div>
             </li>
           ))}
         </ul>

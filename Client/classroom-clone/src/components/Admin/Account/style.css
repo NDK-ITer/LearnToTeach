@@ -1,4 +1,4 @@
-.role{
+.admin_lecturer_account, .admin_student_account{
     margin: 0px 350px;
     padding-top: 20px;
     padding-left: 1rem;
@@ -6,10 +6,13 @@
     display: flex;
     justify-content: space-between;
 }
-.list_informations{
+.student_quantity {
+    margin-top: 50px;
+}
+.list_lecturers, .list_students {
     margin: 20px 100px;
 }
-.information {
+.lecturer_infomation, .student_information {
     margin: 10px 200px;
     align-items: center;
     display: flex;
@@ -17,23 +20,12 @@
     padding: 10px;
     justify-content: space-between;
 }
-.information:hover {
-    background-color:rgb(229, 229, 229);
-    border-radius: 20px;
-}
-.lecturer_information{
+.infor_ {
     display: flex;
     align-items: center;
 }
-.student_information{
-    display: flex;
-    align-items: center;
-}
-.name {
+.lecturer_name, .student_name{
     margin-left: 20px;
     font-size: 15px;
     color:rgb(27, 27, 27);
-}
-.quantity{
-    margin-top: 50px;
 }

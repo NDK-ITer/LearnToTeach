@@ -1,13 +1,13 @@
-.exercise_status{
+.doc_title{
     margin: 0px 350px;
     padding-top: 20px;
     padding-left: 1rem;
     border-bottom: 1px solid black;
 }
-.list_tasks{
+.list_docs{
     margin: 20px 100px;
 }
-.task {
+.doc {
     margin: 10px 200px;
     cursor: pointer;
     align-items: center;
@@ -15,32 +15,31 @@
     flex-direction: row;
     padding: 10px;
 }
-.task:hover{
+.doc:hover{
     background-color:rgb(229, 229, 229);
     border-radius: 20px;
 }
-.task_information{
+.doc_infomation {
     justify-content: space-between;
     display: flex;
     width: 90vw;
 }
-.task_name {
+.doc_name {
     margin-left: 20px;
     font-size: 15px;
     color:rgb(27, 27, 27);
 }
-.task_deadline {
+.doc_upload {
     box-sizing: border-box;
     color: rgba(0,0,0,.549);
     margin-left: 1rem;
     min-width: 0;
     padding-right: 0.25rem;
     margin-right: -0.25rem;
-
 }
 .btn_create {
-    /* margin-left: 250px;
+    margin-left: 250px;
     background-Color: rgb(25, 118, 210);
-    color: "#fff"; */
+    color: "#fff";
     border-radius: 20px !important;
 }
