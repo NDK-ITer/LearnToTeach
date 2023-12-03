@@ -12,6 +12,7 @@ using ClassServer.Models;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Net.WebSockets;
 using XAct;
 using ResultStatus = ClassServer.Models.ResultStatus;
 
@@ -353,7 +354,13 @@ namespace ClassServer.Controllers
                         NameFile = fileName,
                         LinkFile = _address.Value.ThisServiceAddress
                     };
-                    _unitOfWork_ClassroomService._learningDocumentService.AddLearningDocument(addDoc);
+                   var checkAdd = _unitOfWork_ClassroomService._learningDocumentService.AddLearningDocument(addDoc);
+                    if (checkAdd.Item2 != null)
+                    {
+                        result.Status = 1;
+                    }
+                    result.Message = checkAdd.Item1;
+                    return Ok(result);
                 }
                 result.Status = 0;
                 result.Message = "parameter is null";

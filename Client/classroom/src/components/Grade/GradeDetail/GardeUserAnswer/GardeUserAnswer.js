@@ -9,6 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { Close } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 import SetPointUser from '../SetPointUser';
+import GoBackButton from 'components/GoBackButton';
 const GardeUserAnswer = ({ classData, userHost, answerItem, exercise }) => {
     const [open, setOpen] = useState(false);
     const handleClickOpen = () => {
@@ -54,7 +55,11 @@ const GardeUserAnswer = ({ classData, userHost, answerItem, exercise }) => {
                 >
                     chấm điểm
                 </Button>
+                <div>
+                    <GoBackButton />
+                </div>
             </div>
+
             <Dialog
                 disableBackdropClick
                 disableEscapeKeyDown

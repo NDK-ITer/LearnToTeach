@@ -11,8 +11,9 @@ import { uploadnotify } from "components/classroom/classSilce";
 import { Avatar } from "@material-ui/core";
 import Role from "constants/role";
 import classApi from "api/classApi";
-import {Button} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
+import ConfirmationDialog from "components/ConfirmationDialog";
 
 const Main = ({ classData }) => {
   const { user } = useLocalContext();
@@ -55,6 +56,22 @@ const Main = ({ classData }) => {
       enqueueSnackbar(error.message, { variant: 'error' });
     }
   };
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleClose = () => {
+    setDialogOpen(false);
+  };
+
+  const handleConfirmation = () => {
+    // Perform action on confirmation
+    console.log('Confirmed!');
+    // Add your custom logic here for "Yes" button click
+  };
+
   return (
     <div className="main">
       <div className="main__wrapper">
@@ -81,9 +98,9 @@ const Main = ({ classData }) => {
           <div className="main__status">
             <p>Sắp đến hạn</p>
             <p className="main__subText">Không có công việc</p>
-          </div>         
+          </div>
           <div className="main_announcements_and_notifies">
-          {isUserHost && <FormNotify onSubmit={handleSubmit} />}
+            {isUserHost && <FormNotify onSubmit={handleSubmit} />}
             <ul className='list_notifies'>
               {notify.map((item, index) => (
                 <li className="notify" key={index}>
@@ -94,21 +111,27 @@ const Main = ({ classData }) => {
                         <div className="author" key={index}>{item.nameMember}</div>
                       ))}
                       <div className="post_time">Thời gian đăng</div>
-                    </div>                    
+                    </div>
                   </div>
                   <div>
                     <p>{item.nameNotify}</p>
                     <p>{item.description}</p>
-                  </div>                 
-                  
+                  </div>
+
                 </li>
               ))}
-              <Button variant="contained" color="secondary" startIcon={<ExitToAppOutlinedIcon/>} style={{marginBottom: '20px'}}>
-                  Rời khỏi lớp
+              <Button variant="contained" onClick={handleOpen} color="secondary" startIcon={<ExitToAppOutlinedIcon />} style={{ marginBottom: '20px' }}>
+                Rời khỏi lớp
               </Button>
             </ul>
+            <ConfirmationDialog
+              open={dialogOpen}
+              onClose={handleClose}
+              onConfirm={handleConfirmation}
+              message="Are you sure you want to proceed?"
+            />
           </div>
-        </div>       
+        </div>
       </div>
     </div>
   );

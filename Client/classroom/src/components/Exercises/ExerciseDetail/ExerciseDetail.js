@@ -11,18 +11,18 @@ import Role from 'constants/role';
 const ExerciseDetail = ({ exercise, classData, userHost }) => {
 
     const countAnswer = exercise.listAnswer.length;
-    const countUser = classData.listMembers.filter(x=>x.role==Role.MEMBER).length;
+    const countUser = classData.listMembers.filter(x => x.role == Role.MEMBER).length;
     const listUserAnswer = exercise.listAnswer;
     return (
         <div>
             <div className='exercise_detail'>
                 <div className='main_detail'>
-                    <Avatar style={{ backgroundColor: 'black', marginTop: '10px'}}>
+                    <Avatar style={{ backgroundColor: 'black', marginTop: '10px' }}>
                         <AssignmentOutlinedIcon />
                     </Avatar>
                     <div className='upload_detail'>
                         <h1 className='title_text'>{exercise.name}</h1>
-                        <p style={{fontSize: '14px'}}>--- {userHost.nameMember} --- Thời gian giao {formatDate(exercise.createDate)} </p>
+                        <p style={{ fontSize: '14px' }}>--- {userHost.nameMember} --- Thời gian giao {formatDate(exercise.createDate)} </p>
                     </div>
                 </div>
                 <div className='content'>
@@ -42,15 +42,17 @@ const ExerciseDetail = ({ exercise, classData, userHost }) => {
                     <h2 className='submit_quantity'>({countAnswer}) Đã nộp/({countUser}) Sinh viên</h2>
                     <ul className='list_submited'>
                         {listUserAnswer.map((item, index) => (
-                                <li key={index} className='student'>
-                                <Avatar style={{ m: 1, backgroundColor: 'rgb(34, 186, 34)' }}>
-                                    <FactCheckOutlinedIcon />
-                                </Avatar>
+                            <li key={index} className='student'>
+                                <a href={`/${classData.idClassroom}/grades/${exercise.idExercise}/answer/${item.idMember}`}>
+                                    <Avatar style={{ m: 1, backgroundColor: 'rgb(34, 186, 34)' }}>
+                                        <FactCheckOutlinedIcon />
+                                    </Avatar>
+                                </a>
                                 <div className='submit_information'>
-                                    <div className='student_name'>{classData.listMembers.find(x=>x.idMember==item.idMember).nameMember}</div>
+                                    <div className='student_name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
                                     <div>Thời gian nộp {formatDate(item.dateAnswer)} </div>
                                 </div>
-                           </li>
+                            </li>
                         ))}
                     </ul>
                 </div>
