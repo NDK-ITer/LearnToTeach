@@ -106,7 +106,7 @@ namespace Server.Controllers
                 resultStatus.message = e.Message;
                 return BadRequest(resultStatus);
             }
-        }
+       }
 
         [HttpPost]
         [HttpOptions]
