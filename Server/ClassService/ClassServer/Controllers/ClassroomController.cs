@@ -203,16 +203,21 @@ namespace ClassServer.Controllers
         [HttpDelete]
         [HttpOptions]
         [Route("delete")]
-        public async Task<ActionResult> DeleteClassroom(string idClassroom)
+        public async Task<ActionResult> DeleteClassroom( string? idClassroom)
         {
             try
             {
+                var resultMessage = new ResultStatus()
+                {
+                    Status = 0,
+                    Message = string.Empty
+                };
                 var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
                 if (endPoint != null)
                 {
                     endPoint.Send<IGetValueClassroomEvent>(new
                     {
-                        idMessage = Guid.Parse(idClassroom),
+                        idMessage = Guid.NewGuid(),
                         idClassroom = idClassroom,
                         description = string.Empty,
                         idUserHost = string.Empty,
@@ -220,8 +225,13 @@ namespace ClassServer.Controllers
                         isPrivate = false,
                         eventMessage = _classroomStateMessage.Delete,
                     });
+                    resultMessage.Status = 1;
+                    resultMessage.Message = "deleted classroom successfull";
+                    return Ok(resultMessage);
                 }
-                return Ok();
+                resultMessage.Status = 0;
+                resultMessage.Message = "deleted classroom fail";
+                return Ok(resultMessage);
             }
             catch (Exception e)
             {
@@ -232,7 +242,7 @@ namespace ClassServer.Controllers
         [HttpDelete]
         [HttpOptions]
         [Route("remove-member")]
-        public ActionResult DeleteMemberInClassroom(string idClassroom, string idMember)
+        public ActionResult DeleteMemberInClassroom(string? idClassroom, string? idMember)
         {
             try
             {

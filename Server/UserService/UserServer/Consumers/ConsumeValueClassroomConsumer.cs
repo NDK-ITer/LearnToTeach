@@ -2,9 +2,9 @@
 using Application.Services;
 using Events.ClassroomServiceEvents.Classroom;
 using Events.ClassroomServiceEvents.Classroom.AddClassroom;
+using Events.ClassroomServiceEvents.Classroom.RemoveClassroom;
 using MassTransit;
 using UserServer.Models;
-using XAct.Messages;
 
 namespace UserServer.Consumers
 {

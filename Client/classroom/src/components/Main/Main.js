@@ -7,16 +7,16 @@ import { useSnackbar } from 'notistack';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import FormNotify from "./FormNotify";
-import { uploadnotify } from "components/classroom/classSilce";
+import { deleteclassroom, leaveclassroom, uploadnotify } from "components/classroom/classSilce";
 import { Avatar } from "@material-ui/core";
 import Role from "constants/role";
 import classApi from "api/classApi";
 import { Button } from '@material-ui/core';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import ConfirmationDialog from "components/ConfirmationDialog";
-
 const Main = ({ classData }) => {
   const { user } = useLocalContext();
+  const history = useHistory();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [isUserHost, setisUserHost] = useState(false);
@@ -28,13 +28,13 @@ const Main = ({ classData }) => {
       const params = new URLSearchParams([['idClassroom', classData.idClassroom]]);
       const result = await classApi.getClassById(params);
       setisUserHost(result.listMembers.filter(x => x.role == Role.HOST && user.id == x.idMember).length > 0 ? true : false);
-      setuserHost(result.listMembers.filter(x => x.role == Role.HOST));
+      setuserHost(result.listMembers.find(x => x.role == Role.HOST));
       setisUserMember(result.listMembers.filter(x => x.role == Role.MEMBER && user.id == x.idMember).length > 0 ? true : false);
       setnotify(result.listNotify.sort((a, b) => new Date(b.createDate) - new Date(a.createDate)));
     };
     fetchData();
   }, []);
-  console.log(userHost)
+  console.log("dc" + userHost)
   const handleSubmit = async (values) => {
     try {
       values.IdClassroom = classData.idClassroom;
@@ -56,22 +56,90 @@ const Main = ({ classData }) => {
       enqueueSnackbar(error.message, { variant: 'error' });
     }
   };
-  const [dialogOpen, setDialogOpen] = useState(false);
-
-  const handleOpen = () => {
-    setDialogOpen(true);
+  const [dialogOpenDeletelassroom, setDialogOpenDeletelassroom] = useState(false);
+  const [dialogOpenLeaveClassroom, setDialogOpenLeaveClassroom] = useState(false);
+  const [dialogOpenNotify, setDialogOpenNotify] = useState(false);
+  const [idNotify, setIdNotify] = useState(null);
+  const OpenDeletelassroom = () => {
+    setDialogOpenDeletelassroom(true);
+  };
+  const handleCloseDeletelassroom = () => {
+    setDialogOpenDeletelassroom(false);
+  };
+  const OpenLeaveClassroom = () => {
+    setDialogOpenLeaveClassroom(true);
   };
 
-  const handleClose = () => {
-    setDialogOpen(false);
+  const handleCloseLeaveClassroom = () => {
+    setDialogOpenLeaveClassroom(false);
   };
 
-  const handleConfirmation = () => {
-    // Perform action on confirmation
-    console.log('Confirmed!');
-    // Add your custom logic here for "Yes" button click
-  };
+  const handledeleteclassroom = async () => {
+    try {
+      const params = new URLSearchParams([['idClassroom', classData.idClassroom]]);
+      const result = await classApi.deleteclassroom(params);
+      console.log(result)
+      if (result.status == 1) {
+        enqueueSnackbar(result.message, { variant: 'success' });
+        history.push('/');
+        window.location.reload();
+      } else {
+        enqueueSnackbar(result.message, { variant: 'error' });
+      }
 
+    } catch (error) {
+      console.log('Failed to login:', error);
+      enqueueSnackbar(error.message, { variant: 'error' });
+    }
+  };
+  const handleLeaveClassroom = async () => {
+    try {
+      const formData = new FormData()
+      formData.append('idClassroom', classData.idClassroom);
+      formData.append('idMember', user.id);
+      const result = await classApi.leaveclassroom(formData);
+      if (result.status == 1) {
+        enqueueSnackbar(result.message, { variant: 'success' });
+        history.push('/');
+        window.location.reload();
+      } else {
+        enqueueSnackbar(result.message, { variant: 'error' });
+      }
+
+    } catch (error) {
+      console.log('Failed to login:', error);
+      enqueueSnackbar(error.message, { variant: 'error' });
+    }
+
+  }
+  const handleIdNotify = (item) => {
+    setIdNotify(item);
+    setDialogOpenNotify(true);
+  };
+  const handleCloseNotify = () => {
+    setIdNotify(null);
+    setDialogOpenNotify(false);
+  };
+  const handledeleteNotify = async () => {
+    try {
+      const formData = new FormData()
+      formData.append('idClassroom', classData.idClassroom);
+      formData.append('idMember', userHost.idMember);
+      formData.append('IdNotify', idNotify);
+      const result = await classApi.deletenotify(formData);
+      if (result.status == 1) {
+        enqueueSnackbar(result.message, { variant: 'success' });
+        window.location.reload();
+      } else {
+        enqueueSnackbar(result.message, { variant: 'error' });
+      }
+
+    } catch (error) {
+      console.log('Failed to login:', error);
+      enqueueSnackbar(error.message, { variant: 'error' });
+    }
+
+  };
   return (
     <div className="main">
       <div className="main__wrapper">
@@ -107,28 +175,44 @@ const Main = ({ classData }) => {
                   <div className="post_information">
                     <Avatar></Avatar>
                     <div className="posted_by">
-                      {userHost.map((item, index) => (
-                        <div className="author" key={index}>{item.nameMember}</div>
-                      ))}
+                      <div className="author" key={index}>{userHost.nameMember}</div>
                       <div className="post_time">Thời gian đăng</div>
                     </div>
                   </div>
                   <div>
                     <p>{item.nameNotify}</p>
                     <p>{item.description}</p>
+                    {isUserHost && <Button variant="contained" onClick={() => handleIdNotify(item.idNotify)} color="secondary" startIcon={<ExitToAppOutlinedIcon />} style={{ marginBottom: '20px' }}>
+                      xóa thông báo
+                    </Button>}
                   </div>
 
                 </li>
               ))}
-              <Button variant="contained" onClick={handleOpen} color="secondary" startIcon={<ExitToAppOutlinedIcon />} style={{ marginBottom: '20px' }}>
-                Rời khỏi lớp
-              </Button>
+              {isUserHost && <Button variant="contained" onClick={OpenDeletelassroom} color="secondary" startIcon={<ExitToAppOutlinedIcon />} style={{ marginBottom: '20px' }}>
+                xóa lớp
+              </Button>}
+              {isUserMember && <Button variant="contained" onClick={OpenLeaveClassroom} color="secondary" startIcon={<ExitToAppOutlinedIcon />} style={{ marginBottom: '20px' }}>
+                rời khỏi lớp
+              </Button>}
             </ul>
             <ConfirmationDialog
-              open={dialogOpen}
-              onClose={handleClose}
-              onConfirm={handleConfirmation}
-              message="Are you sure you want to proceed?"
+              open={dialogOpenDeletelassroom}
+              onClose={handleCloseDeletelassroom}
+              onConfirm={handledeleteclassroom}
+              message="Are you sure you want to delete classroom?"
+            />
+            <ConfirmationDialog
+              open={dialogOpenLeaveClassroom}
+              onClose={handleCloseLeaveClassroom}
+              onConfirm={handleLeaveClassroom}
+              message="Are you sure you want to Leave classroom?"
+            />
+            <ConfirmationDialog
+              open={dialogOpenNotify}
+              onClose={handleCloseNotify}
+              onConfirm={handledeleteNotify}
+              message="Are you sure you want to Notify?"
             />
           </div>
         </div>
