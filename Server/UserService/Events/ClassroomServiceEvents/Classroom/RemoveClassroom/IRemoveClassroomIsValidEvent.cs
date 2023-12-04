@@ -1,4 +1,5 @@
-﻿namespace Events.ClassroomServiceEvents.Classroom
+﻿namespace Events.ClassroomServiceEvents.Classroom.RemoveClassroom
+
 {
     public interface IRemoveClassroomIsValidEvent
     {
