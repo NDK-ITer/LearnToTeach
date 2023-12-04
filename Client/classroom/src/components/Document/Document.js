@@ -10,7 +10,7 @@ import UploadDocument from './UploadDocument';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import { Close } from '@material-ui/icons';
-import {  IconButton} from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 
 
 const Document = ({ classData }) => {
@@ -36,6 +36,36 @@ const Document = ({ classData }) => {
         };
         fetchData();
     }, []);
+
+    const [dialogOpenDocument, setDialogOpenDocument] = useState(false);
+    const [idDocument, setIdDocument] = useState(null);
+    const handleIdDocument = (item) => {
+        setIdDocument(item);
+        setDialogOpenDocument(true);
+    };
+    const handleCloseDocument = () => {
+        setIdDocument(null);
+        setDialogOpenDocument(false);
+    };
+    const handledeleteDocument = async () => {
+        // try {
+        //     const formData = new FormData()
+        //     formData.append('idClassroom', classData.idClassroom);
+        //     formData.append('idMember', userHost.idMember);
+        //     formData.append('IdNotify', idNotify);
+        //     const result = await classApi.dele(formData);
+        //     if (result.status == 1) {
+        //         enqueueSnackbar(result.message, { variant: 'success' });
+        //         window.location.reload();
+        //     } else {
+        //         enqueueSnackbar(result.message, { variant: 'error' });
+        //     }
+
+        // } catch (error) {
+        //     console.log('Failed to login:', error);
+        //     enqueueSnackbar(error.message, { variant: 'error' });
+        // }
+    }
     return (
         <div>
             {isUserHost && <div>
@@ -79,6 +109,7 @@ const Document = ({ classData }) => {
                                 </Avatar>
                             </a>
                             <div className='doc_name'>{item.description}</div>
+
                         </li>
                     ))}
                 </ul>
@@ -91,7 +122,7 @@ const Document = ({ classData }) => {
                 onClose={handleClose}
                 aria-labelledby="form-dialog-title"
             >
-                <IconButton  onClick={handleClose}>
+                <IconButton onClick={handleClose}>
                     <Close />
                 </IconButton>
 
