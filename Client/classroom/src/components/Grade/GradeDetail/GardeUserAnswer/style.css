@@ -1,29 +1,32 @@
-.submit_exercise{
+.submit_exercise1{
     display: flex;
     justify-content: center;
     padding: 1.25rem 1.5rem 1.5rem 1.5rem;
 }
-.main_area{
+.main_area1{
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
     max-width: 50rem;
     min-width: 0;
 }
-.upload_exercise{
-    display: inline-block;
-    border: 2px solid rgb(200, 200, 210);
-    border-radius: 10px;
-    padding: 10px 20px 10px;
-    margin: 50px;
+.exercise_title1 {
+    margin: 30px;
+    display: flex;
 }
-.title_text1{
+.upload_detail1{
+    margin-left: 10px;
+}
+.title_text2{
     color: #605a5a;
-    font-size: 24px;
+    font-size: 28px;
     text-align: left;
     margin: 10px;
 }
-.content_text1 {
+.content2 {
+    width: 50vw;
+}
+.content_text2 {
     border-bottom: 2px solid #5a605b;
     font-size: 18px;
     box-sizing: border-box;
@@ -33,18 +36,20 @@
     padding-bottom: 0.5rem;
     padding-top: 0.5rem;
 }
-.content_detail1{
+/* .deadline2 {
+    text-align: right;
+} */
+.content_detail2{
     margin: 20px;
     font-size: 16px;
 }
-.upload_area{
-    display: inline-block;
+.group_button1{
+    margin: 20px;
 }
-.your_exercise{
-    display: flex;
-    justify-content: space-between;
-    font-size: 22px;
-}
-.group_button{
-    margin-bottom: 20px;
+.upload_exercise1{
+    border: 2px solid rgb(200, 200, 210);
+    border-radius: 10px;
+    padding: 10px 20px 10px;
+    margin: 50px;
+    width: 15vw;
 }

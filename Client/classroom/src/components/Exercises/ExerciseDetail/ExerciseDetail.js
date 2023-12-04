@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./style.css";
 import { Avatar } from '@material-ui/core';
-import AssignmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
+import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FactCheckOutlinedIcon from '@material-ui/icons/FaceOutlined';
@@ -17,12 +17,12 @@ const ExerciseDetail = ({ exercise, classData, userHost }) => {
         <div>
             <div className='exercise_detail'>
                 <div className='main_detail'>
-                    <Avatar style={{ backgroundColor: 'black', marginTop: '10px' }}>
-                        <AssignmentOutlinedIcon />
+                    <Avatar style={{ backgroundColor: 'grey', marginTop: '10px' }}>
+                        <DescriptionOutlinedIcon />
                     </Avatar>
                     <div className='upload_detail'>
                         <h1 className='title_text'>{exercise.name}</h1>
-                        <p style={{ fontSize: '14px' }}>--- {userHost.nameMember} --- Thời gian giao {formatDate(exercise.createDate)} </p>
+                        <p style={{ fontSize: '14px' }}>--- {userHost.nameMember} --- Thời gian giao {formatDate(exercise.createDate)} --- </p>
                     </div>
                 </div>
                 <div className='content'>

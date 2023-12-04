@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import "./style.css"
 import { Avatar } from '@material-ui/core';
-import EditNoteOutlinedIcon from '@material-ui/icons/EditAttributesOutlined';
+import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import Button from '@material-ui/core/Button';
 import formatdate from 'constants/formatdate';
 import UploadAnswer from '../UploadAnswer';
@@ -31,18 +31,18 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user,userHost, }) => 
       <div className='main_area'>
         <div className='exercise_title'>
           <Avatar style={{ backgroundColor: 'grey', marginTop: '10px' }}>
-            <EditNoteOutlinedIcon />
+            <DescriptionOutlinedIcon />
           </Avatar>
           <div className='upload_detail'>
             <h1 className='title_text'>{exercise.name}</h1>
-            <p style={{fontSize: '14px'}}>--- {userHost.nameMember} --- Thời gian giao {formatdate(exercise.createDate)}</p>
+            <p style={{fontSize: '14px'}}>--- {userHost.nameMember} --- Thời gian giao {formatdate(exercise.createDate)} --- </p>
           </div>
         </div>
         <div className='upload_detail'>         
           <div className='content1'>
             <div className='content_text1'>
               <div className='deadline1'> Thời hạn {formatdate(exercise.deadline)} </div>
-              <div>{getPointForIdMember(user.id) == null ? "0" : getPointForIdMember(user.id) > 0 ? getPointForIdMember(user.id) : "null"}/10 Điểm</div>
+              <div>{getPointForIdMember(user.id) == null ? "0" : getPointForIdMember(user.id) > 0 ? getPointForIdMember(user.id) : "0"}/10 Điểm</div>
             </div>
             <div className='content_detail1'>
               <p>
@@ -53,10 +53,10 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user,userHost, }) => 
         </div>
         <div>
           {getPointForIdMember(user.id) != null && <div>
-            <h1>câu trả lời:</h1>
+            <h1>Câu trả lời:</h1>
             <div>
               <p>{answer.content}</p>
-              <a href={answer.linkFile} target='_banlk'>file</a>
+              <a href={answer.linkFile} target='_banlk'>File</a>
             </div>
           </div>}
         </div>

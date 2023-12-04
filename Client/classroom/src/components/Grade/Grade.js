@@ -3,6 +3,7 @@ import { Avatar } from '@material-ui/core';
 import "./style.css";
 import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import CheckCircleOutlinedIcon from '@material-ui/icons/CheckCircleOutline';
+import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
 import { useLocalContext } from 'context';
 import classApi from 'api/classApi';
 import Role from 'constants/role';
@@ -52,12 +53,14 @@ const Grade = ({ classData }) => {
           {exercisesGrading.map((item, index) => (
             <li key={index} className='result'>
               <a href={`/${classData.idClassroom}/grades/${item.idExercise}`}>
-                <Avatar style={{ m: 1, backgroundColor: 'rgb(4, 214, 46)' }}>
-                  <CheckCircleOutlinedIcon />
+                <Avatar style={{ m: 1, backgroundColor: 'rgb(227, 227, 0)' }}>
+                  <ErrorOutlineOutlinedIcon />
                 </Avatar>
               </a>
-              <div className='name'>{item.name}</div>
-              <div className='grade'> đã chấm {item.listAnswer.filter(c => c.point !== null).length}/đã nộp {item.listAnswer.length}/sinh viên {countuser}</div>
+              <div className='grade_information'>
+                <div className='name'>{item.name}</div>
+                <div className='grade'> đã chấm {item.listAnswer.filter(c => c.point !== null).length}/đã nộp {item.listAnswer.length}/tổng số {countuser} sinh viên</div>
+              </div>
             </li>
           ))}
         </ul>
@@ -72,8 +75,10 @@ const Grade = ({ classData }) => {
                   <CheckCircleOutlinedIcon />
                 </Avatar>
               </a>
-              <div className='name'>{item.name}</div>
-              <div className='grade'> đã chấm {item.listAnswer.filter(c => c.point !== null).length}/đã nộp {item.listAnswer.length}/sinh viên {countuser}</div>
+              <div className='grade_information'>
+                <div className='name'>{item.name}</div>
+                <div className='grade'> đã chấm {item.listAnswer.filter(c => c.point !== null).length}/đã nộp {item.listAnswer.length}/tổng số {countuser} sinh viên</div>
+              </div>
 
             </li>
           ))}
@@ -91,8 +96,10 @@ const Grade = ({ classData }) => {
                   <CheckCircleOutlinedIcon />
                 </Avatar>
               </a>
-              <div className='name'>{item.name}</div>
-              <div className='grade'>Điểm số:{item.listAnswer.find(x => x.idMember == user.id).point} </div>
+              <div className='grade_information'>
+                <div className='name'>{item.name}</div>
+                <div className='grade'>Điểm số: {item.listAnswer.find(x => x.idMember == user.id).point}</div>
+              </div>
             </li>
           ))}
 
@@ -108,8 +115,10 @@ const Grade = ({ classData }) => {
                   <CheckCircleOutlinedIcon />
                 </Avatar>
               </a>
-              <div className='name'> {item.name} </div>
-              <div className='grade'>Đang chờ chấm</div>
+              <div className='grade_information'>
+                <div className='name'> {item.name} </div>
+                <div className='grade'>Đang chờ chấm</div>
+              </div>
             </li>
           ))}
 
@@ -126,8 +135,10 @@ const Grade = ({ classData }) => {
                   <CancelOutlinedIcon />
                 </Avatar>
               </a>
-              <div className='name'>{item.name}</div>
-              <div className='grade'>Điểm số: 0 </div>
+              <div className='grade_information'>
+                <div className='name'>{item.name}</div>
+                <div className='grade'>Điểm số: 0 </div>
+              </div>
             </li>
           ))}
         </ul>

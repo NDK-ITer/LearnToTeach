@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Avatar, Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
-import { LockOutlined } from '@material-ui/icons';
+import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import ImageUpload from 'components/form-controls/UploadField';
 import InputField from 'components/form-controls/InputField';
 import PasswordField from 'components/form-controls/PasswordField';
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
     avatar: {
         margin: '0 auto',
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor: 'rgb(4, 214, 46)',
     },
 
     title: {
@@ -49,20 +49,20 @@ function RegisterForm(props) {
     const schema = yup.object().shape({
         FirstName: yup
             .string()
-            .required('Please enter your FirstName name.'),
+            .required('Họ không được bỏ trống.'),
         LastName: yup
             .string()
-            .required('Please enter your LastName name.'),
+            .required('Tên không được bỏ trống.'),
 
-        Email: yup.string().required('Please enter your email.').email('Please enter a valid email address.'),
+        Email: yup.string().required('Địa chỉ email không được bỏ trống.').email('Địa chỉ email không hợp lệ.'),
         PhoneNumber: yup.string()
-            .required('Please enter your phoneNumber.')
-            .matches(Common.phoneRegExp, 'Phone number is not valid'),
-        Password: yup.string().required('Please enter your password').min(6, 'Please enter at least 6 characters.'),
+            .required('Số điện thoại không được bỏ trống.')
+            .matches(Common.phoneRegExp, 'Số điện thoại không hợp lệ'),
+        Password: yup.string().required('Mật khẩu không được bỏ trống').min(6, 'Mật khẩu phải có ít nhất 6 ký tự.'),
         PasswordIsConfirmed: yup
             .string()
-            .required('Please retype your password.')
-            .oneOf([yup.ref('Password')], 'Password does not match'),
+            .required('Nhập lại mất khẩu không được bỏ trống.')
+            .oneOf([yup.ref('Password')], 'Mật khẩu không trùng khớp'),
     });
     const form = useForm({
         defaultValues: {
@@ -90,7 +90,7 @@ function RegisterForm(props) {
             {isSubmitting && <LinearProgress className={classes.progress} />}
 
             <Avatar className={classes.avatar}>
-                <LockOutlined></LockOutlined>
+                <LockOpenOutlinedIcon/>
             </Avatar>
 
             <Typography className={classes.title} component="h3" variant="h5">
@@ -98,12 +98,12 @@ function RegisterForm(props) {
             </Typography>
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <InputField name="FirstName" label="First Name" form={form} />
-                <InputField name="LastName" label="Last Name" form={form} />
-                <InputField name="Email" label="Email" form={form} />
-                <InputField name="PhoneNumber" label="PhoneNumber" form={form} />
-                <PasswordField name="Password" label="Password" form={form} />
-                <PasswordField name="PasswordIsConfirmed" label="Retype Password" form={form} />
+                <InputField name="FirstName" label="Họ" form={form} />
+                <InputField name="LastName" label="Tên" form={form} />
+                <InputField name="Email" label="Địa chỉ email" form={form} />
+                <InputField name="PhoneNumber" label="Số điện thoại" form={form} />
+                <PasswordField name="Password" label="Mật khẩu" form={form} />
+                <PasswordField name="PasswordIsConfirmed" label="Nhập lại mật khẩu" form={form} />
 
                 <Button
                     disabled={isSubmitting}

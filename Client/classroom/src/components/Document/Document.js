@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Avatar } from "@material-ui/core";
 import Button from '@material-ui/core/Button';
-import LibraryBooksOutlinedIcon from '@material-ui/icons/LibraryBooksOutlined';
+import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
 import classApi from 'api/classApi';
 import Role from 'constants/role';
 import { useLocalContext } from 'context';
@@ -54,8 +54,8 @@ const Document = ({ classData }) => {
                     {document.map((item, index) => (
                         <li key={index} className='doc'>
                             <a href={item.linkFile}>
-                                <Avatar style={{ m: 1, backgroundColor: 'rgb(4, 214, 46)' }}>
-                                    <LibraryBooksOutlinedIcon />
+                                <Avatar style={{ m: 1, backgroundColor: 'rgb(0, 159, 212)' }}>
+                                    <AssignmentOutlinedIcon />
                                 </Avatar>
                             </a>
                             <div className='doc_infomation'>
@@ -74,8 +74,8 @@ const Document = ({ classData }) => {
                     {document.map((item, index) => (
                         <li key={index} className='doc'>
                             <a href={item.linkFile}>
-                                <Avatar style={{ m: 1, backgroundColor: 'rgb(4, 214, 46)' }}>
-                                    <LibraryBooksOutlinedIcon />
+                                <Avatar style={{ m: 1, backgroundColor: 'rgb(0, 159, 212)' }}>
+                                    <AssignmentOutlinedIcon />
                                 </Avatar>
                             </a>
                             <div className='doc_name'>{item.description}</div>

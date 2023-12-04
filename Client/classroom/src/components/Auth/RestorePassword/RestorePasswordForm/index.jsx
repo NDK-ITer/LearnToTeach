@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Avatar, Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
-import { LockOutlined } from '@material-ui/icons';
+import VpnKeyOutlinedIcon from '@material-ui/icons/VpnKeyOutlined';
 import InputField from 'components/form-controls/InputField';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
     avatar: {
         margin: '0 auto',
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor: 'rgb(227, 227, 0)',
     },
 
     title: {
@@ -67,7 +67,7 @@ function RestorePasswordFrom(props) {
             {isSubmitting && <LinearProgress className={classes.progress} />}
 
             <Avatar className={classes.avatar}>
-                <LockOutlined></LockOutlined>
+                <VpnKeyOutlinedIcon/>
             </Avatar>
 
             <Typography className={classes.title} component="h3" variant="h5">
@@ -75,7 +75,8 @@ function RestorePasswordFrom(props) {
             </Typography>
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <InputField name="Email" label="Email" form={form} />
+                <InputField name="Email" label="Địa chỉ email" form={form} />
+                <p>Chúng tôi sẽ gửi một mã OTP đến địa chỉ email bạn đã đăng ký</p>
                 <Button
                     disabled={isSubmitting}
                     type="submit"

@@ -23,13 +23,17 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
             </div>
             <ul className='list_informations'>
                 {userGraded.map((item, index) => (
-                    <li key={index} className='information'>
+                    <li key={index} className='graded_information'>
                         <a href={`${match.url}/answer/${item.idMember}`}>
-                            <Avatar style={{ m: 1, backgroundColor: 'rgb(204, 204, 55)', color: 'black' }}>
+                            <Avatar style={{ m: 1, backgroundColor: 'rgb(4, 214, 46)'}}>
                                 <PermContactCalendarOutlinedIcon />
                             </Avatar>
                         </a>
-                        <div className='name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
+                        <div className='submit_information'>
+                            <div className='name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
+                            <div className='grade'>Điểm số: </div>
+                        </div>
+                        
                     </li>
                 ))}
 
@@ -42,7 +46,7 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
                 {userNotGraded.map((item, index) => (
                     <li key={index} className='submit_student_information'>
                         <a href={`${match.url}/answer/${item.idMember}`}>
-                            <Avatar style={{ m: 1, backgroundColor: 'rgb(219, 127, 52)', color: 'black' }}>
+                            <Avatar style={{ m: 1, backgroundColor: 'rgb(227, 227, 0)'}}>
                                 <PermIdentityOutlinedIcon />
                             </Avatar>
                         </a>

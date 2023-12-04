@@ -80,7 +80,7 @@ function SetPointUserForm(props) {
             </Typography>
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <InputField name='point' label='điểm' form={form} />
+                <InputField name='point' label='Nhập điểm số' form={form} />
                 <Button
                     disabled={isSubmitting}
                     type="submit"

@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Avatar, Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
-import { LockOutlined } from '@material-ui/icons';
+import MenuBookOutlinedIcon from '@material-ui/icons/MenuBookOutlined';
 import InputField from 'components/form-controls/InputField';
 import PasswordField from 'components/form-controls/PasswordField';
 import PropTypes from 'prop-types';
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
     avatar: {
         margin: '0 auto',
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor: 'rgb(0, 159, 212)',
     },
 
     title: {
@@ -69,7 +69,7 @@ function LoginForm(props) {
             {isSubmitting && <LinearProgress className={classes.progress} />}
 
             <Avatar className={classes.avatar}>
-                <LockOutlined></LockOutlined>
+                <MenuBookOutlinedIcon/>
             </Avatar>
 
             <Typography className={classes.title} component="h3" variant="h5">
@@ -77,8 +77,8 @@ function LoginForm(props) {
             </Typography>
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <InputField name="Email" label="Email" form={form} />
-                <PasswordField name="Password" label="Password" form={form} />
+                <InputField name="Email" label="Địa chỉ email" form={form} />
+                <PasswordField name="Password" label="Mật khẩu" form={form} />
                 <Button
                     disabled={isSubmitting}
                     type="submit"

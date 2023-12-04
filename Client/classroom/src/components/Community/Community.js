@@ -35,7 +35,7 @@ const Community = ({ classData }) => {
         {userHost.map((item, index) => (
           <li key={index} className='information'>
             <div className='lecturer_information'>
-              <Avatar style={{ m: 1, backgroundColor: 'rgb(204, 204, 55)', color: 'black' }}>
+              <Avatar style={{ m: 1, backgroundColor: 'rgb(0, 159, 212)' }}>
                 <PermContactCalendarOutlinedIcon />
               </Avatar>
               <div className='name'>{item.nameMember}</div>
@@ -52,7 +52,7 @@ const Community = ({ classData }) => {
         {userMember.map((item, index) => (
           <li key={index} className='information'>
             <div className='student_information'>
-              <Avatar style={{ m: 1, backgroundColor: 'rgb(219, 127, 52)',color: 'black' }}>
+              <Avatar style={{ m: 1, backgroundColor: 'deeppink'}}>
                 <PermIdentityOutlinedIcon />
               </Avatar>
               <div className='name'>{item.nameMember}</div>

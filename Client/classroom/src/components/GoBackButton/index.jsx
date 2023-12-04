@@ -1,3 +1,4 @@
+import { Button } from '@material-ui/core';
 import React from 'react';
 
 function GoBackButton() {
@@ -6,9 +7,9 @@ function GoBackButton() {
     };
 
     return (
-        <button onClick={goBack}>
+        <Button onClick={goBack} variant="contained" style={{ width: '12vw', borderRadius: 10 }}>
             Trở lại
-        </button>
+        </Button>
     );
 }
 

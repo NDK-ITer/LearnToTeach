@@ -19,47 +19,56 @@ const GardeUserAnswer = ({ classData, userHost, answerItem, exercise }) => {
         setOpen(false);
     };
     return (
-        <div className='submit_exercise'>
-            <div className='main_area'>
-                <Avatar style={{ backgroundColor: 'grey' }}>
-                    <EditNoteOutlinedIcon />
-                </Avatar>
-                <div className='upload_detail'>
-                    <h1 className='title_text1'>{exercise.name}</h1>
-                    <p>--- {userHost.nameMember} --- Thời gian giao {formatdate(exercise.createDate)} <span style={{ marginLeft: "10px" }}>{answerItem.point > 0 ? "đã chấm" : "chưa chấm"}</span> </p>
-                    <div className='content1'>
-                        <div className='content_text1'>
-                            <div className='deadline1'> Thời hạn {formatdate(exercise.deadline)} </div>
+        <div className='submit_exercise1'>
+            <div className='main_area1'>
+                <div className='exercise_title1'>
+                    <Avatar style={{ backgroundColor: 'grey', marginTop: '10px' }}>
+                        <EditNoteOutlinedIcon />
+                    </Avatar>
+                    <div className='upload_detail1'>
+                        <h1 className='title_text2'>{exercise.name}</h1>
+                        <p style={{fontSize: '14px'}}>--- {userHost.nameMember} --- Thời gian giao {formatdate(exercise.createDate)} <span style={{ marginLeft: "15px" }}>{answerItem.point > 0 ? "Đã chấm" : "Chưa chấm"}</span> </p>
+                    </div>
+                </div>
+                <div className='upload_detail1'>
+                    <div className='content2'>
+                        <div className='content_text2'>
+                            <div className='deadline2'> Thời hạn {formatdate(exercise.deadline)} </div>
                             <div>{answerItem.point}/10 Điểm</div>
                         </div>
-                        <div className='content_detail1'>
+                        <div className='content_detail2'>
                             <p>
                                 {exercise.description}
                             </p>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <h1>câu trả lời:</h1>
-                    <p>ngày trả lời:{formatdate(answerItem.dateAnswer)}</p>
+                </div>              
+            </div>
+            <div className='upload_area1'>
+                <div className='upload_exercise1'>
+                    <div>
+                        <p style={{fontSize: '22px'}}>Câu trả lời:</p>
+                        <p style={{fontSize: '13px'}}>Thời gian trả lời: {formatdate(answerItem.dateAnswer)}</p>
+                    </div>
                     <div>
                         <p>{answerItem.content}</p>
-                        <a href={answerItem.linkFile} target='_banlk'>file</a>
+                        <a href={answerItem.linkFile} target='_banlk'>Đính kèm tệp</a>
+                    </div>
+                    <div className='group_button1'>                        
+                        <Button
+                            onClick={handleClickOpen}
+                            variant="contained"
+                            disabled={answerItem.point > 0}
+                            style={{ marginBottom: "5px", borderRadius: 10, width: '12vw'}}
+                        >
+                            chấm điểm
+                        </Button>
+                        <GoBackButton />
+                        
                     </div>
                 </div>
-                <Button
-                    onClick={handleClickOpen}
-                    variant="contained"
-                    disabled={answerItem.point > 0}
-                    style={{ mb: 2, borderRadius: 10, mt: 5 }}
-                >
-                    chấm điểm
-                </Button>
-                <div>
-                    <GoBackButton />
-                </div>
-            </div>
-
+            </div>           
+            
             <Dialog
                 disableBackdropClick
                 disableEscapeKeyDown
