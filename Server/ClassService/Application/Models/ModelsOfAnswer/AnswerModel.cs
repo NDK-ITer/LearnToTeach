@@ -8,6 +8,7 @@ namespace Application.Models.ModelsOfAnswer
     {
         public string IdMember { get; set; }
         public DateTime DateAnswer { get; set; }
+        public DateTime DateUpdateAnswer { get; set; }
         public string? Content { get; set; }
         public string? LinkFile { get; set; }
         public float? Point { get; set; }
@@ -18,6 +19,7 @@ namespace Application.Models.ModelsOfAnswer
         public AnswerModel(Answer answer)
         {
             IdMember = answer.IdMember;
+            DateUpdateAnswer = answer.DateUpdateAnswer;
             DateAnswer = answer.DateAnswer;
             Content = answer.Content;
             Point = answer.Point;

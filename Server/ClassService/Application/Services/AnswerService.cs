@@ -35,6 +35,7 @@ namespace Application.Services
                     IdMember = uploadAnswer.IdMember,
                     Content = uploadAnswer.Content,
                     DateAnswer = DateTime.Now,
+                    DateUpdateAnswer = DateTime.Now,
                     LinkFile = uploadAnswer.LinkFile,
                     FileName = uploadAnswer.FileName,
                 };
@@ -74,6 +75,7 @@ namespace Application.Services
                 {
                     Content = answer.Content,
                     DateAnswer = answer.DateAnswer,
+                    DateUpdateAnswer = answer.DateUpdateAnswer,
                     LinkFile = $"{answer.LinkFile}{answer.FileName}",
                 };
                 return new Tuple<string, AnswerModel?>("Found", answerModel);
@@ -96,6 +98,7 @@ namespace Application.Services
                     {
                         Content = item.Content,
                         DateAnswer = item.DateAnswer,
+                        DateUpdateAnswer = item.DateUpdateAnswer,
                         LinkFile = $"{item.LinkFile}{item.FileName}",
                     });
                 }
@@ -112,9 +115,11 @@ namespace Application.Services
             try
             {
                 var answerUpdate = _unitOfWork.answerRepository.Find(p => p.IdExercise == updateAnswer.IdExercise && p.IdMember == updateAnswer.IdMember).FirstOrDefault();
+                if (answerUpdate != null) return new Tuple<string, Answer?>("Not Found",null);
                 if (!updateAnswer.Content.IsNullOrEmpty()) answerUpdate.Content = updateAnswer.Content;
                 if (!updateAnswer.LinkFile.IsNullOrEmpty()) answerUpdate.LinkFile = updateAnswer.LinkFile;
                 if (!updateAnswer.FileName.IsNullOrEmpty()) answerUpdate.FileName = updateAnswer.FileName;
+                answerUpdate.DateUpdateAnswer = DateTime.Now;
                 _unitOfWork.answerRepository.Update(answerUpdate);
                 _unitOfWork.SaveChange();
                 return new Tuple<string, Answer?>("Successful", answerUpdate);
