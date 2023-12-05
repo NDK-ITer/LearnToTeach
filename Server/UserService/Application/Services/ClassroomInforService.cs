@@ -4,6 +4,8 @@ using Infrastructure.Context;
 using Infrastructure.Repositories;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
+using System.Collections.Generic;
+using System;
 
 namespace Application.Services
 {
@@ -71,7 +73,7 @@ namespace Application.Services
             try
             {
                 if (idUser.IsNullOrEmpty() && idClassroom.IsNullOrEmpty()) return 0;
-                var classroom = _unitOfWork.classroomRepository.GetClassroomInfor(p => p.IdClassroom == idClassroom && p.IdUser == idUser).FirstOrDefault();
+                var classroom = _unitOfWork.classroomRepository.Find(p => p.IdClassroom == idClassroom && p.IdUser == idUser).FirstOrDefault();
                 if (classroom != null)
                 {
                     _unitOfWork.classroomRepository.Remove(classroom);
@@ -91,8 +93,8 @@ namespace Application.Services
         {
             try
             {
-                if (!idClassroom.IsNullOrEmpty()) return 0;
-                var classroom = _unitOfWork.classroomRepository.GetClassroomInfor(p => p.IdClassroom == idClassroom);
+                if (idClassroom.IsNullOrEmpty()) return 0;
+                var classroom = _unitOfWork.classroomRepository.Find(p => p.IdClassroom == idClassroom);
                 if (classroom != null)
                 {
                     _unitOfWork.classroomRepository.RemoveRange(classroom);

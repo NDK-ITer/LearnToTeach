@@ -246,8 +246,20 @@ namespace ClassServer.Controllers
         {
             try
             {
+                var resultMessage = new ResultStatus()
+                {
+                    Status = 0,
+                    Message=string.Empty
+                };
+
                 var check = _unitOfWork_ClassroomService._classroomService.RemoveMember(idClassroom, idMember);
-                if (check != 1) return BadRequest();
+                if (check == 1)
+                {
+                    resultMessage.Status = 1;
+                    resultMessage.Message = "deleted classroom Member successfull";
+                    return Ok(resultMessage);
+                };
+                resultMessage.Message = "deleted classroom Member fail";
                 return Ok();
             }
             catch (Exception e)
