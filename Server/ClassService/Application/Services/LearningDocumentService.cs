@@ -8,7 +8,8 @@ namespace Application.Services
 {
     public interface ILearningDocumentService
     {
-        Tuple<string, LearningDocument> AddLearningDocument(AddLearningDocumentModel addDocument);
+        Tuple<string, LearningDocument?> AddLearningDocument(AddLearningDocumentModel addDocument);
+        Tuple<string, LearningDocument?> GetLearningDocument(string nameFile);
         Tuple<string, LearningDocument> UpdateLearningDocument(UpdateLearningDocumentModel updateDocument);
         Tuple<bool, string> DeleteLearningDocument(string nameFile);
     }
@@ -69,6 +70,25 @@ namespace Application.Services
             {
 
                 return new Tuple<bool, string>(false, e.Message);
+            }
+        }
+
+        public Tuple<string, LearningDocument?> GetLearningDocument(string nameFile)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(nameFile)) return new Tuple<string, LearningDocument?>("No Parameter", null);
+                var doc = _unitOfWork.learningDocumentRepository.GetById(nameFile);
+                if(doc != null)
+                {
+                    return new Tuple<string, LearningDocument?>("Successful", doc);
+                }
+                return new Tuple<string, LearningDocument?>("Not found", null);
+            }
+            catch (Exception e)
+            {
+
+                return new Tuple<string, LearningDocument>(e.Message, null);
             }
         }
 

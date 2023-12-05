@@ -143,6 +143,52 @@ namespace ClassServer.Controllers
             }
         }
 
+        [HttpDelete]
+        [HttpOptions]
+        [Route("delete-exercise")]
+        public ActionResult DeleteExercise(string idExercise, string idMember, string idClassroom)
+        {
+            var result = new ResultStatus()
+            {
+                Status = 0,
+                Message = ""
+            };
+            try
+            {
+                if (idExercise.IsNullOrEmpty() || idMember.IsNullOrEmpty())
+                {
+                    result.Message = "No parameter";
+                    return Ok(result);
+                }
+                var checkHost = _unitOfWork_ClassroomService._memberService.IsHost(idMember, idClassroom);
+                if (!checkHost.Item1)
+                {
+                    result.Status = 0;
+                    result.Message = checkHost.Item2;
+                    return Ok(result);
+                }
+                var exercise = _unitOfWork_ClassroomService._exerciseService.GetExerciseById(idExercise);
+                
+                var deleteCheck = _unitOfWork_ClassroomService._exerciseService.DeleteExercise(idExercise);
+                if (deleteCheck.Item1 == false)
+                {
+                    result.Message = deleteCheck.Item2;
+                    return Ok(result);
+                }
+                _documentFile.DeleteFile("Documents", exercise.FileName);
+                result.Status = 1;
+                result.Message = "Successful";
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                result.Status = -1;
+                result.Message = e.Message;
+                return BadRequest(result);
+            }
+        }
+
+
         [HttpPost]
         [HttpOptions]
         [Route("upload-answer")]
@@ -341,14 +387,6 @@ namespace ClassServer.Controllers
                     result.Message = "Not Found this exercise";
                     return Ok();
                 }
-                else
-                {
-                    if (exercise.DeadLine <= DateTime.Now)
-                    {
-                        result.Message = "You have missed this Exercise";
-                        return Ok(result);
-                    }
-                }
                 var answer = _unitOfWork_ClassroomService._answerService.GetById(idExercise, idMember);
                 if (answer.Item2 == null)
                 {
@@ -470,6 +508,49 @@ namespace ClassServer.Controllers
                 result.Status = -1;
                 result.Message = e.Message;
                 return Ok(result);
+            }
+        }
+
+        [HttpDelete]
+        [HttpOptions]
+        [Route("delete-document")]
+        public ActionResult DeleteDoc(string nameFile)
+        {
+            var result = new ResultStatus()
+            {
+                Status = 0,
+                Message = ""
+            };
+            try
+            {
+                if (nameFile.IsNullOrEmpty())
+                {
+                    result.Message = "No parameter";
+                    return Ok(result);
+                }
+                var doc = _unitOfWork_ClassroomService._learningDocumentService.GetLearningDocument(nameFile);
+                if (doc.Item2 == null)
+                {
+                    result.Message = "Not Found this document";
+                    return Ok();
+                }
+                
+                var deleteCheck = _unitOfWork_ClassroomService._learningDocumentService.DeleteLearningDocument(nameFile);
+                if (deleteCheck.Item1 == false)
+                {
+                    result.Message = deleteCheck.Item2;
+                    return Ok(result);
+                }
+                _documentFile.DeleteFile("Documents", doc.Item2.NameFile);
+                result.Status = 1;
+                result.Message = "Successful";
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                result.Status = -1;
+                result.Message = e.Message;
+                return BadRequest(result);
             }
         }
 
