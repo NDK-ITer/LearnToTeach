@@ -44,7 +44,7 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
                 </div>
             </div>}
             {!isexerciseGraded && <div>
-                {/* <div className='role'>
+                <div className='role'>
                     <h1>Sinh viên đã chấm</h1>
                     <div className='quantity'>({userGraded.length}) sinh viên</div>
                 </div>
@@ -64,7 +64,7 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
                         </li>
                     ))}
 
-                </ul> */}
+                </ul>
                 <div className='role'>
                     <h1>Sinh viên chưa chấm</h1>
                     <div className='quantity'>({userNotGraded.length}) sinh viên</div>

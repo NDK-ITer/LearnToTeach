@@ -301,7 +301,7 @@
         "Role": "USER"
       }
     },
-    //remove member
+    //leave member
     {
       "UpstreamPathTemplate": "/classroom/leave-classroom",
       "UpstreamHttpMethod": [ "Post", "Options" ],
