@@ -11,7 +11,8 @@ namespace Application.Services
     {
         Tuple<string, Answer?> CreateAnswer(CreateAnswerModel uploadAnswer);
         Tuple<string, List<AnswerModel>?> GetListAnswer(string idExercise);
-        Tuple<string, AnswerModel?> GetAnswerById(string idExercise, string idMember);
+        Tuple<string, AnswerModel?> GetAnswerModelById(string idExercise, string idMember);
+        Tuple<string, Answer?> GetById(string idExercise, string idMember);
         Tuple<string, Answer?> UpdateAnswer(UpdateAnswerModel updateAnswer);
         Tuple<string, Answer?> UpdateAnswer(string idExercise, string idMember, float? point);
         Tuple<bool, string> DeleteAnswer(string idExercise, string idMember);
@@ -65,7 +66,7 @@ namespace Application.Services
             }
         }
 
-        public Tuple<string, AnswerModel?> GetAnswerById(string idExercise, string idMember)
+        public Tuple<string, AnswerModel?> GetAnswerModelById(string idExercise, string idMember)
         {
             try
             {
@@ -83,6 +84,20 @@ namespace Application.Services
             catch (Exception)
             {
                 return new Tuple<string, AnswerModel?>("Error!", null);
+            }
+        }
+
+        public Tuple<string, Answer?> GetById(string idExercise, string idMember)
+        {
+            try
+            {
+                var answer = _unitOfWork.answerRepository.Find(p => p.IdExercise == idExercise && p.IdMember == idMember).FirstOrDefault();
+                if (answer == null) return new Tuple<string, Answer?>("Not found", null);
+                return new Tuple<string, Answer?>("Found", answer);
+            }
+            catch (Exception)
+            {
+                return new Tuple<string, Answer?>("Error!", null);
             }
         }
 

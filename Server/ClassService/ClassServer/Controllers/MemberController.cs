@@ -235,7 +235,7 @@ namespace ClassServer.Controllers
                 var id = Guid.NewGuid().ToString();
                 var fileName = string.Empty;
 
-                var checkUpdate = _unitOfWork_ClassroomService._answerService.UpdateAnswer(setPoint.IdExercise, setPoint.IdMember,setPoint.Point);
+                var checkUpdate = _unitOfWork_ClassroomService._answerService.UpdateAnswer(setPoint.IdExercise, setPoint.IdMember, setPoint.Point);
                 if (checkUpdate.Item2 != null)
                 {
                     result.Status = 1;
@@ -282,7 +282,7 @@ namespace ClassServer.Controllers
                     result.Message = "You are past the deadline of this exercise";
                     return Ok(result);
                 }
-                var answer = _unitOfWork_ClassroomService._answerService.GetAnswerById(updateAnswer.IdExercise, updateAnswer.IdMember);
+                var answer = _unitOfWork_ClassroomService._answerService.GetAnswerModelById(updateAnswer.IdExercise, updateAnswer.IdMember);
                 if (answer.Item2 == null)
                 {
                     result.Status = 0;
@@ -313,6 +313,62 @@ namespace ClassServer.Controllers
             }
             catch (Exception e)
             {
+                result.Message = e.Message;
+                return BadRequest(result);
+            }
+        }
+
+        [HttpDelete]
+        [HttpOptions]
+        [Route("delete-answer")]
+        public ActionResult DeleteAnswer(string idExercise, string idMember)
+        {
+            var result = new ResultStatus()
+            {
+                Status = 0,
+                Message = ""
+            };
+            try
+            {
+                if (idExercise.IsNullOrEmpty() || idMember.IsNullOrEmpty())
+                {
+                    result.Message = "No parameter";
+                    return Ok(result);
+                }
+                var exercise = _unitOfWork_ClassroomService._exerciseService.GetExerciseById(idExercise);
+                if (exercise == null)
+                {
+                    result.Message = "Not Found this exercise";
+                    return Ok();
+                }
+                else
+                {
+                    if (exercise.DeadLine <= DateTime.Now)
+                    {
+                        result.Message = "You have missed this Exercise";
+                        return Ok(result);
+                    }
+                }
+                var answer = _unitOfWork_ClassroomService._answerService.GetById(idExercise, idMember);
+                if (answer.Item2 == null)
+                {
+                    result.Message = answer.Item1;
+                    return Ok(result);
+                }
+                var deleteCheck = _unitOfWork_ClassroomService._answerService.DeleteAnswer(idExercise, idMember);
+                if (deleteCheck.Item1 == false)
+                {
+                    result.Message = deleteCheck.Item2;
+                    return Ok(result);
+                }
+                _documentFile.DeleteFile("Documents",answer.Item2.FileName);
+                result.Status = 1;
+                result.Message = "Successful";
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                result.Status = -1;
                 result.Message = e.Message;
                 return BadRequest(result);
             }
@@ -352,7 +408,7 @@ namespace ClassServer.Controllers
                         NameFile = fileName,
                         LinkFile = _address.Value.ThisServiceAddress
                     };
-                   var checkAdd = _unitOfWork_ClassroomService._learningDocumentService.AddLearningDocument(addDoc);
+                    var checkAdd = _unitOfWork_ClassroomService._learningDocumentService.AddLearningDocument(addDoc);
                     if (checkAdd.Item2 != null)
                     {
                         result.Status = 1;
@@ -451,7 +507,7 @@ namespace ClassServer.Controllers
                     result.Message = checkAdd.Item1;
                     return Ok(result);
                 }
-                
+
                 result.Status = 0;
                 result.Message = "parameter is null";
                 return Ok(result);
