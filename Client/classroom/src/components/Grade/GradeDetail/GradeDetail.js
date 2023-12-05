@@ -18,7 +18,7 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
     return (
         <div>
             <div className='role'>
-                <h1>Sinh viên đã chấm</h1>
+                <h1>Bảng điểm</h1>
                 <div className='quantity'>({userGraded.length}) sinh viên</div>
             </div>
             <ul className='list_informations'>

@@ -58,12 +58,6 @@ const Community = ({ classData }) => {
               <div className='name'>{item.nameMember}</div>
             </div>           
             <div>
-              <Button startIcon={<LockOpenOutlinedIcon/>} style={{marginRight: '10px'}}>
-                Mở khóa
-              </Button>
-              <Button startIcon={<LockOutlinedIcon/>} style={{marginRight: '10px'}}>
-                Khóa
-              </Button>
               <Button startIcon={<CancelOutlinedIcon/>} style={{marginRight: '10px'}}>
                 Xóa
               </Button>

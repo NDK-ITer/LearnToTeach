@@ -50,16 +50,7 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user,userHost, }) => 
               </p>
             </div>
           </div>
-        </div>
-        <div>
-          {getPointForIdMember(user.id) != null && <div>
-            <h1>Câu trả lời:</h1>
-            <div>
-              <p>{answer.content}</p>
-              <a href={answer.linkFile} target='_banlk'>File</a>
-            </div>
-          </div>}
-        </div>
+        </div>        
       </div>
       <div className='upload_area'>
         <div className='upload_exercise'>
@@ -78,7 +69,18 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user,userHost, }) => 
               Nộp bài tập
             </Button>
           </div>
-
+          <div className='your_exercise'>
+            {getPointForIdMember(user.id) != null && <div>
+              <div>
+                <p style={{fontSize: '22px'}}>Câu trả lời:</p>
+                <p style={{fontSize: '13px'}}>Thời gian trả lời: </p>
+              </div>
+              <div style={{fontSize: '16px'}}>
+                <p>{answer.content}</p>
+                <a href={answer.linkFile} target='_banlk'>Đính kèm tệp</a>
+              </div>
+            </div>}
+          </div>
         </div>
       </div>
 
