@@ -19,12 +19,18 @@
     background-color:rgb(229, 229, 229);
     border-radius: 20px;
 }
-.doc_infomation {
+.doc_information {
     justify-content: space-between;
     display: flex;
     width: 90vw;
 }
 .doc_name {
+    margin-left: 20px;
+    font-size: 15px;
+    color:rgb(27, 27, 27);
+    padding-top: 8px;
+}
+.doc_name1{
     margin-left: 20px;
     font-size: 15px;
     color:rgb(27, 27, 27);
@@ -34,7 +40,16 @@
     color: rgba(0,0,0,.549);
     margin-left: 1rem;
     min-width: 0;
-    padding-right: 0.25rem;
+    padding-right: 1.5rem;
+    margin-right: -0.25rem;
+    padding-top: 8px;
+}
+.doc_upload1 {
+    box-sizing: border-box;
+    color: rgba(0,0,0,.549);
+    margin-left: 1rem;
+    min-width: 0;
+    padding-right: 1.5rem;
     margin-right: -0.25rem;
 }
 .btn_create {

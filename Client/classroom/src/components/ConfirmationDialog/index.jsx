@@ -9,16 +9,16 @@ const ConfirmationDialog = ({ open, onClose, onConfirm, message }) => {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Confirmation</DialogTitle>
+      <DialogTitle>Thông báo xác nhận</DialogTitle>
       <DialogContent dividers>
         <p>{message}</p>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleConfirm} color="primary">
-          Yes
+          Có
         </Button>
         <Button onClick={onClose} color="secondary">
-          No
+          Không
         </Button>
       </DialogActions>
     </Dialog>

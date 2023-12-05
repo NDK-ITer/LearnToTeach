@@ -92,11 +92,7 @@ const Community = ({ classData }) => {
               <div className='name'>{item.nameMember}</div>
             </div>
             <div>
-<<<<<<< HEAD
-              <Button startIcon={<CancelOutlinedIcon/>} style={{marginRight: '10px'}}>
-=======
               {isUserHost && <Button onClick={() => handleIdMenber(item.idMember)} startIcon={<CancelOutlinedIcon />} style={{ marginRight: '10px' }}>
->>>>>>> 2168e06050afb6175439fa2ab50dfb1f9aaae854
                 Xóa
               </Button>}
             </div>
@@ -107,7 +103,7 @@ const Community = ({ classData }) => {
         open={dialogOpenMember}
         onClose={handleCloseMember}
         onConfirm={handledeleteMember}
-        message="Are you sure you want to Notify?"
+        message="Bạn có chắc muốn xóa sinh viên này ra khỏi lớp?"
       />
     </div>
   )
