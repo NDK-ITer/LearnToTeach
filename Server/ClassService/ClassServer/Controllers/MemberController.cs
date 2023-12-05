@@ -9,10 +9,8 @@ using Application.Requests.Notify;
 using Application.Services;
 using ClassServer.FileMethods;
 using ClassServer.Models;
-using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System.Net.WebSockets;
 using XAct;
 using ResultStatus = ClassServer.Models.ResultStatus;
 

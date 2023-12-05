@@ -41,11 +41,15 @@ const PersonInformation = () =>{
     }
 
     const startAudio = () =>{
-        const stream = navigator.mediaDevices.getUserMedia({ audio: true})
-        if (videoRef.current) {
-            videoRef.current.srcObject = stream;
-            videoRef.current.play();
-          }
+        navigator.mediaDevices.getUserMedia({ audio: true})
+            .then((stream) => 
+            {
+                audioRef.current.srcObject = stream;
+                setAudioState("on")
+            })
+            .catch((error) => 
+            {
+            });
     }
 
     const stopVideo = () => {
@@ -71,6 +75,7 @@ const PersonInformation = () =>{
     return<div>
         <div>
             <video ref={videoRef} autoPlay></video>
+            <audio ref={audioRef} autoPlay></audio>
         </div>
         {cameraState !== "on"
             ?<button type='button' onClick={startVideo}>turn on camera</button>

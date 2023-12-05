@@ -12,6 +12,7 @@ namespace Infrastructure.Configurations
             builder.HasKey(pk => pk.NameFile);
             builder.Property(p => p.LinkFile).HasMaxLength(200);
             builder.Property(p => p.Description).HasMaxLength(200);
+            builder.Property(p => p.UploadDate).HasDefaultValue(DateTime.Now);
         }
     }
 }
