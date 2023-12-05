@@ -11,6 +11,7 @@ namespace Application.Services
     {
         Exercise GetExerciseById(string idExercise);
         Tuple<string,Exercise?> UpdateExercise(UpdateExerciseModel updateAnswerModel);
+        Tuple<bool,string> DeleteExercise(string idExercise);
     }
     public class ExerciseService : IExerciseService
     {
@@ -18,6 +19,23 @@ namespace Application.Services
         public ExerciseService(ClassroomDbContext context, IMemoryCache memoryCache)
         {
             _unitOfWork = new UnitOfWork(context, memoryCache);
+        }
+
+        public Tuple<bool, string> DeleteExercise(string idExercise)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(idExercise)) return new Tuple<bool, string>(false, "No Parameter");
+                var exercise = _unitOfWork.exerciseRepository.GetById(idExercise);
+                _unitOfWork.exerciseRepository.Remove(exercise);
+                _unitOfWork.SaveChange();
+                return new Tuple<bool, string>(true, "Successful");
+            }
+            catch (Exception e)
+            {
+
+                return new Tuple<bool, string>(false, e.Message);
+            }
         }
 
         public Exercise? GetExerciseById(string idExercise)
