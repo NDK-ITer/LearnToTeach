@@ -89,12 +89,14 @@ const Document = ({ classData }) => {
                                     <AssignmentOutlinedIcon />
                                 </Avatar>
                             </a>
-                            <div className='doc_infomation'>
+                            <div className='doc_information'>
                                 <div className='doc_name'>{item.description}</div>
-                                <div className='doc_upload'>Thời gian đăng</div>
-                                {isUserHost && <Button variant="contained" onClick={() => handleIdDocument(item.nameFile)} color="secondary" startIcon={<ExitToAppOutlined />} style={{ marginBottom: '20px' }}>
-                                    xóa
-                                </Button>}
+                                <div style={{display: 'flex'}}>
+                                    <div className='doc_upload'>Thời gian đăng</div>
+                                    {isUserHost && <Button variant="contained" onClick={() => handleIdDocument(item.nameFile)} color="secondary" startIcon={<ExitToAppOutlined />}>
+                                        xóa
+                                    </Button>}
+                                </div>
                             </div>
                         </li>
                     ))}
@@ -112,7 +114,10 @@ const Document = ({ classData }) => {
                                     <AssignmentOutlinedIcon />
                                 </Avatar>
                             </a>
-                            <div className='doc_name'>{item.description}</div>
+                            <div className='doc_information'>
+                                <div className='doc_name1'>{item.description}</div>
+                                <div className='doc_upload1'>Thời gian đăng</div>
+                            </div>
                         </li>
                     ))}
                 </ul>
@@ -137,7 +142,7 @@ const Document = ({ classData }) => {
                 open={dialogOpenDocument}
                 onClose={handleCloseDocument}
                 onConfirm={handledeleteDocument}
-                message="Are you sure you want to delete document?"
+                message="Bạn có chắc muốn xóa tài liệu này?"
             />
         </div>
 

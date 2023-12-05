@@ -20,7 +20,7 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
         <div>
             {isexerciseGraded && <div>
                 <div className='role'>
-                    <h1>bảng điểm</h1>
+                    <h1>Bảng điểm</h1>
                     <div className='quantity'>({userGraded.length}) sinh viên</div>
                 </div>
                 <ul className='list_informations'>
@@ -33,17 +33,18 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
                             </a>
                             <div className='submit_information'>
                                 <div className='name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
-                                <div className='grade'>Điểm số:{item.point} </div>
+                                <div className='grade'>Điểm số: {item.point} </div>
                             </div>
-
                         </li>
                     ))}
 
                 </ul>
-                <GoBackButton />
+                <div style={{margin: '0px 1050px'}}>
+                    <GoBackButton/>
+                </div>
             </div>}
             {!isexerciseGraded && <div>
-                <div className='role'>
+                {/* <div className='role'>
                     <h1>Sinh viên đã chấm</h1>
                     <div className='quantity'>({userGraded.length}) sinh viên</div>
                 </div>
@@ -57,13 +58,13 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
                             </a>
                             <div className='submit_information'>
                                 <div className='name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
-                                <div className='grade'>Điểm số:{item.point} </div>
+                                <div className='grade'>Điểm số: {item.point} </div>
                             </div>
 
                         </li>
                     ))}
 
-                </ul>
+                </ul> */}
                 <div className='role'>
                     <h1>Sinh viên chưa chấm</h1>
                     <div className='quantity'>({userNotGraded.length}) sinh viên</div>
@@ -85,7 +86,10 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
                     ))}
 
                 </ul>
-                <GoBackButton />
+                <div style={{margin: '0px 1050px'}}>
+                    <GoBackButton/>
+                </div>
+
             </div>}
         </div>
 

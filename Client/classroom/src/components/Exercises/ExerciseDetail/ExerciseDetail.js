@@ -7,6 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FactCheckOutlinedIcon from '@material-ui/icons/FaceOutlined';
 import formatDate from 'constants/formatdate';
 import Role from 'constants/role';
+import GoBackButton from 'components/GoBackButton';
 
 const ExerciseDetail = ({ exercise, classData, userHost }) => {
 
@@ -55,6 +56,9 @@ const ExerciseDetail = ({ exercise, classData, userHost }) => {
                             </li>
                         ))}
                     </ul>
+                </div>
+                <div style={{margin: '0px 900px'}}>
+                    <GoBackButton/>
                 </div>
             </div>
 

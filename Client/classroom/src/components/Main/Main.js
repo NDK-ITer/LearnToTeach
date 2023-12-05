@@ -208,7 +208,7 @@ const Main = ({ classData }) => {
                   <div>
                     <p>{item.nameNotify}</p>
                     <p>{item.description}</p>
-                    {isUserHost && <Button variant="contained" onClick={() => handleIdNotify(item.idNotify)} color="secondary" startIcon={<ExitToAppOutlinedIcon />} style={{ marginBottom: '20px' }}>
+                    {isUserHost && <Button variant="contained" onClick={() => handleIdNotify(item.idNotify)} color="secondary" startIcon={<ExitToAppOutlinedIcon />}>
                       xóa thông báo
                     </Button>}
                   </div>

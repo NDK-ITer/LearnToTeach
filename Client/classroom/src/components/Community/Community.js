@@ -103,7 +103,7 @@ const Community = ({ classData }) => {
         open={dialogOpenMember}
         onClose={handleCloseMember}
         onConfirm={handledeleteMember}
-        message="Are you sure you want to Notify?"
+        message="Bạn có chắc muốn xóa sinh viên này ra khỏi lớp?"
       />
     </div>
   )
