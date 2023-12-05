@@ -12,10 +12,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { Close, ExitToAppOutlined } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 import ConfirmationDialog from 'components/ConfirmationDialog';
-
+import formatDate from 'constants/formatdate';
+import { useSnackbar } from 'notistack';
 
 const Document = ({ classData }) => {
     const { user } = useLocalContext();
+    const { enqueueSnackbar } = useSnackbar();
     const [isUserHost, setisUserHost] = useState(false);
     const [isUserMember, setisUserMember] = useState(false);
     const [document, setdocument] = useState([]);
@@ -33,7 +35,7 @@ const Document = ({ classData }) => {
             const result = await classApi.getClassById(params);
             setisUserHost(result.listMembers.filter(x => x.role == Role.HOST && user.id == x.idMember).length > 0 ? true : false);
             setisUserMember(result.listMembers.filter(x => x.role == Role.MEMBER && user.id == x.idMember).length > 0 ? true : false);
-            setdocument(result.listDocument);
+            setdocument(result.listDocument.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate)));
         };
         fetchData();
     }, []);
@@ -49,23 +51,20 @@ const Document = ({ classData }) => {
         setDialogOpenDocument(false);
     };
     const handledeleteDocument = async () => {
-        // try {
-        //     const formData = new FormData()
-        //     formData.append('idClassroom', classData.idClassroom);
-        //     formData.append('idMember', userHost.idMember);
-        //     formData.append('IdNotify', idNotify);
-        //     const result = await classApi.dele(formData);
-        //     if (result.status == 1) {
-        //         enqueueSnackbar(result.message, { variant: 'success' });
-        //         window.location.reload();
-        //     } else {
-        //         enqueueSnackbar(result.message, { variant: 'error' });
-        //     }
+        try {
+            const params = new URLSearchParams([['nameFile', idDocument]]);
+            const result = await classApi.deletedocument(params);
+            if (result.status == 1) {
+                enqueueSnackbar(result.message, { variant: 'success' });
+                window.location.reload();
+            } else {
+                enqueueSnackbar(result.message, { variant: 'error' });
+            }
 
-        // } catch (error) {
-        //     console.log('Failed to login:', error);
-        //     enqueueSnackbar(error.message, { variant: 'error' });
-        // }
+        } catch (error) {
+            console.log('Failed to login:', error);
+            enqueueSnackbar(error.message, { variant: 'error' });
+        }
     }
     return (
         <div>
@@ -91,8 +90,8 @@ const Document = ({ classData }) => {
                             </a>
                             <div className='doc_information'>
                                 <div className='doc_name'>{item.description}</div>
-                                <div style={{display: 'flex'}}>
-                                    <div className='doc_upload'>Thời gian đăng</div>
+                                <div style={{ display: 'flex' }}>
+                                    <div className='doc_upload'>Thời gian đăng: {formatDate(item.uploadDate)}</div>
                                     {isUserHost && <Button variant="contained" onClick={() => handleIdDocument(item.nameFile)} color="secondary" startIcon={<ExitToAppOutlined />}>
                                         xóa
                                     </Button>}
@@ -116,7 +115,7 @@ const Document = ({ classData }) => {
                             </a>
                             <div className='doc_information'>
                                 <div className='doc_name1'>{item.description}</div>
-                                <div className='doc_upload1'>Thời gian đăng</div>
+                                <div className='doc_upload1'>Thời gian đăng: {formatDate(item.uploadDate)}</div>
                             </div>
                         </li>
                     ))}

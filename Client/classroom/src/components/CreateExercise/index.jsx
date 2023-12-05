@@ -20,9 +20,11 @@ function CreateExercise({ classData }) {
             unwrapResult(resultAction);
             const check = resultAction.payload
             console.log(resultAction.payload)
-            if (typeof check.id !== 'undefined') {
+            if ( check.status == 1) {
                 enqueueSnackbar(check.message, { variant: 'success' });
-            } else if (typeof check.status != 'undefined') {
+                history.push(`/${classData.idClassroom}/exercises`)
+                window.location.reload()
+            } else {
                 enqueueSnackbar(check.message, { variant: 'error' });
             }
 

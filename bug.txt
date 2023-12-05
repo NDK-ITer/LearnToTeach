@@ -1,0 +1,4 @@
+bug:
+1: khi rời khỏi lớp ->dữ liệu vẫn còn nằm trong lớp học
+2: khi xóa member ra lớp ->dữ liệu lớp vẫn còn trong member
+3:không cập nhật state true cho api Classroom/id?idClassroom=YjcxNzk0 khi tạo lớp học riêng tư

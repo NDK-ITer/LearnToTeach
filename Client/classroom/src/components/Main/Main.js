@@ -21,6 +21,7 @@ const Main = ({ classData }) => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [isUserHost, setisUserHost] = useState(false);
+  const [isClassPrivate, setisClassPrivate] = useState(false);
   const [userHost, setuserHost] = useState([]);
   const [isUserMember, setisUserMember] = useState(false);
   const [notify, setnotify] = useState([]);
@@ -33,10 +34,11 @@ const Main = ({ classData }) => {
       const result = await classApi.getClassById(params);
       setisUserHost(result.listMembers.filter(x => x.role == Role.HOST && user.id == x.idMember).length > 0 ? true : false);
       setuserHost(result.listMembers.find(x => x.role == Role.HOST));
+      setisClassPrivate(result.key)
       setisUserMember(result.listMembers.filter(x => x.role == Role.MEMBER && user.id == x.idMember).length > 0 ? true : false);
       setnotify(result.listNotify.sort((a, b) => new Date(b.createDate) - new Date(a.createDate)));
-      setListExerciceUserhost(result.listExercises.filter(x => x.listAnswer.filter(c => c.point != null).length < x.listAnswer.length && new Date(x.deadline) >= currentDate).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)).slice(0, 2));
-      setListExerciceUserMember(result.listExercises.filter(x => x.listAnswer.filter(c => c.point == null).length > 0 && new Date(x.deadline) >= currentDate).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)).slice(0, 2))
+      setListExerciceUserhost(result.listExercises.filter(x => (x.listAnswer.filter(c => c.point != null).length < x.listAnswer.length || x.listAnswer.filter(c => c.point != null).length == 0) && new Date(x.deadline) >= currentDate).sort((a, b) => new Date(a.deadline) - new Date(b.deadline)).slice(0, 5));
+      setListExerciceUserMember(result.listExercises.filter(x => (x.listAnswer.filter(c => c.idMember == user.id).length >= 0) && new Date(x.deadline) >= currentDate).sort((a, b) => new Date(a.deadline) - new Date(b.deadline)).slice(0, 5))
     };
     fetchData();
   }, []);
@@ -163,6 +165,13 @@ const Main = ({ classData }) => {
               <div className="main__wrapper2">
                 <em className="main__code">Mã lớp học :</em>
                 <div className="main__id">{classData.idClassroom}</div>
+                {isUserHost &&
+                  <div>
+                    <em className="main__code">Mã khóa lớp học :</em>
+                    <div className="main__id">{isClassPrivate}</div>
+                  </div>
+                }
+
               </div>
             </div>
           </div>
@@ -202,7 +211,7 @@ const Main = ({ classData }) => {
                     <Avatar></Avatar>
                     <div className="posted_by">
                       <div className="author" key={index}>{userHost.nameMember}</div>
-                      <div className="post_time">Thời gian đăng</div>
+                      <div className="post_time">Thời gian : {formatDate(item.createDate)}</div>
                     </div>
                   </div>
                   <div>

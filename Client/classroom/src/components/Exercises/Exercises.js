@@ -7,12 +7,16 @@ import Role from 'constants/role';
 import { useLocalContext } from 'context';
 import "./style.css";
 import formatDate from 'constants/formatdate';
-
+import { ExitToAppOutlined } from '@material-ui/icons';
+import ConfirmationDialog from 'components/ConfirmationDialog';
+import { useSnackbar } from 'notistack';
 
 
 const Exercises = ({ classData }) => {
   const { user } = useLocalContext();
+  const { enqueueSnackbar } = useSnackbar();
   const [isUserHost, setisUserHost] = useState(false);
+  const [UserHost, setUserHost] = useState(false);
   const [isUserMember, setisUserMember] = useState(false);
   const [exercisesExpired, setexercisesExpired] = useState([]);
   const [exercisesActive, setexercisesActive] = useState([]);
@@ -24,13 +28,14 @@ const Exercises = ({ classData }) => {
     const fetchData = async () => {
       const params = new URLSearchParams([['idClassroom', classData.idClassroom]]);
       const result = await classApi.getClassById(params);
-      setisUserHost(result.listMembers.filter(x => x.role == Role.HOST && user.id == x.idMember).length> 0 ? true : false);
+      setUserHost(result.listMembers.find(x => x.role == Role.HOST))
+      setisUserHost(result.listMembers.filter(x => x.role == Role.HOST && user.id == x.idMember).length > 0 ? true : false);
       setisUserMember(result.listMembers.filter(x => x.role == Role.MEMBER && user.id == x.idMember).length > 0 ? true : false);
-      let isUserHost=result.listMembers.filter(x => x.role == Role.HOST && user.id == x.idMember).length> 0 ? true : false
+      let isUserHost = result.listMembers.filter(x => x.role == Role.HOST && user.id == x.idMember).length > 0 ? true : false
       if (isUserHost) {
         setexercisesActive(result.listExercises.filter(x => new Date(x.deadline) >= currentDate).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)));
         setexercisesExpired(result.listExercises.filter(x => new Date(x.deadline) < currentDate).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)));
-       
+
       } else {
         setexercisesCompleted(result.listExercises.filter(x => x.listAnswer.filter(c => c.idMember == user.id).length > 0).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)));
         setexercisesNotCompleted(result.listExercises.filter(x => new Date(x.deadline) < currentDate && x.listAnswer.filter(c => c.idMember == user.id).length <= 0).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)));
@@ -39,6 +44,34 @@ const Exercises = ({ classData }) => {
     };
     fetchData();
   }, []);
+
+  const [dialogOpenExercise, setDialogOpenExercise] = useState(false);
+  const [idExercise, setIdExercise] = useState(null);
+  const handleIdExercise = (item) => {
+    console.log(item)
+    setIdExercise(item);
+    setDialogOpenExercise(true);
+  };
+  const handleCloseExercise = () => {
+    setIdExercise(null);
+    setDialogOpenExercise(false);
+  };
+  const handledeleteExercise = async () => {
+    try {
+      const params = new URLSearchParams([['idExercise', idExercise], ['idMember', UserHost.idMember], ['idClassroom', classData.idClassroom]]);
+      const result = await classApi.deleteexercise(params);
+      if (result.status == 1) {
+        enqueueSnackbar(result.message, { variant: 'success' });
+        window.location.reload();
+      } else {
+        enqueueSnackbar(result.message, { variant: 'error' });
+      }
+
+    } catch (error) {
+      console.log('Failed to login:', error);
+      enqueueSnackbar(error.message, { variant: 'error' });
+    }
+  }
   return (
     <div>
       {isUserHost && <div>
@@ -65,7 +98,10 @@ const Exercises = ({ classData }) => {
               </a>
               <div className='task_information'>
                 <div className='task_name'>{item.name}</div>
-                <div className='task_deadline'>{formatDate(item.deadline)} </div>
+                <div className='task_deadline'>thời hạn: {formatDate(item.deadline)} </div>
+                <Button variant="contained" onClick={() => handleIdExercise(item.idExercise)} color="secondary" startIcon={<ExitToAppOutlined />}>
+                  xóa
+                </Button>
               </div>
             </li>
           ))}
@@ -84,6 +120,9 @@ const Exercises = ({ classData }) => {
               <div className='task_information'>
                 <div className='task_name'>{item.name}</div>
                 <div className='task_deadline'>{formatDate(item.deadline)} </div>
+                <Button variant="contained" onClick={() => handleIdExercise(item.idExercise)} color="secondary" startIcon={<ExitToAppOutlined />}>
+                  xóa
+                </Button>
               </div>
             </li>
           ))}
@@ -146,6 +185,12 @@ const Exercises = ({ classData }) => {
           ))}
         </ul>
       </div>}
+      <ConfirmationDialog
+        open={dialogOpenExercise}
+        onClose={handleCloseExercise}
+        onConfirm={handledeleteExercise}
+        message="Bạn có chắc muốn xóa bài tập này không?"
+      />
     </div>
 
   )

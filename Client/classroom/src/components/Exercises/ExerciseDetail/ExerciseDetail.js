@@ -33,12 +33,12 @@ const ExerciseDetail = ({ exercise, classData, userHost }) => {
                     </div>
                     <div className='content_detail'>
                         <p>{exercise.description}</p>
-
+                        {exercise.file !='https://localhost:9002/doc/' &&
+                        <p>tiệp tin: <a href={exercise.file} target='_blank'>mở tiệp</a></p>  
+                        }                         
                     </div>
                 </div>
-                <div className='switch'>
-                    <FormControlLabel control={<Switch defaultChecked />} label="Nhận bài nộp muộn" />
-                </div>
+                
                 <div className='list_submit'>
                     <h2 className='submit_quantity'>({countAnswer}) Đã nộp/({countUser}) Sinh viên</h2>
                     <ul className='list_submited'>

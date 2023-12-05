@@ -358,6 +358,28 @@
         "Role": "USER"
       }
     },
+    //delete-exercise
+    {
+      "UpstreamPathTemplate": "/Member/delete-exercise",
+      "UpstreamHttpMethod": [ "Delete", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/delete-exercise",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
     //update-exercise
     {
       "UpstreamPathTemplate": "/Member/update-exercise",
@@ -479,6 +501,28 @@
         }
       ],
       "DownstreamPathTemplate": "/api/Member/update-doc",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
+    //delete-document
+    {
+      "UpstreamPathTemplate": "/Member/delete-document",
+      "UpstreamHttpMethod": [ "Delete", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/delete-document",
       "DownstreamScheme": "https",
       //Authentication
       "AuthenticationOptions": {

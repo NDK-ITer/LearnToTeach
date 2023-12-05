@@ -41,6 +41,10 @@ const classApi = {
   updateexercise(data) {
     const url = '/Member/update-exercise'
     return axiosClient.put(url, data);
+  }, 
+  deleteexercise(params) {
+    const url = '/Member/delete-exercise';
+    return axiosClient.delete(url, { params });
   },
   uploadanswer(data) {
     const url = '/Member/upload-answer'
@@ -61,6 +65,10 @@ const classApi = {
   updatedoc(data) {
     const url = '/Member/update-doc'
     return axiosClient.post(url, data);
+  },
+  deletedocument(params) {
+    const url = '/Member/delete-document';
+    return axiosClient.delete(url, { params });
   },
   uploadnotify(data) {
     const url = '/Member/upload-notify'

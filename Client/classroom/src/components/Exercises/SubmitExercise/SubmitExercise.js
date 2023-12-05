@@ -9,7 +9,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import { Close } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
-const SubmitExercise = ({ exercise, classData, isUserHost, user,userHost, }) => {
+const SubmitExercise = ({ exercise, classData, isUserHost, user, userHost, }) => {
 
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -35,10 +35,10 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user,userHost, }) => 
           </Avatar>
           <div className='upload_detail'>
             <h1 className='title_text'>{exercise.name}</h1>
-            <p style={{fontSize: '14px'}}>--- {userHost.nameMember} --- Thời gian giao {formatdate(exercise.createDate)} --- </p>
+            <p style={{ fontSize: '14px' }}>--- {userHost.nameMember} --- Thời gian giao {formatdate(exercise.createDate)} --- </p>
           </div>
         </div>
-        <div className='upload_detail'>         
+        <div className='upload_detail'>
           <div className='content1'>
             <div className='content_text1'>
               <div className='deadline1'> Thời hạn {formatdate(exercise.deadline)} </div>
@@ -48,9 +48,12 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user,userHost, }) => 
               <p>
                 {exercise.description}
               </p>
+              {exercise.file != 'https://localhost:9002/doc/' &&
+                <p><a href={exercise.file} target='_blank'> Đính kèm tệp</a></p>}
+
             </div>
           </div>
-        </div>        
+        </div>
       </div>
       <div className='upload_area'>
         <div className='upload_exercise'>
@@ -72,10 +75,10 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user,userHost, }) => 
           <div className='your_exercise'>
             {getPointForIdMember(user.id) != null && <div>
               <div>
-                <p style={{fontSize: '22px'}}>Câu trả lời:</p>
-                <p style={{fontSize: '13px'}}>Thời gian trả lời: </p>
+                <p style={{ fontSize: '22px' }}>Câu trả lời:</p>
+                <p style={{ fontSize: '13px' }}>Thời gian trả lời: {formatdate(answer.dateAnswer)} </p>
               </div>
-              <div style={{fontSize: '16px'}}>
+              <div style={{ fontSize: '16px' }}>
                 <p>{answer.content}</p>
                 <a href={answer.linkFile} target='_banlk'>Đính kèm tệp</a>
               </div>

@@ -12,6 +12,7 @@ SetPointUser.propTypes = {
     exercise: PropTypes.string,
     answerItem: PropTypes.string,
     userHost: PropTypes.object,
+    
 };
 
 function SetPointUser(props) {
