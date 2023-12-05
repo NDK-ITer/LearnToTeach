@@ -65,7 +65,7 @@ namespace UserServer.Consumers
                         await context.Publish<ILeaveClassroomIsValidEvent>(new
                         {
                             IdClassroom = data.IdClassroom,
-                            IdMember = data.IdMember,
+                            IdUser = data.IdMember,
                         });
                     }
                 }

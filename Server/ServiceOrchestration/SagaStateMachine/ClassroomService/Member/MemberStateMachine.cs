@@ -33,7 +33,6 @@ namespace SagaStateMachine.ClassroomService.Member
                 When(AddMemberEvent).Then(context =>
                 {
                     context.Saga.IdMessage = context.Message.IdMessage;
-                    context.Saga.IdMember = context.Message.IdMember;
                     context.Saga.IdClassroom = context.Message.IdClassroom;
                     context.Saga.IdMember = context.Message.IdMember;
                     context.Saga.NameClassroom = context.Message.NameClassroom;
