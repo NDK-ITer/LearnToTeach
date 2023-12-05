@@ -18,9 +18,9 @@ const classApi = {
     const url = '/classroom/delete';
     return axiosClient.delete(url, { params });
   },
-  removemember(data) {
+  removemember(params) {
     const url = '/classroom/remove-member';
-    return axiosClient.post(url, data);
+    return axiosClient.delete(url, { params });
   },
   leaveclassroom(data) {
     const url = '/classroom/leave-classroom';

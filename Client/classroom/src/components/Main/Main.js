@@ -14,6 +14,7 @@ import classApi from "api/classApi";
 import { Button } from '@material-ui/core';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import ConfirmationDialog from "components/ConfirmationDialog";
+import formatDate from "constants/formatdate";
 const Main = ({ classData }) => {
   const { user } = useLocalContext();
   const history = useHistory();
@@ -23,6 +24,9 @@ const Main = ({ classData }) => {
   const [userHost, setuserHost] = useState([]);
   const [isUserMember, setisUserMember] = useState(false);
   const [notify, setnotify] = useState([]);
+  const [listExercisesUserhost, setListExerciceUserhost] = useState([]);
+  const [listExercisesUserMember, setListExerciceUserMember] = useState([]);
+  const currentDate = new Date();
   useEffect(() => {
     const fetchData = async () => {
       const params = new URLSearchParams([['idClassroom', classData.idClassroom]]);
@@ -31,10 +35,11 @@ const Main = ({ classData }) => {
       setuserHost(result.listMembers.find(x => x.role == Role.HOST));
       setisUserMember(result.listMembers.filter(x => x.role == Role.MEMBER && user.id == x.idMember).length > 0 ? true : false);
       setnotify(result.listNotify.sort((a, b) => new Date(b.createDate) - new Date(a.createDate)));
+      setListExerciceUserhost(result.listExercises.filter(x => x.listAnswer.filter(c => c.point != null).length < x.listAnswer.length && new Date(x.deadline) >= currentDate).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)).slice(0, 2));
+      setListExerciceUserMember(result.listExercises.filter(x => x.listAnswer.filter(c => c.point == null).length > 0 && new Date(x.deadline) >= currentDate).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)).slice(0, 2))
     };
     fetchData();
   }, []);
-  console.log("dc" + userHost)
   const handleSubmit = async (values) => {
     try {
       values.IdClassroom = classData.idClassroom;
@@ -165,7 +170,28 @@ const Main = ({ classData }) => {
         <div className="main__announce">
           <div className="main__status">
             <p>Sắp đến hạn</p>
-            <p className="main__subText">Không có công việc</p>
+            <div className="main__subText">
+              {isUserHost &&
+                <ul className='list_notifies'>
+                  {listExercisesUserhost.map((item, index) => (
+                    <li key={index}>
+                      <a href={`/${classData.idClassroom}/exercises/${item.idExercise}`}>{item.name}</a>
+                    </li>
+                  ))}
+                  {listExercisesUserhost.length <= 0 && <span>không có bài tập nào</span>}
+                </ul>
+              }
+              {!isUserHost &&
+                <ul className='list_notifies'>
+                  {listExercisesUserMember.map((item, index) => (
+                    <li key={index}>
+                      <a href={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>{item.name}</a>
+                    </li>
+                  ))}
+                  {listExercisesUserMember.length <= 0 && <span>không có bài tập nào</span>}
+                </ul>}
+
+            </div>
           </div>
           <div className="main_announcements_and_notifies">
             {isUserHost && <FormNotify onSubmit={handleSubmit} />}

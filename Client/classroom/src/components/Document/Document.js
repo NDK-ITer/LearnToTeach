@@ -9,8 +9,9 @@ import "./style.css";
 import UploadDocument from './UploadDocument';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import { Close } from '@material-ui/icons';
+import { Close, ExitToAppOutlined } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
+import ConfirmationDialog from 'components/ConfirmationDialog';
 
 
 const Document = ({ classData }) => {
@@ -91,6 +92,9 @@ const Document = ({ classData }) => {
                             <div className='doc_infomation'>
                                 <div className='doc_name'>{item.description}</div>
                                 <div className='doc_upload'>Thời gian đăng</div>
+                                {isUserHost && <Button variant="contained" onClick={() => handleIdDocument(item.nameFile)} color="secondary" startIcon={<ExitToAppOutlined />} style={{ marginBottom: '20px' }}>
+                                    xóa
+                                </Button>}
                             </div>
                         </li>
                     ))}
@@ -109,7 +113,6 @@ const Document = ({ classData }) => {
                                 </Avatar>
                             </a>
                             <div className='doc_name'>{item.description}</div>
-
                         </li>
                     ))}
                 </ul>
@@ -130,6 +133,12 @@ const Document = ({ classData }) => {
                     <UploadDocument closeDialog={handleClose} classData={classData} />
                 </DialogContent>
             </Dialog>
+            <ConfirmationDialog
+                open={dialogOpenDocument}
+                onClose={handleCloseDocument}
+                onConfirm={handledeleteDocument}
+                message="Are you sure you want to delete document?"
+            />
         </div>
 
     )
