@@ -238,7 +238,7 @@ namespace ClassServer.Controllers
                 return BadRequest(e.Message);
             }
         }
-
+        //fix
         [HttpDelete]
         [HttpOptions]
         [Route("remove-member")]
