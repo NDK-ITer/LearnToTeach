@@ -138,7 +138,6 @@ namespace Application.Services
                     if (!editInforRequest.LinkAvatar.IsNullOrEmpty()) { user.LinkAvatar = editInforRequest.LinkAvatar; }
                     _unitOfWork.userRepository.Update(user);
                     _unitOfWork.SaveChange();
-                    _unitOfWork.Dispose();
                     return true;
                 }
                 return false;
@@ -179,7 +178,7 @@ namespace Application.Services
         {
             try
             {
-                var user = _unitOfWork.userRepository.GetUserById(idUser);
+                var user = _unitOfWork.userRepository.GetById(idUser);
                 if (user == null) return null;
                 return user;
             }

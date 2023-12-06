@@ -2,14 +2,9 @@
 {
     public class UserConnection
     {
-        public string UserName { get; set; }
-        public string IdClassroom { get; set; }
-        public object? mediaRecorderRef { get; set; }
-        public UserConnection(string userName, string idClassroom)
-        {
-            UserName = userName;
-            IdClassroom = idClassroom;
-
-        }
+        public string userName { get; set; }
+        public string classroom { get; set; }
+        public object? videoRef { get; set; }
+        public object? audioRef { get; set; }
     }
 }

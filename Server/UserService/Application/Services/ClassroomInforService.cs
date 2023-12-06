@@ -157,7 +157,6 @@ namespace Application.Services
                     _unitOfWork.classroomRepository.UpdateClassroomInfor(item);
                 };
                 _unitOfWork.SaveChange();
-                _unitOfWork.Dispose();
                 return 1;
             }
             catch (Exception)

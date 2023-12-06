@@ -4,7 +4,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Infrastructure.Repositories
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork 
     {
         IUserRepository userRepository { get; }
         IRoleRepository roleRepository { get; }
@@ -27,15 +27,9 @@ namespace Infrastructure.Repositories
         public IClassroomInforRepository classroomRepository { get; private set; }
         public IRoleRepository roleRepository { get; private set; }
 
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
-
         public void SaveChange()
         {
             _context.SaveChanges();
-            _context.Dispose();
         }
     }
 }

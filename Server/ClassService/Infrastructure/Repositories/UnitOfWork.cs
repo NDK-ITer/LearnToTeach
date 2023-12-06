@@ -41,7 +41,6 @@ namespace Infrastructure.Repositories
         public void SaveChange()
         {
             _context.SaveChanges();
-            _context.Dispose();
         }
     }
 }

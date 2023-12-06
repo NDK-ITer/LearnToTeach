@@ -5,14 +5,28 @@ namespace MeetingServer.SignalR
 {
     public class ChatHub : Hub
     {
-        //public async Task SendVideo(byte[] videoData)
-        //{
-        //    await Clients.All.SendAsync("ReceiveVideo", videoData);
-        //}
+        private readonly string _botUser = "MyChat Bot";
+        private readonly IDictionary<string, UserConnection> _connections;
 
-        public async Task MoveViewFromServer(float newX, float newY)
+        public ChatHub(IDictionary<string, UserConnection> connections)
         {
-            await Clients.Others.SendAsync("ReceiveNewPosition", newX, newY);
+            _connections = connections;
+        }
+
+        public async Task SendUsersConnected(string classroom)
+        {
+
+        }
+
+        public async Task JoinRoom(UserConnection userConnection)
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, userConnection.classroom);
+
+            _connections[Context.ConnectionId] = userConnection;
+
+            await Clients.Group(userConnection.classroom).SendAsync("ReceiveMessage", _botUser, $"{userConnection.userName} has joined {userConnection.classroom}");
+
+            await SendUsersConnected(userConnection.userName);
         }
 
     }
