@@ -191,7 +191,7 @@ namespace Application.Services
             try
             {
                 //find classroom
-                var classroom = _unitOfWork.classroomRepository.GetById(idClassroom);
+                var classroom = _unitOfWork.classroomRepository.Find(c => c.Id == idClassroom).FirstOrDefault();
                 if (classroom == null) return 0;
 
                 //delete member

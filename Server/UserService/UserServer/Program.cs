@@ -43,6 +43,7 @@ builder.Services.AddMassTransit(cfg =>
     }));
     // Configuration "Consumer"
     cfg.AddConsumer<ConsumeValueClassroomConsumer>();
+    cfg.AddConsumer<ConsumeValueClassroomConsumer>();
     cfg.AddConsumer<ConsumeValueMemberConsumer>();
     cfg.AddConsumer<GetValueUserConsumer>();
     cfg.AddConsumer<GenerateUploadFileIsValidConsumer>();

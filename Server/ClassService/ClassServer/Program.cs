@@ -3,6 +3,7 @@ using ClassServer.Consumers;
 using ClassServer.Consumers.ClassroomConsumers.AddClassroom;
 using ClassServer.Consumers.ClassroomConsumers.RemoveClassroom;
 using ClassServer.Consumers.MemberConsumers.AddMember;
+using ClassServer.Consumers.MemberConsumers.MemberLeaveIsValidConsumer;
 using ClassServer.Consumers.MemberConsumers.UpdateUserInfor;
 using ClassServer.Consumers.UploadFile;
 using ClassServer.FileMethods;
@@ -27,6 +28,7 @@ builder.Services.AddMassTransit(cfg =>
         cfg.ReceiveEndpoint(nameQueue, ep =>
         {
             ep.PrefetchCount = 100;
+            ep.ConfigureConsumer<GenerateMemberLeaveIsValidConsumer>(provider);
             ep.ConfigureConsumer<GenerateCancelAddClassroomConsumer>(provider);
             ep.ConfigureConsumer<GenerateAddMemberIsValidConsumer>(provider);
             ep.ConfigureConsumer<GenerateAddClassroomIsValidConsumer>(provider);
@@ -38,6 +40,7 @@ builder.Services.AddMassTransit(cfg =>
             ep.ConfigureConsumer<GenerateUploadFileIsValidConsumer>(provider);
         });
     }));
+    cfg.AddConsumer<GenerateMemberLeaveIsValidConsumer>();
     cfg.AddConsumer<GenerateAddMemberIsValidConsumer>();
     cfg.AddConsumer<GenerateAddClassroomIsValidConsumer>();
     cfg.AddConsumer<GenerateCancelAddClassroomConsumer>();

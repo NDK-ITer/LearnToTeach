@@ -15,7 +15,8 @@ namespace ClassServer.Consumers.MemberConsumers.MemberLeaveIsValidConsumer
         public async Task Consume(ConsumeContext<ILeaveClassroomIsValidEvent> context)
         {
             var data = context.Message;
-            unitOfWork_ClassroomService._classroomService.RemoveMember(data.IdClassroom, data.IdUser);
+            var check = unitOfWork_ClassroomService._classroomService.RemoveMember(data.IdClassroom, data.IdUser);
+            Console.WriteLine(check);
         }
     }
 }
