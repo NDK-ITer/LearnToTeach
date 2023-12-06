@@ -29,6 +29,7 @@ namespace Application.Models.ModelsOfClassroom
                 name = classroom.Name;
                 description = classroom.Description;
                 key = classroom.KeyHash.IsNullOrEmpty()? null: KeyHash.Decode(classroom.KeyHash);
+                isPrivate = classroom.IsPrivate;
                 foreach (var item in classroom.ListMember)
                 {
                     ListMembers.Add(new MemberModel(item, classroom.Id));
