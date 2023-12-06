@@ -176,21 +176,21 @@ namespace ClassServer.Controllers
                 var check = _unitOfWork_ClassroomService._classroomService.UpdateClassroom(classroomRequest);
                 if (check == 1)
                 {
-                    var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
-                    if (endPoint != null)
-                    {
-                        endPoint.Send<IGetValueClassroomEvent>(new
-                        {
-                            idMessage = Guid.NewGuid(),
-                            idClassroom = classroomRequest.idClassroom,
-                            description = classroomRequest.description,
-                            idUserHost = string.Empty,
-                            name = classroomRequest.name,
-                            isPrivate = classroomRequest.isPrivate,
-                            avatar = _imageMethod.GenerateToString(classroomRequest.Avatar),
-                            eventMessage = _classroomStateMessage.Update
-                        });
-                    }
+                    //var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
+                    //if (endPoint != null)
+                    //{
+                    //    endPoint.Send<IGetValueClassroomEvent>(new
+                    //    {
+                    //        idMessage = Guid.NewGuid(),
+                    //        idClassroom = classroomRequest.idClassroom,
+                    //        description = classroomRequest.description,
+                    //        idUserHost = string.Empty,
+                    //        name = classroomRequest.name,
+                    //        isPrivate = classroomRequest.isPrivate,
+                    //        avatar = _imageMethod.GenerateToString(classroomRequest.Avatar),
+                    //        eventMessage = _classroomStateMessage.Update
+                    //    });
+                    //}
                     return Ok("Updated Classroom is successful!");
                 }
                 else if (check == 0) return BadRequest("Something is Wrong!");

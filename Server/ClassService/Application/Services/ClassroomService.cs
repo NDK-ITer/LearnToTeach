@@ -221,6 +221,11 @@ namespace Application.Services
                     classroomUpdate.KeyHash = KeyHash.Hash(classroomRequest.key);
                     classroomUpdate.IsPrivate = true;
                 }
+                else if(classroomRequest.isPrivate == false)
+                {
+                    classroomUpdate.KeyHash = null;
+                    classroomUpdate.IsPrivate = false;
+                }
                 if (!classroomRequest.name.IsNullOrEmpty()) classroomUpdate.Name = classroomRequest.name;
                 if (!classroomRequest.description.IsNullOrEmpty()) classroomUpdate.Description = classroomRequest.description;
                 _unitOfWork.classroomRepository.UpdateClassroom(classroomUpdate);
