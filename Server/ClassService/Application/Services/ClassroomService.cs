@@ -75,7 +75,7 @@ namespace Application.Services
                     classroom.IsPrivate = true;
                     classroom.KeyHash = KeyHash.Hash(classroomRequest.key);
                 }
-                else
+                else if(classroomRequest.isPrivate == false)
                 {
                     classroom.IsPrivate = false;
                     classroom.KeyHash = null;

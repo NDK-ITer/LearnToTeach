@@ -13,9 +13,10 @@ namespace MeetingServer.SignalR
             _connections = connections;
         }
 
-        public async Task SendUsersConnected(string classroom)
+        public Task SendUsersConnected(string classroom)
         {
-
+            var users = _connections.Values.Where(c => c.classroom == classroom).ToList();
+            return Clients.Group(classroom).SendAsync("UsersInRoom", users);
         }
 
         public async Task JoinRoom(UserConnection userConnection)
