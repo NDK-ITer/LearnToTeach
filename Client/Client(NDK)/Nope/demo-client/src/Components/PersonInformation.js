@@ -1,6 +1,8 @@
 import { useRef, useState,useEffect } from 'react';
+import { Form, Button } from 'react-bootstrap';
 
-const PersonInformation = () =>{
+
+const PersonInformation = ({JoinClassroom}) =>{
     const [cameraState, setCameraState] = useState("");
     const [audioState, setAudioState] = useState("");
     const [userName, setUserName] = useState("");
@@ -85,6 +87,16 @@ const PersonInformation = () =>{
             ?<button type='button' onClick={startAudio}>turn on micro</button>
             :<button type='button' onClick={stopAudio}>turn off micro</button>
         }
+        <Form onSubmit={e =>{
+            e.preventDefault();
+            JoinClassroom({videoRef, audioRef, userName, classroom})
+        }}>
+            <Form.Group>
+                <Form.Control placeholder="name" onChange={e => setUserName(e.target.value)} />
+                <Form.Control placeholder="room" onChange={e => setClassroom(e.target.value)} />
+            </Form.Group>
+            <Button variant="Successful" type='submit' disabled={!userName || !classroom}>Join Classroom Meeting</Button>
+        </Form>
     </div>
 }
 

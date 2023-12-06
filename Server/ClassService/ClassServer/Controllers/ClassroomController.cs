@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using XAct.Messages;
+using static MassTransit.ValidationResultExtensions;
 
 namespace ClassServer.Controllers
 {
@@ -244,7 +245,7 @@ namespace ClassServer.Controllers
         [HttpDelete]
         [HttpOptions]
         [Route("remove-member")]
-        public ActionResult DeleteMemberInClassroom(string? idClassroom, string? idMember)
+        public async Task<ActionResult>DeleteMemberInClassroom(string? idClassroom, string? idMember)
         {
             try
             {
@@ -257,6 +258,27 @@ namespace ClassServer.Controllers
                 var check = _unitOfWork_ClassroomService._classroomService.RemoveMember(idClassroom, idMember);
                 if (check == 1)
                 {
+                    var classroom = _unitOfWork_ClassroomService._classroomService.GetClassroomById(idClassroom);
+                    if (classroom != null)
+                    {
+                        var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
+                        if (endPoint != null)
+                        {
+                            endPoint.Send<IGetValueMemberEvent>(new
+                            {
+                                IdMessage = Guid.NewGuid(),
+                                IdClassroom = idClassroom,
+                                IdMember = idMember,
+                                eventMessage = _classroomStateMessage.Delete,
+                                NameMember = string.Empty,
+                                Avatar = string.Empty,
+                                NameClassroom = classroom.Name
+                            });
+                        }
+                        resultMessage.Status = 1;
+                        resultMessage.Message = $"Leave classroom \"{classroom.Name}\" is successful";
+                        return Ok(resultMessage);
+                    }
                     resultMessage.Status = 1;
                     resultMessage.Message = "deleted classroom Member successfull";
                     return Ok(resultMessage);
