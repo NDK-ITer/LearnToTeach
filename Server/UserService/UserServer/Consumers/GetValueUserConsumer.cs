@@ -1,4 +1,5 @@
-﻿using Events.MultiServiceUseEvent;
+﻿using Application.Services;
+using Events.MultiServiceUseEvent;
 using Events.UserServiceEvents;
 using Events.UserServiceEvents.User.ConfirmUser;
 using Events.UserServiceEvents.User.UpdateUserInfor;
@@ -12,10 +13,11 @@ namespace UserServer.Consumers
     public class GetValueUserConsumer : IConsumer<IGetValueUserEvent>
     {
         private readonly UserEventMessage _userEventMessage;
-
-        public GetValueUserConsumer(UserEventMessage userEventMessage)
+        private readonly IUnitOfWork_UserService _userService;
+        public GetValueUserConsumer(UserEventMessage userEventMessage, IUnitOfWork_UserService unitOfWork_UserService)
         {
             _userEventMessage = userEventMessage;
+            _userService = unitOfWork_UserService;
         }
         public async Task Consume(ConsumeContext<IGetValueUserEvent> context)
         {
@@ -61,6 +63,18 @@ namespace UserServer.Consumers
                             Event = _userEventMessage.Update,
                             FileByteString = data.avatar,
                             ServerName = data.serverName
+                        });
+                    }
+                    var checkEmail = _userService.UserService.CheckUserIsExist(e => e.PresentEmail==data.email);
+                    if (!checkEmail)
+                    {
+                        await context.Publish<IConfirmUserEvent>(new
+                        {
+                            idUser = data.id,
+                            fullName = data.fullName,
+                            email = data.email,
+                            subject = data.subject,
+                            content = data.content,
                         });
                     }
                 }
