@@ -10,11 +10,14 @@ function App() {
         .withUrl("https://localhost:9011/chat")
         .configureLogging(LogLevel.Information)
         .build();
+    await connection.start();
+    await connection.invoke("JoinRoom", { userName, classroom,videoRef,audioRef});
+      setConnection(connection);
 
   }
   return (
     <div className="App">
-      <PersonInformation></PersonInformation>
+      <PersonInformation JoinClassroom={JoinClassroom}/>
     </div>
   );
 }
