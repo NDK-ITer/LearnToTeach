@@ -10,6 +10,7 @@ using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using XAct.Messages;
 
 namespace ClassServer.Controllers
 {
@@ -180,7 +181,8 @@ namespace ClassServer.Controllers
                     {
                         endPoint.Send<IGetValueClassroomEvent>(new
                         {
-                            idClassroom = Guid.Parse(classroomRequest.idClassroom),
+                            idMessage = Guid.NewGuid(),
+                            idClassroom = classroomRequest.idClassroom,
                             description = classroomRequest.description,
                             idUserHost = string.Empty,
                             name = classroomRequest.name,
