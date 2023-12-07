@@ -11,11 +11,12 @@ DateField.propTypes = {
     type: PropTypes.string,
     disabled: PropTypes.bool,
     style: PropTypes.string,
+    defaultValue:PropTypes.string
 
 };
 
 function DateField(props) {
-    const { form, name, label, type, disabled, style } = props;
+    const { form, name, label, type, disabled, style ,defaultValue} = props;
     const { errors } = form;
     const hasError = errors[name];
 
@@ -29,11 +30,12 @@ function DateField(props) {
                     error={!!hasError}
                     helperText={errors[name]?.message}
                     name={name}
-                    value={value || ' '}
+                   // value={value || ' '}
                     onChange={onChange}
                     onBlur={onBlur}
-                    type='date'
+                    type='datetime-local'
                     style={style}
+                    defaultValue={defaultValue}
                 />
             )}
         />

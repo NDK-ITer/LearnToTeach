@@ -43,6 +43,7 @@ namespace Application.Services
         string GetUserToken(string id);
         string GetOtp(string email);
         string verifyOTP(string email);
+        bool PhoneNumberIsExist(string phoneNumber);
     }
     public class UserService : IUserService
     {
@@ -316,6 +317,16 @@ namespace Application.Services
         public string? verifyOTP(string email)
         {
             return _unitOfWork.userRepository.verifyOTP(email);
+        }
+
+        public bool PhoneNumberIsExist(string phoneNumber)
+        {
+            var user = _unitOfWork.userRepository.Find(u => u.PhoneNumber == phoneNumber);
+            if (user != null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

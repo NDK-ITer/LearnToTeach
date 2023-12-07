@@ -10,10 +10,12 @@ import UploadField from 'components/form-controls/UploadField';
 import TextAreaField from 'components/form-controls/TextAreaField';
 import DateField from 'components/form-controls/DateField';
 import BorderColorOutlinedIcon from '@material-ui/icons/BorderColorOutlined';
+import formatDate from 'constants/formatdate';
 
-ExerciseForm.propTypes = {
+EditExerciseForm.propTypes = {
     onSubmit: PropTypes.func,
     classData: PropTypes.string,
+    exercise: PropTypes.object
 
 };
 const useStyles = makeStyles((theme) => ({
@@ -44,7 +46,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function ExerciseForm(props) {
+function EditExerciseForm(props) {
+    const { exercise } = props;
+    console.log(exercise)
     const classes = useStyles()
     const schema = yup.object().shape({
         Name: yup
@@ -56,6 +60,7 @@ function ExerciseForm(props) {
         defaultValues: {
             IdClassroom: '',
             IdMember: '',
+            IdExercise: '',
             Name: '',
             Description: '',
             Deadline: '',
@@ -100,28 +105,28 @@ function ExerciseForm(props) {
                                 fullWidth
                                 size="medium"
                             >
-                                Giao bài
+                                sửa bài
                             </Button>
                         </div>
 
                     </div>
                     <div className='main_content'>
                         <div className='title'>
-                            <InputField name="Name" label="Tiêu đề" form={form}/>
+                            <InputField name="Name" label="Tiêu đề" form={form} defaultValue={exercise.name} />
                         </div>
                         <div className='content'>
-                            <TextAreaField name="Description" label="Nội dung" form={form} />
+                            <TextAreaField name="Description" label="Nội dung" form={form} defaultValue={exercise.description} />
                         </div>
                         <div className='attachment'>
                             <p className='text'>Đính kèm tệp: </p>
                             <div>
-                                <UploadField name='FileUpload' form={form} accept='*' />
+                                <UploadField name='FileUpload' form={form} accept='*' /> <span>tệp đã đăng: <a href={exercise.file} target="_blank" rel="noopener noreferrer">tệp</a></span>
                             </div>
                         </div>
                         <div className='time'>
                             <p className='text'>Hạn nộp:</p>
                             <div className='picktime'>
-                                <DateField name="Deadline" label="Exercise Content" form={form} />
+                                <DateField name="Deadline" label="Exercise Content" form={form} defaultValue={formatDate(exercise.deadline)} />
                             </div>
                         </div>
                     </div>
@@ -131,4 +136,4 @@ function ExerciseForm(props) {
     );
 }
 
-export default ExerciseForm;
+export default EditExerciseForm;

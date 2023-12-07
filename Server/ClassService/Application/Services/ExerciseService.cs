@@ -60,6 +60,7 @@ namespace Application.Services
                 if (!updateAnswerModel.Name.IsNullOrEmpty()) exercise.Name = updateAnswerModel.Name;
                 if (!updateAnswerModel.Description.IsNullOrEmpty()) exercise.Description = updateAnswerModel.Description;
                 if ((updateAnswerModel.Deadline > exercise.DeadLine)||updateAnswerModel.Deadline != null) exercise.DeadLine = updateAnswerModel.Deadline;
+                exercise.UpdateDate = DateTime.Now;
                 _unitOfWork.exerciseRepository.Update(exercise);
                 _unitOfWork.SaveChange();
                 return new Tuple<string, Exercise?>("Update is successful", exercise);

@@ -9,6 +9,7 @@ import SubmitExercise from 'components/Exercises/SubmitExercise/SubmitExercise';
 import Role from 'constants/role';
 import { useLocalContext } from 'context';
 import { ProtectedRouteUserHost, ProtectedRouteUserMember } from 'routes/Routes';
+import EditExercise from '../EditExersice';
 function ExerciseRoute({ classData }) {
     const { user } = useLocalContext();
     const match = useRouteMatch();
@@ -45,6 +46,12 @@ function ExerciseRoute({ classData }) {
                 {exercises.map((item, index) => (
                     <Route key={index} user={isUserHost} exact path={`${match.url}/${item.idExercise}`}>
                         <ExerciseDetail classData={classdata} exercise={item} userHost={userHost} />
+                    </Route>
+
+                ))}
+                {exercises.map((item, index) => (
+                    <Route key={index} user={isUserHost} exact path={`${match.url}/edit/${item.idExercise}`}>
+                        <EditExercise classData={classdata} exercise={item}/>
                     </Route>
 
                 ))}

@@ -7,7 +7,7 @@ import Role from 'constants/role';
 import { useLocalContext } from 'context';
 import "./style.css";
 import formatDate from 'constants/formatdate';
-import { ExitToAppOutlined } from '@material-ui/icons';
+import { EditOutlined, ExitToAppOutlined } from '@material-ui/icons';
 import ConfirmationDialog from 'components/ConfirmationDialog';
 import { useSnackbar } from 'notistack';
 
@@ -99,6 +99,11 @@ const Exercises = ({ classData }) => {
               <div className='task_information'>
                 <div className='task_name'>{item.name}</div>
                 <div className='task_deadline'>thời hạn: {formatDate(item.deadline)} </div>
+                <Button variant="contained" color="secondary" startIcon={<EditOutlined />}>
+                  <a href={`/${classData.idClassroom}/exercises/edit/${item.idExercise}`} style={{ color: "#fff", textDecoration: 'none' }}>
+                    chỉnh sửa
+                  </a>
+                </Button>
                 <Button variant="contained" onClick={() => handleIdExercise(item.idExercise)} color="secondary" startIcon={<ExitToAppOutlined />}>
                   xóa
                 </Button>

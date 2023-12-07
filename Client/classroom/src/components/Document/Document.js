@@ -9,11 +9,12 @@ import "./style.css";
 import UploadDocument from './UploadDocument';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import { Close, ExitToAppOutlined } from '@material-ui/icons';
+import { Close, ExitToAppOutlined, VideoLabelOutlined } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 import ConfirmationDialog from 'components/ConfirmationDialog';
 import formatDate from 'constants/formatdate';
 import { useSnackbar } from 'notistack';
+import getFileExtension from 'constants/extentionfile';
 
 const Document = ({ classData }) => {
     const { user } = useLocalContext();
@@ -29,6 +30,7 @@ const Document = ({ classData }) => {
         setOpen(false);
     };
     const currentDate = new Date();
+    const extesionvieo = ['mp4', 'mov', 'avi', 'wmv', 'mkv']
     useEffect(() => {
         const fetchData = async () => {
             const params = new URLSearchParams([['idClassroom', classData.idClassroom]]);
@@ -83,10 +85,17 @@ const Document = ({ classData }) => {
                 <ul className='list_docs'>
                     {document.map((item, index) => (
                         <li key={index} className='doc'>
-                            <a href={item.linkFile}>
-                                <Avatar style={{ m: 1, backgroundColor: 'rgb(0, 159, 212)' }}>
-                                    <AssignmentOutlinedIcon />
-                                </Avatar>
+                            <a href={item.linkFile} target='_blank'>
+                                {!extesionvieo.includes(getFileExtension(item.linkFile)) &&
+                                    <Avatar style={{ m: 1, backgroundColor: 'rgb(0, 159, 212)' }}>
+                                        <AssignmentOutlinedIcon />
+                                    </Avatar>
+                                }
+                                {extesionvieo.includes(getFileExtension(item.linkFile)) &&
+                                    <Avatar style={{ m: 1, backgroundColor: 'rgb(0, 159, 212)' }}>
+                                        <VideoLabelOutlined />
+                                    </Avatar>
+                                }
                             </a>
                             <div className='doc_information'>
                                 <div className='doc_name'>{item.description}</div>

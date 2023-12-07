@@ -129,7 +129,6 @@ namespace ClassServer.Controllers
                         {
                             result.Status = 1;
                         }
-                        result.Status = 0;
                         result.Message = check.Item1;
                     }
 

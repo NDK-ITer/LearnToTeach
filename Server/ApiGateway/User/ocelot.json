@@ -468,6 +468,28 @@
         "Role": "USER"
       }
     },
+    //delete-answer
+    {
+      "UpstreamPathTemplate": "/Member/delete-answer",
+      "UpstreamHttpMethod": [ "Delete", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/delete-answer",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
     //upload-doc
     {
       "UpstreamPathTemplate": "/Member/upload-doc",

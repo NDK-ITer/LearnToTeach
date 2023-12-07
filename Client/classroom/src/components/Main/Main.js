@@ -165,7 +165,7 @@ const Main = ({ classData }) => {
               <div className="main__wrapper2">
                 <em className="main__code">Mã lớp học :</em>
                 <div className="main__id">{classData.idClassroom}</div>
-                {isUserHost &&
+                {isUserHost && isClassPrivate &&
                   <div>
                     <em className="main__code">Mã khóa lớp học :</em>
                     <div className="main__id">{isClassPrivate}</div>

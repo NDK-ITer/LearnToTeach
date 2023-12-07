@@ -138,6 +138,12 @@ namespace Server.Controllers
                     resultstatus.message = "invalid phone number.";
                     return Ok(resultstatus);
                 }
+                if (_unitOfWork_UserService.UserService.PhoneNumberIsExist(registerRequest.PhoneNumber))
+                {
+                    resultstatus.status = -6;
+                    resultstatus.message = "phone number was exist";
+                    return Ok(resultstatus);
+                }
                 var user = _unitOfWork_UserService.UserService.RegisterUser(registerRequest);
                 if (user == null)
                 {
