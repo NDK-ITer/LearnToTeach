@@ -178,26 +178,26 @@ const Main = ({ classData }) => {
         </div>
         <div className="main__announce">
           <div className="main__status">
-            <p>Sắp đến hạn</p>
+            <div>Sắp đến hạn</div>
             <div className="main__subText">
               {isUserHost &&
-                <ul className='list_notifies'>
+                <ul>
                   {listExercisesUserhost.map((item, index) => (
                     <li key={index}>
                       <a href={`/${classData.idClassroom}/exercises/${item.idExercise}`}>{item.name}</a>
                     </li>
                   ))}
-                  {listExercisesUserhost.length <= 0 && <span>không có bài tập nào</span>}
+                  {listExercisesUserhost.length <= 0 && <span>Không có bài tập nào</span>}
                 </ul>
               }
               {!isUserHost &&
-                <ul className='list_notifies'>
+                <ul>
                   {listExercisesUserMember.map((item, index) => (
                     <li key={index}>
                       <a href={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>{item.name}</a>
                     </li>
                   ))}
-                  {listExercisesUserMember.length <= 0 && <span>không có bài tập nào</span>}
+                  {listExercisesUserMember.length <= 0 && <span>Không có bài tập nào</span>}
                 </ul>}
 
             </div>

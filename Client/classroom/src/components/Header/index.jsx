@@ -62,8 +62,8 @@ const Header = ({ children }) => {
         
     };
     return (
-        <div className={classes.root}>
-            <AppBar className={classes.appBar} position="static">
+        <div className={classes.root} >
+            <AppBar className={classes.appBar} position="sticky">
                 <Toolbar className={classes.toolbar}>
                     <div className={classes.headerWrapper}>
                         {children}

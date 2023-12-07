@@ -91,6 +91,7 @@
   border-radius: 10px;
   width: 140px;
   height: 15vh;
+  padding-bottom: 20px;
 }
 .main__wrapper100 {
   display: flex !important;
@@ -131,9 +132,6 @@
 }
 .post_information > * {
   margin-right: 20px;
-}
-.posted_by{
-  
 }
 .author{
   font-size: 15px;
