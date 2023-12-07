@@ -10,10 +10,11 @@ TextAreaField.propTypes = {
     label: PropTypes.string,
     disabled: PropTypes.bool,
     style: PropTypes.string,
+    defaultValue: PropTypes.string
 };
 
 function TextAreaField(props) {
-    const { form, name, label, disabled, style } = props;
+    const { form, name, label, disabled, style,defaultValue } = props;
     const { errors } = form;
     const hasError = errors[name];
 
@@ -32,12 +33,13 @@ function TextAreaField(props) {
                     error={!!hasError}
                     helperText={errors[name]?.message}
                     name={name}
-                    value={value}
+                   // value={value}
                     onChange={onChange}
                     onBlur={onBlur}
                     multiline
                     minRows={3}
                     style={style}
+                    defaultValue={defaultValue}
                 />
             )}
         />

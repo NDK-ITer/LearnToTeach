@@ -9,6 +9,7 @@ import Common from 'constants/common';
 import * as yup from 'yup';
 import CheckBoxField from 'components/form-controls/CheckBoxField';
 import UploadField from 'components/form-controls/UploadField';
+import TextAreaField from 'components/form-controls/TextAreaField';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,22 +40,25 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-UploadDocumentForm.propTypes = {
+EditAnswerForm.propTypes = {
     onSubmit: PropTypes.func,
+    answer:PropTypes.object
 };
 
-function UploadDocumentForm(props) {
+function EditAnswerForm(props) {
     const classes = useStyles();
+    const{answer}=props;
     const schema = yup.object().shape({
-        Decription: yup.string().required('Please enter your description.'),
+        Content: yup.string().required('Chưa có câu trả lời'),
     });
 
     const form = useForm({
         defaultValues: {
             IdClassroom: '',
             IdMember: '',
-            Decription: '',
-            FileUploads: '',
+            IdExercise: '',
+            Content: '',
+            FileUploadAnswer: '',
         },
         resolver: yupResolver(schema),
     });
@@ -71,12 +75,12 @@ function UploadDocumentForm(props) {
         <div className={classes.root}>
             {isSubmitting && <LinearProgress className={classes.progress} />}
             <Typography className={classes.title} component="h3" variant="h5">
-                Tải tài liệu
+                Bài tập
             </Typography>
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <InputField name="Decription" label="Tiêu đề tài liệu" form={form} />
-                <UploadField name='FileUploads' form={form} accept='*' />
+                <TextAreaField name='Content' label='Nội dung' form={form} defaultValue={answer.content} />
+                <span>Đính kèm:</span> <UploadField name='FileUploadAnswer' form={form} accept='*' /> <span>tệp đã nộp: <a href={answer.linkFile} target="_blank" rel="noopener noreferrer">tệp</a></span>
                 <Button
                     disabled={isSubmitting}
                     type="submit"
@@ -86,11 +90,11 @@ function UploadDocumentForm(props) {
                     fullWidth
                     size="large"
                 >
-                    tải lên
+                    Nộp lại
                 </Button>
             </form>
         </div>
     );
 }
 
-export default UploadDocumentForm;
+export default EditAnswerForm;

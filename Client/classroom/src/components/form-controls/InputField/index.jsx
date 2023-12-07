@@ -11,10 +11,11 @@ InputField.propTypes = {
     label: PropTypes.string,
     type: PropTypes.string,
     disabled: PropTypes.bool,
+    defaultValue: PropTypes.string
 };
 
 function InputField(props) {
-    const { form, name, label, type, disabled, style } = props;
+    const { form, name, label, type, disabled, style, defaultValue } = props;
     const { errors } = form;
     const hasError = errors[name];
 
@@ -22,6 +23,7 @@ function InputField(props) {
         <Controller
             name={name}
             control={form.control}
+            
             render={({ onChange, onBlur, value, name }) => (
                 <TextField
                     margin="normal"
@@ -32,11 +34,12 @@ function InputField(props) {
                     error={!!hasError}
                     helperText={errors[name]?.message}
                     name={name}
-                    value={value}
+                 //   value={value}
                     onChange={onChange}
                     onBlur={onBlur}
                     type={type}
                     style={style}
+                    defaultValue={defaultValue}
                 />
             )}
         />

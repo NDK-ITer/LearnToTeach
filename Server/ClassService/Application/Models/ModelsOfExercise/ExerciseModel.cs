@@ -11,6 +11,7 @@ namespace Application.Models.ModelsOfExercise
         public string Description { get; set; }
         public DateTime? Deadline { get; set; }
         public DateTime? CreateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
         public string File { get; set; }
         public List<AnswerModel> ListAnswer { get; set; }
         public ExerciseModel(Exercise exercise)
@@ -22,6 +23,7 @@ namespace Application.Models.ModelsOfExercise
             if (!exercise.LinkFile.IsNullOrEmpty()) File = $"{exercise.LinkFile}/doc/{exercise.FileName}";
             Deadline = exercise.DeadLine;
             CreateDate = exercise.CreateDate;
+            UpdateDate = exercise.UpdateDate;
             foreach (var item in exercise.ListAnswer)
             {
                 ListAnswer.Add(new AnswerModel(item));

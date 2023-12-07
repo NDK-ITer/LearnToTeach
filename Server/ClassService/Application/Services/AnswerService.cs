@@ -130,7 +130,7 @@ namespace Application.Services
             try
             {
                 var answerUpdate = _unitOfWork.answerRepository.Find(p => p.IdExercise == updateAnswer.IdExercise && p.IdMember == updateAnswer.IdMember).FirstOrDefault();
-                if (answerUpdate != null) return new Tuple<string, Answer?>("Not Found",null);
+                if (answerUpdate == null) return new Tuple<string, Answer?>("Not Found",null);
                 if (!updateAnswer.Content.IsNullOrEmpty()) answerUpdate.Content = updateAnswer.Content;
                 if (!updateAnswer.LinkFile.IsNullOrEmpty()) answerUpdate.LinkFile = updateAnswer.LinkFile;
                 if (!updateAnswer.FileName.IsNullOrEmpty()) answerUpdate.FileName = updateAnswer.FileName;

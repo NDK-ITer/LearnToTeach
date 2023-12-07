@@ -4,27 +4,27 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocalContext } from 'context';
-import { uploadAnswer } from 'components/classroom/classSilce';
-import UploadAnswerForm from './UploadAnswerForm';
-UploadAnswer.propTypes = {
+import { editAnswer } from 'components/classroom/classSilce';
+import EditAnswerForm from './EditAnswerForm';
+EditAnswer.propTypes = {
     closeDialog: PropTypes.func,
     classData: PropTypes.object,
     exercise: PropTypes.string,
-    
+    answer: PropTypes.object
 };
 
-function UploadAnswer(props) {
+function EditAnswer(props) {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const { user } = useLocalContext();
-    const { classData, exercise } = props;
+    const { classData, exercise,answer } = props;
     const handleSubmit = async (values) => {
         try {
             // auto set username = email
             values.IdMember = user.id;
             values.IdClassroom = classData.idClassroom;
             values.IdExercise = exercise;
-            const action = uploadAnswer(values);
+            const action = editAnswer(values);
             const resultAction = await dispatch(action);
             unwrapResult(resultAction);
 
@@ -52,9 +52,9 @@ function UploadAnswer(props) {
 
     return (
         <div>
-            <UploadAnswerForm onSubmit={handleSubmit}/>
+            <EditAnswerForm onSubmit={handleSubmit} answer={answer} />
         </div>
     );
 }
 
-export default UploadAnswer;
+export default EditAnswer;

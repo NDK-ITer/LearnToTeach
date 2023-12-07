@@ -9,15 +9,42 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import { Close } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
+import classApi from 'api/classApi';
+import { useSnackbar } from 'notistack';
+import EditAnswer from '../EditAnswer';
 const SubmitExercise = ({ exercise, classData, isUserHost, user, userHost, }) => {
+  const { enqueueSnackbar } = useSnackbar();
+  const [openUpload, setopenUpload] = useState(false);
+  const [openEdit, setopenEdit] = useState(false);
+  const currentDate = new Date();
+  const handleClickopenUpload = () => {
+    setopenUpload(true);
+  };
+  const handleCloseUpload = () => {
+    setopenUpload(false);
+  };
+  const handleClickopenEdit = () => {
+    setopenEdit(true);
+  };
+  const handleCloseEdit = () => {
+    setopenEdit(false);
+  };
+  const handledeleExercise = async () => {
+    try {
+      const params = new URLSearchParams([['idExercise', exercise.idExercise], ['idMember', user.id]]);
+      const result = await classApi.deleteanswer(params);
+      if (result.status == 1) {
+        enqueueSnackbar(result.message, { variant: 'success' });
+        window.location.reload();
+      } else {
+        enqueueSnackbar(result.message, { variant: 'error' });
+      }
 
-  const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+    } catch (error) {
+      console.log('Failed to login:', error);
+      enqueueSnackbar(error.message, { variant: 'error' });
+    }
+  }
   const getPointForIdMember = (idMember) => {
     const answer = exercise.listAnswer.find(answer => answer.idMember === idMember);
     if (answer) {
@@ -63,7 +90,7 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user, userHost, }) =>
           </div>
           <div className='group_button'>
             <Button
-              onClick={handleClickOpen}
+              onClick={handleClickopenUpload}
               variant="contained"
               fullWidth
               disabled={getPointForIdMember(user.id) != null}
@@ -71,12 +98,37 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user, userHost, }) =>
             >
               Nộp bài tập
             </Button>
+            {getPointForIdMember(user.id) != null &&
+              <div>
+                <Button
+                  onClick={handledeleExercise}
+                  variant="contained"
+                  fullWidth
+                  disabled={getPointForIdMember(user.id) > 0 || new Date(exercise.deadline) < currentDate}
+                  style={{ mb: 2, borderRadius: 10, marginTop: '12px' }}
+                >
+                  Hủy nộp
+                </Button>
+                <Button
+                  onClick={handleClickopenEdit}
+                  variant="contained"
+                  fullWidth
+                  disabled={getPointForIdMember(user.id) > 0 || new Date(exercise.deadline) < currentDate}
+                  style={{ marginTop: '12px', mb: 2, borderRadius: 10 }}
+                >
+                  Nộp lại
+                </Button>
+              </div>
+            }
           </div>
           <div className='your_exercise'>
             {getPointForIdMember(user.id) != null && <div>
               <div>
                 <p style={{ fontSize: '22px' }}>Câu trả lời:</p>
                 <p style={{ fontSize: '13px' }}>Thời gian trả lời: {formatdate(answer.dateAnswer)} </p>
+                {formatdate(answer.dateUpdateAnswer) > formatdate(answer.dateAnswer) &&
+                  <p style={{ fontSize: '13px' }}>Thời gian sửa trả lời: {formatdate(answer.dateUpdateAnswer)} </p>
+                }
               </div>
               <div style={{ fontSize: '16px' }}>
                 <p>{answer.content}</p>
@@ -90,16 +142,33 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user, userHost, }) =>
       <Dialog
         disableBackdropClick
         disableEscapeKeyDown
-        open={open}
-        onClose={handleClose}
+        open={openUpload}
+        onClose={handleCloseUpload}
         aria-labelledby="form-dialog-title"
       >
-        <IconButton onClick={handleClose}>
+        <IconButton onClick={handleCloseUpload}>
           <Close />
         </IconButton>
 
         <DialogContent>
-          <UploadAnswer closeDialog={handleClose} classData={classData} exercise={exercise.idExercise} />
+          <UploadAnswer closeDialog={handleCloseUpload} classData={classData} exercise={exercise.idExercise} />
+        </DialogContent>
+      </Dialog>
+
+
+      <Dialog
+        disableBackdropClick
+        disableEscapeKeyDown
+        open={openEdit}
+        onClose={handleCloseEdit}
+        aria-labelledby="form-dialog-title"
+      >
+        <IconButton onClick={handleCloseEdit}>
+          <Close />
+        </IconButton>
+
+        <DialogContent>
+          <EditAnswer closeDialog={handleCloseEdit} classData={classData} answer={answer} exercise={exercise.idExercise} />
         </DialogContent>
       </Dialog>
     </div>

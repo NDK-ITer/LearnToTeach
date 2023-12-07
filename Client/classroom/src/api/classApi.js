@@ -58,6 +58,10 @@ const classApi = {
     const url = '/Member/update-answer'
     return axiosClient.put(url, data);
   },
+  deleteanswer(params) {
+    const url = '/Member/delete-answer';
+    return axiosClient.delete(url, { params });
+  },
   uploaddoc(data) {
     const url = '/Member/upload-doc'
     return axiosClient.post(url, data);
