@@ -35,6 +35,17 @@ export const forgetpassword = createAsyncThunk('account/forget-password', async 
     console.log(data);
     return data;
 });
+export const editinfor = createAsyncThunk('account/editinfor', async (payload) => {
+
+    const formData = new FormData()
+    formData.append('IdUser', payload.IdUser);
+    formData.append('FirstName', payload.FirstName);
+    formData.append('LastName', payload.LastName);
+    formData.append('Avatar', payload.Avatar);
+    const data = await userApi.editinfor(formData);
+    console.log(data);
+    return data;
+});
 
 export const verifyotp = createAsyncThunk('account/verify-otp', async (payload) => {
 

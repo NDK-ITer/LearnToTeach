@@ -107,8 +107,7 @@ const Header = ({ children }) => {
                                 onClose={handleCloseMenu}
                                 getContentAnchorEl={null}
                             >
-                                <MenuItem onClick={() => Info()}>Thông tin tài khoản</MenuItem>
-                                <MenuItem >Phản hồi</MenuItem>
+                                <MenuItem> <a href="/infor">Thông tin tài khoản</a></MenuItem>
                                 <MenuItem onClick={handleLogoutClick}>Đăng xuất</MenuItem>
                             </Menu>
                         </div>
