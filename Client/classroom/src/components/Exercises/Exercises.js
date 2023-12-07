@@ -98,10 +98,12 @@ const Exercises = ({ classData }) => {
               </a>
               <div className='task_information'>
                 <div className='task_name'>{item.name}</div>
-                <div className='task_deadline'>thời hạn: {formatDate(item.deadline)} </div>
-                <Button variant="contained" onClick={() => handleIdExercise(item.idExercise)} color="secondary" startIcon={<ExitToAppOutlined />}>
-                  xóa
-                </Button>
+                <div style={{ display: 'flex'}}>
+                  <div className='task_deadline'>Thời hạn: {formatDate(item.deadline)} </div>
+                  <Button variant="contained" onClick={() => handleIdExercise(item.idExercise)} color="secondary" startIcon={<ExitToAppOutlined />}>
+                    xóa
+                  </Button>
+                </div>
               </div>
             </li>
           ))}
@@ -142,8 +144,8 @@ const Exercises = ({ classData }) => {
                 </Avatar>
               </a>
               <div className='task_information'>
-                <div className='task_name'>{item.name}</div>
-                <div className='task_deadline'>{formatDate(item.deadline)} </div>
+                <div className='task_name_1'>{item.name}</div>
+                <div className='task_deadline_1'>{formatDate(item.deadline)} </div>
               </div>
             </li>
           ))}

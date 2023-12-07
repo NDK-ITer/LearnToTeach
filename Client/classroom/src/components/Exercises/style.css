@@ -28,13 +28,28 @@
     margin-left: 20px;
     font-size: 15px;
     color:rgb(27, 27, 27);
+    padding-top: 8px;
+}
+.task_name_1 {
+    margin-left: 20px;
+    font-size: 15px;
+    color:rgb(27, 27, 27);
 }
 .task_deadline {
     box-sizing: border-box;
     color: rgba(0,0,0,.549);
     margin-left: 1rem;
     min-width: 0;
-    padding-right: 0.25rem;
+    padding-right: 1.5rem;
+    margin-right: -0.25rem;
+    padding-top: 8px;
+}
+.task_deadline_1 {
+    box-sizing: border-box;
+    color: rgba(0,0,0,.549);
+    margin-left: 1rem;
+    min-width: 0;
+    padding-right: 1.5rem;
     margin-right: -0.25rem;
 }
 .btn_create {
