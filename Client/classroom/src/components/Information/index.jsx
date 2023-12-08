@@ -11,6 +11,7 @@ import { IconButton } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import EnhancedEncryptionOutlinedIcon from '@material-ui/icons/EnhancedEncryptionOutlined';
 import UpdateInfor from "./UpdateInfor";
+import formatDate from "constants/formatdate";
 
 const Information = () => {
   const user = JSON.parse(localStorage.getItem(StorageKeys.USER))
@@ -25,7 +26,7 @@ const Information = () => {
     };
     fetchData();
   }, []);
-  
+
   const [openEdit, setopenEdit] = useState(false);
   const handleClickopenEdit = () => {
     setopenEdit(true);
@@ -42,12 +43,12 @@ const Information = () => {
           </Avatar>
           <div className='personal_detail'>
             <h1 className='title_text_1'>Thông tin cá nhân</h1>
-            <p style={{ paddingBottom: '10px' }}>--- Ngày tạo tài khoản ---</p>
+            <p style={{ paddingBottom: '10px' }}>--- Ngày tạo tài khoản: {formatDate(userInfor.createDate)} ---</p>
           </div>
         </div>
         <div className='account_information'>
           <div className="edit_change_button">
-            <Button variant="contained"  onClick={handleClickopenEdit} startIcon={<InfoOutlinedIcon />} style={{ marginRight: '30px' }}>
+            <Button variant="contained" onClick={handleClickopenEdit} startIcon={<InfoOutlinedIcon />} style={{ marginRight: '30px' }}>
               Sửa thông tin
             </Button>
             <Button variant="contained" color="primary" startIcon={<EnhancedEncryptionOutlinedIcon />} >
@@ -55,9 +56,10 @@ const Information = () => {
             </Button>
           </div>
           <div className="information_area">
-            <Avatar >
-
-            </Avatar>
+            <Avatar
+              className="avatar"
+              src={userInfor.avatar != null ? userInfor.avatar : "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/s75-c-fbw=1/photo.jpg"}
+            />
             <p>Họ Tên : {userInfor.fullName}</p>
             <p>Email : {userInfor.email}</p>
             <p>Số điện thoại: {userInfor.phoneNumber}</p>
@@ -76,7 +78,7 @@ const Information = () => {
         </IconButton>
 
         <DialogContent>
-          <UpdateInfor closeDialog={handleCloseEdit} userInfor={userInfor}/>
+          <UpdateInfor closeDialog={handleCloseEdit} userInfor={userInfor} />
         </DialogContent>
       </Dialog>
     </div>

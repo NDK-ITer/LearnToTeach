@@ -23,7 +23,7 @@ function InputField(props) {
         <Controller
             name={name}
             control={form.control}
-            
+
             render={({ onChange, onBlur, value, name }) => (
                 <TextField
                     margin="normal"
@@ -34,7 +34,7 @@ function InputField(props) {
                     error={!!hasError}
                     helperText={errors[name]?.message}
                     name={name}
-                 //   value={value}
+                    //   value={value}
                     onChange={onChange}
                     onBlur={onBlur}
                     type={type}
