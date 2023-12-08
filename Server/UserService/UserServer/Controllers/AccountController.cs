@@ -439,6 +439,7 @@ namespace Server.Controllers
                         id = Guid.Parse(editInforRequest.IdUser),
                         fullName = editInforRequest.FirstName + " " + editInforRequest.LastName,
                         avatar = _imageMethod.GenerateToString(editInforRequest.Avatar),
+                        email = editInforRequest.Email,
                         eventMessage = _userEventMessage.Update,
                         serverName = _serverInfor.Value.Name
                     });
