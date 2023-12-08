@@ -8,7 +8,9 @@ namespace Application.Models.ModelsOfAnswer
     {
         public string IdMember { get; set; }
         public DateTime DateAnswer { get; set; }
-        public DateTime DateUpdateAnswer { get; set; }
+        public DateTime? DateUpdateAnswer { get; set; }
+        public DateTime? DateSetPoint { get; set; }
+        public DateTime? DateUpdatePoint { get; set; }
         public string? Content { get; set; }
         public string? LinkFile { get; set; }
         public float? Point { get; set; }
@@ -21,6 +23,8 @@ namespace Application.Models.ModelsOfAnswer
             IdMember = answer.IdMember;
             DateUpdateAnswer = answer.DateUpdateAnswer;
             DateAnswer = answer.DateAnswer;
+            DateSetPoint = answer.DateSetPoint;
+            DateUpdatePoint = answer.DateUpdatePoint;
             Content = answer.Content;
             Point = answer.Point;
             LinkFile = $"{answer.LinkFile}/doc/{answer.FileName}";

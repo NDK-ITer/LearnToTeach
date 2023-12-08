@@ -152,6 +152,14 @@ namespace Application.Services
                 var answerUpdate = _unitOfWork.answerRepository.Find(p => p.IdExercise == idExercise && p.IdMember == idMember).FirstOrDefault();
                 if (answerUpdate == null) return new Tuple<string, Answer?>("answer is not exist",null);
                 answerUpdate.Point = point;
+                if (answerUpdate.DateSetPoint == null)
+                {
+                    answerUpdate.DateSetPoint = DateTime.Now;
+                }
+                else
+                {
+                    answerUpdate.DateUpdatePoint = DateTime.Now;
+                }
                 _unitOfWork.answerRepository.Update(answerUpdate);
                 _unitOfWork.SaveChange();
                 return new Tuple<string, Answer?>("Successful", answerUpdate);
