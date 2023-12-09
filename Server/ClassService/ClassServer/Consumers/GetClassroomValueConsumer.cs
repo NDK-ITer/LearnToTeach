@@ -32,7 +32,7 @@ namespace ClassServer.Consumers
                     isPrivate = data.isPrivate,
                     eventMessage = data.eventMessage,
                 });
-                if (!data.avatar.IsNullOrEmpty() || data.eventMessage == _classroomStateMessage.Delete)
+                if (!data.avatar.IsNullOrEmpty() || (data.eventMessage == _classroomStateMessage.Delete && !data.avatar.IsNullOrEmpty()))
                 {
                     await context.Publish<IUploadFileEvent>(new
                     {
