@@ -37,7 +37,7 @@ const Main = ({ classData }) => {
       setisClassPrivate(result.key)
       setisUserMember(result.listMembers.filter(x => x.role == Role.MEMBER && user.id == x.idMember).length > 0 ? true : false);
       setnotify(result.listNotify.sort((a, b) => new Date(b.createDate) - new Date(a.createDate)));
-      setListExerciceUserhost(result.listExercises.filter(x => (x.listAnswer.filter(c => c.point != null).length < x.listAnswer.length || x.listAnswer.filter(c => c.point != null).length == 0) && new Date(x.deadline) >= currentDate).sort((a, b) => new Date(a.deadline) - new Date(b.deadline)).slice(0, 5));
+      setListExerciceUserhost(result.listExercises.filter(x => (x.listAnswer.filter(c => c.point != null).length < x.listAnswer.length || x.listAnswer.filter(c => c.point == null).length == 0) && new Date(x.deadline) >= currentDate).sort((a, b) => new Date(a.deadline) - new Date(b.deadline)).slice(0, 5));
       setListExerciceUserMember(result.listExercises.filter(x => (x.listAnswer.filter(c => c.idMember == user.id).length >= 0) && new Date(x.deadline) >= currentDate).sort((a, b) => new Date(a.deadline) - new Date(b.deadline)).slice(0, 5))
     };
     fetchData();
@@ -178,26 +178,26 @@ const Main = ({ classData }) => {
         </div>
         <div className="main__announce">
           <div className="main__status">
-            <p>Sắp đến hạn</p>
+            <div>Sắp đến hạn</div>
             <div className="main__subText">
               {isUserHost &&
-                <ul className='list_notifies'>
+                <ul>
                   {listExercisesUserhost.map((item, index) => (
                     <li key={index}>
                       <a href={`/${classData.idClassroom}/exercises/${item.idExercise}`}>{item.name}</a>
                     </li>
                   ))}
-                  {listExercisesUserhost.length <= 0 && <span>không có bài tập nào</span>}
+                  {listExercisesUserhost.length <= 0 && <span>Không có bài tập nào</span>}
                 </ul>
               }
               {!isUserHost &&
-                <ul className='list_notifies'>
+                <ul>
                   {listExercisesUserMember.map((item, index) => (
                     <li key={index}>
                       <a href={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>{item.name}</a>
                     </li>
                   ))}
-                  {listExercisesUserMember.length <= 0 && <span>không có bài tập nào</span>}
+                  {listExercisesUserMember.length <= 0 && <span>Không có bài tập nào</span>}
                 </ul>}
 
             </div>

@@ -34,7 +34,7 @@ const ExerciseDetail = ({ exercise, classData, userHost }) => {
                     <div className='content_detail'>
                         <p>{exercise.description}</p>
                         {exercise.file !='https://localhost:9002/doc/' &&
-                        <p>tiệp tin: <a href={exercise.file} target='_blank'>mở tiệp</a></p>  
+                        <p>Tệp đính kèm: <a href={exercise.file} target='_blank'>Tệp đính kèm</a></p>  
                         }                         
                     </div>
                 </div>

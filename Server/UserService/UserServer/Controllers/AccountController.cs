@@ -412,6 +412,12 @@ namespace Server.Controllers
         {
             try
             {
+                var resultstatus = new ResultStatus()
+                {
+                    status = -4,
+                    message = ""
+                };
+
                 var updateUserModel = new UpdateUserModel()
                 {
                     IdUser = editInforRequest.IdUser,
@@ -421,7 +427,9 @@ namespace Server.Controllers
                 var check = _unitOfWork_UserService.UserService.UpdateUser(updateUserModel);
                 if (!check)
                 {
-                    return BadRequest("Edit information is fail");
+                     resultstatus.status = -1;
+                    resultstatus.message = "Edit information is fail";
+                    return Ok(resultstatus);
                 }
                 var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
                 if (endPoint != null)
@@ -436,7 +444,9 @@ namespace Server.Controllers
                         serverName = _serverInfor.Value.Name
                     });
                 }
-                return Ok("Edit information is successful");
+                resultstatus.status = 1;
+                resultstatus.message = "Edit information is successful";
+                return Ok(resultstatus);
             }
             catch (Exception)
             {

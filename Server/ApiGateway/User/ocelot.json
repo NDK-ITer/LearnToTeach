@@ -111,6 +111,19 @@
       "DownstreamPathTemplate": "/api/Account/reset-password",
       "DownstreamScheme": "https"
     },
+    //edit-infor
+    {
+      "UpstreamPathTemplate": "/account/edit-infor",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9001
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Account/edit-infor",
+      "DownstreamScheme": "https"
+    },
     //user-data
     {
       "UpstreamPathTemplate": "/account/user-data",

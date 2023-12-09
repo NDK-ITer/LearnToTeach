@@ -69,7 +69,7 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user, userHost, }) =>
           <div className='content1'>
             <div className='content_text1'>
               <div className='deadline1'> Thời hạn {formatdate(exercise.deadline)} </div>
-              <div>{getPointForIdMember(user.id) == null ? "0" : getPointForIdMember(user.id) > 0 ? getPointForIdMember(user.id) : "0"}/10 Điểm</div>
+              <div> {getPointForIdMember(user.id) == null ? "0" : getPointForIdMember(user.id) > 0 ? getPointForIdMember(user.id) : "0"}/10 Điểm</div>
             </div>
             <div className='content_detail1'>
               <p>
@@ -86,18 +86,20 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user, userHost, }) =>
         <div className='upload_exercise'>
           <div className='your_exercise'>
             <p>Bài tập của bạn</p>
-            <p className='upload_status'>{getPointForIdMember(user.id) == null ? "Chưa nộp" : getPointForIdMember(user.id) > 0 ? "Đã chấm" : "Đã nộp"}</p>
+            <p className='upload_status'>{getPointForIdMember(user.id) == null ? "Chưa nộp" : getPointForIdMember(user.id) > 0 ? answer.dateUpdateAnswer!=null?"Đã chấm lại":"Đã chấm" : "Đã nộp"}</p>
           </div>
           <div className='group_button'>
-            <Button
-              onClick={handleClickopenUpload}
-              variant="contained"
-              fullWidth
-              disabled={getPointForIdMember(user.id) != null}
-              style={{ mb: 2, borderRadius: 10 }}
-            >
-              Nộp bài tập
-            </Button>
+            {getPointForIdMember(user.id) == null &&
+              <Button
+                onClick={handleClickopenUpload}
+                variant="contained"
+                fullWidth
+                disabled={getPointForIdMember(user.id) != null}
+                style={{ mb: 2, borderRadius: 10 }}
+              >
+                Nộp bài tập
+              </Button>
+            }
             {getPointForIdMember(user.id) != null &&
               <div>
                 <Button

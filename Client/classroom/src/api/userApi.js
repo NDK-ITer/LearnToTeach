@@ -14,6 +14,10 @@ const userApi = {
     const url = '/account/forget-password';
     return axiosClient.post(url, data);
   },
+  editinfor(data) {
+    const url = '/account/edit-infor';
+    return axiosClient.post(url, data);
+  },
   verifyotp(data) {
     const url = '/account/verify-otp';
     return axiosClient.post(url, data);

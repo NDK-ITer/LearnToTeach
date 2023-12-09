@@ -7,6 +7,9 @@ namespace Application.Models
     {
         public string? id { get; set; }
         public string? fullName { get; set; }
+        public string? lastName { get; set; }
+        public string? firstName { get; set; }
+        public DateTime? createDate { get; set; }
         public string? email { get; set; }
         public string? phoneNumber { get; set; }
         public string? role { get; set; }
@@ -27,6 +30,9 @@ namespace Application.Models
             this.fullName = user.FirstName + " " + user.LastName;
             this.role = user.Role.Name;
             this.phoneNumber = user.PhoneNumber; 
+            this.lastName = user.LastName;
+            this.firstName = user.FirstName;
+            this.createDate = user.CreatedDate;
             this.avatar = $"{user.LinkAvatar}/{user.Avatar}";
             foreach (var item in user.ListClassroomInfor)
             {

@@ -17,7 +17,6 @@ function UploadField(props) {
     const { form, name, label, disabled, style, accept } = props;
     const { errors } = form;
     const hasError = errors[name];
-
     return (
 
         <Controller

@@ -7,7 +7,7 @@ import {
     Typography,
     IconButton
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useStyles } from "./style";
 import { Link } from "react-router-dom";
 import Button from '@material-ui/core/Button';
@@ -22,6 +22,8 @@ import { Close } from '@material-ui/icons';
 import CreateClass from "components/classroom/create";
 import JoinClass from "components/classroom/join";
 import { useHistory } from 'react-router-dom';
+import userApi from "api/userApi";
+import StorageKeys from 'constants/storage-keys'
 
 const MODE = {
     CREATE: 'CREATE',
@@ -29,6 +31,7 @@ const MODE = {
 };
 
 const Header = ({ children }) => {
+    const user = JSON.parse(localStorage.getItem(StorageKeys.USER))
     const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
@@ -59,11 +62,11 @@ const Header = ({ children }) => {
         dispatch(action);
         history.push('/signin')
         window.location.reload(false);
-        
+
     };
     return (
-        <div className={classes.root}>
-            <AppBar className={classes.appBar} position="static">
+        <div className={classes.root} >
+            <AppBar className={classes.appBar} position="sticky">
                 <Toolbar className={classes.toolbar}>
                     <div className={classes.headerWrapper}>
                         {children}
@@ -89,14 +92,14 @@ const Header = ({ children }) => {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            className={classes.button}                          
+                            className={classes.button}
                         >
                             Tạo lớp học
                         </Button>
                         <div>
                             <Avatar
                                 onClick={handleUserClick}
-                                src={accountImg}
+                                src={user.avatar != '/' ? user.avatar : accountImg}
                                 className={classes.icon}
                             />
                             <Menu
@@ -107,8 +110,7 @@ const Header = ({ children }) => {
                                 onClose={handleCloseMenu}
                                 getContentAnchorEl={null}
                             >
-                                <MenuItem onClick={() => Info()}>Thông tin tài khoản</MenuItem>
-                                <MenuItem >Phản hồi</MenuItem>
+                                <MenuItem> <a href="/infor">Thông tin tài khoản</a></MenuItem>
                                 <MenuItem onClick={handleLogoutClick}>Đăng xuất</MenuItem>
                             </Menu>
                         </div>

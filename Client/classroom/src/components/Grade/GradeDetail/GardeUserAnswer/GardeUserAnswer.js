@@ -10,6 +10,7 @@ import { Close } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 import SetPointUser from '../SetPointUser';
 import GoBackButton from 'components/GoBackButton';
+import getFileExtension from 'constants/extentionfile';
 const GardeUserAnswer = ({ classData, userHost, answerItem, exercise }) => {
     const [open, setOpen] = useState(false);
     const handleClickOpen = () => {
@@ -18,6 +19,7 @@ const GardeUserAnswer = ({ classData, userHost, answerItem, exercise }) => {
     const handleClose = () => {
         setOpen(false);
     };
+    const curendate = new Date()
     return (
         <div className='submit_exercise1'>
             <div className='main_area1'>
@@ -27,7 +29,7 @@ const GardeUserAnswer = ({ classData, userHost, answerItem, exercise }) => {
                     </Avatar>
                     <div className='upload_detail1'>
                         <h1 className='title_text2'>{exercise.name}</h1>
-                        <p style={{fontSize: '14px'}}>--- {userHost.nameMember} --- Thời gian giao {formatdate(exercise.createDate)} <span style={{ marginLeft: "15px" }}>{answerItem.point > 0 ? "Đã chấm" : "Chưa chấm"}</span> </p>
+                        <p style={{ fontSize: '14px' }}>--- {userHost.nameMember} --- Thời gian giao {formatdate(exercise.createDate)} <span style={{ marginLeft: "15px" }}>{answerItem.point > 0 ? answerItem.dateUpdatePoint != null ? "đã chấm (" + formatdate(answerItem.dateUpdatePoint)+")" : "đã sửa điểm ("+formatdate(answerItem.dateSetPoint)+")" : "Chưa chấm"} </span> </p>
                     </div>
                 </div>
                 <div className='upload_detail1'>
@@ -42,33 +44,33 @@ const GardeUserAnswer = ({ classData, userHost, answerItem, exercise }) => {
                             </p>
                         </div>
                     </div>
-                </div>              
+                </div>
             </div>
             <div className='upload_area1'>
                 <div className='upload_exercise1'>
                     <div>
-                        <p style={{fontSize: '22px'}}>Câu trả lời:</p>
-                        <p style={{fontSize: '13px'}}>Thời gian trả lời: {formatdate(answerItem.dateAnswer)}</p>
+                        <p style={{ fontSize: '22px' }}>Câu trả lời:</p>
+                        <p style={{ fontSize: '13px' }}>Thời gian trả lời: {formatdate(answerItem.dateAnswer)}</p>
                     </div>
                     <div>
                         <p>{answerItem.content}</p>
-                        <a href={answerItem.linkFile} target='_banlk'>Đính kèm tệp</a>
+                        {answerItem.linkFile!='https://localhost:9002/doc/' && <a href={answerItem.linkFile} target='_banlk'>Đính kèm tệp</a>}
+                        
                     </div>
-                    <div className='group_button1'>                        
+                    <div className='group_button1'>
                         <Button
                             onClick={handleClickOpen}
                             variant="contained"
-                            disabled={answerItem.point > 0}
-                            style={{ marginBottom: "5px", borderRadius: 10, width: '12vw'}}
+                            disabled={formatdate(exercise.deadline)> curendate?false:true}
+                            style={{ marginBottom: "5px", borderRadius: 10, width: '12vw' }}
                         >
-                            chấm điểm
+                            {answerItem.dateSetPoint == null ? "chấm điểm" : "chấm lại"}
                         </Button>
                         <GoBackButton />
-                        
                     </div>
                 </div>
-            </div>           
-            
+            </div>
+
             <Dialog
                 disableBackdropClick
                 disableEscapeKeyDown

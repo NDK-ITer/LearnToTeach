@@ -1,0 +1,5 @@
+*edit thông tin tài khoản cần thêm field:phoneNumber(check tộn tại hay ko),email(có sửa hay ko,nếu sửa thì xem co ns đăng nhập đc hay ko bằng email mới).check upload avarta nó không truyền dl qua có servie khác.
+
+*change pasword: viết thiếu phần change pass(chỉ viết tới phần OTP)
+
+*thêm hai feild uploadpoint,editpoint trong  Answer
