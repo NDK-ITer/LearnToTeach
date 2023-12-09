@@ -7,9 +7,9 @@ namespace SagaStateMachine.UserService.ConfirmUserEmail
         public Guid CorrelationId { get; set; }
         public string? CurrentState { get; set; }
         public Guid IdUser { get; set; }
-        public string Fullname { get; set; }
-        public string Email { get; set; }
-        public string Subject { get; set; }
-        public string Content { get; set; }
+        public string? Fullname { get; set; }
+        public string? Email { get; set; }
+        public string? Subject { get; set; }
+        public string? Content { get; set; }
     }
 }

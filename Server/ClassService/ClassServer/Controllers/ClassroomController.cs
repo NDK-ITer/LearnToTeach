@@ -1,5 +1,6 @@
 ﻿using Application.Models.ModelsOfClassroom;
 using Application.Requests.Classroom;
+using Application.Requests.Exercise;
 using Application.Services;
 using ClassServer.FileMethods;
 using ClassServer.Models;
@@ -63,9 +64,10 @@ namespace ClassServer.Controllers
         [HttpGet]
         [HttpOptions]
         [Route("")]
-        public ActionResult<ClassroomModel> GetClassById( string idClassroom)
+        public ActionResult<ClassroomModel> GetClassById(string idClassroom)
         {
-            var result = new ResultStatus() {
+            var result = new ResultStatus()
+            {
                 Status = 0,
                 Message = string.Empty
             };
@@ -171,9 +173,21 @@ namespace ClassServer.Controllers
         [Route("update")]
         public async Task<ActionResult> UpdateClassroom([FromForm] ClassroomRequest classroomRequest)
         {
+            var result = new ResultStatus()
+            {
+                Status = -1,
+                Message = "Error!"
+            };
             try
             {
 
+                var checkHost = _unitOfWork_ClassroomService._memberService.IsHost(classroomRequest.idMember, classroomRequest.idClassroom);
+                if (!checkHost.Item1)
+                {
+                    result.Status = 0;
+                    result.Message = checkHost.Item2;
+                    return Ok(result);
+                }
                 var check = _unitOfWork_ClassroomService._classroomService.UpdateClassroom(classroomRequest);
                 if (check == 1)
                 {
@@ -192,10 +206,16 @@ namespace ClassServer.Controllers
                             eventMessage = _classroomStateMessage.Update
                         });
                     }
-                    return Ok("Updated Classroom is successful!");
+                    result.Status = 1;
+                    result.Message = "Update successful";
+                    return Ok(result);
                 }
-                else if (check == 0) return BadRequest("Something is Wrong!");
-                else return BadRequest("Updated Classroom is fail!");
+                else
+                {
+                    result.Status = 0;
+                    result.Message = "Update fail";
+                    return Ok(result);
+                }
             }
             catch (Exception e)
             {
@@ -206,7 +226,7 @@ namespace ClassServer.Controllers
         [HttpDelete]
         [HttpOptions]
         [Route("delete")]
-        public async Task<ActionResult> DeleteClassroom( string? idClassroom)
+        public async Task<ActionResult> DeleteClassroom(string? idClassroom)
         {
             try
             {
@@ -245,16 +265,22 @@ namespace ClassServer.Controllers
         [HttpDelete]
         [HttpOptions]
         [Route("remove-member")]
-        public async Task<ActionResult>DeleteMemberInClassroom(string? idClassroom, string? idMember)
+        public async Task<ActionResult> DeleteMemberInClassroom(string idClassroom, string idMember, string idHostMember)
         {
             try
             {
                 var resultMessage = new ResultStatus()
                 {
                     Status = 0,
-                    Message=string.Empty
+                    Message = string.Empty
                 };
-
+                var checkHost = _unitOfWork_ClassroomService._memberService.IsHost(idHostMember, idClassroom);
+                if (!checkHost.Item1)
+                {
+                    resultMessage.Status = 0;
+                    resultMessage.Message = checkHost.Item2;
+                    return Ok(resultMessage);
+                }
                 var check = _unitOfWork_ClassroomService._classroomService.RemoveMember(idClassroom, idMember);
                 if (check == 1)
                 {
@@ -280,7 +306,7 @@ namespace ClassServer.Controllers
                         return Ok(resultMessage);
                     }
                     resultMessage.Status = 1;
-                    resultMessage.Message = "deleted classroom Member successfull";
+                    resultMessage.Message = "deleted classroom Member successful";
                     return Ok(resultMessage);
                 };
                 resultMessage.Message = "deleted classroom Member fail";

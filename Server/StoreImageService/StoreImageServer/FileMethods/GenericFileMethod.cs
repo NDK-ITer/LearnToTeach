@@ -1,4 +1,5 @@
-﻿namespace FileStoreServer.FileMethods
+﻿using XAct;
+namespace FileStoreServer.FileMethods
 {
     public class GenericFileMethod
     {
@@ -29,6 +30,15 @@
             var stream = new FileStream(fileWithPath, FileMode.Create);
             file.CopyTo(stream);
             stream.Close();
+        }
+
+        public void DeleteFile(string folder, string fileName)
+        {
+            if (folder.IsNullOrEmpty() || fileName.IsNullOrEmpty()) return;
+            var contentPath = this.environment.ContentRootPath;
+            var path = Path.Combine(contentPath, folder);
+            var fileWithPath = Path.Combine(path, fileName);
+            File.Delete(fileWithPath);
         }
     }
 }

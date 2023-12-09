@@ -304,7 +304,6 @@ namespace Server.Controllers
                     resultstatus.message = "email not found";
                     return Ok(resultstatus);
                 };
-
                 // get a OTP and store to me MemoryCache with key value is "email"
                 var otp = _unitOfWork_UserService.UserService.GetOtp(Email);              
                 // Send the OTP to Email

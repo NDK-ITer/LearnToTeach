@@ -3,16 +3,18 @@ using Events.ClassroomServiceEvents.Classroom;
 using Events.MultiServiceUseEvent;
 using MassTransit;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ClassServer.Consumers
 {
     public class GetClassroomValueConsumer : IConsumer<IGetValueClassroomEvent>
     {
         private readonly IOptions<ServerInfor> _serverInfor;
-
-        public GetClassroomValueConsumer(IOptions<ServerInfor> serverInfor)
+        private readonly ClassroomEventMessage _classroomStateMessage;
+        public GetClassroomValueConsumer(IOptions<ServerInfor> serverInfor, ClassroomEventMessage classroomStateMessage)
         {
             _serverInfor = serverInfor;
+            _classroomStateMessage = classroomStateMessage;
         }
 
         public async Task Consume(ConsumeContext<IGetValueClassroomEvent> context)
@@ -30,15 +32,18 @@ namespace ClassServer.Consumers
                     isPrivate = data.isPrivate,
                     eventMessage = data.eventMessage,
                 });
-
-                await context.Publish<IUploadFileEvent>(new
+                if (!data.avatar.IsNullOrEmpty() || data.eventMessage == _classroomStateMessage.Delete)
                 {
-                    IdMessage = Guid.NewGuid(),
-                    IdObject = data.idClassroom,
-                    FileByteString = data.avatar,
-                    Event = data.eventMessage,
-                    ServerName = _serverInfor.Value.Name
-                });
+                    await context.Publish<IUploadFileEvent>(new
+                    {
+                        IdMessage = Guid.NewGuid(),
+                        IdObject = data.idClassroom,
+                        FileByteString = data.avatar,
+                        Event = data.eventMessage,
+                        ServerName = _serverInfor.Value.Name
+                    });
+                }
+                
             }
         }
     }

@@ -45,7 +45,7 @@ namespace FIleStoreServer.Consumers
                 {
                     if (data.Event == eventMessage.Create || data.Event == eventMessage.Update)
                     {
-                        var imageInfor = imageMethod.SaveImage("Files", data.FileByteString, Guid.NewGuid().ToString());
+                        var imageInfor = imageMethod.SaveImage("Files", data.FileByteString, data.IdObject);
                         if (imageInfor != null)
                         {
                             await context.Publish<IClassroomServiceUploadIsValid>(new
@@ -59,7 +59,7 @@ namespace FIleStoreServer.Consumers
                     }
                     else if (data.Event == eventMessage.Delete)
                     {
-
+                        imageMethod.DeleteFile("Files", $"{data.IdObject}.png");
                     }
                 }
             }

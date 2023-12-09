@@ -5,6 +5,7 @@ namespace Application.Requests.Classroom
     public class ClassroomRequest
     {
         public string? idClassroom { get; set; }
+        public string? idMember { get; set; }
         public string? description { get; set; }
         public string? idUserHost { get; set; }
         public string? key { get; set; }
