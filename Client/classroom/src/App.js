@@ -94,10 +94,13 @@ function App() {
             ))}
           </ol>
         </ProtectedRoute>
-        <Route path='/infor'>
-            <Drawer/>
-           <Information/>
-        </Route>
+        {logged &&
+          <Route path='/infor'>
+            <Drawer />
+            <Information />
+          </Route>
+
+        }
         <Redirect from="/home" to="/" exact />
         <Route path="/SignIn" component={Login} exact />
         <Route path="/SignUp" component={Register} exact />

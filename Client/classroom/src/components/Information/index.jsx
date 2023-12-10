@@ -12,6 +12,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import EnhancedEncryptionOutlinedIcon from '@material-ui/icons/EnhancedEncryptionOutlined';
 import UpdateInfor from "./UpdateInfor";
 import formatDate from "constants/formatdate";
+import ChangePassword from "components/Auth/ChangePassword";
 
 const Information = () => {
   const user = JSON.parse(localStorage.getItem(StorageKeys.USER))
@@ -34,6 +35,13 @@ const Information = () => {
   const handleCloseEdit = () => {
     setopenEdit(false);
   };
+  const [openChangePassword, setopenChangePassword] = useState(false);
+  const handleClickopenChangePassword = () => {
+    setopenChangePassword(true);
+  };
+  const handleCloseChangePassword = () => {
+    setopenChangePassword(false);
+  };
   return (
     <div>
       <div className='account_detail'>
@@ -51,7 +59,7 @@ const Information = () => {
             <Button variant="contained" onClick={handleClickopenEdit} startIcon={<InfoOutlinedIcon />} style={{ marginRight: '30px' }}>
               Sửa thông tin
             </Button>
-            <Button variant="contained" color="primary" startIcon={<EnhancedEncryptionOutlinedIcon />} >
+            <Button variant="contained" onClick={handleClickopenChangePassword} color="primary" startIcon={<EnhancedEncryptionOutlinedIcon />} >
               Đổi mật khẩu
             </Button>
           </div>
@@ -79,6 +87,21 @@ const Information = () => {
 
         <DialogContent>
           <UpdateInfor closeDialog={handleCloseEdit} userInfor={userInfor} />
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        disableBackdropClick
+        disableEscapeKeyDown
+        open={openChangePassword}
+        onClose={handleCloseChangePassword}
+        aria-labelledby="form-dialog-title"
+      >
+        <IconButton onClick={handleCloseChangePassword}>
+          <Close />
+        </IconButton>
+
+        <DialogContent>
+          <ChangePassword closeDialog={handleCloseChangePassword} />
         </DialogContent>
       </Dialog>
     </div>
