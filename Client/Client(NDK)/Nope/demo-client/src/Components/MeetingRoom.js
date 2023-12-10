@@ -1,6 +1,3 @@
-import { HubConnection } from "@microsoft/signalr";
-import PersonInformation from "./PersonInformation";
-
 const MeetingRoom =({}) => {
     
 
