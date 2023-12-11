@@ -321,7 +321,7 @@ namespace Application.Services
 
         public bool PhoneNumberIsExist(string phoneNumber)
         {
-            var user = _unitOfWork.userRepository.Find(u => u.PhoneNumber == phoneNumber);
+            var user = _unitOfWork.userRepository.Find(u => u.PhoneNumber == phoneNumber).FirstOrDefault();
             if (user != null)
             {
                 return true;

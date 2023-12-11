@@ -47,7 +47,7 @@ function UploadDocumentForm(props) {
     const classes = useStyles();
     const schema = yup.object().shape({
         Decription: yup.string().required('Please enter your description.'),
-        FileUploads: yup.string().required('Please choose file.')
+        // FileUploadDocument: yup.string().required('Please choose file.')
     });
 
     const form = useForm({
@@ -55,7 +55,7 @@ function UploadDocumentForm(props) {
             IdClassroom: '',
             IdMember: '',
             Decription: '',
-            FileUploads: '',
+            FileUploadDocument: '',
         },
         resolver: yupResolver(schema),
     });
@@ -77,7 +77,7 @@ function UploadDocumentForm(props) {
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>
                 <InputField name="Decription" label="Tiêu đề tài liệu" form={form} />
-                <UploadField name='FileUploads' form={form} accept='*' />
+                <UploadField name='FileUploadDocument' form={form} accept='*' />
                 <Button
                     disabled={isSubmitting}
                     type="submit"

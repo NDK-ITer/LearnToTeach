@@ -634,6 +634,28 @@
       "RouteClaimsRequirement": {
         "Role": "USER"
       }
+    },
+    //export-grade
+    {
+      "UpstreamPathTemplate": "/Member/export-grade",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Member/export-grade",
+      "DownstreamScheme": "https",
+      ////Authentication
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer",
+      //  "AllowedScopes": []
+      //},
+      ////Allow role with "USER"
+      //"RouteClaimsRequirement": {
+      //  "Role": "USER"
+      //}
     }
   ],
   "GlobalConfiguration": {

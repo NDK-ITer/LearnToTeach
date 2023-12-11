@@ -10,7 +10,7 @@ UploadAnswer.propTypes = {
     closeDialog: PropTypes.func,
     classData: PropTypes.object,
     exercise: PropTypes.string,
-    
+
 };
 
 function UploadAnswer(props) {
@@ -20,7 +20,8 @@ function UploadAnswer(props) {
     const { classData, exercise } = props;
     const handleSubmit = async (values) => {
         try {
-            // auto set username = email
+            // auto set username = 
+            console.log(values)
             values.IdMember = user.id;
             values.IdClassroom = classData.idClassroom;
             values.IdExercise = exercise;
@@ -52,7 +53,7 @@ function UploadAnswer(props) {
 
     return (
         <div>
-            <UploadAnswerForm onSubmit={handleSubmit}/>
+            <UploadAnswerForm onSubmit={handleSubmit} />
         </div>
     );
 }

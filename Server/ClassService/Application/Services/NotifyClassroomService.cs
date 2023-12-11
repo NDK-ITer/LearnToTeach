@@ -29,9 +29,10 @@ namespace Application.Services
             {
                 if (notifyClassroom == null || notifyClassroom.IdClassroom.IsNullOrEmpty()) { return new Tuple<string, NotifyClassroom?>("parameter is null", null); }
                 if (notifyClassroom.NameNotify.IsNullOrEmpty() || notifyClassroom.Description.IsNullOrEmpty()) return new Tuple<string, NotifyClassroom?>("nothing to add", null);
+                var random = new Random();
                 var addNotify = new NotifyClassroom()
                 {
-                    IdNotify = Convert.ToBase64String((notifyClassroom.IdClassroom + DateTime.Now).ToString().ToByteArray()).Substring(0, 30),
+                    IdNotify = Convert.ToBase64String((Guid.NewGuid().ToString() + DateTime.Now).ToString().ToByteArray()).Substring(0, 30),
                     NameNotify = notifyClassroom.NameNotify,
                     Description = notifyClassroom.Description,
                     IdClassroom = notifyClassroom.IdClassroom,

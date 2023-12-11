@@ -70,7 +70,7 @@ export const uploaddoc = createAsyncThunk('classroom/uploaddoc', async (payload)
     console.log(payload);
     formData.append('IdClassroom', payload.IdClassroom);
     formData.append('IdMember', payload.IdMember);
-    formData.append('FileUpload', payload.FileUploads);
+    formData.append('FileUpload', payload.FileUploadDocument);
     formData.append('Decription', payload.Decription);
     const data = await classApi.uploaddoc(formData);
     return data;

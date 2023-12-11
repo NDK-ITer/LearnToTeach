@@ -24,8 +24,7 @@ namespace FileStoreServer.FileMethods
             {
                 Directory.CreateDirectory(path);
             }
-            //var ext = Path.GetExtension(file.FileName);
-            var newFileName = file.FileName /*+ ext*/;
+            var newFileName = file.FileName;
             var fileWithPath = Path.Combine(path, newFileName);
             var stream = new FileStream(fileWithPath, FileMode.Create);
             file.CopyTo(stream);
