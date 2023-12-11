@@ -10,9 +10,9 @@ SetPointUser.propTypes = {
     closeDialog: PropTypes.func,
     classData: PropTypes.object,
     exercise: PropTypes.string,
-    answerItem: PropTypes.string,
+    answerItem: PropTypes.object,
     userHost: PropTypes.object,
-    
+
 };
 
 function SetPointUser(props) {
@@ -24,7 +24,7 @@ function SetPointUser(props) {
     const handleSubmit = async (values) => {
         try {
             // auto set username = email
-            values.IdMember = answerItem;
+            values.IdMember = answerItem.idMember;
             values.IdClassroom = classData.idClassroom;
             values.IdExercise = exercise;
             values.IdUserHost = userHost.idMember;
@@ -56,7 +56,7 @@ function SetPointUser(props) {
 
     return (
         <div>
-            <SetPointUserForm onSubmit={handleSubmit} />
+            <SetPointUserForm onSubmit={handleSubmit} point={answerItem.point} />
         </div>
     );
 }

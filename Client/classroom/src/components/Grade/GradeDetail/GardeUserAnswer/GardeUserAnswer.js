@@ -83,7 +83,7 @@ const GardeUserAnswer = ({ classData, userHost, answerItem, exercise }) => {
                 </IconButton>
 
                 <DialogContent>
-                    <SetPointUser closeDialog={handleClose} classData={classData} exercise={exercise.idExercise} answerItem={answerItem.idMember} userHost={userHost} />
+                    <SetPointUser closeDialog={handleClose} classData={classData} exercise={exercise.idExercise} answerItem={answerItem} userHost={userHost} />
                 </DialogContent>
             </Dialog>
         </div>

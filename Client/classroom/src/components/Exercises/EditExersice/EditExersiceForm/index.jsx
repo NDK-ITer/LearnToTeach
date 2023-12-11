@@ -61,14 +61,14 @@ function EditExerciseForm(props) {
             IdClassroom: '',
             IdMember: '',
             IdExercise: '',
-            Name: '',
-            Description: '',
-            Deadline: '',
+            Name: exercise.name != null ? exercise.name : '',
+            Description: exercise.description != null ? exercise.description : '',
+            Deadline: formatDate(exercise.deadline) != null ? formatDate(exercise.deadline) : '',
             FileUpload: '',
         },
         resolver: yupResolver(schema),
     });
-
+    console.log(form)
     const handleSubmit = async (values) => {
         const { onSubmit } = props;
         if (onSubmit) {

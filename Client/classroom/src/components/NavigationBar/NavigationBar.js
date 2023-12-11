@@ -21,9 +21,6 @@ const NavigationBar = ({ classData }) => {
                     <li className="nav_item">
                         <a className="nav_link" href={`/${classData}/grades`}>Điểm</a>
                     </li>
-                    <li className="nav_item">
-                        <a className="nav_link" href='#'>Học trực tuyến</a>
-                    </li>
                 </ul>
             </div>
         </div>

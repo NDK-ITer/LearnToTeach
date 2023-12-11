@@ -26,7 +26,7 @@ const Community = ({ classData }) => {
     const fetchData = async () => {
       const params = new URLSearchParams([['idClassroom', classData.idClassroom]]);
       const result = await classApi.getClassById(params);
-      settuserHost(result.listMembers.filter(x => x.role == Role.HOST));
+      settuserHost(result.listMembers.find(x => x.role == Role.HOST));
       settIsUserHost(result.listMembers.filter(x => x.role == Role.HOST && x.idMember == user.id).length > 0 ? true : false);
       setuserMember(result.listMembers.filter(x => x.role == Role.MEMBER));
       setcountuser(result.listMembers.filter(x => x.role == Role.MEMBER).length)
@@ -66,17 +66,14 @@ const Community = ({ classData }) => {
         <h1>Giảng viên</h1>
       </div>
       <ul className='list_informations'>
-        {userHost.map((item, index) => (
-          <li key={index} className='information'>
-            <div className='lecturer_information'>
-              <Avatar style={{ m: 1, backgroundColor: 'rgb(0, 159, 212)' }}>
-                <PermContactCalendarOutlinedIcon />
-              </Avatar>
-              <div className='name'>{item.nameMember}</div>
-            </div>
-          </li>
-        ))}
-
+        <li className='information'>
+          <div className='lecturer_information'>
+            <Avatar style={{ m: 1, backgroundColor: 'rgb(0, 159, 212)' }}>
+              <PermContactCalendarOutlinedIcon />
+            </Avatar>
+            <div className='name'>{userHost.nameMember}</div>
+          </div>
+        </li>
       </ul>
       <div className='role'>
         <h1>Sinh viên</h1>

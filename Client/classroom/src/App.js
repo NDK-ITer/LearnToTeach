@@ -105,8 +105,9 @@ function App() {
         <Route path="/SignIn" component={Login} exact />
         <Route path="/SignUp" component={Register} exact />
         <Route path="/RestorePassword" component={RestorePassword} exact />
-        <Route path="/NotFound" component={NotFound} exact />
-
+        {logged == null &&
+          <Redirect from="*" to="/SignIn" exact />
+        }
       </Switch>
     </div>
   );
