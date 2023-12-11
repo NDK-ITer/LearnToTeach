@@ -85,7 +85,11 @@ const classApi = {
   deletenotify(data) {
     const url = '/Member/delete-notify'
     return axiosClient.post(url, data);
-  }
+  },
+  exportgrade() {
+    const url = '/Member/export-grade';
+    return axiosClient.get(url);
+  },
 };
 
 export default classApi;

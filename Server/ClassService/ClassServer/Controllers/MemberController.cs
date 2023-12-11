@@ -11,6 +11,10 @@ using ClassServer.FileMethods;
 using ClassServer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using OfficeOpenXml;
+using System.IO;
+using System.Net;
+using System.Net.Http.Headers;
 using XAct;
 using ResultStatus = ClassServer.Models.ResultStatus;
 
@@ -120,8 +124,13 @@ namespace ClassServer.Controllers
                         IdExercise = updateExerciseRequest.IdExercise,
                         Name = updateExerciseRequest.Name,
                         Description = updateExerciseRequest.Description,
-                        Deadline = updateExerciseRequest.Deadline,
+                        Deadline = updateExerciseRequest.Deadline,                  
                     };
+                    if(fileName!=string.Empty)
+                    {
+                        exerciseUpdate.FileName = fileName;
+                        exerciseUpdate.LinkFile = _address.Value.ThisServiceAddress;
+                    }
                     var check = _unitOfWork_ClassroomService._exerciseService.UpdateExercise(exerciseUpdate);
                     if (check != null)
                     {
@@ -684,6 +693,37 @@ namespace ClassServer.Controllers
                 result.Status = -1;
                 result.Message = e.Message;
                 return Ok(result);
+            }
+        }
+
+        [HttpGet]
+        [HttpOptions]
+        [Route("export-grade")]
+        public ActionResult ExportToExcel()
+        {
+            // Create a new Excel package
+
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (ExcelPackage excelPackage = new ExcelPackage())
+            {
+                // Add a worksheet
+                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Sheet1");
+
+                // Add some data to the cells
+                worksheet.Cells["A1"].Value = "Name";
+                worksheet.Cells["B1"].Value = "Age";
+
+                worksheet.Cells["A2"].Value = "John";
+                worksheet.Cells["B2"].Value = 30;
+
+                worksheet.Cells["A3"].Value = "Alice";
+                worksheet.Cells["B3"].Value = 25;
+
+                // Save the Excel file stream to a memory stream
+                MemoryStream memoryStream = new MemoryStream();
+                excelPackage.SaveAs(memoryStream);
+
+                return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "example.xlsx");
             }
         }
     }

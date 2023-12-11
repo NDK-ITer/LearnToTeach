@@ -19,6 +19,7 @@ function UploadDocument(props) {
     const handleSubmit = async (values) => {
         try {
             // auto set username = email
+            console.log(values)
             values.IdMember = user.id;
             values.IdClassroom = classData.idClassroom;
             const action = uploaddoc(values);
