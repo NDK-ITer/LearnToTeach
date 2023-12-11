@@ -30,6 +30,17 @@ const PersonInformation = ({JoinClassroom}) =>{
             });
     }, []);
 
+    
+    // const JoinClassroom = async ({image, audio, userName, classroom})=>{
+    //     const connection = new HubConnectionBuilder()
+    //         .withUrl("https://localhost:9011/chat")
+    //         .configureLogging(LogLevel.Information)
+    //         .build();
+    //     await connection.start().then();
+    //     await connection.invoke("JoinRoom", {userName, classroom, image});
+    //         setConnection(connection);
+    // }
+
     const startVideo = () =>{
         navigator.mediaDevices.getUserMedia({ video: true})
             .then((stream) => 
@@ -75,7 +86,7 @@ const PersonInformation = ({JoinClassroom}) =>{
     };
 
     return<div>
-        <div>
+        {/* <div>
             <video ref={videoRef} autoPlay></video>
             <audio ref={audioRef} autoPlay></audio>
         </div>
@@ -86,10 +97,10 @@ const PersonInformation = ({JoinClassroom}) =>{
         {audioState !== "on"
             ?<button type='button' onClick={startAudio}>turn on micro</button>
             :<button type='button' onClick={stopAudio}>turn off micro</button>
-        }
+        } */}
         <Form onSubmit={e =>{
             e.preventDefault();
-            JoinClassroom({videoRef, audioRef, userName, classroom})
+            JoinClassroom({userName, classroom})
         }}>
             <Form.Group>
                 <Form.Control placeholder="name" onChange={e => setUserName(e.target.value)} />
