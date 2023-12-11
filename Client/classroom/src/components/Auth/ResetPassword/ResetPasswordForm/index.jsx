@@ -44,11 +44,11 @@ function ResetPasswordForm(props) {
     const classes = useStyles();
 
     const schema = yup.object().shape({
-        NewPassword: yup.string().required('Please enter your password').min(6, 'Please enter at least 6 characters.'),
+        NewPassword: yup.string().required('Mật khẩu không được bỏ trống').min(6, 'Mật khẩu phải có ít nhất 6 ký tự.'),
         ConfirmPassword: yup
             .string()
-            .required('Please retype your password.')
-            .oneOf([yup.ref('ConfirmPassword')], 'Password does not match'),
+            .required('Nhập lại mật khẩu không được bỏ trống.')
+            .oneOf([yup.ref('ConfirmPassword')], 'Mật khẩu không trùng khớp'),
     });
     const form = useForm({
         defaultValues: {
@@ -81,8 +81,8 @@ function ResetPasswordForm(props) {
             </Typography>
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <PasswordField name="NewPassword" label="Password" form={form} />
-                <PasswordField name="ConfirmPassword" label="Retype Password" form={form} />
+                <PasswordField name="NewPassword" label="Mật khẩu" form={form} />
+                <PasswordField name="ConfirmPassword" label="Nhập lại mật khẩu" form={form} />
                 <Button
                     disabled={isSubmitting}
                     type="submit"

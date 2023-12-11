@@ -39,14 +39,14 @@ function Login(props) {
             const check = resultAction.payload
             console.log(resultAction.payload)
             if (typeof check.id !== 'undefined') {
-                enqueueSnackbar('Login successfully!!! 🎉', { variant: 'success' });
+                enqueueSnackbar('Đăng nhập thành công!!! 🎉', { variant: 'success' });
                 window.location.reload(false);
             } else if (typeof check.status != 'undefined') {
                 enqueueSnackbar(check.message, { variant: 'error' });
             }
 
         } catch (error) {
-            console.log('Failed to login:', error);
+            console.log('Đăng nhập thất bại:', error);
             enqueueSnackbar(error.message, { variant: 'error' });
         }
     };

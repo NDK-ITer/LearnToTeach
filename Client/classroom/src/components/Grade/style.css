@@ -25,6 +25,12 @@
     font-size: 15px;
     color:rgb(27, 27, 27);
 }
+.name_1 {
+    margin-top: 10px;
+    margin-left: 20px;
+    font-size: 15px;
+    color:rgb(27, 27, 27);
+}
 .grade{
     box-sizing: border-box;
     color: rgba(0,0,0,.549);

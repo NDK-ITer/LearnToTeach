@@ -46,9 +46,9 @@ function FormNotify(props) {
     const schema = yup.object().shape({
         NameNotify: yup
             .string()
-            .required('Please enter your Name Notify.'),
+            .required('Tiêu đề không được bỏ trống.'),
         Description: yup.string()
-            .required('Please enter your Description.'),
+            .required('Nội dung không được bỏ trống.'),
     });
     const form = useForm({
         defaultValues: {

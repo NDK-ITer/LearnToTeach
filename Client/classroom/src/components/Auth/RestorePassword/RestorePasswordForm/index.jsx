@@ -44,7 +44,7 @@ function RestorePasswordFrom(props) {
     const classes = useStyles();
 
     const schema = yup.object().shape({
-        Email: yup.string().required('Please enter your email.').email('Please enter a valid email address.'),
+        Email: yup.string().required('Địa chỉ email không được bỏ trống.').email('Địa chỉ email không hợp lệ.'),
     });
     const form = useForm({
         defaultValues: {

@@ -44,7 +44,7 @@ function VerifyOTPForm(props) {
     const classes = useStyles();
 
     const schema = yup.object().shape({
-        OTP: yup.string().required('Please enter your code OPT.').matches(/^\d+$/, 'The field should have digits only'),
+        OTP: yup.string().required('Nhập OTP không được bỏ trống.').matches(/^\d+$/, 'Mã OTP không hợp lệ'),
     });
     const form = useForm({
         defaultValues: {

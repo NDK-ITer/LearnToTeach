@@ -50,7 +50,7 @@ const Grade = ({ classData }) => {
     <div>
       {isUserHost && <div>
         <div className='status'>
-          <h1>chưa chấm</h1>
+          <h1>Chưa chấm</h1>
         </div>
         <ul className='list_results'>
           {exercisesNotGrade.map((item, index) => (
@@ -61,9 +61,11 @@ const Grade = ({ classData }) => {
                 </Avatar>
               </a>
               <div className='grade_information'>
-                <div className='name'>{item.name}</div>
-                <div className='name'>thời hạn {formatDate(item.deadline)}</div>
-                <div className='grade'> đã chấm {item.listAnswer.filter(c => c.point !== null).length}/đã nộp {item.listAnswer.length}/tổng số {countuser} sinh viên</div>
+                <div className='name_1'>{item.name}</div>
+                <div>
+                  <div className='grade'>Thời hạn {formatDate(item.deadline)}</div>
+                  <div className='grade'> đã chấm {item.listAnswer.filter(c => c.point !== null).length}/đã nộp {item.listAnswer.length}/tổng số {countuser} sinh viên</div>
+                </div>
               </div>
             </li>
           ))}
@@ -80,9 +82,11 @@ const Grade = ({ classData }) => {
                 </Avatar>
               </a>
               <div className='grade_information'>
-                <div className='name'>{item.name}</div>
-                <div className='name'>thời hạn {formatDate(item.deadline)}</div>
-                <div className='grade'> đã chấm {item.listAnswer.filter(c => c.point !== null).length}/đã nộp {item.listAnswer.length}/tổng số {countuser} sinh viên</div>
+                <div className='name_1'>{item.name}</div>
+                <div>
+                  <div className='grade'>Thời hạn {formatDate(item.deadline)}</div>
+                  <div className='grade'> đã chấm {item.listAnswer.filter(c => c.point !== null).length}/đã nộp {item.listAnswer.length}/tổng số {countuser} sinh viên</div>
+                </div>
               </div>
             </li>
           ))}
@@ -99,9 +103,11 @@ const Grade = ({ classData }) => {
                 </Avatar>
               </a>
               <div className='grade_information'>
-                <div className='name'>{item.name}</div>
-                <div className='name'>thời hạn {formatDate(item.deadline)}</div>
-                <div className='grade'> đã chấm {item.listAnswer.filter(c => c.point !== null).length}/đã nộp {item.listAnswer.length}/tổng số {countuser} sinh viên</div>
+                <div className='name_1'>{item.name}</div>
+                <div>
+                  <div className='grade'>Thời hạn {formatDate(item.deadline)}</div>
+                  <div className='grade'> đã chấm {item.listAnswer.filter(c => c.point !== null).length}/đã nộp {item.listAnswer.length}/tổng số {countuser} sinh viên</div>
+                </div>
               </div>
 
             </li>
@@ -122,7 +128,7 @@ const Grade = ({ classData }) => {
               </a>
               <div className='grade_information'>
                 <div className='name'>{item.name}</div>
-                <div className='name'>thời gian chấm{formatDate(item.deadline)}</div>
+                <div className='name'>Thời gian chấm{formatDate(item.deadline)}</div>
                 <div className='grade'>Điểm số: {item.listAnswer.find(x => x.idMember == user.id).point}</div>
               </div>
             </li>
