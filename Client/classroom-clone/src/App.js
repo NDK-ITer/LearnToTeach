@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Drawer, Exercises, JoinedClasses, Login, Main, Community, Grade, CreateExercise, ExerciseDetail, SubmitExercise, Document } from "./components";
+import { Drawer, Exercises, JoinedClasses, Login, Main, Community, Grade, CreateExercise, ExerciseDetail, SubmitExercise, Info } from "./components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { IsUserRedirect, ProtectedRoute } from "./routes/Routes";
 import { useLocalContext } from "./context/context";
@@ -44,14 +44,14 @@ function App() {
           <ProtectedRoute key={index} user={loggedInMail} exact path={`/${item.id}`}>
             <Drawer />
             
-            <Document classData={item} />
+            <Info classData={item} />
           </ProtectedRoute>
         ))}
         {joinedClasses.map((item, index) => (
           <Route key={index} exact path={`/${item.id}`}>
             <Drawer />
             
-            <Document classData={item} />
+            <Info classData={item} />
           </Route>
         ))}
         <IsUserRedirect
