@@ -36,7 +36,7 @@ app.UseCors("CorsPolicy");
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapHub<ChatHub>("/chat");
+    endpoints.MapHub<VideoHub>("/chat");
 });
 
 app.Run();
