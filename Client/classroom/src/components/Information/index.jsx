@@ -68,9 +68,11 @@ const Information = () => {
               className="avatar"
               src={userInfor.avatar != null ? userInfor.avatar : "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/s75-c-fbw=1/photo.jpg"}
             />
-            <p>Họ Tên : {userInfor.fullName}</p>
-            <p>Email : {userInfor.email}</p>
-            <p>Số điện thoại: {userInfor.phoneNumber}</p>
+            <div className="user_information">
+              <p>Họ Tên : {userInfor.fullName}</p>
+              <p>Email : {userInfor.email}</p>
+              <p>Số điện thoại: {userInfor.phoneNumber}</p>
+            </div>
           </div>
         </div>
       </div>

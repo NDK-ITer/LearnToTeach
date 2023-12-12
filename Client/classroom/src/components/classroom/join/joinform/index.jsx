@@ -48,7 +48,7 @@ function JoinClassForm(props) {
     const schema = yup.object().shape({
         idClassroom: yup
             .string()
-            .required('Please enter your class room.'),
+            .required('Nhập tên lớp học.'),
     });
     const form = useForm({
         defaultValues: {
@@ -87,7 +87,7 @@ function JoinClassForm(props) {
                     fullWidth
                     size="large"
                 >
-                    Tham gia gia
+                    Tham gia
                 </Button>
             </form>
         </div>

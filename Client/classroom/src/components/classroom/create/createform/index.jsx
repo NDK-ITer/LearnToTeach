@@ -48,12 +48,12 @@ function CreateClassForm(props) {
     const schema = yup.object().shape({
         name: yup
             .string()
-            .required('Please enter your class name.'),
-        description: yup.string().required('Please enter your description.'),
+            .required('Tên lớp học không được bỏ trống.'),
+        description: yup.string().required('Hãy nhập mô tả cho lớp học.'),
         isPrivate: yup.boolean(),
         key: yup.string().when('isPrivate', {
             is: true,
-            then: yup.string().required('please enter your key'),
+            then: yup.string().required('Hãy nhập mã lớp cho lớp học'),
             otherwise: yup.string()
         })
     });

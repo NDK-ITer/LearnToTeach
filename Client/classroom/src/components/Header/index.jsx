@@ -62,13 +62,13 @@ const Header = ({ children }) => {
         dispatch(action);
         history.push('/signin')
         window.location.reload(false);
-
+        
     };
     const handleInfo = () => {
         history.push('/infor')
     }
     return (
-        <div className={classes.root} >
+        <div className={classes.root}>
             <AppBar className={classes.appBar} position="sticky">
                 <Toolbar className={classes.toolbar}>
                     <div className={classes.headerWrapper}>
@@ -95,7 +95,7 @@ const Header = ({ children }) => {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            className={classes.button}
+                            className={classes.button}                          
                         >
                             Tạo lớp học
                         </Button>
