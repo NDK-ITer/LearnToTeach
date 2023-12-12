@@ -64,6 +64,9 @@ const Header = ({ children }) => {
         window.location.reload(false);
 
     };
+    const handleInfo = () => {
+        history.push('/infor')
+    }
     return (
         <div className={classes.root} >
             <AppBar className={classes.appBar} position="sticky">
@@ -110,7 +113,7 @@ const Header = ({ children }) => {
                                 onClose={handleCloseMenu}
                                 getContentAnchorEl={null}
                             >
-                                <MenuItem> <a href="/infor">Thông tin tài khoản</a></MenuItem>
+                                <MenuItem onClick={handleInfo}>Thông tin tài khoản</MenuItem>
                                 <MenuItem onClick={handleLogoutClick}>Đăng xuất</MenuItem>
                             </Menu>
                         </div>

@@ -42,6 +42,8 @@ export const editinfor = createAsyncThunk('account/editinfor', async (payload) =
     formData.append('FirstName', payload.FirstName);
     formData.append('LastName', payload.LastName);
     formData.append('Avatar', payload.Avatar);
+    // formData.append('Email', payload.Email);
+    formData.append('PhoneNumber', payload.PhoneNumber);
     const data = await userApi.editinfor(formData);
     console.log(data);
     return data;

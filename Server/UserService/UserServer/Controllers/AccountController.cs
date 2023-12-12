@@ -422,6 +422,8 @@ namespace Server.Controllers
                     IdUser = editInforRequest.IdUser,
                     FirstName = editInforRequest.FirstName,
                     LastName = editInforRequest.LastName,
+                   // Email=editInforRequest.Email,
+                    PhoneNumber=editInforRequest.PhoneNumber
                 };
                 var check = _unitOfWork_UserService.UserService.UpdateUser(updateUserModel);
                 if (!check)

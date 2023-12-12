@@ -137,6 +137,8 @@ namespace Application.Services
                     if (!editInforRequest.LastName.IsNullOrEmpty()) { user.LastName = editInforRequest.LastName; }
                     if (!editInforRequest.Avatar.IsNullOrEmpty()) { user.Avatar = editInforRequest.Avatar; }
                     if (!editInforRequest.LinkAvatar.IsNullOrEmpty()) { user.LinkAvatar = editInforRequest.LinkAvatar; }
+                   // if (!editInforRequest.Email.IsNullOrEmpty()) { user.PresentEmail = editInforRequest.Email; }
+                    if(!editInforRequest.PhoneNumber.IsNullOrEmpty()) { user.PhoneNumber = editInforRequest.PhoneNumber; }
                     _unitOfWork.userRepository.Update(user);
                     _unitOfWork.SaveChange();
                     return true;

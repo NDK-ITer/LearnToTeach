@@ -60,6 +60,8 @@ function UpdateInforForm(props) {
         defaultValues: {
             FirstName: userInfor.firstName != null ? userInfor.firstName : '',
             LastName: userInfor.lastName != null ? userInfor.lastName : '',
+          //  Email: userInfor.email != null ? userInfor.email : '',
+            PhoneNumber: userInfor.phoneNumber != null ? userInfor.phoneNumber : '',
             Avatar: '',
         },
         resolver: yupResolver(schema),
@@ -90,6 +92,8 @@ function UpdateInforForm(props) {
                 <Button>Avatar<UploadField name='Avatar' form={form} /></Button>
                 <InputField name="FirstName" label="Họ" form={form} defaultValue={userInfor.firstName} />
                 <InputField name="LastName" label="Tên" form={form} defaultValue={userInfor.lastName} />
+                {/* <InputField name="Email" label="Địa chỉ email" form={form} defaultValue={userInfor.email} /> */}
+                <InputField name="PhoneNumber" label="Số điện thoại" form={form} defaultValue={userInfor.phoneNumber} />
                 <Button
                     disabled={isSubmitting}
                     type="submit"
