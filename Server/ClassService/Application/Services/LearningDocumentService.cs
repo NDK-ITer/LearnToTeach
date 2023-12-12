@@ -36,7 +36,9 @@ namespace Application.Services
                             NameFile = addDocument.NameFile,
                             Description = addDocument.Description,
                             LinkFile = addDocument.LinkFile + "/doc/"+addDocument.NameFile,
-                            IdClassroom = addDocument.IdClassroom
+                            IdClassroom = addDocument.IdClassroom,
+                            UploadDate=DateTime.Now,
+                            
                         };
                         _unitOfWork.learningDocumentRepository.Add(addModel);
                         _unitOfWork.SaveChange();

@@ -33,13 +33,13 @@ const Exercises = ({ classData }) => {
       setisUserMember(result.listMembers.filter(x => x.role == Role.MEMBER && user.id == x.idMember).length > 0 ? true : false);
       let isUserHost = result.listMembers.filter(x => x.role == Role.HOST && user.id == x.idMember).length > 0 ? true : false
       if (isUserHost) {
-        setexercisesActive(result.listExercises.filter(x => new Date(x.deadline) >= currentDate).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)));
-        setexercisesExpired(result.listExercises.filter(x => new Date(x.deadline) < currentDate).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)));
+        setexercisesActive(result.listExercises.filter(x => new Date(x.deadline) >= currentDate).sort((a, b) => new Date(a.deadline) - new Date(b.deadline)));
+        setexercisesExpired(result.listExercises.filter(x => new Date(x.deadline) < currentDate).sort((a, b) => new Date(a.deadline) - new Date(b.deadline)));
 
       } else {
         setexercisesCompleted(result.listExercises.filter(x => x.listAnswer.filter(c => c.idMember == user.id).length > 0).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)));
-        setexercisesNotCompleted(result.listExercises.filter(x => new Date(x.deadline) < currentDate && x.listAnswer.filter(c => c.idMember == user.id).length <= 0).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)));
-        setexercisesAssigned(result.listExercises.filter(x => new Date(x.deadline) >= currentDate && x.listAnswer.filter(c => c.idMember == user.id).length <= 0).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)));
+        setexercisesNotCompleted(result.listExercises.filter(x => new Date(x.deadline) < currentDate && x.listAnswer.filter(c => c.idMember == user.id).length <= 0).sort((a, b) => new Date(a.deadline) - new Date(b.deadline)));
+        setexercisesAssigned(result.listExercises.filter(x => new Date(x.deadline) >= currentDate && x.listAnswer.filter(c => c.idMember == user.id).length <= 0).sort((a, b) => new Date(a.deadline) - new Date(b.deadline)));
       }
     };
     fetchData();

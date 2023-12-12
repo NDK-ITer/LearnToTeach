@@ -28,23 +28,23 @@ const Grade = ({ classData }) => {
       if (isUserHost) {
         const exercisesWithNullPoint = result.listExercises.filter(exercise => {
           return exercise.listAnswer.some(answer => answer.point === null) || exercise.listAnswer.some(answer => answer.point !== null);
-        }).sort((a, b) => new Date(b.deadline) - new Date(a.deadline));
+        }).sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
 
         const exercisesWithNullPoint1 = result.listExercises.filter(exercise => {
           return exercise.listAnswer.every(answer => answer.point === null);
-        }).sort((a, b) => new Date(b.deadline) - new Date(a.deadline));
+        }).sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
 
         const exercisesWithNotNullPoint = result.listExercises.filter(exercise => {
           return exercise.listAnswer.length > 0 && exercise.listAnswer.every(answer => answer.point !== null);
-        }).sort((a, b) => new Date(b.deadline) - new Date(a.deadline));
+        }).sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
         setexercisesGrading(exercisesWithNullPoint.filter(x => new Date(x.deadline) > currentDate))
         setexercisesGrade(exercisesWithNotNullPoint.filter(x => new Date(x.deadline) < currentDate))
-        setexercisesNotGrade(exercisesWithNullPoint1)
+        setexercisesNotGrade(exercisesWithNullPoint1.filter(x => new Date(x.deadline) > currentDate))
         setcountUser(result.listMembers.filter(x => x.role == Role.MEMBER).length)
       } else {
-        setexercisesGrade(result.listExercises.filter(x => x.listAnswer.filter(c => c.idMember == user.id && c.point != null).length > 0).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)));
-        setexercisesNotGrade(result.listExercises.filter(x => x.listAnswer.filter(c => c.idMember == user.id && c.point == null).length > 0).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)));
-        setexercisesGradeExpired(result.listExercises.filter(x => new Date(x.deadline) < currentDate && x.listAnswer.filter(c => c.idMember == user.id).length <= 0).sort((a, b) => new Date(b.deadline) - new Date(a.deadline)));
+        setexercisesGrade(result.listExercises.filter(x => x.listAnswer.filter(c => c.idMember == user.id && c.point != null).length > 0).sort((a, b) => new Date(a.deadline) - new Date(b.deadline)));
+        setexercisesNotGrade(result.listExercises.filter(x => x.listAnswer.filter(c => c.idMember == user.id && c.point == null).length > 0).sort((a, b) => new Date(a.deadline) - new Date(b.deadline)));
+        setexercisesGradeExpired(result.listExercises.filter(x => new Date(x.deadline) < currentDate && x.listAnswer.filter(c => c.idMember == user.id).length <= 0).sort((a, b) => new Date(a.deadline) - new Date(b.deadline)));
 
       }
     };

@@ -17,17 +17,19 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
     const userGraded = exercise.listAnswer.filter(x => x.point != null);
     const userNotGraded = exercise.listAnswer.filter(x => x.point == null);
     // const countUser = classData.listMembers.filter(x=>x.role==Role.MEMBER).length;
-    const listUserAnswer = exercise.listAnswer;//https://localhost:9000/Member/export-grade
+    const listUserAnswer = exercise.listAnswer;
     const isexerciseGraded = userGraded.length == listUserAnswer.length ? true : false;
     const handleExportToExcel = async () => {
+        const params = new URLSearchParams([['idExercise', exercise.idExercise]]);
         axios.get('https://localhost:9000/Member/export-grade', {
+            params,
             responseType: 'blob'
         })
             .then(response => {
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
-                link.setAttribute('download', 'example.xlsx'); // Tên tệp khi tải về
+                link.setAttribute('download', 'Answer.xlsx'); // Tên tệp khi tải về
                 document.body.appendChild(link);
                 link.click();
                 link.parentNode.removeChild(link);

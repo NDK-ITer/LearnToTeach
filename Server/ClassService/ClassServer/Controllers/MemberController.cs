@@ -9,9 +9,11 @@ using Application.Requests.Notify;
 using Application.Services;
 using ClassServer.FileMethods;
 using ClassServer.Models;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using OfficeOpenXml;
+using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Net.Http.Headers;
@@ -720,7 +722,50 @@ namespace ClassServer.Controllers
                     return Ok(result);
                 }
                 var pointExerciseModel = new PointExerciseModel(exercise);
-                return pointExerciseModel;
+
+                // Create a new Excel package
+
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (ExcelPackage excelPackage = new ExcelPackage())
+                {
+                    // Add a worksheet
+                    ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Sheet1");
+
+                    // Set header row
+                    worksheet.Cells[1, 1].Value = "STT";
+                    worksheet.Cells[1, 2].Value = "Tên";
+                    worksheet.Cells[1, 3].Value = "Email";
+                    worksheet.Cells[1, 4].Value = "Điểm";
+
+                    using (ExcelRange headerRange = worksheet.Cells["A1:D1"])
+                    {
+                        headerRange.Style.Font.Bold = true;
+                        headerRange.Style.Font.Color.SetColor(Color.White);
+                        headerRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        headerRange.Style.Fill.BackgroundColor.SetColor(Color.DarkBlue);
+                        headerRange.Style.WrapText = true;
+                        headerRange.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        headerRange.Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                        headerRange.Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    }
+                    int row = 2;
+                    int no = 1;
+                    foreach (var answer in pointExerciseModel.ListPoint)
+                    {
+                        worksheet.Cells[row, 1].Value = no;
+                        worksheet.Cells[row, 2].Value = answer.NameMember;
+                        worksheet.Cells[row, 3].Value = answer.Email;
+                        worksheet.Cells[row, 4].Value = answer.Point;
+                        row++;
+                        no++;
+                    }
+                    // Save the Excel file stream to a memory stream
+                    MemoryStream memoryStream = new MemoryStream();
+                    excelPackage.SaveAs(memoryStream);
+
+                    return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Answer.xlsx");
+                }
+
             }
             catch (Exception e)
             {
@@ -728,30 +773,7 @@ namespace ClassServer.Controllers
                 result.Message = e.Message;
                 return Ok(result);
             }
-            // Create a new Excel package
-
-            //ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            //using (ExcelPackage excelPackage = new ExcelPackage())
-            //{
-            //    // Add a worksheet
-            //    ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Sheet1");
-
-            //    // Add some data to the cells
-            //    worksheet.Cells["A1"].Value = "Name";
-            //    worksheet.Cells["B1"].Value = "Age";
-
-            //    worksheet.Cells["A2"].Value = "John";
-            //    worksheet.Cells["B2"].Value = 30;
-
-            //    worksheet.Cells["A3"].Value = "Alice";
-            //    worksheet.Cells["B3"].Value = 25;
-
-            //    // Save the Excel file stream to a memory stream
-            //    MemoryStream memoryStream = new MemoryStream();
-            //    excelPackage.SaveAs(memoryStream);
-
-            //    return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "example.xlsx");
-            //}
+           
         }
     }
 }
