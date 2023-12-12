@@ -52,41 +52,41 @@ function App() {
         </IsUserRedirect>
         {joinedClasses.map((item, index) => (
           <Route key={index} exact path={`/${item.idClassroom}`}>
-            <Drawer />
+            <Drawer classData={joinedClasses} />
             <NavigationBar classData={item.idClassroom} />
             <Main classData={item} />
           </Route>
         ))}
         {joinedClasses.map((item, index) => (
           <Route key={index} path={`/${item.idClassroom}/exercises`}>
-            <Drawer />
+            <Drawer classData={joinedClasses} />
             <NavigationBar classData={item.idClassroom} />
             <ExerciseRoute classData={item} />
           </Route>
         ))}
         {joinedClasses.map((item, index) => (
           <Route key={index} exact path={`/${item.idClassroom}/community`}>
-            <Drawer />
+            <Drawer classData={joinedClasses} />
             <NavigationBar classData={item.idClassroom} />
             <Community classData={item} />
           </Route>
         ))}
         {joinedClasses.map((item, index) => (
           <Route key={index} path={`/${item.idClassroom}/grades`}>
-            <Drawer />
+            <Drawer classData={joinedClasses} />
             <NavigationBar classData={item.idClassroom} />
             <GradeRoute classData={item} />
           </Route>
         ))}
         {joinedClasses.map((item, index) => (
           <Route key={index} path={`/${item.idClassroom}/document`}>
-            <Drawer />
+            <Drawer classData={joinedClasses} />
             <NavigationBar classData={item.idClassroom} />
             <DocumentRoute classData={item} />
           </Route>
         ))}
         <ProtectedRoute user={logged} path="/" exact>
-          <Drawer />
+          <Drawer classData={joinedClasses} />
           <ol className="joined">
             {joinedClasses.map((item) => (
               <JoinedClasses classData={item} key={item.idClassroom} />
@@ -96,7 +96,7 @@ function App() {
         </ProtectedRoute>
         {logged &&
           <Route path='/infor'>
-            <Drawer />
+            <Drawer classData={joinedClasses} />
             <Information />
           </Route>
 
