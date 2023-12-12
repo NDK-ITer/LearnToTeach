@@ -10,25 +10,25 @@ namespace MeetingServer.SignalR
         private readonly string _botUser = "MyChat Bot";
         private readonly IDictionary<string, UserConnection> _connections;
         protected IWebHostEnvironment environment;
-        private Tuple<string, string>? SaveImage(string folder, string imgStringBase64, string imgName)
-        {
-            try
-            {
-                var contentPath = environment.ContentRootPath;
-                var path = $"{Path.Combine(contentPath, folder)}\\{imgName}.png";
-                string base64String = imgStringBase64;
-                byte[] imageBytes = Convert.FromBase64String(base64String);
-                File.WriteAllBytes(path, imageBytes);
-                var linkServer = $"";
-                var imageName = $"{imgName}.png";
-                var result = new Tuple<string, string>(linkServer, imageName);
-                return result;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
+        //private Tuple<string, string>? SaveImage(string folder, string imgStringBase64, string imgName)
+        //{
+        //    try
+        //    {
+        //        var contentPath = environment.ContentRootPath;
+        //        var path = $"{Path.Combine(contentPath, folder)}\\{imgName}.png";
+        //        string base64String = imgStringBase64;
+        //        byte[] imageBytes = Convert.FromBase64String(base64String);
+        //        File.WriteAllBytes(path, imageBytes);
+        //        var linkServer = $"";
+        //        var imageName = $"{imgName}.png";
+        //        var result = new Tuple<string, string>(linkServer, imageName);
+        //        return result;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return null;
+        //    }
+        //}
         public ChatHub(IDictionary<string, UserConnection> connections, IWebHostEnvironment environment)
         {
             _connections = connections;
@@ -68,17 +68,19 @@ namespace MeetingServer.SignalR
             await SendUsersConnected(userConnection.userName);
         }
 
-        public async IAsyncEnumerable<string> Counter(
+        public async IAsyncEnumerable<byte[]> Counter(
+        byte[] img,
         [EnumeratorCancellation]
         CancellationToken cancellationToken)
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                var random = new Random();
-                yield return $"{random.Next(0,10)}";
-                await Task.Delay(0, cancellationToken);
+                //img = img.Substring(23);
+                yield return img;
+                await Task.Delay(3000, cancellationToken);
             }
         }
+
 
     }
 }

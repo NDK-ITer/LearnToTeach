@@ -45,6 +45,7 @@ namespace Application.Services
                     {
                         IdMember = classroomRequest.idUserHost,
                         Name = string.Empty,
+                        Email = string.Empty,
                         Avatar = string.Empty,
                         LinkAvatar = string.Empty
                     };

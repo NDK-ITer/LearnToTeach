@@ -699,32 +699,59 @@ namespace ClassServer.Controllers
         [HttpGet]
         [HttpOptions]
         [Route("export-grade")]
-        public ActionResult ExportToExcel()
+        public ActionResult<PointExerciseModel> ExportToExcel(string idExercise)
         {
+            var result = new ResultStatus()
+            {
+                Status = 0,
+                Message = string.Empty
+            };
+            try
+            {
+                if (idExercise.IsNullOrEmpty())
+                {
+                    result.Message = "Exercise is not inputted";
+                    return Ok(result);
+                }
+                var exercise = _unitOfWork_ClassroomService._exerciseService.GetExerciseById(idExercise);
+                if (exercise.IsNull())
+                {
+                    result.Message = "Not found exercise";
+                    return Ok(result);
+                }
+                var pointExerciseModel = new PointExerciseModel(exercise);
+                return pointExerciseModel;
+            }
+            catch (Exception e)
+            {
+                result.Status = -1;
+                result.Message = e.Message;
+                return Ok(result);
+            }
             // Create a new Excel package
 
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            using (ExcelPackage excelPackage = new ExcelPackage())
-            {
-                // Add a worksheet
-                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Sheet1");
+            //ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            //using (ExcelPackage excelPackage = new ExcelPackage())
+            //{
+            //    // Add a worksheet
+            //    ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Sheet1");
 
-                // Add some data to the cells
-                worksheet.Cells["A1"].Value = "Name";
-                worksheet.Cells["B1"].Value = "Age";
+            //    // Add some data to the cells
+            //    worksheet.Cells["A1"].Value = "Name";
+            //    worksheet.Cells["B1"].Value = "Age";
 
-                worksheet.Cells["A2"].Value = "John";
-                worksheet.Cells["B2"].Value = 30;
+            //    worksheet.Cells["A2"].Value = "John";
+            //    worksheet.Cells["B2"].Value = 30;
 
-                worksheet.Cells["A3"].Value = "Alice";
-                worksheet.Cells["B3"].Value = 25;
+            //    worksheet.Cells["A3"].Value = "Alice";
+            //    worksheet.Cells["B3"].Value = 25;
 
-                // Save the Excel file stream to a memory stream
-                MemoryStream memoryStream = new MemoryStream();
-                excelPackage.SaveAs(memoryStream);
+            //    // Save the Excel file stream to a memory stream
+            //    MemoryStream memoryStream = new MemoryStream();
+            //    excelPackage.SaveAs(memoryStream);
 
-                return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "example.xlsx");
-            }
+            //    return File(memoryStream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "example.xlsx");
+            //}
         }
     }
 }

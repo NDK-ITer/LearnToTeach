@@ -43,6 +43,7 @@ namespace UserServer.Consumers
                             NameMember = $"{user.FirstName} {user.LastName}",
                             Avatar = user.Avatar,
                             LinkAvatar = user.LinkAvatar,
+                            EmailMember = user.PresentEmail
                         });
                     }
                     else

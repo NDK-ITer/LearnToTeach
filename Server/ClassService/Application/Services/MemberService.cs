@@ -39,6 +39,7 @@ namespace Application.Services
                     {
                         IdMember = memberModel.idMember,
                         Name = memberModel.nameMember,
+                        Email = memberModel.email,
                         Avatar = memberModel.avatar,
                         LinkAvatar = memberModel.linkAvatar,
                     };
@@ -91,6 +92,7 @@ namespace Application.Services
                 if (member != null)
                 {
                     if (!memberModel.nameMember.IsNullOrEmpty()) { member.Name = memberModel.nameMember; }
+                    if (!memberModel.email.IsNullOrEmpty()) { member.Email = memberModel.email; }
                     if (!memberModel.avatar.IsNullOrEmpty()) { member.Avatar = memberModel.avatar; }
                     if (!memberModel.linkAvatar.IsNullOrEmpty()) { member.LinkAvatar = memberModel.linkAvatar; }
                     _unitOfWork.memberRepository.UpdateMember(member);

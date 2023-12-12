@@ -25,6 +25,7 @@ namespace ClassServer.Consumers.MemberConsumers.AddMember
                     avatar = data.Avatar,
                     nameMember = data.NameMember,
                     linkAvatar = data.LinkAvatar,
+                    email = data.EmailMember
                 };
                 unitOfWork_ClassroomService._memberService.AddMember(memberModel, data.IdClassroom.ToString());
             }
