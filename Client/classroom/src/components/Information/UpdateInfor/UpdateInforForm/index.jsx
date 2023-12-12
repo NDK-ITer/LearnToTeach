@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Avatar, Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
-import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import ImageUpload from 'components/form-controls/UploadField';
 import InputField from 'components/form-controls/InputField';
 import PasswordField from 'components/form-controls/PasswordField';
@@ -79,11 +79,11 @@ function UpdateInforForm(props) {
             {isSubmitting && <LinearProgress className={classes.progress} />}
 
             <Avatar className={classes.avatar}>
-                <LockOpenOutlinedIcon />
+                <InfoOutlinedIcon />
             </Avatar>
 
             <Typography className={classes.title} component="h3" variant="h5">
-                thông tin
+                Thông tin
             </Typography>
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>

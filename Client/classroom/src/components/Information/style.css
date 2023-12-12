@@ -23,7 +23,13 @@
     margin-bottom: 20px
 }
 .information_area{
-    width: 40vw;
+    margin-left: 50px;
+    align-items: center;
+    display: flex;
+}
+.user_information {
+    font-size: 18px;
+    margin-left: 50px;
 }
 .avatar{
     
