@@ -127,9 +127,9 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user, userHost, }) =>
             {getPointForIdMember(user.id) != null && <div>
               <div>
                 <p style={{ fontSize: '22px' }}>Câu trả lời:</p>
-                <p style={{ fontSize: '13px' }}>Thời gian trả lời: {formatdate(answer.dateAnswer)} </p>
+                <p style={{ fontSize: '13px' }}>Thời gian nộp: {formatdate(answer.dateAnswer)} </p>
                 {formatdate(answer.dateUpdateAnswer) > formatdate(answer.dateAnswer) &&
-                  <p style={{ fontSize: '13px' }}>Thời gian sửa trả lời: {formatdate(answer.dateUpdateAnswer)} </p>
+                  <p style={{ fontSize: '13px' }}>Thời gian chỉnh sửa: {formatdate(answer.dateUpdateAnswer)} </p>
                 }
               </div>
               <div style={{ fontSize: '16px' }}>

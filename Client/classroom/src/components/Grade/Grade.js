@@ -132,9 +132,11 @@ const Grade = ({ classData }) => {
                 </Avatar>
               </a>
               <div className='grade_information'>
-                <div className='name'>{item.name}</div>
-                <div className='name'>Thời gian chấm{formatDate(item.deadline)}</div>
-                <div className='grade'>Điểm số: {item.listAnswer.find(x => x.idMember == user.id).point}</div>
+                <div className='name_1'>{item.name}</div>
+                <div>
+                  <div className='grade'>Thời gian chấm{formatDate(item.deadline)}</div>
+                  <div className='grade'>Điểm số: {item.listAnswer.find(x => x.idMember == user.id).point}</div>
+                </div>
               </div>
             </li>
           ))}
