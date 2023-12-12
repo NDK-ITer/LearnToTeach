@@ -184,7 +184,7 @@ const Main = ({ classData }) => {
                 <ul>
                   {listExercisesUserhost.map((item, index) => (
                     <li key={index}>
-                      <a href={`/${classData.idClassroom}/exercises/${item.idExercise}`}>{item.name}</a>
+                      <p>. <a href={`/${classData.idClassroom}/exercises/${item.idExercise}`}>{item.name}</a></p>
                     </li>
                   ))}
                   {listExercisesUserhost.length <= 0 && <span>Không có bài tập nào</span>}
