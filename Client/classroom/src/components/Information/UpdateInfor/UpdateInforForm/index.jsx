@@ -42,12 +42,12 @@ const useStyles = makeStyles((theme) => ({
 
 UpdateInforForm.propTypes = {
     onSubmit: PropTypes.func,
-    userInfor:PropTypes.object
+    userInfor: PropTypes.object
 };
 
 function UpdateInforForm(props) {
     const classes = useStyles();
-    const {userInfor}=props;
+    const { userInfor } = props;
     const schema = yup.object().shape({
         FirstName: yup
             .string()
@@ -58,8 +58,8 @@ function UpdateInforForm(props) {
     });
     const form = useForm({
         defaultValues: {
-            FirstName: '',
-            LastName: '',
+            FirstName: userInfor.firstName != null ? userInfor.firstName : '',
+            LastName: userInfor.lastName != null ? userInfor.lastName : '',
             Avatar: '',
         },
         resolver: yupResolver(schema),
@@ -89,7 +89,7 @@ function UpdateInforForm(props) {
             <form onSubmit={form.handleSubmit(handleSubmit)}>
                 <Button>Avatar<UploadField name='Avatar' form={form} /></Button>
                 <InputField name="FirstName" label="Họ" form={form} defaultValue={userInfor.firstName} />
-                <InputField name="LastName" label="Tên" form={form} defaultValue={userInfor.lastName}  />
+                <InputField name="LastName" label="Tên" form={form} defaultValue={userInfor.lastName} />
                 <Button
                     disabled={isSubmitting}
                     type="submit"

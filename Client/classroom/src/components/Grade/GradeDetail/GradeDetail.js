@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "./style.css";
-import { Avatar } from '@material-ui/core';
+import { Avatar, Button } from '@material-ui/core';
 import PermIdentityOutlinedIcon from '@material-ui/icons/PermIdentityOutlined';
 import PermContactCalendarOutlinedIcon from '@material-ui/icons/PermContactCalendarOutlined';
 import classApi from 'api/classApi';
@@ -9,6 +9,7 @@ import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import SubmitExercise from 'components/Exercises/SubmitExercise/SubmitExercise';
 import GoBackButton from 'components/GoBackButton';
 import formatDate from 'constants/formatdate';
+import axios from 'axios';
 
 const GradeDetail = ({ exercise, classData, userHost }) => {
     const match = useRouteMatch();
@@ -16,11 +17,42 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
     const userGraded = exercise.listAnswer.filter(x => x.point != null);
     const userNotGraded = exercise.listAnswer.filter(x => x.point == null);
     // const countUser = classData.listMembers.filter(x=>x.role==Role.MEMBER).length;
-    const listUserAnswer = exercise.listAnswer;
+    const listUserAnswer = exercise.listAnswer;//https://localhost:9000/Member/export-grade
     const isexerciseGraded = userGraded.length == listUserAnswer.length ? true : false;
+    const handleExportToExcel = async () => {
+        axios.get('https://localhost:9000/Member/export-grade', {
+            responseType: 'blob'
+        })
+            .then(response => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'example.xlsx'); // Tên tệp khi tải về
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+            })
+            .catch(error => {
+                // Xử lý lỗi
+            });
+
+
+    };
+
     return (
         <div>
             {isexerciseGraded && new Date(exercise.deadline) < currentDate && <div>
+                <div>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        onClick={handleExportToExcel}
+                        className='btn_create'
+                        style={{ marginLeft: 400, marginTop: 20, borderRadius: 20, backgroundColor: "rgb(25, 118, 210)", color: "#fff" }}
+                    >
+                        thống kê
+                    </Button>
+                </div>
                 <div className='role'>
                     <h1>Bảng điểm</h1>
                     <div className='quantity'>({userGraded.length}) sinh viên</div>

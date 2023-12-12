@@ -42,10 +42,12 @@ const useStyles = makeStyles((theme) => ({
 
 SetPointUserForm.propTypes = {
     onSubmit: PropTypes.func,
+    point: PropTypes.number
 };
 
 function SetPointUserForm(props) {
     const classes = useStyles();
+    const { point } = props
     const schema = yup.object().shape({
         point: yup.number()
             .min(0, 'Number must be greater than or equal to 0')
@@ -59,7 +61,7 @@ function SetPointUserForm(props) {
             IdMember: '',
             IdUserHost: '',
             IdExercise: '',
-            point: ''
+            point: point != null ? point : ''
         },
         resolver: yupResolver(schema),
     });
@@ -80,7 +82,7 @@ function SetPointUserForm(props) {
             </Typography>
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <InputField name='point' label='Nhập điểm số' form={form} />
+                <InputField name='point' label='Nhập điểm số' form={form} defaultValue={point != null ? point : ''} />
                 <Button
                     disabled={isSubmitting}
                     type="submit"

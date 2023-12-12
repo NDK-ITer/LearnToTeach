@@ -42,12 +42,12 @@ const useStyles = makeStyles((theme) => ({
 
 EditAnswerForm.propTypes = {
     onSubmit: PropTypes.func,
-    answer:PropTypes.object
+    answer: PropTypes.object
 };
 
 function EditAnswerForm(props) {
     const classes = useStyles();
-    const{answer}=props;
+    const { answer } = props;
     const schema = yup.object().shape({
         Content: yup.string().required('Chưa có câu trả lời'),
     });
@@ -57,7 +57,7 @@ function EditAnswerForm(props) {
             IdClassroom: '',
             IdMember: '',
             IdExercise: '',
-            Content: '',
+            Content: answer.content != null ? answer.content : '',
             FileUploadAnswer: '',
         },
         resolver: yupResolver(schema),
