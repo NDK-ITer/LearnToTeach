@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SagaStateMachine.ClassroomService.Classroom;
 using SagaStateMachine.ClassroomService.Member;
+using SagaStateMachine.ClassroomService.Notification;
 using SagaStateMachine.StoreFileService;
 using SagaStateMachine.UserService.ConfirmUserEmail;
 using SagaStateMachine.UserService.ResetPassword;
@@ -22,6 +23,7 @@ namespace SagaOrchestration.Models
             modelBuilder.Entity<ResetPasswordStateData>().HasKey(x => x.CorrelationId);
             modelBuilder.Entity<UpdateUserInforStateData>().HasKey(x => x.CorrelationId);
             modelBuilder.Entity<UploadFileStateData>().HasKey(x => x.CorrelationId);
+            modelBuilder.Entity<ClassroomEmailStateData>().HasKey(x => x.CorrelationId);
             base.OnModelCreating(modelBuilder);
         }
 
@@ -31,5 +33,6 @@ namespace SagaOrchestration.Models
         public DbSet<ResetPasswordStateData> ResetPasswordStateData { get; set; }
         public DbSet<UpdateUserInforStateData> UpdateUserInforStateData { get; set; }
         public DbSet<UploadFileStateData> UploadFileStateData { get; set; }
+        public DbSet<ClassroomEmailStateData> ClassroomEmailStateData { get; set; }
     }
 }
