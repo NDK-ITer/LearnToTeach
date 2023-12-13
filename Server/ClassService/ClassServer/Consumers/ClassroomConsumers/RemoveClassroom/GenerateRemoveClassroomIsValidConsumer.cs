@@ -1,6 +1,8 @@
 ﻿using Application.Services;
+using Events.ClassroomServiceEvents;
 using Events.ClassroomServiceEvents.Classroom.RemoveClassroom;
 using MassTransit;
+using XAct.Messages;
 
 namespace ClassServer.Consumers.ClassroomConsumers.RemoveClassroom
 {
@@ -16,6 +18,20 @@ namespace ClassServer.Consumers.ClassroomConsumers.RemoveClassroom
             var data = context.Message;
             if (data != null)
             {
+                var classroom = unitOfWork_ClassroomService._classroomService.GetClassroomById(data.IdClassroom);
+                foreach (var item in classroom.ListMemberClassroom)
+                {
+                    if (item.Role == "Member")
+                    {
+                        await context.Publish<IClassroomSendEmail>(new
+                        {
+                            IdMessage = Guid.NewGuid(),
+                            Email = item.Member.Email,
+                            Subject = $"classroom {classroom.Name} have been delete.",
+                            Content = $"{classroom.Name} which you are a member have been delete."
+                        });
+                    }
+                }
                 unitOfWork_ClassroomService._classroomService.DeleteClassroom(data.IdClassroom);
             }
         }

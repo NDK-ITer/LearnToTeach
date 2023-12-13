@@ -19,6 +19,7 @@ builder.Services.AddMassTransit(cfg =>
         cfg.ConfigureEndpoints(provider.GetRequiredService<IBusRegistrationContext>());
     }));
     cfg.AddConsumer<ConsumeValueUserConsumer>();
+    cfg.AddConsumer<ConsumeClassroomEmailConsumer>();
 });
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddControllers();
