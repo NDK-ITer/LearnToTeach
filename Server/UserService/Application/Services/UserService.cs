@@ -22,6 +22,7 @@ namespace Application.Services
         User RegisterUser(RegisterRequest registerRequest);
         User ConfirmEmailUser(string id, string token);
         User ResetPasswordUser(string email, string newPassword);
+        User ChangePasswordUser(string email, string newPassword, string password);
         /// <summary>
         /// Difference
         /// </summary>
@@ -296,7 +297,23 @@ namespace Application.Services
                 return null;
             }
         }
+        public User? ChangePasswordUser(string email, string newPassword,string password)
+        {
+            try
+            {
+                var checkAccount = _unitOfWork.userRepository.CheckAccountValid(email, password);
+                if (!checkAccount) { return null; }
+                var user = _unitOfWork.userRepository.GetUserByEmail(email);
+                user.PasswordHash = SecurityMethods.HashPassword(newPassword);
+                _unitOfWork.SaveChange();
+                return user;
+            }
+            catch (Exception)
+            {
 
+                return null;
+            }
+        }
         public User? GetUserByEmail(string email)
         {
             try

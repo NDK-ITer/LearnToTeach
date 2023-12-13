@@ -18,7 +18,7 @@ function Copyright(props) {
     return (
         <Typography variant="body2" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
+            <Link color="inherit" to="https://mui.com/">
                 HKC Classroom
             </Link>{' '}
             {new Date().getFullYear()}
@@ -72,12 +72,12 @@ function Login(props) {
                         </div>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="/RestorePassword" variant="body2">
+                                <Link to="/RestorePassword" variant="body2">
                                     Quên mật khẩu?
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="/SignUp" variant="body2">
+                                <Link to="/SignUp" variant="body2">
                                     {"Chưa có tài khoản? Đăng ký ngay"}
                                 </Link>
                             </Grid>

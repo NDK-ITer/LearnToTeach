@@ -10,6 +10,10 @@ const userApi = {
     const url = '/account/login';
     return axiosClient.post(url, data);
   },
+  changepassword(data) {
+    const url = '/account/change-password';
+    return axiosClient.post(url, data);
+  },
   forgetpassword(data) {
     const url = '/account/forget-password';
     return axiosClient.post(url, data);

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocalContext } from 'context';
-import ResetPasswordForm from '../ResetPassword/ResetPasswordForm';
 import { useHistory } from 'react-router-dom';
-import { resetpassword } from '../userSlice';
+import { changepassword, resetpassword } from '../userSlice';
+import ChangePasswordForm from './ChangePasswordForm';
 ChangePassword.propTypes = {
     closeDialog: PropTypes.func,
 };
@@ -21,7 +21,7 @@ function ChangePassword(props) {
 
         try {
             values.Email = user.email;
-            const action = resetpassword(values);
+            const action = changepassword(values);
             const resultAction = await dispatch(action);
             unwrapResult(resultAction);
             const check = resultAction.payload
@@ -47,7 +47,7 @@ function ChangePassword(props) {
 
     return (
         <div>
-            <ResetPasswordForm onSubmit={handleSubmit} />
+            <ChangePasswordForm onSubmit={handleSubmit} />
         </div>
     );
 }

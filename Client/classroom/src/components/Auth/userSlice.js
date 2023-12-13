@@ -27,6 +27,18 @@ export const login = createAsyncThunk('account/login', async (payload) => {
     localStorage.setItem(StorageKeys.USER, JSON.stringify(data));
     return data;
 });
+export const changepassword = createAsyncThunk('account/change-password', async (payload) => {
+
+    const formData = new FormData()
+    formData.append('Email', payload.Email);
+    formData.append('Password', payload.Password);
+    formData.append('NewPassword', payload.NewPassword);
+    formData.append('ConfirmPassword', payload.ConfirmPassword);
+    const data = await userApi.changepassword(formData);
+    console.log(data);
+    return data;
+});
+
 export const forgetpassword = createAsyncThunk('account/forget-password', async (payload) => {
 
     const formData = new FormData()

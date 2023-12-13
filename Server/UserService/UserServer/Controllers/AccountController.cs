@@ -251,35 +251,41 @@ namespace Server.Controllers
         [HttpPost]
         [HttpOptions]
         [Route("change-password")]
-        public async Task<IActionResult> ChangePassword(string idUser)
+        public async Task<IActionResult> ChangePassword([FromForm] ChangePasswordModel model)
         {
             try
             {
-                // Get user with idUser
-                var user = _unitOfWork_UserService.UserService.GetUserById(idUser);
-                if (user == null) return BadRequest();
-                // Generate a OTP and store to Session with key value is "email"
-                var otp = SecurityMethods.CreateRandomOTP();
-                HttpContext.Session.SetString(user.PresentEmail, otp);
-                // Send the OTP to Email
-                var endPoint = await _bus.GetSendEndpoint(new Uri("queue:" + _queue.Value.SagaBusQueue));
-                if (endPoint != null)
+                var resultstatus = new ResultStatus()
                 {
-                    endPoint.Send<IGetValueUserEvent>(new
-                    {
-                        id = Guid.Parse(user.id),
-                        fullName = user.FirstName + " " + user.LastName,
-                        email = user.PresentEmail,
-                        content = $"Dear {user.FirstName + " " + user.LastName}!<br/><span style=\"color: #53A8F8;font-weight: bold;\">{otp}</span> is your OTP. This OTP is exist in {SessionInforConfig.SessionTimeOut} minutes. Don't share this OTP.",
-                        subject = "OTP to change password your account",
-                        eventMessage = _userEventMessage.ResetPassword
-                    });
+                    status = -4,
+                    message = ""
+                };
+                if (model.NewPassword != model.ConfirmPassword)
+                {
+                    resultstatus.status = -3;
+                    resultstatus.message = "Password is not confirmed!";
+                    return Ok(resultstatus);
                 }
-                return Ok($"Have sent OTP to {user.PresentEmail}");
+                var user = _unitOfWork_UserService.UserService.GetUserByEmail(model.Email);
+                if (user == null)
+                {
+                    resultstatus.status = -2;
+                    resultstatus.message = "User not found!";
+                    return Ok(resultstatus);
+                }
+                var reset = _unitOfWork_UserService.UserService.ChangePasswordUser(model.Email, model.NewPassword, model.Password);
+                if (reset == null)
+                {
+                    resultstatus.status = -1;
+                    resultstatus.message = "not reset password";
+                    return Ok(resultstatus);
+                }
+                resultstatus.status = 1;
+                resultstatus.message = "password was updated";
+                return Ok(resultstatus);
             }
             catch (Exception)
             {
-
                 return BadRequest("Some thing wrong");
             }
         }
