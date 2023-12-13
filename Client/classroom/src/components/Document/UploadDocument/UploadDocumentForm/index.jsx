@@ -46,7 +46,7 @@ UploadDocumentForm.propTypes = {
 function UploadDocumentForm(props) {
     const classes = useStyles();
     const schema = yup.object().shape({
-        Decription: yup.string().required('Please enter your description.'),
+        Decription: yup.string().required('Vui lòng nhập tiêu đề tài liệu.'),
         // FileUploadDocument: yup.string().required('Please choose file.')
     });
 

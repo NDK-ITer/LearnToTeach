@@ -53,8 +53,8 @@ function EditExerciseForm(props) {
     const schema = yup.object().shape({
         Name: yup
             .string()
-            .required('Please enter your Exercise name .'),
-        Deadline: yup.date().min(new Date(), 'Date must be today or later').required('Date is required'),
+            .required('Vui lòng nhập tiêu đề bài tập.'),
+        Deadline: yup.date().min(new Date(), 'Ngày phải là hôm nay hoặc muộn hơn.').required('Vui lòng nhập thời hạn nộp.'),
     });
     const form = useForm({
         defaultValues: {

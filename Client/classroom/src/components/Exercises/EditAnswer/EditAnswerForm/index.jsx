@@ -49,7 +49,7 @@ function EditAnswerForm(props) {
     const classes = useStyles();
     const { answer } = props;
     const schema = yup.object().shape({
-        Content: yup.string().required('Chưa có câu trả lời'),
+        Content: yup.string().required('Chưa có câu trả lời.'),
     });
 
     const form = useForm({

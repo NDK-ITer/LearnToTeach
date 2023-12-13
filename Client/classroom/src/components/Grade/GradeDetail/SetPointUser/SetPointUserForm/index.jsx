@@ -50,9 +50,9 @@ function SetPointUserForm(props) {
     const { point } = props
     const schema = yup.object().shape({
         point: yup.number()
-            .min(0, 'Number must be greater than or equal to 0')
-            .max(10, 'Number must be less than or equal to  10')
-            .required('Number is required'),
+            .min(0, 'điểm nhập phải lớn hơn hoặc bằng 0')
+            .max(10, 'điểm nhập phải bé hơn hoặc bằng 10')
+            .required('vui long nhập điểm'),
     });
 
     const form = useForm({

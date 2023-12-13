@@ -10,6 +10,7 @@ import UploadField from 'components/form-controls/UploadField';
 import TextAreaField from 'components/form-controls/TextAreaField';
 import DateField from 'components/form-controls/DateField';
 import BorderColorOutlinedIcon from '@material-ui/icons/BorderColorOutlined';
+import formatDate from 'constants/formatdate';
 
 ExerciseForm.propTypes = {
     onSubmit: PropTypes.func,
@@ -49,8 +50,8 @@ function ExerciseForm(props) {
     const schema = yup.object().shape({
         Name: yup
             .string()
-            .required('Please enter your Exercise name .'),
-        Deadline: yup.date().min(new Date(), 'Date must be today or later').required('Date is required'),
+            .required('vui lòng nhập tiêu đề bài tập.'),
+        Deadline: yup.date().min(new Date(), 'Ngày phải là hôm nay hoặc muộn hơn.').required('Vui lòng nhập thời hạn bài tập.'),
     });
     const form = useForm({
         defaultValues: {
@@ -58,7 +59,7 @@ function ExerciseForm(props) {
             IdMember: '',
             Name: '',
             Description: '',
-            Deadline: '',
+            Deadline: formatDate(new Date()),
             FileUpload: '',
         },
         resolver: yupResolver(schema),
@@ -107,7 +108,7 @@ function ExerciseForm(props) {
                     </div>
                     <div className='main_content'>
                         <div className='title'>
-                            <InputField name="Name" label="Tiêu đề" form={form}/>
+                            <InputField name="Name" label="Tiêu đề" form={form} />
                         </div>
                         <div className='content'>
                             <TextAreaField name="Description" label="Nội dung" form={form} />
@@ -121,7 +122,7 @@ function ExerciseForm(props) {
                         <div className='time'>
                             <p className='text'>Hạn nộp:</p>
                             <div className='picktime'>
-                                <DateField name="Deadline" label="Exercise Content" form={form} />
+                                <DateField name="Deadline" label="Exercise Content" form={form} defaultValue={formatDate(new Date)} />
                             </div>
                         </div>
                     </div>
