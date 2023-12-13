@@ -10,7 +10,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import ClassOutlinedIcon from '@material-ui/icons/ClassOutlined';
 import TextField from '@material-ui/core/TextField';
-
+import { Link } from 'react-router-dom';
 import Header from "components/Header";
 import { Menu } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
@@ -67,14 +67,14 @@ export default function SwipeableTemporaryDrawer({ classData }) {
           <ListItemText primary="Đã tạo" />
         </ListItem>
         {classDataIsHost.map((item, index) => (
-          <a href={`/${item.idClassroom}`}>
+          <Link to={`/${item.idClassroom}`}>
             <ListItem button key={index}  >
               <ListItemIcon>
                 <ClassOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary={item.name} />
             </ListItem>
-          </a>
+          </Link>
         ))}
       </List>
       <List>
@@ -85,14 +85,14 @@ export default function SwipeableTemporaryDrawer({ classData }) {
           <ListItemText primary="Đã tham gia" />
         </ListItem>
         {classDataNotIsHost.map((item, index) => (
-          <a href={`/${item.idClassroom}`}>
+          <Link to={`/${item.idClassroom}`}>
             <ListItem button key={index}  >
               <ListItemIcon>
                 <ClassOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary={item.name} />
             </ListItem>
-          </a>
+          </Link>
         ))}
       </List>
     </div>

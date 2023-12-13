@@ -10,7 +10,7 @@ function NotFound(props) {
   return (
     <div className="error">
       <img className="error__logo" src={img404} alt="error" />
-      <Link href="/">
+      <Link to="/">
         <Button variant="contained" color="default">
           Quay Về
         </Button>

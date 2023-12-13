@@ -8,6 +8,7 @@ import FactCheckOutlinedIcon from '@material-ui/icons/FaceOutlined';
 import formatDate from 'constants/formatdate';
 import Role from 'constants/role';
 import GoBackButton from 'components/GoBackButton';
+import { Link } from 'react-router-dom';
 
 const ExerciseDetail = ({ exercise, classData, userHost }) => {
 
@@ -34,7 +35,7 @@ const ExerciseDetail = ({ exercise, classData, userHost }) => {
                     <div className='content_detail'>
                         <p>{exercise.description}</p>
                         {exercise.file !='https://localhost:9002/doc/' &&
-                        <p>Tệp đính kèm: <a href={exercise.file} target='_blank'>Tệp đính kèm</a></p>  
+                        <p>Tệp đính kèm:<a href={exercise.file} target='_blank'>Tệp đính kèm</a></p>  
                         }                         
                     </div>
                 </div>
@@ -44,11 +45,11 @@ const ExerciseDetail = ({ exercise, classData, userHost }) => {
                     <ul className='list_submited'>
                         {listUserAnswer.map((item, index) => (
                             <li key={index} className='student'>
-                                <a href={`/${classData.idClassroom}/grades/${exercise.idExercise}/answer/${item.idMember}`}>
+                               <Link to={`/${classData.idClassroom}/grades/${exercise.idExercise}/answer/${item.idMember}`}>
                                     <Avatar style={{ m: 1, backgroundColor: 'rgb(34, 186, 34)' }}>
                                         <FactCheckOutlinedIcon />
                                     </Avatar>
-                                </a>
+                                </Link>
                                 <div className='submit_information'>
                                     <div className='student_name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
                                     <div>Thời gian nộp {formatDate(item.dateAnswer)} </div>

@@ -11,7 +11,7 @@ import TextAreaField from 'components/form-controls/TextAreaField';
 import DateField from 'components/form-controls/DateField';
 import BorderColorOutlinedIcon from '@material-ui/icons/BorderColorOutlined';
 import formatDate from 'constants/formatdate';
-
+import { Link } from 'react-router-dom';
 EditExerciseForm.propTypes = {
     onSubmit: PropTypes.func,
     classData: PropTypes.string,
@@ -94,7 +94,7 @@ function EditExerciseForm(props) {
                                 variant="outlined"
                                 style={{ margin: 1 }}
                             >
-                                <a href={`/${props.classData}/exercises`}>Hủy</a>
+                                <Link to={`/${props.classData}/exercises`}>Hủy</Link>
                             </Button>
 
                             <Button

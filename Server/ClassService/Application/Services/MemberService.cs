@@ -158,6 +158,7 @@ namespace Application.Services
                     FileName = exerciseInput.FileName,
                     Description = exerciseInput.Description,
                     Classroom = classroom,
+                    CreateDate = DateTime.Now,
                     UpdateDate = DateTime.Now,
                 };
                 if (exerciseInput.IdExercise.IsNullOrEmpty()) exercise.IdExercise = exerciseInput.IdExercise;

@@ -15,7 +15,7 @@ import ConfirmationDialog from 'components/ConfirmationDialog';
 import formatDate from 'constants/formatdate';
 import { useSnackbar } from 'notistack';
 import getFileExtension from 'constants/extentionfile';
-
+import { Link } from 'react-router-dom';
 const Document = ({ classData }) => {
     const { user } = useLocalContext();
     const { enqueueSnackbar } = useSnackbar();
@@ -85,7 +85,7 @@ const Document = ({ classData }) => {
                 <ul className='list_docs'>
                     {document.map((item, index) => (
                         <li key={index} className='doc'>
-                            <a href={item.linkFile} target='_blank'>
+                           <a href={item.linkFile} target='_blank'>
                                 {!extesionvieo.includes(getFileExtension(item.linkFile)) &&
                                     <Avatar style={{ m: 1, backgroundColor: 'rgb(0, 159, 212)' }}>
                                         <AssignmentOutlinedIcon />
@@ -117,11 +117,11 @@ const Document = ({ classData }) => {
                 <ul className='list_docs'>
                     {document.map((item, index) => (
                         <li key={index} className='doc'>
-                            <a href={item.linkFile}>
+                           <Link to={item.linkFile}>
                                 <Avatar style={{ m: 1, backgroundColor: 'rgb(0, 159, 212)' }}>
                                     <AssignmentOutlinedIcon />
                                 </Avatar>
-                            </a>
+                            </Link>
                             <div className='doc_information'>
                                 <div className='doc_name1'>{item.description}</div>
                                 <div className='doc_upload1'>Thời gian đăng: {formatDate(item.uploadDate)}</div>

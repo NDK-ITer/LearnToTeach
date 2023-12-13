@@ -8,6 +8,7 @@ import { useLocalContext } from 'context';
 import classApi from 'api/classApi';
 import Role from 'constants/role';
 import formatDate from 'constants/formatdate';
+import {  Link } from 'react-router-dom';
 const Grade = ({ classData }) => {
   const { user } = useLocalContext();
   const [isUserHost, setisUserHost] = useState(false);
@@ -60,11 +61,11 @@ const Grade = ({ classData }) => {
         <ul className='list_results'>
           {exercisesNotGrade.map((item, index) => (
             <li key={index} className='result'>
-              <a href={`/${classData.idClassroom}/grades/${item.idExercise}`}>
+              <Link to={`/${classData.idClassroom}/grades/${item.idExercise}`}>
                 <Avatar style={{ m: 1, backgroundColor: 'rgb(227, 227, 0)' }}>
                   <ErrorOutlineOutlinedIcon />
                 </Avatar>
-              </a>
+              </Link>
               <div className='grade_information'>
                 <div className='name_1'>{item.name}</div>
                 <div>
@@ -81,11 +82,11 @@ const Grade = ({ classData }) => {
         <ul className='list_results'>
           {exercisesGrading.map((item, index) => (
             <li key={index} className='result'>
-              <a href={`/${classData.idClassroom}/grades/${item.idExercise}`}>
+              <Link to={`/${classData.idClassroom}/grades/${item.idExercise}`}>
                 <Avatar style={{ m: 1, backgroundColor: 'rgb(227, 227, 0)' }}>
                   <ErrorOutlineOutlinedIcon />
                 </Avatar>
-              </a>
+              </Link>
               <div className='grade_information'>
                 <div className='name_1'>{item.name}</div>
                 <div>
@@ -102,11 +103,11 @@ const Grade = ({ classData }) => {
         <ul className='list_results'>
           {exercisesGrade.map((item, index) => (
             <li key={index} className='result'>
-              <a href={`/${classData.idClassroom}/grades/${item.idExercise}`}>
+              <Link to={`/${classData.idClassroom}/grades/${item.idExercise}`}>
                 <Avatar style={{ m: 1, backgroundColor: 'rgb(4, 214, 46)' }}>
                   <CheckCircleOutlinedIcon />
                 </Avatar>
-              </a>
+              </Link>
               <div className='grade_information'>
                 <div className='name_1'>{item.name}</div>
                 <div>
@@ -126,11 +127,11 @@ const Grade = ({ classData }) => {
         <ul className='list_results'>
           {exercisesGrade.map((item, index) => (
             <li key={index} className='result'>
-              <a href={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>
+              <Link to={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>
                 <Avatar style={{ m: 1, backgroundColor: 'rgb(4, 214, 46)' }}>
                   <CheckCircleOutlinedIcon />
                 </Avatar>
-              </a>
+              </Link>
               <div className='grade_information'>
                 <div className='name_1'>{item.name}</div>
                 <div>
@@ -148,11 +149,11 @@ const Grade = ({ classData }) => {
         <ul className='list_results'>
           {exercisesNotGrade.map((item, index) => (
             <li key={index} className='result'>
-              <a href={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>
+              <Link to={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>
                 <Avatar style={{ m: 1, backgroundColor: 'rgb (255,255,0)' }}>
                   <CheckCircleOutlinedIcon />
                 </Avatar>
-              </a>
+              </Link>
               <div className='grade_information'>
                 <div className='name'> {item.name} </div>
                 <div className='grade'>Đang chờ chấm</div>
@@ -168,11 +169,11 @@ const Grade = ({ classData }) => {
 
           {exercisesGradeExpired.map((item, index) => (
             <li key={index} className='result'>
-              <a href={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>
+              <Link to={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>
                 <Avatar style={{ m: 1, backgroundColor: 'rgb(233, 0, 0)' }}>
                   <CancelOutlinedIcon />
                 </Avatar>
-              </a>
+              </Link>
               <div className='grade_information'>
                 <div className='name'>{item.name}</div>
                 <div className='grade'>Điểm số: 0 </div>

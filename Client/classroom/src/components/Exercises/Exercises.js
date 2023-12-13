@@ -10,7 +10,7 @@ import formatDate from 'constants/formatdate';
 import { EditOutlined, ExitToAppOutlined } from '@material-ui/icons';
 import ConfirmationDialog from 'components/ConfirmationDialog';
 import { useSnackbar } from 'notistack';
-
+import { Link } from 'react-router-dom';
 
 const Exercises = ({ classData }) => {
   const { user } = useLocalContext();
@@ -81,9 +81,9 @@ const Exercises = ({ classData }) => {
           className='btn_create'
           style={{ marginLeft: 400, marginTop: 20, borderRadius: 20, backgroundColor: "rgb(25, 118, 210)", color: "#fff" }}
         >
-          <a href={`/${classData.idClassroom}/exercises/create`} style={{ color: "#fff", textDecoration: 'none' }}>
+          <Link to={`/${classData.idClassroom}/exercises/create`} style={{ color: "#fff", textDecoration: 'none' }}>
             + Tạo bài tập
-          </a>
+          </Link>
         </Button>
         <div className='exercise_status'>
           <h1>Còn hạn</h1>
@@ -91,19 +91,19 @@ const Exercises = ({ classData }) => {
         <ul className='list_tasks'>
           {exercisesActive.map((item, index) => (
             <li key={index} className='task'>
-              <a href={`/${classData.idClassroom}/exercises/${item.idExercise}`}>
+              <Link to={`/${classData.idClassroom}/exercises/${item.idExercise}`}>
                 <Avatar style={{ m: 1, backgroundColor: 'rgb(4, 214, 46)' }}>
                   <LibraryBooksOutlinedIcon />
                 </Avatar>
-              </a>
+              </Link>
               <div className='task_information'>
                 <div className='task_name'>{item.name}</div>                
                 <div style={{display: 'flex'}}>
                   <div className='task_deadline'>Thời hạn: {formatDate(item.deadline)} </div>
                   <Button variant="contained" color="primary" startIcon={<EditOutlined />} style={{marginRight: '10px'}}>
-                    <a href={`/${classData.idClassroom}/exercises/edit/${item.idExercise}`} style={{ color: "#fff", textDecoration: 'none' }}>
+                    <Link to={`/${classData.idClassroom}/exercises/edit/${item.idExercise}`} style={{ color: "#fff", textDecoration: 'none' }}>
                       chỉnh sửa
-                    </a>
+                    </Link>
                   </Button>
                   <Button variant="contained" onClick={() => handleIdExercise(item.idExercise)} color="secondary" startIcon={<ExitToAppOutlined />}>
                     xóa
@@ -119,19 +119,19 @@ const Exercises = ({ classData }) => {
         <ul className='list_tasks'>
           {exercisesExpired.map((item, index) => (
             <li key={index} className='task'>
-              <a href={`/${classData.idClassroom}/exercises/${item.idExercise}`}>
+              <Link to={`/${classData.idClassroom}/exercises/${item.idExercise}`}>
                 <Avatar style={{ m: 1, backgroundColor: 'rgb(233, 0, 0)' }}>
                   <LibraryBooksOutlinedIcon />
                 </Avatar>
-              </a>
+              </Link>
               <div className='task_information'>
                 <div className='task_name'>{item.name}</div>
                 <div style={{display:'flex'}}>
                   <div className='task_deadline'>Hết hạn: {formatDate(item.deadline)} </div>
                   <Button variant="contained" color="primary" startIcon={<EditOutlined />} style={{marginRight: '10px'}}>
-                    <a href={`/${classData.idClassroom}/exercises/edit/${item.idExercise}`} style={{ color: "#fff", textDecoration: 'none' }}>
+                    <Link to={`/${classData.idClassroom}/exercises/edit/${item.idExercise}`} style={{ color: "#fff", textDecoration: 'none' }}>
                       chỉnh sửa
-                    </a>
+                    </Link>
                   </Button>
                   <Button variant="contained" onClick={() => handleIdExercise(item.idExercise)} color="secondary" startIcon={<ExitToAppOutlined />}>
                     xóa
@@ -150,11 +150,11 @@ const Exercises = ({ classData }) => {
         <ul className='list_tasks'>
           {exercisesAssigned.map((item, index) => (
             <li key={index} className='task'>
-              <a href={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>
+              <Link to={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>
                 <Avatar style={{ margin: 1, backgroundColor: 'rgb(0, 159, 212)' }}>
                   <LibraryBooksOutlinedIcon />
                 </Avatar>
-              </a>
+              </Link>
               <div className='task_information'>
                 <div className='task_name_1'>{item.name}</div>
                 <div className='task_deadline_1'>{formatDate(item.deadline)} </div>
@@ -168,11 +168,11 @@ const Exercises = ({ classData }) => {
         <ul className='list_tasks'>
           {exercisesCompleted.map((item, index) => (
             <li key={index} className='task'>
-              <a href={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>
+              <Link to={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>
                 <Avatar style={{ m: 1, backgroundColor: 'rgb(4, 214, 46)' }}>
                   <LibraryBooksOutlinedIcon />
                 </Avatar>
-              </a>
+              </Link>
               <div className='task_information'>
                 <div className='task_name_1'>{item.name}</div>
                 <div className='task_deadline_1'>{formatDate(item.deadline)} </div>
@@ -186,11 +186,11 @@ const Exercises = ({ classData }) => {
         <ul className='list_tasks'>
           {exercisesNotCompleted.map((item, index) => (
             <li key={index} className='task'>
-              <a href={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>
+              <Link to={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>
                 <Avatar style={{ m: 1, backgroundColor: 'rgb(233, 0, 0)' }}>
                   <LibraryBooksOutlinedIcon />
                 </Avatar>
-              </a>
+              </Link>
               <div className='task_information'>
                 <div className='task_name_1'>{item.name}</div>
                 <div className='task_deadline_1'>{formatDate(item.deadline)} </div>

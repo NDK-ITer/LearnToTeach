@@ -15,6 +15,7 @@ import { Button } from '@material-ui/core';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import ConfirmationDialog from "components/ConfirmationDialog";
 import formatDate from "constants/formatdate";
+import { Link } from 'react-router-dom';
 const Main = ({ classData }) => {
   const { user } = useLocalContext();
   const history = useHistory();
@@ -184,7 +185,7 @@ const Main = ({ classData }) => {
                 <ul>
                   {listExercisesUserhost.map((item, index) => (
                     <li key={index}>
-                      <p>. <a href={`/${classData.idClassroom}/exercises/${item.idExercise}`}>{item.name}</a></p>
+                      <p>. <Link to={`/${classData.idClassroom}/exercises/${item.idExercise}`}>{item.name}</Link></p>
                     </li>
                   ))}
                   {listExercisesUserhost.length <= 0 && <span>Không có bài tập nào</span>}
@@ -194,7 +195,7 @@ const Main = ({ classData }) => {
                 <ul>
                   {listExercisesUserMember.map((item, index) => (
                     <li key={index}>
-                      <a href={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>{item.name}</a>
+                      <Link to={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>{item.name}</Link>
                     </li>
                   ))}
                   {listExercisesUserMember.length <= 0 && <span>Không có bài tập nào</span>}

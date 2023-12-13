@@ -5,7 +5,7 @@ import PermIdentityOutlinedIcon from '@material-ui/icons/PermIdentityOutlined';
 import PermContactCalendarOutlinedIcon from '@material-ui/icons/PermContactCalendarOutlined';
 import classApi from 'api/classApi';
 import Role from 'constants/role';
-import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Redirect, Route, Switch, useRouteMatch, Link } from 'react-router-dom';
 import SubmitExercise from 'components/Exercises/SubmitExercise/SubmitExercise';
 import GoBackButton from 'components/GoBackButton';
 import formatDate from 'constants/formatdate';
@@ -62,11 +62,11 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
                 <ul className='list_informations'>
                     {userGraded.map((item, index) => (
                         <li key={index} className='graded_information'>
-                            <a href={`${match.url}/answer/${item.idMember}`}>
+                            <Link to={`${match.url}/answer/${item.idMember}`}>
                                 <Avatar style={{ m: 1, backgroundColor: 'rgb(4, 214, 46)' }}>
                                     <PermContactCalendarOutlinedIcon />
                                 </Avatar>
-                            </a>
+                            </Link>
                             <div className='submit_information'>
                                 <div className='name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
                                 <div className='grade'>Điểm số: {item.point} </div>
@@ -87,11 +87,11 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
                 <ul className='list_informations'>
                     {userGraded.map((item, index) => (
                         <li key={index} className='graded_information'>
-                            <a href={`${match.url}/answer/${item.idMember}`}>
+                            <Link to={`${match.url}/answer/${item.idMember}`}>
                                 <Avatar style={{ m: 1, backgroundColor: 'rgb(4, 214, 46)' }}>
                                     <PermContactCalendarOutlinedIcon />
                                 </Avatar>
-                            </a>
+                            </Link>
                             <div className='submit_information'>
                                 <div className='name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
                                 <div className='grade'>Điểm số: {item.point} </div>
@@ -108,11 +108,11 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
                 <ul className='list_informations'>
                     {userNotGraded.map((item, index) => (
                         <li key={index} className='submit_student_information'>
-                            <a href={`${match.url}/answer/${item.idMember}`}>
+                            <Link to={`${match.url}/answer/${item.idMember}`}>
                                 <Avatar style={{ m: 1, backgroundColor: 'rgb(227, 227, 0)' }}>
                                     <PermIdentityOutlinedIcon />
                                 </Avatar>
-                            </a>
+                            </Link>
                             <div className='submit_information'>
                                 <div className='name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
                                 <div>Thời gian nộp</div>
@@ -135,11 +135,11 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
                 <ul className='list_informations'>
                     {userGraded.map((item, index) => (
                         <li key={index} className='graded_information'>
-                            <a href={`${match.url}/answer/${item.idMember}`}>
+                            <Link to={`${match.url}/answer/${item.idMember}`}>
                                 <Avatar style={{ m: 1, backgroundColor: 'rgb(4, 214, 46)' }}>
                                     <PermContactCalendarOutlinedIcon />
                                 </Avatar>
-                            </a>
+                            </Link>
                             <div className='submit_information'>
                                 <div className='name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
                                 <div className='grade'>Điểm số: {item.point} </div>
@@ -156,11 +156,11 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
                 <ul className='list_informations'>
                     {userNotGraded.map((item, index) => (
                         <li key={index} className='submit_student_information'>
-                            <a href={`${match.url}/answer/${item.idMember}`}>
+                            <Link to={`${match.url}/answer/${item.idMember}`}>
                                 <Avatar style={{ m: 1, backgroundColor: 'rgb(227, 227, 0)' }}>
                                     <PermIdentityOutlinedIcon />
                                 </Avatar>
-                            </a>
+                            </Link>
                             <div className='submit_information'>
                                 <div className='name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
                                 <div>Thời gian nộp</div>

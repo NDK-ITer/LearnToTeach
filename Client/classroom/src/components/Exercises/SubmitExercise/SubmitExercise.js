@@ -12,6 +12,7 @@ import { IconButton } from '@material-ui/core';
 import classApi from 'api/classApi';
 import { useSnackbar } from 'notistack';
 import EditAnswer from '../EditAnswer';
+import { Link } from 'react-router-dom';
 const SubmitExercise = ({ exercise, classData, isUserHost, user, userHost, }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [openUpload, setopenUpload] = useState(false);
@@ -86,7 +87,7 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user, userHost, }) =>
         <div className='upload_exercise'>
           <div className='your_exercise'>
             <p>Bài tập của bạn</p>
-            <p className='upload_status'>{getPointForIdMember(user.id) == null ? "Chưa nộp" : getPointForIdMember(user.id) > 0 ? answer.dateUpdateAnswer!=null?"Đã chấm lại":"Đã chấm" : "Đã nộp"}</p>
+            <p className='upload_status'>{getPointForIdMember(user.id) == null ? "Chưa nộp" : getPointForIdMember(user.id) > 0 ? answer.dateUpdateAnswer != null ? "Đã chấm lại" : "Đã chấm" : "Đã nộp"}</p>
           </div>
           <div className='group_button'>
             {getPointForIdMember(user.id) == null &&
@@ -134,7 +135,7 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user, userHost, }) =>
               </div>
               <div style={{ fontSize: '16px' }}>
                 <p>{answer.content}</p>
-                <a href={answer.linkFile} target='_banlk'>Đính kèm tệp</a>
+                <Link to={answer.linkFile} target='_banlk'>Đính kèm tệp</Link>
               </div>
             </div>}
           </div>
