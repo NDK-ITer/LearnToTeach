@@ -10,6 +10,7 @@ import * as yup from 'yup';
 import CheckBoxField from 'components/form-controls/CheckBoxField';
 import UploadField from 'components/form-controls/UploadField';
 import TextAreaField from 'components/form-controls/TextAreaField';
+import linkFile from 'constants/LinkFile';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -80,7 +81,7 @@ function EditAnswerForm(props) {
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>
                 <TextAreaField name='Content' label='Nội dung' form={form} defaultValue={answer.content} />
-                <span>Đính kèm:</span> <UploadField name='FileUploadAnswer' form={form} accept='*' /> <span>tệp đã nộp: <a href={answer.linkFile} target="_blank" rel="noopener noreferrer">tệp</a></span>
+                <span>Đính kèm:</span> <UploadField name='FileUploadAnswer' form={form} accept='*' /> {answer.linkFile!=linkFile && <span>tệp đã nộp: <a href={answer.linkFile} target="_blank" rel="noopener noreferrer">tệp</a></span>}
                 <Button
                     disabled={isSubmitting}
                     type="submit"

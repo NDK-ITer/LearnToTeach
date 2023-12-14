@@ -12,6 +12,7 @@ import DateField from 'components/form-controls/DateField';
 import BorderColorOutlinedIcon from '@material-ui/icons/BorderColorOutlined';
 import formatDate from 'constants/formatdate';
 import { Link } from 'react-router-dom';
+import linkFile from 'constants/LinkFile';
 EditExerciseForm.propTypes = {
     onSubmit: PropTypes.func,
     classData: PropTypes.string,
@@ -120,7 +121,7 @@ function EditExerciseForm(props) {
                         <div className='attachment'>
                             <p className='text'>Đính kèm tệp: </p>
                             <div>
-                                <UploadField name='FileUpload' form={form} accept='*' /> <span>tệp đã đăng: <a href={exercise.file} target="_blank" rel="noopener noreferrer">tệp</a></span>
+                                <UploadField name='FileUpload' form={form} accept='*' /> {exercise.file != linkFile && <span>tệp đã đăng: <a href={exercise.file} target="_blank" rel="noopener noreferrer">tệp</a></span>}
                             </div>
                         </div>
                         <div className='time'>

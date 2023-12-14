@@ -11,6 +11,7 @@ import { IconButton } from '@material-ui/core';
 import SetPointUser from '../SetPointUser';
 import GoBackButton from 'components/GoBackButton';
 import getFileExtension from 'constants/extentionfile';
+import linkFile from 'constants/LinkFile';
 const GardeUserAnswer = ({ classData, userHost, answerItem, exercise }) => {
     const [open, setOpen] = useState(false);
     const handleClickOpen = () => {
@@ -20,6 +21,7 @@ const GardeUserAnswer = ({ classData, userHost, answerItem, exercise }) => {
         setOpen(false);
     };
     const curendate = new Date()
+    console.log(answerItem.dateUpdatePoint)
     return (
         <div className='submit_exercise1'>
             <div className='main_area1'>
@@ -29,7 +31,7 @@ const GardeUserAnswer = ({ classData, userHost, answerItem, exercise }) => {
                     </Avatar>
                     <div className='upload_detail1'>
                         <h1 className='title_text2'>{exercise.name}</h1>
-                        <p style={{ fontSize: '14px' }}>--- {userHost.nameMember} --- Thời gian giao {formatdate(exercise.createDate)} <span style={{ marginLeft: "15px" }}>{answerItem.point > 0 ? answerItem.dateUpdatePoint != null ? "đã chấm (" + formatdate(answerItem.dateUpdatePoint) + ")" : "đã sửa điểm (" + formatdate(answerItem.dateSetPoint) + ")" : "Chưa chấm"} </span> </p>
+                        <p style={{ fontSize: '14px' }}>--- {userHost.nameMember} --- Thời gian giao {formatdate(exercise.createDate)} <span style={{ marginLeft: "15px" }}>{answerItem.point > 0 ? answerItem.dateUpdatePoint !== null ? "đã sửa điểm (" + formatdate(answerItem.dateUpdatePoint) + ")" : "đã chấm (" + formatdate(answerItem.dateSetPoint) + ")" : "Chưa chấm"} </span> </p>
                     </div>
                 </div>
                 <div className='upload_detail1'>
@@ -54,7 +56,7 @@ const GardeUserAnswer = ({ classData, userHost, answerItem, exercise }) => {
                     </div>
                     <div>
                         <p>{answerItem.content}</p>
-                        {answerItem.linkFile != 'https://localhost:9002/doc/' && <a href={answerItem.linkFile} target='_banlk'>Đính kèm tệp</a>}
+                        {answerItem.linkFile != linkFile && <a href={answerItem.linkFile} target='_banlk'>Đính kèm tệp</a>}
 
                     </div>
                     <div className='group_button1'>

@@ -9,6 +9,7 @@ import formatDate from 'constants/formatdate';
 import Role from 'constants/role';
 import GoBackButton from 'components/GoBackButton';
 import { Link } from 'react-router-dom';
+import linkFile from 'constants/LinkFile';
 
 const ExerciseDetail = ({ exercise, classData, userHost }) => {
 
@@ -34,7 +35,7 @@ const ExerciseDetail = ({ exercise, classData, userHost }) => {
                     </div>
                     <div className='content_detail'>
                         <p>{exercise.description}</p>
-                        {exercise.file !='https://localhost:9002/doc/' &&
+                        {exercise.file !=linkFile &&
                         <p>Tệp đính kèm:<a href={exercise.file} target='_blank'>Tệp đính kèm</a></p>  
                         }                         
                     </div>

@@ -117,11 +117,11 @@ const Document = ({ classData }) => {
                 <ul className='list_docs'>
                     {document.map((item, index) => (
                         <li key={index} className='doc'>
-                           <Link to={item.linkFile}>
+                           <a href={item.linkFile} target='blank'>
                                 <Avatar style={{ m: 1, backgroundColor: 'rgb(0, 159, 212)' }}>
                                     <AssignmentOutlinedIcon />
                                 </Avatar>
-                            </Link>
+                            </a>
                             <div className='doc_information'>
                                 <div className='doc_name1'>{item.description}</div>
                                 <div className='doc_upload1'>Thời gian đăng: {formatDate(item.uploadDate)}</div>

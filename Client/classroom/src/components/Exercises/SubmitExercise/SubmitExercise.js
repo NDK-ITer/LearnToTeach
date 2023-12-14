@@ -13,6 +13,7 @@ import classApi from 'api/classApi';
 import { useSnackbar } from 'notistack';
 import EditAnswer from '../EditAnswer';
 import { Link } from 'react-router-dom';
+import linkFile from 'constants/LinkFile';
 const SubmitExercise = ({ exercise, classData, isUserHost, user, userHost, }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [openUpload, setopenUpload] = useState(false);
@@ -76,7 +77,7 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user, userHost, }) =>
               <p>
                 {exercise.description}
               </p>
-              {exercise.file != 'https://localhost:9002/doc/' &&
+              {exercise.file != linkFile &&
                 <p><a href={exercise.file} target='_blank'> Đính kèm tệp</a></p>}
 
             </div>
@@ -87,7 +88,7 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user, userHost, }) =>
         <div className='upload_exercise'>
           <div className='your_exercise'>
             <p>Bài tập của bạn</p>
-            <p className='upload_status'>{getPointForIdMember(user.id) == null ? "Chưa nộp" : getPointForIdMember(user.id) > 0 ? answer.dateUpdateAnswer != null ? "Đã chấm lại" : "Đã chấm" : "Đã nộp"}</p>
+            <p className='upload_status'>{getPointForIdMember(user.id) == null ? "Chưa nộp" : getPointForIdMember(user.id) > 0 ? answer.dateUpdatePoint != null ? "Đã chấm lại" : "Đã chấm" : "Đã nộp"}</p>
           </div>
           <div className='group_button'>
             {getPointForIdMember(user.id) == null &&
@@ -135,7 +136,10 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user, userHost, }) =>
               </div>
               <div style={{ fontSize: '16px' }}>
                 <p>{answer.content}</p>
-                <Link to={answer.linkFile} target='_banlk'>Đính kèm tệp</Link>
+                {answer.linkFile != linkFile &&
+                  <a to={answer.linkFile} target='_banlk'>Đính kèm tệp</a>
+                }
+
               </div>
             </div>}
           </div>

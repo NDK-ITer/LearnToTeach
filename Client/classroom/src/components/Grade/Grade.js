@@ -8,7 +8,7 @@ import { useLocalContext } from 'context';
 import classApi from 'api/classApi';
 import Role from 'constants/role';
 import formatDate from 'constants/formatdate';
-import {  Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 const Grade = ({ classData }) => {
   const { user } = useLocalContext();
   const [isUserHost, setisUserHost] = useState(false);
@@ -28,7 +28,7 @@ const Grade = ({ classData }) => {
       let isUserHost = result.listMembers.filter(x => x.role == Role.HOST && user.id == x.idMember).length > 0 ? true : false
       if (isUserHost) {
         const exercisesWithNullPoint = result.listExercises.filter(exercise => {
-          return exercise.listAnswer.some(answer => answer.point === null) || exercise.listAnswer.some(answer => answer.point !== null);
+          return (exercise.listAnswer.some(answer => answer.point === null) || exercise.listAnswer.some(answer => answer.point !== null)) && exercise.listAnswer.filter(x => x.point !== null).length > 0;
         }).sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
 
         const exercisesWithNullPoint1 = result.listExercises.filter(exercise => {
@@ -135,7 +135,13 @@ const Grade = ({ classData }) => {
               <div className='grade_information'>
                 <div className='name_1'>{item.name}</div>
                 <div>
-                  <div className='grade'>Thời gian chấm{formatDate(item.deadline)}</div>
+                  {item.listAnswer.find(x => x.idMember == user.id).dateUpdatePoint == null &&
+                    <div className='grade'>Thời gian chấm {formatDate(item.listAnswer.find(x => x.idMember == user.id).dateSetPoint)}</div>
+                  }
+                   {item.listAnswer.find(x => x.idMember == user.id).dateUpdatePoint != null &&
+                   <div className='grade'>Thời gian chấm lại {formatDate(item.listAnswer.find(x => x.idMember == user.id).dateUpdatePoint)}</div>
+                  }
+                  
                   <div className='grade'>Điểm số: {item.listAnswer.find(x => x.idMember == user.id).point}</div>
                 </div>
               </div>
