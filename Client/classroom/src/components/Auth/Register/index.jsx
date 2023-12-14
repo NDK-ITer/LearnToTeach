@@ -1,6 +1,6 @@
 import { unwrapResult } from '@reduxjs/toolkit';
 import { register } from 'components/Auth/userSlice';
-import { createTheme, ThemeProvider, Typography, Link } from '@material-ui/core';
+import { createTheme, ThemeProvider, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import RegisterForm from './RegisterForm';
-import { useHistory } from 'react-router-dom';
+import { useHistory,Link } from 'react-router-dom';
 import st from './styles.module.css'
 
 
@@ -23,14 +23,14 @@ function Copyright(props) {
     return (
         <Typography variant="body2" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" to="https://mui.com/">
-                HKC classroom
-            </Link>{' '}
+            HKC Classroom
+            {' '}
             {new Date().getFullYear()}
             {'.'}
         </Typography>
     );
 }
+
 function Register(props) {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();

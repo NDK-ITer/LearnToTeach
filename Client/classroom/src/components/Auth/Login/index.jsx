@@ -1,14 +1,14 @@
 import { unwrapResult } from '@reduxjs/toolkit';
 import { login } from 'components/Auth/userSlice';
 import { useSnackbar } from 'notistack';
-import { createTheme, ThemeProvider, Typography, Link } from '@material-ui/core';
+import { createTheme, ThemeProvider, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import st from './styles.module.css'
 
@@ -18,9 +18,8 @@ function Copyright(props) {
     return (
         <Typography variant="body2" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" to="https://mui.com/">
-                HKC Classroom
-            </Link>{' '}
+            HKC Classroom
+            {' '}
             {new Date().getFullYear()}
             {'.'}
         </Typography>
