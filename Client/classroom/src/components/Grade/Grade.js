@@ -27,20 +27,20 @@ const Grade = ({ classData }) => {
       setisUserMember(result.listMembers.filter(x => x.role == Role.MEMBER && user.id == x.idMember).length > 0 ? true : false);
       let isUserHost = result.listMembers.filter(x => x.role == Role.HOST && user.id == x.idMember).length > 0 ? true : false
       if (isUserHost) {
-        const exercisesWithNullPoint = result.listExercises.filter(exercise => {
-          return (exercise.listAnswer.some(answer => answer.point === null) || exercise.listAnswer.some(answer => answer.point !== null)) && exercise.listAnswer.filter(x => x.point !== null).length > 0;
+        const exercisesWithNullOrNotNullPoint = result.listExercises.filter(exercise => {
+          return (exercise.listAnswer.some(answer => answer.point === null) || exercise.listAnswer.some(answer => answer.point !== null)) && exercise.listAnswer.filter(x => x.point !== null).length > 0 &&(exercise.listAnswer.filter(x => x.point !== null).length < exercise.listAnswer.length ||(exercise.listAnswer.filter(x => x.point !== null).length == exercise.listAnswer.length && new Date(exercise.deadline)>currentDate )) 
         }).sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
 
-        const exercisesWithNullPoint1 = result.listExercises.filter(exercise => {
-          return exercise.listAnswer.every(answer => answer.point === null);
+        const exercisesWithNullPoint = result.listExercises.filter(exercise => {
+          return exercise.listAnswer.every(answer => answer.point === null) && new Date(exercise.deadline)>currentDate;
         }).sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
 
         const exercisesWithNotNullPoint = result.listExercises.filter(exercise => {
           return exercise.listAnswer.length > 0 && exercise.listAnswer.every(answer => answer.point !== null);
         }).sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
-        setexercisesGrading(exercisesWithNullPoint.filter(x => new Date(x.deadline) > currentDate))
+        setexercisesGrading(exercisesWithNullOrNotNullPoint)
         setexercisesGrade(exercisesWithNotNullPoint.filter(x => new Date(x.deadline) < currentDate))
-        setexercisesNotGrade(exercisesWithNullPoint1.filter(x => new Date(x.deadline) > currentDate))
+        setexercisesNotGrade(exercisesWithNullPoint)
         setcountUser(result.listMembers.filter(x => x.role == Role.MEMBER).length)
       } else {
         setexercisesGrade(result.listExercises.filter(x => x.listAnswer.filter(c => c.idMember == user.id && c.point != null).length > 0).sort((a, b) => new Date(a.deadline) - new Date(b.deadline)));

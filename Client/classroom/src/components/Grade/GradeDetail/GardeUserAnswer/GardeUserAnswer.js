@@ -63,7 +63,7 @@ const GardeUserAnswer = ({ classData, userHost, answerItem, exercise }) => {
                         <Button
                             onClick={handleClickOpen}
                             variant="contained"
-                            disabled={new Date(exercise.deadline) > curendate ? false : true}
+                            disabled={answerItem.dateSetPoint != null ? new Date(exercise.deadline) > curendate ? false : true : false}
                             style={{ marginBottom: "5px", borderRadius: 10, width: '12vw' }}
                         >
                             {answerItem.dateSetPoint == null ? "chấm điểm" : "chấm lại"}
