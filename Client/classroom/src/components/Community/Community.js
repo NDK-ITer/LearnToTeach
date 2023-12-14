@@ -45,7 +45,7 @@ const Community = ({ classData }) => {
   };
   const handledeleteMember = async () => {
     try {
-      const params = new URLSearchParams([['idClassroom', classData.idClassroom], ['idMember', idMember]]);
+      const params = new URLSearchParams([['idClassroom', classData.idClassroom], ['idMember', idMember],['idHostMember', userHost.idMember]]);
       const result = await classApi.removemember(params);
       console.log(result)
       if (result.status == 1) {
