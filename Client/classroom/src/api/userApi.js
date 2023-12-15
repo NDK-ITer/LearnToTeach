@@ -1,6 +1,11 @@
 import axiosClient from './axiosClient';
 
 const userApi = {
+
+  GetUserById(params) {
+    const url = '/account/id';
+    return axiosClient.get(url, { params });
+  },
   register(data) {
     const url = '/account/register';
     return axiosClient.post(url, data);

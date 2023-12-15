@@ -78,7 +78,6 @@ const Community = ({ classData }) => {
 
   // Display all members if search term is empty
   const displayMembers = searchTerm.trim() === '' ? userMember : searchResults;
-
   return (
     <div>
       <div className='role'>

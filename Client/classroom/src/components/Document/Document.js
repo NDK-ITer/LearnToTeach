@@ -115,7 +115,8 @@ const Document = ({ classData }) => {
                     </div>
                 </div>
                 <ul className='list_docs'>
-                    {displayDoc.map((item, index) => (
+                   
+                    {document.length>0 && displayDoc.map((item, index) => (
                         <li key={index} className='doc'>
                             <a href={item.linkFile} target='_blank'>
                                 {!extesionvieo.includes(getFileExtension(item.linkFile)) &&
@@ -139,8 +140,12 @@ const Document = ({ classData }) => {
                                 </div>
                             </div>
                         </li>
-                    ))}
+                    ))}                
                 </ul>
+                {document.length==0 && 
+                <div>
+                   <p style={{textAlign:'center',fontSize:'2rem'}}> Chưa có tài liệu</p>
+                </div>}
             </div>}
             {isUserMember && <div>
                 <div className='doc_title'>
@@ -160,20 +165,34 @@ const Document = ({ classData }) => {
                     </div>
                 </div>
                 <ul className='list_docs'>
-                    {displayDoc.map((item, index) => (
-                        <li key={index} className='doc'>
-                            <a href={item.linkFile} target='blank'>
-                                <Avatar style={{ m: 1, backgroundColor: 'rgb(0, 159, 212)' }}>
-                                    <AssignmentOutlinedIcon />
-                                </Avatar>
-                            </a>
-                            <div className='doc_information'>
-                                <div className='doc_name1'>{item.description}</div>
-                                <div className='doc_upload1'>Thời gian đăng: {formatDate(item.uploadDate)}</div>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
+                   
+                   {document.length>0 && displayDoc.map((item, index) => (
+                       <li key={index} className='doc'>
+                           <a href={item.linkFile} target='_blank'>
+                               {!extesionvieo.includes(getFileExtension(item.linkFile)) &&
+                                   <Avatar style={{ m: 1, backgroundColor: 'rgb(0, 159, 212)' }}>
+                                       <AssignmentOutlinedIcon />
+                                   </Avatar>
+                               }
+                               {extesionvieo.includes(getFileExtension(item.linkFile)) &&
+                                   <Avatar style={{ m: 1, backgroundColor: 'rgb(0, 159, 212)' }}>
+                                       <VideoLabelOutlined />
+                                   </Avatar>
+                               }
+                           </a>
+                           <div className='doc_information'>
+                               <div className='doc_name'>{item.description}</div>
+                               <div style={{ display: 'flex' }}>
+                                   <div className='doc_upload'>Thời gian đăng: {formatDate(item.uploadDate)}</div>
+                               </div>
+                           </div>
+                       </li>
+                   ))}                
+               </ul>
+               {document.length==0 && 
+               <div>
+                  <p style={{textAlign:'center',fontSize:'2rem'}}> Chưa có tài liệu</p>
+               </div>}
             </div>}
 
             <Dialog

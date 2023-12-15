@@ -137,6 +137,28 @@
       "DownstreamPathTemplate": "/api/Account/user-data",
       "DownstreamScheme": "https"
     },
+    //get user by 'id'
+    {
+      "UpstreamPathTemplate": "/account/id",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9002
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Account",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
     //ClassroomService Web Api
     //get classroom public
     {
@@ -646,7 +668,7 @@
         }
       ],
       "DownstreamPathTemplate": "/api/Member/export-grade",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "https"
       ////Authentication
       //"AuthenticationOptions": {
       //  "AuthenticationProviderKey": "Bearer",
