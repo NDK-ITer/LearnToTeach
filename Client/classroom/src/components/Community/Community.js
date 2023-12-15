@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Avatar, Button } from '@material-ui/core';
+import { Avatar, Button, Grid, TextField } from '@material-ui/core';
 import PermIdentityOutlinedIcon from '@material-ui/icons/PermIdentityOutlined';
 import PermContactCalendarOutlinedIcon from '@material-ui/icons/PermContactCalendarOutlined';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -12,7 +12,7 @@ import { useLocalContext } from 'context';
 import { ConfirmationNumber } from '@material-ui/icons';
 import { useSnackbar } from 'notistack';
 import ConfirmationDialog from 'components/ConfirmationDialog';
-
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 
 const Community = ({ classData }) => {
 
@@ -77,7 +77,20 @@ const Community = ({ classData }) => {
       </ul>
       <div className='role'>
         <h1>Sinh viên</h1>
-        <div className='quantity'>{countuser} sinh viên</div>
+        <div className='search_area'>
+          <Grid container spacing={1} alignItems="flex-end">
+            <Grid item>
+              <SearchOutlinedIcon />
+            </Grid>
+            <Grid item>
+              <TextField id="input-with-icon-grid" label="Tìm kiếm" />
+            </Grid>
+          </Grid>
+          <Button variant="outlined" size="medium" color="primary" style={{marginTop: '32px'}}>
+            Tìm
+          </Button>
+        </div>
+        <div className='quantity'>Tổng số: {countuser} sinh viên</div>
       </div>
       <ul className='list_informations'>
         {userMember.map((item, index) => (

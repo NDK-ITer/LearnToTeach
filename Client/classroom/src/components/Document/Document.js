@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar } from "@material-ui/core";
+import { Avatar, TextField, Grid } from "@material-ui/core";
 import Button from '@material-ui/core/Button';
 import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import classApi from 'api/classApi';
 import Role from 'constants/role';
 import { useLocalContext } from 'context';
@@ -16,6 +17,7 @@ import formatDate from 'constants/formatdate';
 import { useSnackbar } from 'notistack';
 import getFileExtension from 'constants/extentionfile';
 import { Link } from 'react-router-dom';
+
 const Document = ({ classData }) => {
     const { user } = useLocalContext();
     const { enqueueSnackbar } = useSnackbar();
@@ -81,6 +83,19 @@ const Document = ({ classData }) => {
                 </Button>
                 <div className='doc_title'>
                     <h1>Danh sách tài liệu</h1>
+                    <div className='search_area'>
+                    <Grid container spacing={1} alignItems="flex-end">
+                        <Grid item>
+                            <SearchOutlinedIcon />
+                        </Grid>
+                        <Grid item>
+                            <TextField id="input-with-icon-grid" label="Tìm kiếm" />
+                        </Grid>
+                    </Grid>
+                    <Button variant="outlined" size="medium" color="primary" style={{marginTop: '32px'}}>
+                        Tìm
+                    </Button>
+                    </div>
                 </div>
                 <ul className='list_docs'>
                     {document.map((item, index) => (
@@ -113,6 +128,19 @@ const Document = ({ classData }) => {
             {isUserMember && <div>
                 <div className='doc_title'>
                     <h1>Danh sách tài liệu</h1>
+                    <div className='search_area'>
+                    <Grid container spacing={1} alignItems="flex-end">
+                        <Grid item>
+                            <SearchOutlinedIcon />
+                        </Grid>
+                        <Grid item>
+                            <TextField id="input-with-icon-grid" label="Tìm kiếm" />
+                        </Grid>
+                    </Grid>
+                    <Button variant="outlined" size="medium" color="primary" style={{marginTop: '32px'}}>
+                        Tìm
+                    </Button>
+                    </div>
                 </div>
                 <ul className='list_docs'>
                     {document.map((item, index) => (

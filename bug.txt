@@ -1,3 +1,4 @@
 khi sv sinh đã có điểm bài tập. rồi rời lớp hoặc xóa sinh viên đó thì điểm vẫn còn lưu lại. đúng hay sai
 - mục tìm kiếm
 - các mục chưa có nội dung (VD: chưa tải tài liệu lên) thay vì ẩn đi sẽ hiện 'Chưa có nội dung...' ngay phía dưới
+- Mọi người -> ấn vào 1 object sẽ hiện form thông tin tài khoản object đó (readonly)
