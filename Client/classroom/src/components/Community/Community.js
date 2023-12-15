@@ -13,6 +13,11 @@ import { ConfirmationNumber } from '@material-ui/icons';
 import { useSnackbar } from 'notistack';
 import ConfirmationDialog from 'components/ConfirmationDialog';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+import userApi from 'api/userApi';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import { Close } from '@material-ui/icons';
+import { IconButton } from '@material-ui/core';
 
 const Community = ({ classData }) => {
 
@@ -78,6 +83,33 @@ const Community = ({ classData }) => {
 
   // Display all members if search term is empty
   const displayMembers = searchTerm.trim() === '' ? userMember : searchResults;
+
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleClick = async (idUser) => {
+    try {
+      setIsLoading(true);
+      // Fetch user data from API based on userId
+      const params = new URLSearchParams([['idUser', idUser]]);
+      const result = await userApi.GetUserById(params);
+      setSelectedUser(result);
+
+      setOpenDialog(true);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+    setSelectedUser(null);
+  };
+  console.log(selectedUser)
+
   return (
     <div>
       <div className='role'>
@@ -86,9 +118,9 @@ const Community = ({ classData }) => {
       <ul className='list_informations'>
         <li className='information'>
           <div className='lecturer_information'>
-            <Avatar style={{ m: 1, backgroundColor: 'rgb(0, 159, 212)' }}>
-              <PermContactCalendarOutlinedIcon />
-            </Avatar>
+            <Avatar style={{ m: 1, backgroundColor: 'rgb(0, 159, 212)' }}
+              src={userHost.avatar != null ? userHost.avatar : "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/s75-c-fbw=1/photo.jpg"}
+            />
             <div className='name'>{userHost.nameMember}</div>
           </div>
         </li>
@@ -114,9 +146,12 @@ const Community = ({ classData }) => {
         {displayMembers.map((item, index) => (
           <li key={index} className='information'>
             <div className='student_information'>
-              <Avatar style={{ m: 1, backgroundColor: 'deeppink' }}>
-                <PermIdentityOutlinedIcon />
-              </Avatar>
+              {isUserHost && <Avatar style={{ m: 1, backgroundColor: 'deeppink', cursor: 'pointer' }} onClick={() => handleClick(item.idMember)}
+                src={item.avatar != null ? item.avatar : "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/s75-c-fbw=1/photo.jpg"}
+              />}
+              {!isUserHost && <Avatar style={{ m: 1, backgroundColor: 'deeppink' }}
+                src={item.avatar != null ? item.avatar : "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/s75-c-fbw=1/photo.jpg"}
+              />}
               <div className='name'>{item.nameMember}</div>
             </div>
             <div>
@@ -133,6 +168,31 @@ const Community = ({ classData }) => {
         onConfirm={handledeleteMember}
         message="Bạn có chắc muốn xóa sinh viên này ra khỏi lớp?"
       />
+      <Dialog
+        disableBackdropClick
+        disableEscapeKeyDown
+        open={openDialog}
+        onClose={handleCloseDialog}
+        aria-labelledby="form-dialog-title"
+      >
+        <IconButton onClick={handleCloseDialog}>
+          <Close />
+        </IconButton>
+
+        <DialogContent>
+          <div className="information_area">
+            <Avatar
+              className="avatar"
+              src={selectedUser?.avatar != null ? selectedUser?.avatar : "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/s75-c-fbw=1/photo.jpg"}
+            />
+            <div className="user_information">
+              <p>Họ Tên : {selectedUser?.fullName}</p>
+              <p>Email : {selectedUser?.email}</p>
+              <p>Số điện thoại: {selectedUser?.phoneNumber}</p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

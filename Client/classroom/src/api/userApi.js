@@ -3,7 +3,7 @@ import axiosClient from './axiosClient';
 const userApi = {
 
   GetUserById(params) {
-    const url = '/account/id';
+    const url = '/user/id';
     return axiosClient.get(url, { params });
   },
   register(data) {

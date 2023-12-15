@@ -139,15 +139,15 @@
     },
     //get user by 'id'
     {
-      "UpstreamPathTemplate": "/account/id",
+      "UpstreamPathTemplate": "/user/id",
       "UpstreamHttpMethod": [ "Get", "Options" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 9002
+          "Port": 9001
         }
       ],
-      "DownstreamPathTemplate": "/api/Account",
+      "DownstreamPathTemplate": "/api/User",
       "DownstreamScheme": "https",
       //Authentication
       "AuthenticationOptions": {
