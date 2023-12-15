@@ -48,7 +48,7 @@ function JoinClassForm(props) {
     const schema = yup.object().shape({
         idClassroom: yup
             .string()
-            .required('Nhập tên lớp học.'),
+            .required('Nhập mã lớp học.'),
     });
     const form = useForm({
         defaultValues: {
@@ -75,9 +75,9 @@ function JoinClassForm(props) {
             </Typography>
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <InputField name="idClassroom" label="Lớp" form={form} />
-                <InputField name="key" label="Mã lớp" form={form} />
-                <span>Hãy nhập mã lớp nếu đó là lớp 'Riêng tư'</span>
+                <InputField name="idClassroom" label="Mã lớp" form={form} />
+                <InputField name="key" label="Mã khóa lớp" form={form} />
+                <span>Hãy nhập mã khóa lớp nếu đó là lớp 'Riêng tư'</span>
                 <Button
                     disabled={isSubmitting}
                     type="submit"

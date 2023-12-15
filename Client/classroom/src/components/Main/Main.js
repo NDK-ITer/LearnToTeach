@@ -188,7 +188,7 @@ const Main = ({ classData }) => {
                       <p>. <Link to={`/${classData.idClassroom}/exercises/${item.idExercise}`}>{item.name}</Link></p>
                     </li>
                   ))}
-                  {listExercisesUserhost.length <= 0 && <span>Không có bài tập nào</span>}
+                  {listExercisesUserhost.length <= 0 && <span style={{fontSize: '14px'}}>Không có bài tập nào</span>}
                 </ul>
               }
               {!isUserHost &&
@@ -198,7 +198,7 @@ const Main = ({ classData }) => {
                       <Link to={`/${classData.idClassroom}/exercises/${item.idExercise}/answer`}>{item.name}</Link>
                     </li>
                   ))}
-                  {listExercisesUserMember.length <= 0 && <span>Không có bài tập nào</span>}
+                  {listExercisesUserMember.length <= 0 && <span style={{fontSize: '14px'}}>Không có bài tập nào</span>}
                 </ul>}
 
             </div>
@@ -236,19 +236,19 @@ const Main = ({ classData }) => {
               open={dialogOpenDeletelassroom}
               onClose={handleCloseDeletelassroom}
               onConfirm={handledeleteclassroom}
-              message="Are you sure you want to delete classroom?"
+              message="Bạn có chắc muốn xóa lớp học?"
             />
             <ConfirmationDialog
               open={dialogOpenLeaveClassroom}
               onClose={handleCloseLeaveClassroom}
               onConfirm={handleLeaveClassroom}
-              message="Are you sure you want to Leave classroom?"
+              message="Bạn có chắc muốn rời khỏi lớp học?"
             />
             <ConfirmationDialog
               open={dialogOpenNotify}
               onClose={handleCloseNotify}
               onConfirm={handledeleteNotify}
-              message="Are you sure you want to Notify?"
+              message="Bạn có chắc muốn xóa thông báo?"
             />
           </div>
         </div>

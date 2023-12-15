@@ -78,7 +78,9 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user, userHost, }) =>
                 {exercise.description}
               </p>
               {exercise.file != linkFile &&
-                <p><a href={exercise.file} target='_blank'> Đính kèm tệp</a></p>}
+                <div className='attachment_1'>
+                  <a style={{textDecoration: 'none', color: 'black', marginLeft: '4px'}} href={exercise.file} target='_blank'>TẢI TỆP ĐÌNH KÈM</a>
+                </div>}
 
             </div>
           </div>
@@ -134,12 +136,11 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user, userHost, }) =>
                   <p style={{ fontSize: '13px' }}>Thời gian chỉnh sửa: {formatdate(answer.dateUpdateAnswer)} </p>
                 }
               </div>
-              <div style={{ fontSize: '16px' }}>
+              <div className='attachment_1'>
                 <p>{answer.content}</p>
                 {answer.linkFile != linkFile &&
-                  <a to={answer.linkFile} target='_banlk'>Đính kèm tệp</a>
+                  <a style={{textDecoration: 'none', color: 'black', marginLeft: '4px'}} to={answer.linkFile} target='_blank'>TẢI TỆP ĐÍNH KÈM</a>
                 }
-
               </div>
             </div>}
           </div>

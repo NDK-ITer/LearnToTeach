@@ -9,6 +9,9 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import ClassOutlinedIcon from '@material-ui/icons/ClassOutlined';
+import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
+import AssistantPhotoOutlinedIcon from '@material-ui/icons/AssistantPhotoOutlined';
+import AssistantPhotoIcon from '@material-ui/icons/AssistantPhoto';
 import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
 import Header from "components/Header";
@@ -60,35 +63,36 @@ export default function SwipeableTemporaryDrawer({ classData }) {
       <Divider />
       <List>
 
-        <ListItem button key="Đã tạo">
+        <ListItem key="ĐÃ TẠO">
           <ListItemIcon>
-            <ClassOutlinedIcon />
+            <ArrowForwardIosOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary="Đã tạo" />
+          <ListItemText primary="ĐÃ TẠO" />
         </ListItem>
         {classDataIsHost.map((item, index) => (
           <Link to={`/${item.idClassroom}`}>
-            <ListItem button key={index}  >
+            <ListItem button key={index} style={{borderRadius: "25px"}} >
               <ListItemIcon>
-                <ClassOutlinedIcon />
+                <AssistantPhotoIcon />
               </ListItemIcon>
               <ListItemText primary={item.name} />
             </ListItem>
           </Link>
         ))}
       </List>
+      <hr style={{width: "90%"}}></hr>
       <List>
-        <ListItem button key="Đã tham gia">
+        <ListItem key="ĐÃ THAM GIA">
           <ListItemIcon>
-            <ClassOutlinedIcon />
+            <ArrowForwardIosOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary="Đã tham gia" />
+          <ListItemText primary="ĐÃ THAM GIA" />
         </ListItem>
         {classDataNotIsHost.map((item, index) => (
           <Link to={`/${item.idClassroom}`}>
-            <ListItem button key={index}  >
+            <ListItem button key={index} style={{borderRadius: "25px"}} >
               <ListItemIcon>
-                <ClassOutlinedIcon />
+                <AssistantPhotoOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary={item.name} />
             </ListItem>

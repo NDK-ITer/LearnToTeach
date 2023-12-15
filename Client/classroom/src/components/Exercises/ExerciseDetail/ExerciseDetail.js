@@ -36,7 +36,9 @@ const ExerciseDetail = ({ exercise, classData, userHost }) => {
                     <div className='content_detail'>
                         <p>{exercise.description}</p>
                         {exercise.file !=linkFile &&
-                        <p>Tệp đính kèm:<a href={exercise.file} target='_blank'>Tệp đính kèm</a></p>  
+                        <div className='attachment_1'>
+                            <a href={exercise.file} style={{textDecoration: 'none', color: 'black', marginLeft: '4px'}} target='_blank'>TẢI TỆP ĐÍNH KÈM</a>
+                        </div>  
                         }                         
                     </div>
                 </div>
