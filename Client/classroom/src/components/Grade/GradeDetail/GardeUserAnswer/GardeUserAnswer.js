@@ -56,10 +56,13 @@ const GardeUserAnswer = ({ classData, userHost, answerItem, exercise }) => {
                     </div>
                     <div>
                         <p>{answerItem.content}</p>
-                        {answerItem.linkFile != linkFile && <a href={answerItem.linkFile} target='_banlk'>Đính kèm tệp</a>}
+                        
 
                     </div>
                     <div className='group_button1'>
+                        <div style={{marginBottom: '5px'}}>
+                            {answerItem.linkFile != linkFile && <a style={{textDecoration: 'none', color: 'black', marginLeft: '36px', fontSize: '15px'}} href={answerItem.linkFile} target='_blank'>TẢI CÂU TRẢ LỜI</a>}
+                        </div>
                         <Button
                             onClick={handleClickOpen}
                             variant="contained"

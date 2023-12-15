@@ -57,14 +57,16 @@
 .group_button{
     margin-bottom: 20px;
 }
-.attachment_1 {
-    border: 2px solid #5a605b;
-    border-radius: 20px;
-    padding: 10px;
-    width: 9vw;
-    background-color: #dbdbdb;
+.attachment_3 {
+    border: 2px solid #dbdbdb;
+    border-radius: 10px;
+    padding: 7px 0px;
+    width: 16vw;
+    background-color: #e0e0e0;;
+    margin-bottom: 5px;
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);;
 }
-.attachment_1:hover {
+.attachment_3:hover {
     cursor: pointer;
     background-color: #c2c2c2;
 }

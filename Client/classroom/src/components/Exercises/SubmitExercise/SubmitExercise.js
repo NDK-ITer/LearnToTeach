@@ -136,11 +136,13 @@ const SubmitExercise = ({ exercise, classData, isUserHost, user, userHost, }) =>
                   <p style={{ fontSize: '13px' }}>Thời gian chỉnh sửa: {formatdate(answer.dateUpdateAnswer)} </p>
                 }
               </div>
-              <div className='attachment_1'>
+              <div style={{fontSize: '16px'}}>
                 <p>{answer.content}</p>
-                {answer.linkFile != linkFile &&
-                  <a style={{textDecoration: 'none', color: 'black', marginLeft: '4px'}} to={answer.linkFile} target='_blank'>TẢI TỆP ĐÍNH KÈM</a>
-                }
+                <div style={{marginBottom: '5px'}}>
+                  {answer.linkFile != linkFile &&
+                    <a to={answer.linkFile} style={{marginLeft: '64px'}} target='_blank'>TẢI CÂU TRẢ LỜI</a>
+                  }
+                </div>
               </div>
             </div>}
           </div>
