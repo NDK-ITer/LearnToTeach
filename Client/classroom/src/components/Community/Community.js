@@ -45,7 +45,7 @@ const Community = ({ classData }) => {
   };
   const handledeleteMember = async () => {
     try {
-      const params = new URLSearchParams([['idClassroom', classData.idClassroom], ['idMember', idMember],['idHostMember', userHost.idMember]]);
+      const params = new URLSearchParams([['idClassroom', classData.idClassroom], ['idMember', idMember], ['idHostMember', userHost.idMember]]);
       const result = await classApi.removemember(params);
       console.log(result)
       if (result.status == 1) {
@@ -60,6 +60,25 @@ const Community = ({ classData }) => {
       enqueueSnackbar(error.message, { variant: 'error' });
     }
   };
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const handleInputChange = (event) => {
+    const term = event.target.value;
+    setSearchTerm(term);
+    if (term.trim() === '') {
+      setSearchResults([]);
+    } else {
+      const filteredMembers = userMember.filter(member =>
+        member.nameMember.toLowerCase().includes(term.toLowerCase())
+      );
+      setSearchResults(filteredMembers);
+    }
+  };
+
+  // Display all members if search term is empty
+  const displayMembers = searchTerm.trim() === '' ? userMember : searchResults;
+
   return (
     <div>
       <div className='role'>
@@ -83,17 +102,17 @@ const Community = ({ classData }) => {
               <SearchOutlinedIcon />
             </Grid>
             <Grid item>
-              <TextField id="input-with-icon-grid" label="Tìm kiếm" />
+              <TextField id="input-with-icon-grid" type="text"
+                value={searchTerm}
+                onChange={handleInputChange}
+                placeholder="tìm kiếm..." />
             </Grid>
           </Grid>
-          <Button variant="outlined" size="medium" color="primary" style={{marginTop: '32px'}}>
-            Tìm
-          </Button>
         </div>
         <div className='quantity'>Tổng số: {countuser} sinh viên</div>
       </div>
       <ul className='list_informations'>
-        {userMember.map((item, index) => (
+        {displayMembers.map((item, index) => (
           <li key={index} className='information'>
             <div className='student_information'>
               <Avatar style={{ m: 1, backgroundColor: 'deeppink' }}>

@@ -70,6 +70,22 @@ const Document = ({ classData }) => {
             enqueueSnackbar(error.message, { variant: 'error' });
         }
     }
+
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    const handleInputChange = (event) => {
+        const term = event.target.value;
+        setSearchTerm(term);
+        if (term.trim() === '') {
+            setSearchResults([]);
+        } else {
+            const filteredDoc = document.filter(document =>
+                document.description.toLowerCase().includes(term.toLowerCase())
+            );
+            setSearchResults(filteredDoc);
+        }
+    };
+    const displayDoc = searchTerm.trim() === '' ? document : searchResults;
     return (
         <div>
             {isUserHost && <div>
@@ -84,23 +100,24 @@ const Document = ({ classData }) => {
                 <div className='doc_title'>
                     <h1>Danh sách tài liệu</h1>
                     <div className='search_area'>
-                    <Grid container spacing={1} alignItems="flex-end">
-                        <Grid item>
-                            <SearchOutlinedIcon />
+                        <Grid container spacing={1} alignItems="flex-end">
+                            <Grid item>
+                                <SearchOutlinedIcon />
+                            </Grid>
+                            <Grid item>
+                                <TextField id="input-with-icon-grid" type="text"
+                                    value={searchTerm}
+                                    onChange={handleInputChange}
+                                    placeholder="tìm kiếm..." />
+                            </Grid>
                         </Grid>
-                        <Grid item>
-                            <TextField id="input-with-icon-grid" label="Tìm kiếm" />
-                        </Grid>
-                    </Grid>
-                    <Button variant="outlined" size="medium" color="primary" style={{marginTop: '32px'}}>
-                        Tìm
-                    </Button>
+
                     </div>
                 </div>
                 <ul className='list_docs'>
-                    {document.map((item, index) => (
+                    {displayDoc.map((item, index) => (
                         <li key={index} className='doc'>
-                           <a href={item.linkFile} target='_blank'>
+                            <a href={item.linkFile} target='_blank'>
                                 {!extesionvieo.includes(getFileExtension(item.linkFile)) &&
                                     <Avatar style={{ m: 1, backgroundColor: 'rgb(0, 159, 212)' }}>
                                         <AssignmentOutlinedIcon />
@@ -129,23 +146,23 @@ const Document = ({ classData }) => {
                 <div className='doc_title'>
                     <h1>Danh sách tài liệu</h1>
                     <div className='search_area'>
-                    <Grid container spacing={1} alignItems="flex-end">
-                        <Grid item>
-                            <SearchOutlinedIcon />
+                        <Grid container spacing={1} alignItems="flex-end">
+                            <Grid item>
+                                <SearchOutlinedIcon />
+                            </Grid>
+                            <Grid item>
+                                <TextField id="input-with-icon-grid" type="text"
+                                    value={searchTerm}
+                                    onChange={handleInputChange}
+                                    placeholder="tìm kiếm..." />
+                            </Grid>
                         </Grid>
-                        <Grid item>
-                            <TextField id="input-with-icon-grid" label="Tìm kiếm" />
-                        </Grid>
-                    </Grid>
-                    <Button variant="outlined" size="medium" color="primary" style={{marginTop: '32px'}}>
-                        Tìm
-                    </Button>
                     </div>
                 </div>
                 <ul className='list_docs'>
-                    {document.map((item, index) => (
+                    {displayDoc.map((item, index) => (
                         <li key={index} className='doc'>
-                           <a href={item.linkFile} target='blank'>
+                            <a href={item.linkFile} target='blank'>
                                 <Avatar style={{ m: 1, backgroundColor: 'rgb(0, 159, 212)' }}>
                                     <AssignmentOutlinedIcon />
                                 </Avatar>
