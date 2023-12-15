@@ -13,8 +13,14 @@ import EnhancedEncryptionOutlinedIcon from '@material-ui/icons/EnhancedEncryptio
 import UpdateInfor from "./UpdateInfor";
 import formatDate from "constants/formatdate";
 import ChangePassword from "components/Auth/ChangePassword";
+import KeyboardReturnOutlinedIcon from '@material-ui/icons/KeyboardReturnOutlined';
+import { logout } from 'components/Auth/userSlice';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const Information = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const user = JSON.parse(localStorage.getItem(StorageKeys.USER))
   const [userInfor, setUserInfor] = useState('');
   useEffect(() => {
@@ -42,6 +48,13 @@ const Information = () => {
   const handleCloseChangePassword = () => {
     setopenChangePassword(false);
   };
+  const handleLogoutClick = () => {
+    const action = logout();
+    dispatch(action);
+    history.push('/signin')
+    window.location.reload(false);
+    
+};
   return (
     <div>
       <div className='account_detail'>
@@ -56,11 +69,14 @@ const Information = () => {
         </div>
         <div className='account_information'>
           <div className="edit_change_button">
-            <Button variant="contained" onClick={handleClickopenEdit} startIcon={<InfoOutlinedIcon />} style={{ marginRight: '30px' }}>
+            <Button variant="contained" onClick={handleClickopenEdit} startIcon={<InfoOutlinedIcon />} style={{ marginRight: '15px' }}>
               Sửa thông tin
             </Button>
-            <Button variant="contained" onClick={handleClickopenChangePassword} color="primary" startIcon={<EnhancedEncryptionOutlinedIcon />} >
+            <Button variant="contained" onClick={handleClickopenChangePassword} color="primary" startIcon={<EnhancedEncryptionOutlinedIcon />} style={{ marginRight: '15px' }}>
               Đổi mật khẩu
+            </Button>
+            <Button variant="contained" onClick={handleLogoutClick} color="secondary" startIcon={<KeyboardReturnOutlinedIcon />} >
+              Đăng xuất
             </Button>
           </div>
           <div className="information_area">
