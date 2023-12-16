@@ -114,8 +114,7 @@ const Document = ({ classData }) => {
 
                     </div>
                 </div>
-                <ul className='list_docs'>
-                   
+                <ul className='list_docs'>                 
                     {document.length>0 && displayDoc.map((item, index) => (
                         <li key={index} className='doc'>
                             <a href={item.linkFile} target='_blank'>
@@ -144,7 +143,7 @@ const Document = ({ classData }) => {
                 </ul>
                 {document.length==0 && 
                 <div>
-                   <p style={{textAlign:'center',fontSize:'2rem'}}> Chưa có tài liệu</p>
+                   <p style={{textAlign:'center',fontSize:'18px'}}> Chưa có tài liệu</p>
                 </div>}
             </div>}
             {isUserMember && <div>
@@ -164,8 +163,7 @@ const Document = ({ classData }) => {
                         </Grid>
                     </div>
                 </div>
-                <ul className='list_docs'>
-                   
+                <ul className='list_docs'>                  
                    {document.length>0 && displayDoc.map((item, index) => (
                        <li key={index} className='doc'>
                            <a href={item.linkFile} target='_blank'>
@@ -181,9 +179,9 @@ const Document = ({ classData }) => {
                                }
                            </a>
                            <div className='doc_information'>
-                               <div className='doc_name'>{item.description}</div>
+                               <div className='doc_name1'>{item.description}</div>
                                <div style={{ display: 'flex' }}>
-                                   <div className='doc_upload'>Thời gian đăng: {formatDate(item.uploadDate)}</div>
+                                   <div className='doc_upload1'>Thời gian đăng: {formatDate(item.uploadDate)}</div>
                                </div>
                            </div>
                        </li>
