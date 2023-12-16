@@ -59,7 +59,7 @@ const Information = () => {
     <div>
       <div className='account_detail'>
         <div className='account_main_detail'>
-          <Avatar style={{ backgroundColor: 'black' }}>
+          <Avatar style={{ backgroundColor: 'black', marginTop: '8px' }}>
             <FingerprintOutlinedIcon />
           </Avatar>
           <div className='personal_detail'>
