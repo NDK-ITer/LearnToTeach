@@ -10,6 +10,7 @@ import SubmitExercise from 'components/Exercises/SubmitExercise/SubmitExercise';
 import GoBackButton from 'components/GoBackButton';
 import formatDate from 'constants/formatdate';
 import axios from 'axios';
+import userApi from 'api/userApi';
 
 const GradeDetail = ({ exercise, classData, userHost }) => {
     const match = useRouteMatch();
@@ -40,7 +41,17 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
 
 
     };
+    const [user, setUser] = useState(null);
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await userApi.Getall();
+            setUser(result);
+            console.log(result)
+        };
 
+        fetchData();
+    }, []);
+    console.log(user);
     return (
         <div>
             {isexerciseGraded && new Date(exercise.deadline) < currentDate && <div>
@@ -68,7 +79,7 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
                                 </Avatar>
                             </Link>
                             <div className='submit_information'>
-                                <div className='name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
+                                <div className='name'>{ user!=null && user.find(x=>x.id==item.idMember).fullName} {classData.listMembers.filter(x=>x.idMember==item.idMember).length>0?'':'(không còn trong lớp)'}</div>
                                 <div className='grade'>Điểm số: {item.point} </div>
                             </div>
                         </li>
@@ -93,7 +104,7 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
                                 </Avatar>
                             </Link>
                             <div className='submit_information'>
-                                <div className='name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
+                                <div className='name'>{ user!=null && user.find(x=>x.id==item.idMember).fullName} {classData.listMembers.filter(x=>x.idMember==item.idMember).length>0?'':'(không còn trong lớp)'} </div>
                                 <div className='grade'>Điểm số: {item.point} </div>
                             </div>
 
@@ -114,8 +125,8 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
                                 </Avatar>
                             </Link>
                             <div className='submit_information'>
-                                <div className='name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
-                                <div>Thời gian nộp</div>
+                                <div className='name'>{ user!=null && user.find(x=>x.id==item.idMember).fullName} {classData.listMembers.filter(x=>x.idMember==item.idMember).length>0?'':'(không còn trong lớp)'}</div>
+                                <div>Thời gian nộp {formatDate(item.dateAnswer)} </div>
                             </div>
 
                         </li>
@@ -141,7 +152,7 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
                                 </Avatar>
                             </Link>
                             <div className='submit_information'>
-                                <div className='name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
+                                <div className='name'>{ user!=null && user.find(x=>x.id==item.idMember).fullName} {classData.listMembers.filter(x=>x.idMember==item.idMember).length>0?'':'(không còn trong lớp)'}</div>
                                 <div className='grade'>Điểm số: {item.point} </div>
                             </div>
 
@@ -162,8 +173,8 @@ const GradeDetail = ({ exercise, classData, userHost }) => {
                                 </Avatar>
                             </Link>
                             <div className='submit_information'>
-                                <div className='name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
-                                <div>Thời gian nộp</div>
+                                <div className='name'>{ user!=null && user.find(x=>x.id==item.idMember).fullName} {classData.listMembers.filter(x=>x.idMember==item.idMember).length>0?'':'(không còn trong lớp)'} </div>
+                                <div>Thời gian nộp {formatDate(item.dateAnswer)}</div>
                             </div>
 
                         </li>

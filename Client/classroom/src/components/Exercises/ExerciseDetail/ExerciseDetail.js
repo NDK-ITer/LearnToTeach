@@ -18,7 +18,7 @@ const ExerciseDetail = ({ exercise, classData, userHost }) => {
     const countAnswer = exercise.listAnswer.length;
     const countUser = classData.listMembers.filter(x => x.role == Role.MEMBER).length;
     const listUserAnswer = exercise.listAnswer;
-    const [user, setUser] = useState();
+    const [user, setUser] = useState(null);
     useEffect(() => {
         const fetchData = async () => {
             const result = await userApi.Getall();
@@ -28,6 +28,7 @@ const ExerciseDetail = ({ exercise, classData, userHost }) => {
 
         fetchData();
     }, []);
+    console.log(user);
     return (
         <div>
             <div className='exercise_detail'>
@@ -66,7 +67,7 @@ const ExerciseDetail = ({ exercise, classData, userHost }) => {
                                     </Avatar>
                                 </Link>
                                 <div className='submit_information'>
-                                    <div className='student_name'>{user.find(x => x.id == item.idMember).fullName}</div>
+                                    <div className='student_name'>{ user!=null && user.find(x=>x.id==item.idMember).fullName} {classData.listMembers.filter(x=>x.idMember==item.idMember).length>0?'':'(không còn trong lớp)'}</div>
                                     <div>Thời gian nộp {formatDate(item.dateAnswer)} </div>
                                 </div>
                             </li>
