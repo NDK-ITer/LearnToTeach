@@ -10,12 +10,24 @@ import Role from 'constants/role';
 import GoBackButton from 'components/GoBackButton';
 import { Link } from 'react-router-dom';
 import linkFile from 'constants/LinkFile';
+import { Sync } from '@material-ui/icons';
+import userApi from 'api/userApi';
 
 const ExerciseDetail = ({ exercise, classData, userHost }) => {
 
     const countAnswer = exercise.listAnswer.length;
     const countUser = classData.listMembers.filter(x => x.role == Role.MEMBER).length;
     const listUserAnswer = exercise.listAnswer;
+    const [user, setUser] = useState();
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await userApi.Getall();
+            setUser(result);
+            console.log(result)
+        };
+
+        fetchData();
+    }, []);
     return (
         <div>
             <div className='exercise_detail'>
@@ -35,34 +47,34 @@ const ExerciseDetail = ({ exercise, classData, userHost }) => {
                     </div>
                     <div className='content_detail'>
                         <p>{exercise.description}</p>
-                        {exercise.file !=linkFile &&
-                        <div className='attachment_1'>
-                            <a href={exercise.file} style={{textDecoration: 'none', color: 'black', marginLeft: '4px'}} target='_blank'>TẢI TỆP ĐÍNH KÈM</a>
-                        </div>  
-                        }                         
+                        {exercise.file != linkFile &&
+                            <div className='attachment_1'>
+                                <a href={exercise.file} style={{ textDecoration: 'none', color: 'black', marginLeft: '4px' }} target='_blank'>TẢI TỆP ĐÍNH KÈM</a>
+                            </div>
+                        }
                     </div>
                 </div>
-                
+
                 <div className='list_submit'>
                     <h2 className='submit_quantity'>({countAnswer}) Đã nộp/({countUser}) Sinh viên</h2>
                     <ul className='list_submited'>
                         {listUserAnswer.map((item, index) => (
                             <li key={index} className='student'>
-                               <Link to={`/${classData.idClassroom}/grades/${exercise.idExercise}/answer/${item.idMember}`}>
+                                <Link to={`/${classData.idClassroom}/grades/${exercise.idExercise}/answer/${item.idMember}`}>
                                     <Avatar style={{ m: 1, backgroundColor: 'rgb(34, 186, 34)' }}>
                                         <FactCheckOutlinedIcon />
                                     </Avatar>
                                 </Link>
                                 <div className='submit_information'>
-                                    <div className='student_name'>{classData.listMembers.find(x => x.idMember == item.idMember).nameMember}</div>
+                                    <div className='student_name'>{user.find(x => x.id == item.idMember).fullName}</div>
                                     <div>Thời gian nộp {formatDate(item.dateAnswer)} </div>
                                 </div>
                             </li>
                         ))}
                     </ul>
                 </div>
-                <div style={{margin: '0px 900px'}}>
-                    <GoBackButton/>
+                <div style={{ margin: '0px 900px' }}>
+                    <GoBackButton />
                 </div>
             </div>
 

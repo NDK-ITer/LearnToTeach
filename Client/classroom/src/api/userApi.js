@@ -2,6 +2,10 @@ import axiosClient from './axiosClient';
 
 const userApi = {
 
+  Getall() {
+    const url = '/user/get-all';
+    return axiosClient.get(url);
+  },
   GetUserById(params) {
     const url = '/user/id';
     return axiosClient.get(url, { params });

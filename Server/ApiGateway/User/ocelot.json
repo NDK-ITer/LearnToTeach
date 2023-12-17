@@ -159,6 +159,28 @@
         "Role": "USER"
       }
     },
+    //get all user
+    {
+      "UpstreamPathTemplate": "/user/get-all",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9001
+        }
+      ],
+      "DownstreamPathTemplate": "/api/User/get-all",
+      "DownstreamScheme": "https",
+      //Authentication
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      //Allow role with "USER"
+      "RouteClaimsRequirement": {
+        "Role": "USER"
+      }
+    },
     //ClassroomService Web Api
     //get classroom public
     {
