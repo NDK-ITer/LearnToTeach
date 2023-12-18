@@ -28,11 +28,11 @@ const Grade = ({ classData }) => {
       let isUserHost = result.listMembers.filter(x => x.role == Role.HOST && user.id == x.idMember).length > 0 ? true : false
       if (isUserHost) {
         const exercisesWithNullOrNotNullPoint = result.listExercises.filter(exercise => {
-          return (exercise.listAnswer.some(answer => answer.point === null) || exercise.listAnswer.some(answer => answer.point !== null)) && exercise.listAnswer.filter(x => x.point !== null).length > 0 &&(exercise.listAnswer.filter(x => x.point !== null).length < exercise.listAnswer.length ||(exercise.listAnswer.filter(x => x.point !== null).length == exercise.listAnswer.length && new Date(exercise.deadline)>currentDate )) 
+          return (exercise.listAnswer.some(answer => answer.point === null) || exercise.listAnswer.some(answer => answer.point !== null)) && exercise.listAnswer.filter(x => x.point !== null).length > 0 && (exercise.listAnswer.filter(x => x.point !== null).length < exercise.listAnswer.length || (exercise.listAnswer.filter(x => x.point !== null).length == exercise.listAnswer.length && new Date(exercise.deadline) > currentDate))
         }).sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
 
         const exercisesWithNullPoint = result.listExercises.filter(exercise => {
-          return exercise.listAnswer.every(answer => answer.point === null) && new Date(exercise.deadline)>currentDate;
+          return exercise.listAnswer.every(answer => answer.point === null) && new Date(exercise.deadline) > currentDate;
         }).sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
 
         const exercisesWithNotNullPoint = result.listExercises.filter(exercise => {
@@ -76,6 +76,10 @@ const Grade = ({ classData }) => {
             </li>
           ))}
         </ul>
+        {exercisesNotGrade.length == 0 &&
+          <div>
+            <p style={{ textAlign: 'center', fontSize: '18px' }}> Chưa có bài tập</p>
+          </div>}
         <div className='status'>
           <h1>Đang chấm</h1>
         </div>
@@ -97,6 +101,10 @@ const Grade = ({ classData }) => {
             </li>
           ))}
         </ul>
+        {exercisesGrading.length == 0 &&
+          <div>
+            <p style={{ textAlign: 'center', fontSize: '18px' }}> Chưa có bài tập</p>
+          </div>}
         <div className='status'>
           <h1>Đã chấm xong</h1>
         </div>
@@ -119,6 +127,10 @@ const Grade = ({ classData }) => {
             </li>
           ))}
         </ul>
+        {exercisesGrade.length == 0 &&
+          <div>
+            <p style={{ textAlign: 'center', fontSize: '18px' }}> Chưa có bài tập</p>
+          </div>}
       </div>}
       {isUserMember && <div>
         <div className='status'>
@@ -138,10 +150,10 @@ const Grade = ({ classData }) => {
                   {item.listAnswer.find(x => x.idMember == user.id).dateUpdatePoint == null &&
                     <div className='grade'>Thời gian chấm {formatDate(item.listAnswer.find(x => x.idMember == user.id).dateSetPoint)}</div>
                   }
-                   {item.listAnswer.find(x => x.idMember == user.id).dateUpdatePoint != null &&
-                   <div className='grade'>Thời gian chấm lại {formatDate(item.listAnswer.find(x => x.idMember == user.id).dateUpdatePoint)}</div>
+                  {item.listAnswer.find(x => x.idMember == user.id).dateUpdatePoint != null &&
+                    <div className='grade'>Thời gian chấm lại {formatDate(item.listAnswer.find(x => x.idMember == user.id).dateUpdatePoint)}</div>
                   }
-                  
+
                   <div className='grade'>Điểm số: {item.listAnswer.find(x => x.idMember == user.id).point}</div>
                 </div>
               </div>
@@ -149,6 +161,10 @@ const Grade = ({ classData }) => {
           ))}
 
         </ul>
+        {exercisesGrade.length == 0 &&
+          <div>
+            <p style={{ textAlign: 'center', fontSize: '18px' }}> Chưa có bài tập</p>
+          </div>}
         <div className='status'>
           <h1>Chưa chấm</h1>
         </div>
@@ -168,6 +184,10 @@ const Grade = ({ classData }) => {
           ))}
 
         </ul>
+        {exercisesNotGrade.length == 0 &&
+          <div>
+            <p style={{ textAlign: 'center', fontSize: '18px' }}> Chưa có bài tập</p>
+          </div>}
         <div className='status'>
           <h1>Hết hạn</h1>
         </div>
@@ -187,6 +207,10 @@ const Grade = ({ classData }) => {
             </li>
           ))}
         </ul>
+        {exercisesGradeExpired.length == 0 &&
+          <div>
+            <p style={{ textAlign: 'center', fontSize: '18px' }}> Chưa có bài tập</p>
+          </div>}
       </div>}
     </div>
 

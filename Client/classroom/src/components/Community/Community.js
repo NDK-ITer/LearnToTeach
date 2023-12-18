@@ -143,7 +143,7 @@ const Community = ({ classData }) => {
         <div className='quantity'>Tổng số: {countuser} sinh viên</div>
       </div>
       <ul className='list_informations'>
-        {displayMembers.map((item, index) => (
+        {userMember.length > 0 && displayMembers.map((item, index) => (
           <li key={index} className='information'>
             <div className='student_information'>
               {isUserHost && <Avatar style={{ m: 1, backgroundColor: 'deeppink', cursor: 'pointer' }} onClick={() => handleClick(item.idMember)}
@@ -162,6 +162,14 @@ const Community = ({ classData }) => {
           </li>
         ))}
       </ul>
+      {userMember.length == 0 &&
+        <div>
+          <p style={{ textAlign: 'center', fontSize: '18px' }}> chưa có sinh viên nào</p>
+        </div>}
+      {userMember.length > 0 && displayMembers.length == 0 &&
+        <div>
+          <p style={{ textAlign: 'center', fontSize: '18px' }}> không tìm thấy sinh viên</p>
+        </div>}
       <ConfirmationDialog
         open={dialogOpenMember}
         onClose={handleCloseMember}

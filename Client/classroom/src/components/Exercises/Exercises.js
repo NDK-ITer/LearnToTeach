@@ -97,10 +97,10 @@ const Exercises = ({ classData }) => {
                 </Avatar>
               </Link>
               <div className='task_information'>
-                <div className='task_name'>{item.name}</div>                
-                <div style={{display: 'flex'}}>
+                <div className='task_name'>{item.name}</div>
+                <div style={{ display: 'flex' }}>
                   <div className='task_deadline'>Thời hạn: {formatDate(item.deadline)} </div>
-                  <Button variant="contained" color="primary" startIcon={<EditOutlined />} style={{marginRight: '10px'}}>
+                  <Button variant="contained" color="primary" startIcon={<EditOutlined />} style={{ marginRight: '10px' }}>
                     <Link to={`/${classData.idClassroom}/exercises/edit/${item.idExercise}`} style={{ color: "#fff", textDecoration: 'none' }}>
                       chỉnh sửa
                     </Link>
@@ -113,6 +113,10 @@ const Exercises = ({ classData }) => {
             </li>
           ))}
         </ul>
+        {exercisesActive.length == 0 &&
+          <div>
+            <p style={{ textAlign: 'center', fontSize: '18px' }}> Chưa có bài tập</p>
+          </div>}
         <div className='exercise_status'>
           <h1>Hết hạn</h1>
         </div>
@@ -126,9 +130,9 @@ const Exercises = ({ classData }) => {
               </Link>
               <div className='task_information'>
                 <div className='task_name'>{item.name}</div>
-                <div style={{display:'flex'}}>
+                <div style={{ display: 'flex' }}>
                   <div className='task_deadline'>Hết hạn: {formatDate(item.deadline)} </div>
-                  <Button variant="contained" color="primary" startIcon={<EditOutlined />} style={{marginRight: '10px'}}>
+                  <Button variant="contained" color="primary" startIcon={<EditOutlined />} style={{ marginRight: '10px' }}>
                     <Link to={`/${classData.idClassroom}/exercises/edit/${item.idExercise}`} style={{ color: "#fff", textDecoration: 'none' }}>
                       chỉnh sửa
                     </Link>
@@ -141,6 +145,10 @@ const Exercises = ({ classData }) => {
             </li>
           ))}
         </ul>
+        {exercisesExpired.length == 0 &&
+          <div>
+            <p style={{ textAlign: 'center', fontSize: '18px' }}> Chưa có bài tập</p>
+          </div>}
       </div>}
       {isUserMember && <div>
 
@@ -162,6 +170,10 @@ const Exercises = ({ classData }) => {
             </li>
           ))}
         </ul>
+        {exercisesAssigned.length == 0 &&
+          <div>
+            <p style={{ textAlign: 'center', fontSize: '18px' }}> Chưa có bài tập</p>
+          </div>}
         <div className='exercise_status'>
           <h1 style={{ paddingTop: 12 }}>Đã hoàn thành</h1>
         </div>
@@ -180,6 +192,10 @@ const Exercises = ({ classData }) => {
             </li>
           ))}
         </ul>
+        {exercisesCompleted.length == 0 &&
+          <div>
+            <p style={{ textAlign: 'center', fontSize: '18px' }}> Chưa có bài tập</p>
+          </div>}
         <div className='exercise_status'>
           <h1 style={{ paddingTop: 12 }}>Chưa hoàn thành</h1>
         </div>
@@ -198,6 +214,10 @@ const Exercises = ({ classData }) => {
             </li>
           ))}
         </ul>
+        {exercisesNotCompleted.length == 0 &&
+          <div>
+            <p style={{ textAlign: 'center', fontSize: '18px' }}> Chưa có bài tập</p>
+          </div>}
       </div>}
       <ConfirmationDialog
         open={dialogOpenExercise}

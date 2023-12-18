@@ -141,9 +141,13 @@ const Document = ({ classData }) => {
                         </li>
                     ))}                
                 </ul>
-                {document.length==0 && 
+                {document.length==0 &&
                 <div>
                    <p style={{textAlign:'center',fontSize:'18px'}}> Chưa có tài liệu</p>
+                </div>}
+                { document.length>0 && displayDoc.length==0 &&
+                <div>
+                   <p style={{textAlign:'center',fontSize:'18px'}}> không tìm thấy tài liệu</p>
                 </div>}
             </div>}
             {isUserMember && <div>
@@ -189,7 +193,7 @@ const Document = ({ classData }) => {
                </ul>
                {document.length==0 && 
                <div>
-                  <p style={{textAlign:'center',fontSize:'2rem'}}> Chưa có tài liệu</p>
+                  <p style={{textAlign:'center',fontSize:'18px'}}> Chưa có tài liệu</p>
                </div>}
             </div>}
 
