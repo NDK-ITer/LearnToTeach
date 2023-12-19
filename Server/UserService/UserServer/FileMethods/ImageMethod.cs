@@ -9,6 +9,10 @@
         {
             try
             {
+                if (formFile == null)
+                {
+                    return string.Empty;
+                }
                 var ext = Path.GetExtension(formFile.FileName);
                 var allowedExtensions = new string[] { ".jpg", ".png", ".jpeg" };
                 if (allowedExtensions.Contains(ext))

@@ -2,8 +2,8 @@
 {
     public interface IConsumeClassroomEmail
     {
-        public string Email { get; set; }
-        public string Subject { get; set; }
+        public string Email { get; }
+        public string Subject { get;}
         public string Content { get; }
     }
 }

@@ -1,9 +1,0 @@
-9000: ApiGateway_User
-9001: UserService
-9002: ClassroomService
-9003: DiscoveryService
-9004: ApiGateway_Manager
-9005: StoreFileService
-9008: NotificationService
-9009: ServiceOrchestration
-9011: Meeting-roomService
