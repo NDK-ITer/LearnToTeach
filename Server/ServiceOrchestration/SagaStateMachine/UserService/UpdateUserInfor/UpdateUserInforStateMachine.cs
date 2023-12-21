@@ -19,6 +19,7 @@ namespace SagaStateMachine.UserService.UpdateUserInfor
                     context.Saga.IdUser = context.Message.IdUser;
                     context.Saga.FullName = context.Message.FullName;
                     context.Saga.Avatar = context.Message.Avatar;
+                    context.Saga.LinkAvatar = context.Message.LinkAvatar;
                 }).TransitionTo(UpdateUserInfo).Publish(context => new ConsumeUpdateUserInforEvent(context.Saga)));
             During(UpdateUserInfo,
                 When(UpdateUserInforEvent).Then(context =>
@@ -26,6 +27,7 @@ namespace SagaStateMachine.UserService.UpdateUserInfor
                     context.Saga.IdUser = context.Message.IdUser;
                     context.Saga.FullName = context.Message.FullName;
                     context.Saga.Avatar = context.Message.Avatar;
+                    context.Saga.LinkAvatar = context.Message.LinkAvatar;
                 }).Publish(context => new ConsumeUpdateUserInforEvent(context.Saga)));
         }
     }

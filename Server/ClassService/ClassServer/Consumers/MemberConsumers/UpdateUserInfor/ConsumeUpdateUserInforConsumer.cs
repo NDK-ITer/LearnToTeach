@@ -23,6 +23,7 @@ namespace ClassServer.Consumers.MemberConsumers.UpdateUserInfor
                     idMember = data.IdUser.ToString(),
                     nameMember = data.FullName,
                     avatar = data.Avatar,
+                    linkAvatar = data.LinkAvatar,
                 };
                 unitOfWork_ClassroomService._memberService.UpdateInforMember(memberModel);
             }

@@ -4,6 +4,7 @@
     {
         public Guid IdUser { get; }
         public string FullName { get; }
+        public string LinkAvatar { get; }
         public string Avatar { get; }
     }
 }

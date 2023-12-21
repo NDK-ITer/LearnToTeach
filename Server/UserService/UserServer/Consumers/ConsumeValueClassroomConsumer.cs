@@ -56,6 +56,7 @@ namespace UserServer.Consumers
                             nameUserHost = $"{user.FirstName} {user.LastName}",
                             avatarMember = user.Avatar,
                             linkAvatar = user.LinkAvatar,
+                            email = user.PresentEmail,
                         });
                     }
                 }

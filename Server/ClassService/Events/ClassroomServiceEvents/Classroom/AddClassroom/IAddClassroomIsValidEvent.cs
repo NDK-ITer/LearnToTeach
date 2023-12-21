@@ -9,5 +9,6 @@
         public string? avatarClassroom { get; }
         public string? avatarMember { get; }
         public string? linkAvatar { get; }
+        public string? email { get; }
     }
 }

@@ -9,5 +9,6 @@ namespace SagaStateMachine.UserService.UpdateUserInfor
         public Guid IdUser { get; set; }
         public string? FullName { get; set; }
         public string? Avatar { get; set;}
+        public string LinkAvatar { get; set; }
     }
 }

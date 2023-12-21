@@ -12,5 +12,6 @@ namespace SagaStateMachine.UserService.UpdateUserInfor
         public Guid IdUser => updateUserInforStateData.IdUser;
         public string FullName => updateUserInforStateData.FullName;
         public string Avatar => updateUserInforStateData.Avatar;
+        public string LinkAvatar => updateUserInforStateData.LinkAvatar;
     }
 }
